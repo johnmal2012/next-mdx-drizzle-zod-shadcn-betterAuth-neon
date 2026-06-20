@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: Props) {
   const { reason } = await searchParams;
     const session = await getSession();
     if (session && (session.user.role === 'admin' || session.user.role === 'user')) {
-      redirect('/user-session');
+      redirect('/account-settings');
     }
 //   console.log('reason: ', reason);
   return (

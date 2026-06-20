@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "src/app/(routes)/(semi-protected)/user-session"
+    "src/app/(routes)/(semi-protected)/account-settings"
   ],
   "exclude": ["node_modules"]
 }

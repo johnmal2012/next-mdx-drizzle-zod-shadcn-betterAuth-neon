@@ -37,7 +37,7 @@ export async function updateProfileImage(
     .where(eq(user.id, session.user.id));
 
   revalidatePath('/profile');
-  revalidatePath('/user-session');
+  revalidatePath('/account-settings');
 
   return {
     success: true,

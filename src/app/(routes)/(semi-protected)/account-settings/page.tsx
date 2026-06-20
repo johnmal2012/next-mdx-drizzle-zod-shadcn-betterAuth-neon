@@ -3,20 +3,22 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { SignOutButton } from '@/components/auth/sign-out-button';
 import { Button } from '@/components/ui/button';
 import { UpdateUserForm } from '@/components/user/update-user-form';
+import { Separator } from '@/components/ui/separator';
 // import { auth } from '@/lib/auth';
 // import { AppRole, roles } from '@/lib/permissions';
 // import { redirect } from 'next/navigation';
 // import { headers } from 'next/headers';
 import Link from 'next/link';
 import { getSession, isAdmin } from '@/lib/auth-utils';
-import { UserAvatar } from '@/components/user/user-avatar';
-import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
+// import { UserAvatar } from '@/components/user/user-avatar';
+// import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import { db } from '@/db/db';
+
 // import { toLowerCase } from 'zod';
 // import { redirect } from 'next/navigation';
 // import { admin } from 'better-auth/plugins';
 
-export default async function UserSesionPage() {
+export default async function AccountSettingsPage() {
   //   const headersList = await headers();
 
   // we need to pass our headers into session for any server related better-auth functionalities, otherwise you will not get desired result
@@ -53,7 +55,7 @@ export default async function UserSesionPage() {
       })
     : null;
 
-//   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
+  //   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
   // console.log('UserSesionPage::session: ', session);
   // console.log('UserSesionPage::currentUser: ', currentUser);
   // //   console.log('profile session: ', session);
@@ -94,35 +96,44 @@ export default async function UserSesionPage() {
   //   console.log('FULL_POST_ACCESS: ', FULL_POST_ACCESS)
   return (
     <div className="px-8 py-16 container mx-auto max-w-3xl space-y-4">
-      <div className="space-x-4">
-        <UserAvatar image={currentUser?.image} name={currentUser?.name} />
+      <ReturnButton href="/" label="Physician Portal" />
+      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-blue-600">
+        <h2 className="text-2xl font-bold">Update User Name and/or Image</h2>
 
-        <ProfileImageUpload />
+        <UpdateUserForm
+          name={session?.user.name ?? ''}
+          image={session?.user.image ?? ''}
+        />
       </div>
-      <div className="space-y-4">
-        <ReturnButton href="/" label="Home" />
 
+      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
+        <h2 className="text-2xl font-bold">Change Password</h2>
+
+        <ChangePasswordForm />
+      </div>
+      <Separator className="my-10 h-2" />
+      <div className="space-y-4">
         <h1 className="text-3xl font-bold">Profile</h1>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2"> */}
           {/* {session && ( */}
-          <Button size="sm" asChild>
+          {/* <Button size="sm" asChild>
             <Link href="/dashboard">Admin Dashboard</Link>
-          </Button>
+          </Button> */}
           {/* )} */}
 
-          <SignOutButton />
-        </div>
+          {/* <SignOutButton /> */}
+        {/* </div> */}
       </div>
 
-      <h2 className="text-2xl font-bold">Permissions</h2>
+      {/* <h2 className="text-2xl font-bold">Permissions</h2>
 
       <div className="space-x-4">
         <Button size="sm">MANAGE OWN POSTS</Button>
         <Button size="sm" disabled={(await isAdmin()) ? false : true}>
           MANAGE ALL POSTS
         </Button>
-      </div>
+      </div> */}
 
       {currentUser?.image ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -142,21 +153,6 @@ export default async function UserSesionPage() {
       <pre className="text-sm overflow-clip">
         {JSON.stringify(session, null, 2)}
       </pre>
-
-      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-blue-600">
-        <h2 className="text-2xl font-bold">Update User Name and/or Image</h2>
-
-        <UpdateUserForm
-          name={session?.user.name ?? ''}
-          image={session?.user.image ?? ''}
-        />
-      </div>
-
-      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
-        <h2 className="text-2xl font-bold">Change Password</h2>
-
-        <ChangePasswordForm />
-      </div>
     </div>
   );
 }

@@ -57,7 +57,7 @@ export const LoginForm = () => {
 
       //   router.push('/auth/register/success');
       //   router.push('/profile');
-      router.replace('/user-session');
+      router.replace('/account-settings');
       router.refresh();
     } //else {
     //   toast.error('Login failure.');
