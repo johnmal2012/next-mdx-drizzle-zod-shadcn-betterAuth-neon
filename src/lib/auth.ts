@@ -25,6 +25,12 @@ export const auth = betterAuth({
     schema,
   }),
 
+  baseURL: process.env.BETTER_AUTH_URL,
+
+  trustedOrigins: [
+    'http://localhost:3000',
+    'https://next-mdx-drizzle-zod-shadcn-better.vercel.app'],
+
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 6,
@@ -42,14 +48,14 @@ export const auth = betterAuth({
         defaultValue: 'user',
         input: false, // This field exists in the database and user object, but Better Auth will not allow clients to provide or modify it through auth API inputs (sign up, update profile, etc.). We provide enum value by default, and it cannot be changed by the client.
       },
-    //   isActive: {
-    //     type: 'boolean',
-    //     defaultValue: true,
-    //   },
-    //   deletedAt: {
-    //     type: 'date',
-    //     required: false,
-    //   },
+      //   isActive: {
+      //     type: 'boolean',
+      //     defaultValue: true,
+      //   },
+      //   deletedAt: {
+      //     type: 'date',
+      //     required: false,
+      //   },
     },
   },
   databaseHooks: {
