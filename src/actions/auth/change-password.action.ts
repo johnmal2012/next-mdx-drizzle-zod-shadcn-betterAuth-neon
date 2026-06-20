@@ -13,8 +13,8 @@ export async function changePasswordAction(formData: FormData) {
   const newPassword = String(formData.get('newPassword'));
   if (!newPassword) return { error: 'Please enter your new password' };
 
-  console.log('currentPassword: ', currentPassword);
-  console.log('newPassword: ', newPassword);
+//   console.log('currentPassword: ', currentPassword);
+//   console.log('newPassword: ', newPassword);
   try {
     await auth.api.changePassword({
       headers: await headers(),

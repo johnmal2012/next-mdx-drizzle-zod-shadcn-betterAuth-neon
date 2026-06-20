@@ -31,7 +31,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
       return toast.error('Please enter a name');
     }
 
-    console.log('Submitting::nameValue: ', nameValue);
+    // console.log('Submitting::nameValue: ', nameValue);
 
     const result = await updateUser({
       // Spreading a falsy primitive contributes no enumerable properties, so the result is effectively nothing
@@ -57,7 +57,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
         },
       },
     });
-    console.log('result', JSON.stringify(result, null, 2));
+    // console.log('result', JSON.stringify(result, null, 2));
   }
 
   return (

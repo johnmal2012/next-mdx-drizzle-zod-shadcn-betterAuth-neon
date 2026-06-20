@@ -53,7 +53,7 @@ export default async function UserSesionPage() {
       })
     : null;
 
-  console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
+//   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
   // console.log('UserSesionPage::session: ', session);
   // console.log('UserSesionPage::currentUser: ', currentUser);
   // //   console.log('profile session: ', session);

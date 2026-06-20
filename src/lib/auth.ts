@@ -112,11 +112,11 @@ export const auth = betterAuth({
       //     };
       //   }
       if (ctx.path === '/update-user') {
-        console.log('UPDATE USER BODY:', ctx.body);
+        // console.log('UPDATE USER BODY:', ctx.body);
 
         const name = normalizeName(ctx.body.name);
 
-        console.log('NORMALIZED NAME:', name);
+        // console.log('NORMALIZED NAME:', name);
 
         return {
           context: {
