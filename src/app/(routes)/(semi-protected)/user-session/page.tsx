@@ -16,7 +16,7 @@ import { db } from '@/db/db';
 // import { redirect } from 'next/navigation';
 // import { admin } from 'better-auth/plugins';
 
-export default async function Page() {
+export default async function UserSesionPage() {
   //   const headersList = await headers();
 
   // we need to pass our headers into session for any server related better-auth functionalities, otherwise you will not get desired result
@@ -52,6 +52,8 @@ export default async function Page() {
       })
     : null;
 
+    // console.log('UserSesionPage::session: ', session);
+    // console.log('UserSesionPage::currentUser: ', currentUser);
   // //   console.log('profile session: ', session);
   //   if (!session) redirect('/login');
   //   const admin = await isAdmin();

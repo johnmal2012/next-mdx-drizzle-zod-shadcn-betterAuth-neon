@@ -1,14 +1,16 @@
 import Link from 'next/link';
 
-import { asc } from 'drizzle-orm';
+// import { asc } from 'drizzle-orm';
 
 import { db } from '@/db/db';
 
-import { physicianProfile } from '@/db/schema';
+// import { physicianProfile } from '@/db/schema';
 
-import { user } from '@/db/schema/auth-schema';
+// import { user } from '@/db/schema/auth-schema';
 
 import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { TriangleAlert } from 'lucide-react';
 
 import {
   Card,
@@ -69,6 +71,13 @@ export default async function AdminProfilePage() {
           <p className="text-muted-foreground mt-1">
             Manage physician profile content
           </p>
+          <Alert className="mb-6 border-amber-300 bg-amber-50 text-amber-900">
+            <TriangleAlert className="h-4 w-4" />
+            <AlertDescription>
+              Only one profile record is allowed. If multiple records exist,
+              please remove the extra records.
+            </AlertDescription>
+          </Alert>
         </div>
         <div className="flex justify-end items-center gap-2">
           <Button className="h-10 px-4" asChild>

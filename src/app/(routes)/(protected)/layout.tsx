@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
+// import Link from 'next/link';
+// import { redirect } from 'next/navigation';
 
 import { requireAdmin } from '@/lib/auth-utils';
-import { Navbar } from '@/components/shared/navbar';
+import { AdminNavbar } from '@/components/shared/admin-navbar';
+// import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 
 export default async function ProtectedLayout({
   children,
@@ -17,16 +18,16 @@ export default async function ProtectedLayout({
   const session = await requireAdmin();
 
   //   console.log('ProtectedLayout session: ', session);
-//   if (!session) {
-//     redirect('/login'); // for unauthenticated users
-//   }
+  //   if (!session) {
+  //     redirect('/login'); // for unauthenticated users
+  //   }
 
   return (
     <>
-      <Navbar session={session} />
+      <AdminNavbar session={session} />
       <div className="flex min-h-screen">
         {/* Sidebar */}
-        <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-48 shrink-0 border-r bg-muted/30 md:block">
+        {/* <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-48 shrink-0 border-r bg-muted/30 md:block">
           <nav className="flex flex-col gap-1 p-4">
             <Link
               href="/dashboard"
@@ -48,7 +49,8 @@ export default async function ProtectedLayout({
               Sections
             </Link>
           </nav>
-        </aside>
+        </aside> */}
+        {/* <MobileSidebar /> */}
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto">

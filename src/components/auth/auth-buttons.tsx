@@ -45,7 +45,7 @@ export function AuthButtons({ user }: AuthButtonsProps) {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-muted-foreground">{user.name}</span>
+      <span className="max-w-32 truncate text-sm text-muted-foreground">{user.name}</span>
 
       {/* <Button variant="outline" onClick={handleLogout}>
         Logout

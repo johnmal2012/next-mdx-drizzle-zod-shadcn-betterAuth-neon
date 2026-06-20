@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { Stethoscope } from 'lucide-react';
+import { Menu, Stethoscope } from 'lucide-react';
 
 import { useEffect, useState } from 'react';
 
@@ -147,7 +147,7 @@ export default function Navigation({
         {/* Mobile Nav */}
         <div className="md:hidden">
           <Sheet>
-            <SheetTrigger asChild>
+            {/* <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
@@ -158,16 +158,26 @@ export default function Navigation({
                     hover:text-slate-900
                     focus-visible:ring-0
                     cursor-pointer"
-              >
-                {/* <Menu className="h-6 w-6" strokeWidth={2.5} /> */}
-                <div className="flex flex-col gap-1.5">
+              > */}
+            {/* <Menu className="h-6 w-6" strokeWidth={2.5} /> */}
+            {/* <div className="flex flex-col gap-1.5">
                   <span className="h-0.5 w-6 rounded-full bg-slate-800" />
                   <span className="h-0.5 w-6 rounded-full bg-slate-800" />
                   <span className="h-0.5 w-6 rounded-full bg-slate-800" />
                 </div>
               </Button>
+            </SheetTrigger> */}
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="h-12 w-12" />
+              </Button>
             </SheetTrigger>
-
+            
             <SheetContent
               side="right"
               className="
