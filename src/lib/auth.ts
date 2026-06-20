@@ -29,7 +29,8 @@ export const auth = betterAuth({
 
   trustedOrigins: [
     'http://localhost:3000',
-    'https://next-mdx-drizzle-zod-shadcn-better.vercel.app'],
+    'https://next-mdx-drizzle-zod-shadcn-better.vercel.app',
+  ],
 
   emailAndPassword: {
     enabled: true,
@@ -103,11 +104,28 @@ export const auth = betterAuth({
         };
       }
 
+      //   if (ctx.path === '/update-user') {
+      //     const name = normalizeName(ctx.body.name);
+
+      //     return {
+      //       context: { ...ctx, body: { ...ctx.body, name } },
+      //     };
+      //   }
       if (ctx.path === '/update-user') {
+        console.log('UPDATE USER BODY:', ctx.body);
+
         const name = normalizeName(ctx.body.name);
 
+        console.log('NORMALIZED NAME:', name);
+
         return {
-          context: { ...ctx, body: { ...ctx.body, name } },
+          context: {
+            ...ctx,
+            body: {
+              ...ctx.body,
+              name,
+            },
+          },
         };
       }
     }),

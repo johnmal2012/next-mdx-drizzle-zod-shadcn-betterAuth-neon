@@ -9,6 +9,9 @@ import { toast } from 'sonner';
 
 export const ChangePasswordForm = () => {
   const [isPending, setIsPending] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+
+  const [newPassword, setNewPassword] = useState('');
 
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -22,18 +25,21 @@ export const ChangePasswordForm = () => {
       toast.error(error);
     } else {
       toast.success('Password changed successfully');
-      (evt.target as HTMLFormElement).reset();
+        (evt.target as HTMLFormElement).reset();
+      setCurrentPassword('');
+      setNewPassword('');
     }
 
     setIsPending(false);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4">
+    <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4"
+    autoComplete='off'>
       <Input
         type="text"
         name="username"
-        autoComplete="username"
+        autoComplete="off"
         style={{ display: 'none' }}
         aria-hidden="true"
       />
@@ -43,7 +49,9 @@ export const ChangePasswordForm = () => {
           type="password"
           id="currentPassword"
           name="currentPassword"
-          autoComplete="current-password"
+          autoComplete="off"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
         />
       </div>
 
@@ -54,6 +62,8 @@ export const ChangePasswordForm = () => {
           id="newPassword"
           name="newPassword"
           autoComplete="new-password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
         />
       </div>
 

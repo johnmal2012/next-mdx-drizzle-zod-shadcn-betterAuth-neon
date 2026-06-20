@@ -1,18 +1,20 @@
-"use server";
+'use server';
 
-import { auth } from "@/lib/auth";
-import { APIError } from "better-auth/api";
-import { headers } from "next/headers";
+import { auth } from '@/lib/auth';
+import { APIError } from 'better-auth/api';
+import { headers } from 'next/headers';
 
 // type Session = typeof auth.$Infer.Session;
 
 export async function changePasswordAction(formData: FormData) {
-  const currentPassword = String(formData.get("currentPassword"));
-  if (!currentPassword) return { error: "Please enter your current password" };
+  const currentPassword = String(formData.get('currentPassword'));
+  if (!currentPassword) return { error: 'Please enter your current password' };
 
-  const newPassword = String(formData.get("newPassword"));
-  if (!newPassword) return { error: "Please enter your new password" };
+  const newPassword = String(formData.get('newPassword'));
+  if (!newPassword) return { error: 'Please enter your new password' };
 
+  console.log('currentPassword: ', currentPassword);
+  console.log('newPassword: ', newPassword);
   try {
     await auth.api.changePassword({
       headers: await headers(),
@@ -28,6 +30,6 @@ export async function changePasswordAction(formData: FormData) {
       return { error: err.message };
     }
 
-    return { error: "Internal Server Error" };
+    return { error: 'Internal Server Error' };
   }
 }

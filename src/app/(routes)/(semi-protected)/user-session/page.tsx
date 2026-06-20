@@ -46,14 +46,16 @@ export default async function UserSesionPage() {
   // give users table and the operators like eq, and will tell you the condition
   // safer if session is null
   const session = await getSession();
+
   const currentUser = session
     ? await db.query.user.findFirst({
         where: (users, { eq }) => eq(users.id, session.user.id),
       })
     : null;
 
-    // console.log('UserSesionPage::session: ', session);
-    // console.log('UserSesionPage::currentUser: ', currentUser);
+  console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
+  // console.log('UserSesionPage::session: ', session);
+  // console.log('UserSesionPage::currentUser: ', currentUser);
   // //   console.log('profile session: ', session);
   //   if (!session) redirect('/login');
   //   const admin = await isAdmin();
@@ -142,7 +144,7 @@ export default async function UserSesionPage() {
       </pre>
 
       <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-blue-600">
-        <h2 className="text-2xl font-bold">Update User</h2>
+        <h2 className="text-2xl font-bold">Update User Name and/or Image</h2>
 
         <UpdateUserForm
           name={session?.user.name ?? ''}
@@ -150,7 +152,7 @@ export default async function UserSesionPage() {
         />
       </div>
 
-      <div className="space-y-4 p-4 rounded-b-md  border border-t-8 border-red-600">
+      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
         <h2 className="text-2xl font-bold">Change Password</h2>
 
         <ChangePasswordForm />
