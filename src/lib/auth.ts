@@ -16,6 +16,7 @@ import { normalizeName } from '@/lib/utils';
 import { getValidDomains } from '@/lib/server/auth-utils';
 import { ac, roles } from '@/lib/permissions';
 import { serverEnv } from '@/lib/env/server';
+import { clientEnv } from './env/client';
 
 // const ac = createAccessControl({
 //   users: ['read'],
@@ -28,7 +29,7 @@ export const auth = betterAuth({
     schema,
   }),
 
-  baseURL: serverEnv.BETTER_AUTH_URL,
+  baseURL: clientEnv.NEXT_PUBLIC_APP_URL,
 
   trustedOrigins: [
     'http://localhost:3000',
