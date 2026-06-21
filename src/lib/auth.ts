@@ -11,8 +11,11 @@ import { transporter } from '@/lib/mail';
 import { hashPassword, verifyPassword } from '@/lib/argon2';
 import { nextCookies } from 'better-auth/next-js';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
-import { normalizeName, getValidDomains } from '@/lib/utils';
+// import { normalizeName, getValidDomains } from '@/lib/utils';
+import { normalizeName } from '@/lib/utils';
+import { getValidDomains } from '@/lib/server/auth-utils';
 import { ac, roles } from '@/lib/permissions';
+import { serverEnv } from '@/lib/env/server';
 
 // const ac = createAccessControl({
 //   users: ['read'],
@@ -25,7 +28,7 @@ export const auth = betterAuth({
     schema,
   }),
 
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: serverEnv.BETTER_AUTH_URL,
 
   trustedOrigins: [
     'http://localhost:3000',
@@ -63,7 +66,7 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user) => {
-          const ADMIN_EMAILS = process.env.ADMIN_EMAILS?.split(';') ?? [];
+          const ADMIN_EMAILS = serverEnv.ADMIN_EMAILS?.split(';') ?? [];
 
           if (ADMIN_EMAILS.includes(user.email)) {
             return { data: { ...user, role: 'admin' } };
@@ -151,13 +154,13 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: serverEnv.GOOGLE_CLIENT_ID,
+      clientSecret: serverEnv.GOOGLE_CLIENT_SECRET,
     },
 
     github: {
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      clientId: serverEnv.GITHUB_CLIENT_ID,
+      clientSecret: serverEnv.GITHUB_CLIENT_SECRET,
     },
   },
 
@@ -205,7 +208,7 @@ export const auth = betterAuth({
         //     });
         try {
           await transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: serverEnv.GMAIL_USER,
 
             to: email,
 

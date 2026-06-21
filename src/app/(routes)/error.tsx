@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+// import { serverEnv } from '@/lib/env/server';
 
 export default function GlobalError({
   error,
@@ -25,8 +26,8 @@ export default function GlobalError({
           </h1>
 
           <p className="text-muted-foreground">
-            An unexpected error occurred while loading this page.
-            Please try again.
+            An unexpected error occurred while loading this page. Please try
+            again.
           </p>
 
           {process.env.NODE_ENV === 'development' && error.digest && (
@@ -37,19 +38,10 @@ export default function GlobalError({
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
-          <Button
-            onClick={() => reset()}
-          >
-            Try Again
-          </Button>
+          <Button onClick={() => reset()}>Try Again</Button>
 
-          <Button
-            asChild
-            variant="outline"
-          >
-            <Link href="/">
-              Go Home
-            </Link>
+          <Button asChild variant="outline">
+            <Link href="/">Go Home</Link>
           </Button>
         </div>
       </div>

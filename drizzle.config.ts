@@ -1,3 +1,4 @@
+import { serverEnv } from '@/lib/env/server';
 import dotenv from 'dotenv';
 dotenv.config({
   path: '.env.local',
@@ -10,7 +11,7 @@ export default {
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: serverEnv.DATABASE_URL,
   },
   // Optional: Add these for better debugging
   verbose: true,
