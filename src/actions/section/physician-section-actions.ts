@@ -58,7 +58,9 @@ export async function createPhysicianSection(
       .values(result.data)
       .returning();
 
-    revalidatePath('/sections');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,
@@ -112,7 +114,9 @@ export async function updatePhysicianSection(
       .where(eq(physicianSections.id, id))
       .returning();
 
-    revalidatePath('/sections');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,
@@ -154,7 +158,9 @@ export async function deletePhysicianSection(
       .where(eq(physicianSections.id, id))
       .returning();
 
-    revalidatePath('/sections');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,

@@ -216,7 +216,9 @@ export async function createPhysicianProfile(
       .values(validated.data)
       .returning();
 
-    revalidatePath('/physician-profile');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,
@@ -262,7 +264,9 @@ export async function updatePhysicianProfile(
       .where(eq(physicianProfile.id, id))
       .returning();
 
-    revalidatePath('/physician-profile');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,
@@ -290,7 +294,9 @@ export async function deletePhysicianProfile(
   try {
     await db.delete(physicianProfile).where(eq(physicianProfile.id, id));
 
-    revalidatePath('/physician-profile');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/section');
 
     return {
       success: true,
