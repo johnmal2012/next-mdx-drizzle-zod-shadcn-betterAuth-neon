@@ -4,14 +4,26 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
-import { physicianData } from '@/data/_physician';
+// import { physicianData } from '@/data/_physician';
 import { renderMDX } from '@/lib/mdx';
 
 interface Props {
   content: string;
+  image: string;
+  name: string;
+  boardSpecialty: string;
+  specialty: string;
+  title: string;
 }
 
-export default async function HeroSection({ content }: Props) {
+export default async function HeroSection({
+  content,
+  image,
+  name,
+  boardSpecialty,
+  specialty,
+  title,
+}: Props) {
   const mdx = await renderMDX(content);
   return (
     <section
@@ -22,8 +34,8 @@ export default async function HeroSection({ content }: Props) {
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
         <div className="relative w-64 h-64 mx-auto md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">
           <Image
-            src={physicianData.image}
-            alt={physicianData.name}
+            src={image}
+            alt={name}
             width={600}
             height={700}
             priority
@@ -47,20 +59,20 @@ export default async function HeroSection({ content }: Props) {
                 text-blue-700
                 hover:bg-blue-100"
               >
-                {physicianData.boardSpecialty}
+                {boardSpecialty}
               </Badge>
 
               <div>
                 <p className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  {physicianData.specialty}
+                  {specialty}
                 </p>
 
                 <h2 className="mt-2 text-4xl font-bold text-slate-900">
-                  {physicianData.name}
+                  {name}
                 </h2>
 
                 <p className="mt-3 text-lg text-slate-600">
-                  {physicianData.title}
+                  {title}
                 </p>
               </div>
 

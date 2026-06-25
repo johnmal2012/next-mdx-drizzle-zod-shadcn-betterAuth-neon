@@ -49,7 +49,7 @@ export default async function PhysicianPage() {
   }
 
   const profile = profiles[0];
-//   console.log('profile: ', profile);
+  //   console.log('profile: ', profile);
   /*
   =====================================
   Fetch all sections from db
@@ -80,7 +80,7 @@ export default async function PhysicianPage() {
     ]),
   );
 
-//   console.log('sections: ', sections);
+  //   console.log('sections: ', sections);
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -125,7 +125,16 @@ export default async function PhysicianPage() {
       />
 
       {/* Hero */}
-      {sections.hero && <HeroSection content={sections.hero.content} />}
+      {sections.hero && (
+        <HeroSection
+          image={profile.image ?? ''}
+          name={profile.name ?? ''}
+          title={profile.title ?? ''}
+          boardSpecialty={profile.boardSpecialty ?? ''}
+          specialty={profile.specialty ?? ''}
+          content={sections.hero.content}
+        />
+      )}
       {/* </div>
       </section> */}
       {/* <section className="space-y-16">
