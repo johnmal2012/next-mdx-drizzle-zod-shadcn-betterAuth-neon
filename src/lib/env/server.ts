@@ -11,13 +11,16 @@ export const serverEnv = z
     BETTER_AUTH_URL: z.string().min(1),
     // NEXT_PUBLIC_APP_URL: z.string().min(1),
     ADMIN_EMAILS: z.string().min(1),
-    GMAIL_USER: z.email(),
-    GMAIL_APP_PASSWORD: z.string().min(1),
+    // GMAIL_USER: z.email(),
+    // GMAIL_APP_PASSWORD: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
     NODE_ENV: z.enum([
         'development',
         'production',
     ]),
+    // NODEMAILER_USER: z.string().min(1),
+    // NODEMAILER_APP_PASSWORD: z.string().min(1),
+    EMAIL_FROM: z.string().min(1),
   })
   .parse({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -27,8 +30,11 @@ export const serverEnv = z
     DATABASE_URL: process.env.DATABASE_URL,
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     ADMIN_EMAILS: process.env.ADMIN_EMAILS,
-    GMAIL_USER: process.env.GMAIL_USER,
-    GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD,
+    // GMAIL_USER: process.env.GMAIL_USER,
+    // GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     NODE_ENV: process.env.NODE_ENV,
+    // NODEMAILER_USER: process.env.NODEMAILER_USER,
+    // NODEMAILER_APP_PASSWORD: process.env.NODEMAILER_APP_PASSWORD,
+    EMAIL_FROM: process.env.EMAIL_FROM,
   });

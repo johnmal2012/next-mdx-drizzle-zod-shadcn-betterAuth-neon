@@ -345,7 +345,9 @@ export const RegisterForm = () => {
           type="email"
           id="email"
           name="email"
-          placeholder="Email" />
+          autoComplete="username"
+          placeholder="Email"
+        />
 
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>

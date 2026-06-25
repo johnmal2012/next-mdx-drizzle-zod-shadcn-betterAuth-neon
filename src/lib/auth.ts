@@ -1,29 +1,29 @@
-import { betterAuth } from 'better-auth';
+import { betterAuth, BetterAuthOptions } from 'better-auth';
 
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { db } from '@/db/db';
 import * as schema from '@/db/schema';
-import { admin, magicLink } from 'better-auth/plugins';
+import { admin, customSession, magicLink } from 'better-auth/plugins';
 // import { createAccessControl } from 'better-auth/plugins';
 // import { resend } from '@/lib/resend';
-import { transporter } from '@/lib/mail';
+// import { transporter } from '@/lib/_mail';
 import { hashPassword, verifyPassword } from '@/lib/argon2';
 import { nextCookies } from 'better-auth/next-js';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
-// import { normalizeName, getValidDomains } from '@/lib/utils';
 import { normalizeName } from '@/lib/utils';
 import { getValidDomains } from '@/lib/server/auth-utils';
 import { ac, roles } from '@/lib/permissions';
 import { serverEnv } from '@/lib/env/server';
 import { clientEnv } from './env/client';
+import { sendEmailAction } from '@/actions/auth/send-email.action';
 
 // const ac = createAccessControl({
 //   users: ['read'],
 //   admin: ['create', 'read', 'update', 'delete'],
 // });
 
-export const auth = betterAuth({
+const options = {
   database: drizzleAdapter(db, {
     provider: 'pg', // pg | mysql | sqlite
     schema,
@@ -39,10 +39,47 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 6,
-    // autoSignIn: false,
+    autoSignIn: true,
     password: {
       hash: hashPassword,
       verify: verifyPassword,
+    },
+    requireEmailVerification: true,
+    // sendResetPassword must be nested inside emailAndPassord; otherwise types not picked up correctly by IDE
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmailAction({
+        to: user.email,
+        subject: 'Reset Password',
+        meta: {
+          title: 'Password Reset',
+          description: 'Click the button below to reset your password.',
+          buttonText: 'Reset Password',
+          link: url,
+        },
+      });
+    },
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    expiresIn: 60 * 60,
+    // expiresIn: 10,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      const link = new URL(url);
+      link.searchParams.set('callbackURL', '/verify'); // For development: need dev server running and open email on same machine, not from other device; "verify" is project folder // For production, update BETTER_AUTH_URL in .env.local to vercel url, instead of localhost:3000
+
+      //   console.log('link: ', link);
+      await sendEmailAction({
+        to: user.email,
+        subject: 'Verify your email address',
+        meta: {
+          title: 'Verify Your Email Address',
+          description:
+            'Please verify your email address to complete the registration process.',
+          buttonText: 'Verify Email',
+          link: String(link),
+        },
+      });
     },
   },
   user: {
@@ -138,7 +175,7 @@ export const auth = betterAuth({
     expiresIn: 30 * 24 * 60 * 60, // second
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60,
+      maxAge: 5 * 60, //5 min
     },
   },
   advanced: {
@@ -208,26 +245,31 @@ export const auth = betterAuth({
         //   `,
         //     });
         try {
-          await transporter.sendMail({
-            from: serverEnv.GMAIL_USER,
-
+          await sendEmailAction({
+            // from: serverEnv.GMAIL_USER,
             to: email,
 
             subject: 'Your Magic Login Link',
 
-            html: `
-              <div>
-                <h2>Sign In</h2>
+            meta: {
+              title: 'Your Magic Sign In Link',
+              description: 'Click the button below to sign in:',
+              buttonText: 'Sign In',
+              link: url,
+            },
+            // html: `
+            //   <div>
+            //     <h2>Sign In</h2>
 
-                <p>
-                  Click the link below to sign in:
-                </p>
+            //     <p>
+            //       Click the link below to sign in:
+            //     </p>
 
-                <a href="${url}">
-                  Sign In
-                </a>
-              </div>
-            `,
+            //     <a href="${url}">
+            //       Sign In
+            //     </a>
+            //   </div>
+            // `,
           });
           //   console.log('Magic link email sent');
         } catch (err) {
@@ -236,6 +278,31 @@ export const auth = betterAuth({
       },
     }),
     nextCookies(), // always last
+  ],
+} satisfies BetterAuthOptions; 
+
+export const auth = betterAuth({
+  ...options,
+  plugins: [
+    ...(options.plugins ?? []),
+    customSession(async ({ user, session }) => {
+      return {
+        session: {
+          expiresAt: session.expiresAt,
+          token: session.token,
+          userAgent: session.userAgent,
+        },
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          createdAt: user.createdAt,
+          role: user.role,
+          nikki: 'lam',
+        },
+      };
+    }, options),
   ],
 });
 

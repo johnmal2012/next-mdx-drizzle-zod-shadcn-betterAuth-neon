@@ -45,18 +45,25 @@ export async function signUpEmailAction(
 
   // server side: auth.api
   try {
+    // let data = {
+    //   name: values.name,
+    //   email: values.email,
+    //   password: values.password,
+    // };
     await auth.api.signUpEmail({
+      //   body: data,
       body: validated.data,
-    //   email,
-    //   password,
+      //   email,
+      //   password,
     });
 
     return {
-        success: true,
-        error: ''
+      success: true,
+      error: '',
     };
   } catch (err) {
     if (err instanceof APIError) {
+      //   console.log('err.body: ', err.body);
       const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
 
       switch (errCode) {
@@ -64,19 +71,19 @@ export async function signUpEmailAction(
           return {
             success: false,
             // error: 'User already exists.',
-            error: "Oops! Something went wrong. Please try again."
+            error: 'Oops! Something went wrong. Please try again.',
           };
         default:
-          return { 
+          return {
             success: false,
-            error: err.message
-        };
+            error: err.message,
+          };
       }
     }
 
     return {
-        success: false,
-        error: 'Internal Server Error'
+      success: false,
+      error: 'Internal Server Error',
     };
   }
 }

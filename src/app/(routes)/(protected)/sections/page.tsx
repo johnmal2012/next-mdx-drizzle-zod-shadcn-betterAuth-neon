@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import { db } from '@/db/db';
 
-import { physicianSections } from '@/db/schema/physician-sections';
+// import { physicianSections } from '@/db/schema/physician-sections';
 
-import { asc } from 'drizzle-orm';
+// import { asc } from 'drizzle-orm';
 
 import { SectionDeleteButton } from '@/components/sections/section-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';

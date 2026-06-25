@@ -6,6 +6,7 @@ import { APIError } from 'better-auth/api';
 // import { redirect } from 'next/navigation';
 import { loginSchema } from '@/lib/validations/auth';
 import z from 'zod';
+import { redirect } from 'next/navigation';
 // import { parseSetCookieHeader } from 'better-auth/cookies';
 
 export type ActionState = {
@@ -48,7 +49,7 @@ export async function signInEmailAction(
 
   const validated = loginSchema.safeParse(values);
 
-//   console.log('sign-in-email.action validated: ', validated);
+  //   console.log('sign-in-email.action validated: ', validated);
   if (!validated.success) {
     return {
       success: false,
@@ -114,6 +115,8 @@ export async function signInEmailAction(
     // // ===
 
     // using nextCookies()
+    // server side: auth.api.sendVerificationEmail()
+    // client side: sendVerificationEmail()
     await auth.api.signInEmail({
       body: {
         email,
@@ -126,22 +129,25 @@ export async function signInEmailAction(
       error: '',
     };
   } catch (err) {
+    console.log('err: ', err);
     if (err instanceof APIError) {
-      //   const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
+      const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
       //   console.dir(err, { depth: 5 });
-      return {
-        success: false,
-        error: err.message,
-      };
-      //   switch (errCode) {
-      //     case 'EMAIL_NOT_VERIFIED':
-      //       redirect('/auth/verify?error=email_not_verified');
-      //     default:
-      //       return {
-      //         success: false,
-      //         error: err.message,
-      //       };
-      //   }
+
+      console.log('sign-in-email errCode: ', errCode);
+      switch (errCode) {
+        case 'EMAIL_NOT_VERIFIED':
+          redirect('/verify?error=email_not_verified');
+        default:
+          return {
+            success: false,
+            error: err.message,
+          };
+      }
+      //   return {
+      //     success: false,
+      //     error: err.message,
+      //   };
     }
 
     return {

@@ -5,6 +5,7 @@ import {
   magicLinkClient,
   inferAdditionalFields,
   adminClient,
+  customSessionClient
 } from 'better-auth/client/plugins';
 import type { auth } from '@/lib/auth';
 import { ac, roles } from '@/lib/permissions';
@@ -16,6 +17,7 @@ export const authClient = createAuthClient({
     magicLinkClient(),
     inferAdditionalFields<typeof auth>(),
     adminClient({ ac, roles }),
+    customSessionClient<typeof auth>(),
   ],
 });
 
@@ -26,7 +28,7 @@ export const {
   useSession,
   admin,
   sendVerificationEmail,
-  //   forgetPassword,
+  requestPasswordReset,
   resetPassword,
   updateUser,
 } = authClient;
