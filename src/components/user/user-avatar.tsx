@@ -22,7 +22,8 @@ export function UserAvatar({
       />
 
       <AvatarFallback>
-        {name?.charAt(0)}
+        {/* {name?.charAt(0)} */}
+        {name}
       </AvatarFallback>
     </Avatar>
   );

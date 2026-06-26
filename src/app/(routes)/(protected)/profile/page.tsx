@@ -28,6 +28,7 @@ import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delet
 import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
+import { getInitials } from '@/lib/utils';
 
 type InfoItemProps = {
   label: string;
@@ -155,7 +156,7 @@ export default async function AdminProfilePage() {
                   <p className="text-sm text-muted-foreground">Image</p>
                   <UserAvatar
                     image={currentUser?.image}
-                    name={currentUser?.name}
+                    name={getInitials(currentUser?.name ?? '')}
                     className="w-12 h-12"
                   />
                 </div>

@@ -16,16 +16,19 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
 import { FieldErrors } from '@/lib/types/zod-error';
 import { parseNavItems } from '@/lib/parse-nav-items';
 import { InferSelectModel } from 'drizzle-orm';
 import { physicianProfile } from '@/db/schema';
+import { UserAvatar } from '@/components/user/user-avatar';
 
 type Profile = InferSelectModel<typeof physicianProfile>;
 
 type Props = {
   profile?: Profile;
+  userName?: string | null;
+  userImage?: string | null;
 };
 
 type ProfileFormData = {
@@ -77,7 +80,7 @@ type ProfileFormData = {
 
 // type Errors = Record<string, string[] | undefined>;
 
-export function ProfileForm({ profile }: Props) {
+export function ProfileForm({ profile, userName, userImage }: Props) {
   const router = useRouter();
 
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -180,6 +183,23 @@ export function ProfileForm({ profile }: Props) {
         <h1 className="text-3xl py-6 font-bold">Edit Physician Profiles</h1>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
+        {/* <div>
+          <Input
+            placeholder="Image URL e.g. /images/nikki.png"
+            value={formData.image}
+            onChange={(e) => updateField('image', e.target.value)}
+          />
+          {errors.image?.[0] && (
+            <p className="text-sm text-destructive mt-1">{errors.image[0]}</p>
+          )}
+        </div> */}
+        <div className='flex flex-col items-center'>
+          <p className="text-sm text-muted-foreground pb-2">Image</p>
+          <UserAvatar image={userImage} name={getInitials(userName ?? '')} className="w-12 h-12" />
+        </div>
+        <div>
+          <ProfileImageUpload />
+        </div>
         <div>
           <Input
             placeholder="Name e.g. Dr. Nikki Lam, DPM"
@@ -277,20 +297,6 @@ export function ProfileForm({ profile }: Props) {
           {errors.logo?.[0] && (
             <p className="text-sm text-destructive mt-1">{errors.logo[0]}</p>
           )}
-        </div>
-
-        {/* <div>
-          <Input
-            placeholder="Image URL e.g. /images/nikki.png"
-            value={formData.image}
-            onChange={(e) => updateField('image', e.target.value)}
-          />
-          {errors.image?.[0] && (
-            <p className="text-sm text-destructive mt-1">{errors.image[0]}</p>
-          )}
-        </div> */}
-        <div>
-          <ProfileImageUpload />
         </div>
 
         <div>

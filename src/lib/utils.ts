@@ -23,3 +23,12 @@ export function normalizeName(name: string) {
 
 //   return domains;
 // }
+
+export function getInitials(name: string): string {
+  return name
+    .trim()
+    .split(/\s+/)
+    // .filter(Boolean) // Removes empty strings from the array
+    .map((word) => word[0]?.toUpperCase())
+    .join('');
+}
