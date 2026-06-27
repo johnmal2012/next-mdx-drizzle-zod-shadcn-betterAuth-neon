@@ -8,6 +8,7 @@ import {
   index,
   uuid,
 } from 'drizzle-orm/pg-core';
+// import { physicianProfile } from '@/db/schema/physician-profile';
 
 export const userRoleEnum = pgEnum('user_role', ['admin', 'user']);
 
@@ -118,21 +119,24 @@ export const verification = pgTable(
   (table) => [index('verification_identifier_idx').on(table.identifier)],
 );
 
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-}));
+// // move all relation definitions into a separate relations.ts file to avoid circular dependency
+// export const userRelations = relations(user, ({ many }) => ({
+//   sessions: many(session),
+//   accounts: many(account),
 
-export const sessionRelations = relations(session, ({ one }) => ({
-  user: one(user, {
-    fields: [session.userId],
-    references: [user.id],
-  }),
-}));
+//   physicianProfiles: many(physicianProfile),
+// }));
 
-export const accountRelations = relations(account, ({ one }) => ({
-  user: one(user, {
-    fields: [account.userId],
-    references: [user.id],
-  }),
-}));
+// export const sessionRelations = relations(session, ({ one }) => ({
+//   user: one(user, {
+//     fields: [session.userId],
+//     references: [user.id],
+//   }),
+// }));
+
+// export const accountRelations = relations(account, ({ one }) => ({
+//   user: one(user, {
+//     fields: [account.userId],
+//     references: [user.id],
+//   }),
+// }));

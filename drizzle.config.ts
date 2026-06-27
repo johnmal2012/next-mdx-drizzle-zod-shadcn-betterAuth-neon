@@ -1,4 +1,5 @@
-import { serverEnv } from '@/lib/env/server';
+// Don't import serverEnv; should be independent of Next.js. Instead of importing validated environment module, read the environment variables directly
+// import { serverEnv } from '@/lib/env/server';
 import dotenv from 'dotenv';
 dotenv.config({
   path: '.env.local',
@@ -6,12 +7,16 @@ dotenv.config({
 
 import type { Config } from 'drizzle-kit';
 
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is missing in .env.local');
+}
+
 export default {
   schema: './src/db/schema/**/*',
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: serverEnv.DATABASE_URL,
+    url: process.env.DATABASE_URL,
   },
   // Optional: Add these for better debugging
   verbose: true,

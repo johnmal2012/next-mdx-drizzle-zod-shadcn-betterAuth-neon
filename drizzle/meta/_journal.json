@@ -29,6 +29,20 @@
       "when": 1781537176311,
       "tag": "0003_stiff_golden_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782503931511,
+      "tag": "0004_curious_edwin_jarvis",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782510326866,
+      "tag": "0005_flaky_magma",
+      "breakpoints": true
     }
   ]
 }
