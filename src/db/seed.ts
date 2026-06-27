@@ -25,7 +25,6 @@ async function seed() {
     const [createdUser] = await db
       .insert(user)
       .values({
-
         name: 'Dr. John Smith',
         email,
         emailVerified: true,
@@ -50,27 +49,44 @@ async function seed() {
   if (!existingProfile) {
     await db.insert(physicianProfile).values({
       userId: existingUser.id,
-      name: 'Dr. John Smith',
-      specialty: 'Podiatry',
-      boardSpecialty: 'Board Certified Podiatrist',
-      clinicName: 'Smith Foot & Ankle',
-      phone: '(555) 555-1234',
-      email,
-      expertise: ['Heel Pain', 'Sports Injuries', 'Diabetic Foot Care'],
-      navItems: [
-        {
-          label: 'Home',
-          href: '#hero',
-        },
-        {
-          label: 'Education',
-          href: '#education',
-        },
-        {
-          label: 'Contact',
-          href: '#contact',
-        },
+      logo: 'Dr. Lam',
+      name: 'Dr. Nikki Lam',
+      boardSpecialty: 'Board-Certified Foot & Ankle',
+      specialty: 'Specialist	Foot & Ankle Specialist',
+      title: 'Board-Certified Podiatric Surgeon',
+      image:
+        'https://ffkf9c9vt3.ufs.sh/f/mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
+      clinicName: 'Maimonides Foot & Ankle',
+      clinicAddress: '4802 Tenth Avenue Brooklyn, NY 11219',
+      phone: '(718) 123-4567',
+      email: 'info@hudsonfootankle.com',
+      address: '4802 Tenth Avenue Brooklyn, NY 11219',
+      location: 'Office Location',
+      linkName: 'Foot Care',
+      footCareLink: 'https://www.footcaremd.org/',
+      expertise: [
+        'Sports Injuries',
+        'Foot Surgery',
+        'Diabetic Foot Care',
+        'Custom Orthotics',
       ],
+      navItems: [
+        { href: '#hero', label: 'About' },
+        { href: '#education', label: 'Education' },
+        { href: '#expertise', label: 'Expertise' },
+        { href: '#philosophy', label: 'Philosophy' },
+        { href: '#research', label: 'Research' },
+        { href: '#hours', label: 'Hours' },
+        { href: '#insurance', label: 'Insurance' },
+        { href: '#location', label: 'Location' },
+        { href: '#contact', label: 'Contact' },
+      ],
+      //   createdAt: '2026-05-19 23:07:31.855239',
+      //   updatedAt: '2026-05-20 19:50:13.556',
+      isActive: true,
+      deletedAt: null,
+      //   user_id: '8c2a700c-3b36-405d-8049-492d89acfb75',
+      imageKey: 'mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
     });
 
     console.log('Physician profile created');
@@ -85,21 +101,66 @@ async function seed() {
   const sections = [
     {
       slug: 'hero',
-      title: 'Welcome',
-      content: 'Providing exceptional foot and ankle care.',
+      title: 'Hero',
+      content:
+        '### Compassionate Foot & Ankle Care\n\nDr. Lam specializes in advanced foot and ankle treatments focused on restoring mobility, relieving pain, and improving quality of life.\n\nWith over 5 years of clinical experience, Dr. Lam combines modern surgical techniques with compassionate patient-centered care.',
       displayOrder: 1,
+      isActive: true,
+      deletedAt: null,
     },
     {
       slug: 'education',
-      title: 'Education',
-      content: 'Graduated from Example Medical School.',
+      title: 'Education & Credentials',
+      content:
+        '- Doctor of Podiatric Medicine — Temple University School of Podiatric Medicine\r\n- Surgical Residency — NewYork-Presbyterian Hospital\r\n- Fellowship in Reconstructive Foot & Ankle Surgery\r\n- Board Certified by the American Board of Foot and Ankle Surgery',
       displayOrder: 2,
+      isActive: true,
+      deletedAt: null,
     },
     {
       slug: 'expertise',
-      title: 'Expertise',
-      content: 'Over 20 years of experience.',
+      title: 'Areas of Expertise',
+      content:
+        '### Specialized Foot & Ankle Care\r\n\r\nDr. Nikki Lam specializes in comprehensive diagnosis and treatment for complex foot and ankle conditions using both conservative and surgical approaches.\r\n\r\n#### Common Conditions Treated\r\n\r\n- Achilles tendon injuries\r\n- Chronic heel pain\r\n- Plantar fasciitis\r\n- Ankle instability\r\n- Arthritis of the foot and ankle\r\n- Sports-related injuries\r\n\r\n#### Advanced Treatment Options\r\n\r\n- Minimally invasive surgery\r\n- Ultrasound-guided injections\r\n- Regenerative medicine therapies\r\n- Custom orthotic solutions',
       displayOrder: 3,
+      isActive: true,
+      deletedAt: null,
+    },
+    {
+      slug: 'insurance',
+      title: 'Insurance Accepted',
+      content:
+        'We accept most major insurance providers including:\r\n\r\n- Aetna\r\n- Cigna\r\n- UnitedHealthcare\r\n- Blue Cross Blue Shield\r\n- Medicare\r\n- Horizon NJ Health\r\n\r\nPlease contact the office to confirm your individual plan coverage',
+      displayOrder: 4,
+      isActive: true,
+      deletedAt: null,
+    },
+    {
+      slug: 'office_hours',
+      title: 'Office Hours',
+      content:
+        '| Day | Hours |\r\n| --- | --- |\r\n| Monday | 8:00 AM – 5:00 PM |\r\n| Tuesday | 8:00 AM – 5:00 PM |\r\n| Wednesday | 9:00 AM – 6:00 PM |\r\n| Thursday | 8:00 AM – 5:00 PM |\r\n| Friday | 8:00 AM – 2:00 PM |\r\n| Saturday | By Appointment |\r\n| Sunday | Closed |',
+      displayOrder: 5,
+      isActive: true,
+      deletedAt: null,
+    },
+    {
+      slug: 'philosophy',
+      title: 'Care Philosophy',
+      content:
+        'Dr. Lam believes every patient deserves personalized treatment focused on long-term mobility and comfort.\n\nHis approach combines:\n\n- Preventive care\n- Conservative treatment when appropriate\n- Advanced surgical solutions when necessary\n- Patient education and collaborative decision making',
+      displayOrder: 7,
+      isActive: true,
+      deletedAt: null,
+    },
+    {
+      slug: 'research',
+      title: 'Research & Publications',
+      content:
+        '### Current Research Interests\r\n\r\n- Minimally invasive bunion correction\r\n- Regenerative therapies for tendon injuries\r\n- Diabetic wound prevention\r\n- Sports rehabilitation protocols\r\n\r\n### Publications\r\n\r\n- Journal of Foot & Ankle Surgery\r\n- Podiatry Today\r\n- International Journal of Sports Medicine',
+      displayOrder: 8,
+      isActive: true,
+      deletedAt: null,
     },
   ];
 

@@ -9,7 +9,7 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { user } from '@/db/schema/auth-schema';
-import { relations } from 'drizzle-orm';
+// import { relations } from 'drizzle-orm';
 
 export const physicianProfile = pgTable('physician_profile', {
   id: serial('id').primaryKey(),
