@@ -11,6 +11,7 @@ if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is missing in .env.local');
 }
 
+// migration files live outside to separate src which stores app codes
 export default {
   schema: './src/db/schema/**/*',
   out: './drizzle',
@@ -21,4 +22,4 @@ export default {
   // Optional: Add these for better debugging
   verbose: true,
   strict: true,
-} satisfies Config;
+} satisfies Config; // satisfies operator ensures your config object matches the Config type without losing type inference
