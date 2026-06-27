@@ -187,6 +187,7 @@ import { Result } from '@/lib/types/result';
 import { zodFieldErrors, FieldErrors } from '@/lib/types/zod-error';
 
 import type { PhysicianProfile } from '@/lib/types/physician-profile';
+import { requireLogin } from '@/lib/auth-utils';
 
 /* -------------------------------------------------- */
 /* CREATE */
@@ -211,9 +212,13 @@ export async function createPhysicianProfile(
   }
 
   try {
+    const session = await requireLogin();
     const [created] = await db
       .insert(physicianProfile)
-      .values(validated.data)
+      .values({
+        ...validated.data,
+        userId: session.user.id,
+      })
       .returning();
 
     revalidatePath('/');
