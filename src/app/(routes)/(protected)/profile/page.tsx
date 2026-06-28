@@ -122,7 +122,7 @@ export default async function AdminProfilePage() {
               </div>
             </CardHeader>
 
-            <Separator />
+            <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
 
             <CardContent className="space-y-6 pt-6">
               {/* Basic Info */}

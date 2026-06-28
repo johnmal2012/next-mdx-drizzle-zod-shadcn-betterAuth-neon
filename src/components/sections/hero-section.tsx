@@ -71,11 +71,9 @@ export default async function HeroSection({
                   {name}
                 </h2>
 
-                <p className="mt-3 text-lg text-slate-600">
-                  {title}
-                </p>
+                <p className="mt-3 text-lg text-slate-600">{title}</p>
               </div>
-
+              {/* <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" /> */}
               <Separator />
             </div>
             <div className="prose max-w-none text-slate-700">{mdx}</div>
