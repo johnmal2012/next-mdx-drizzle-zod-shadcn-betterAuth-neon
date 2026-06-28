@@ -76,7 +76,7 @@ export default async function HeroSection({
               {/* <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" /> */}
               <Separator />
             </div>
-            <div className="prose max-w-none text-slate-700">{mdx}</div>
+            <div className="prose max-w-none" >{mdx}</div>
           </div>
         </Card>
       </div>

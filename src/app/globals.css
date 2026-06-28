@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -110,7 +111,7 @@
   --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border outline-ring/50;
   }
@@ -120,4 +121,28 @@
   button:not(:disabled) {
     cursor: pointer;
   }
+} */
+
+* {
+@apply border-border outline-ring/50;
+}
+
+body {
+@apply bg-background text-foreground;
+}
+
+button:not(:disabled) {
+cursor: pointer;
+}
+
+/* Typography customizations
+.prose {
+  --tw-prose-bullets: var(--color-slate-700);
+} */
+/* Typography overrides */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-bullets: var(--foreground);
+  --tw-prose-links: var(--primary);
 }
