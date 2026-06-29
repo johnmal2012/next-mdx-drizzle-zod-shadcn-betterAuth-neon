@@ -6,6 +6,7 @@ import { getSession, isAdmin } from '@/lib/auth-utils';
 import { Stethoscope } from 'lucide-react';
 import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 import { adminNavItems } from '@/lib/constants/admin-navitems';
+import { NavLink } from '@/components/shared/nav-link';
 
 type NavbarProps = {
   session: Awaited<ReturnType<typeof getSession>>;
@@ -23,13 +24,13 @@ export async function AdminNavbar({ session }: NavbarProps) {
             <Stethoscope className="h-8 w-8 text-blue-700" />
           </div>
 
-          <span className="text-lg font-semibold">Physician Portal</span>
+          <span className="text-lg font-semibold border-transparent text-gray-900 hover:border-blue-100 hover:bg-blue-50 hover:text-blue-600">Physician Portal</span>
         </Link>
 
         {/* Desktop Navigation */}
         {isAdmin && (
           <div className="mx-auto hidden items-center gap-6 md:flex">
-            {adminNavItems.map((item) => (
+            {/* {adminNavItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -37,6 +38,14 @@ export async function AdminNavbar({ session }: NavbarProps) {
               >
                 {item.title}
               </Link>
+            ))} */}
+            {adminNavItems.map((item) => (
+              <NavLink
+                key={item.href}
+                href={item.href}
+              >
+                {item.title}
+              </NavLink>
             ))}
           </div>
         )}

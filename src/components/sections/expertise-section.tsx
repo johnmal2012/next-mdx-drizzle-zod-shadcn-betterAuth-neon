@@ -44,7 +44,7 @@ export default async function ExpertiseSection({ title, content, expertise }: Pr
               </Badge>
             ))}
           </div>
-          <div className="prose prose-slate max-w-none">{mdx}</div>
+          <div className="prose max-w-none">{mdx}</div>
         </Card>
       </div>
     </section>

@@ -1,14 +1,14 @@
 import { ChangePasswordForm } from '@/components/auth/change-password-form';
 import { ReturnButton } from '@/components/navigation/return-button';
-import { SignOutButton } from '@/components/auth/sign-out-button';
-import { Button } from '@/components/ui/button';
+// import { SignOutButton } from '@/components/auth/sign-out-button';
+// import { Button } from '@/components/ui/button';
 import { UpdateUserForm } from '@/components/user/update-user-form';
 import { Separator } from '@/components/ui/separator';
 // import { auth } from '@/lib/auth';
 // import { AppRole, roles } from '@/lib/permissions';
 // import { redirect } from 'next/navigation';
 // import { headers } from 'next/headers';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getSession, isAdmin } from '@/lib/auth-utils';
 // import { UserAvatar } from '@/components/user/user-avatar';
 // import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
@@ -111,7 +111,7 @@ export default async function AccountSettingsPage() {
 
         <ChangePasswordForm />
       </div>
-      <Separator className="my-10 h-2" />
+      <Separator className="my-8 data-[orientation=horizontal]:h-1 bg-slate-300" />
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Profile</h1>
 

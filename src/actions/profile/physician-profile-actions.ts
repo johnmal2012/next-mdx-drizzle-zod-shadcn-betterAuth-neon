@@ -167,6 +167,7 @@
 //     };
 //   }
 // }
+// 3) admin profile page
 'use server';
 
 import { revalidatePath } from 'next/cache';
@@ -294,10 +295,18 @@ export async function updatePhysicianProfile(
 /* -------------------------------------------------- */
 
 export async function deletePhysicianProfile(
-  id: number,
-): Promise<Result<null, Record<string, string[] | undefined>>> {
+  profileId: number,
+): Promise<Result<PhysicianProfile, Record<string, string[] | undefined>>> {
   try {
-    await db.delete(physicianProfile).where(eq(physicianProfile.id, id));
+    // await db.delete(physicianProfile).where(eq(physicianProfile.id, id));
+    const updated = await db
+      .update(physicianProfile)
+      .set({
+        isActive: false,
+        deletedAt: new Date(),
+      })
+      .where(eq(physicianProfile.id, profileId))
+      .returning();
 
     revalidatePath('/');
     revalidatePath('/profile');
@@ -305,7 +314,7 @@ export async function deletePhysicianProfile(
 
     return {
       success: true,
-      data: null,
+      data: updated[0],
       message: 'Profile deleted successfully',
     };
   } catch {

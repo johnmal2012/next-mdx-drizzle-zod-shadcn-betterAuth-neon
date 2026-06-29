@@ -509,8 +509,7 @@ export default function SectionForm({ section }: Props) {
               />
 
               <p className="text-xs text-muted-foreground">
-                Lower numbers appear first on the page, left to right and top to
-                bottom.
+                For display in Manage Sections only. Not used in the Physician Portal.
               </p>
               {errors.displayOrder && (
                 <p className="text-sm text-destructive">

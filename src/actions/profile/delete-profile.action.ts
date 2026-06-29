@@ -1,3 +1,4 @@
+// 3) admin dashboard page - profile
 'use server';
 
 import { db } from '@/db/db';

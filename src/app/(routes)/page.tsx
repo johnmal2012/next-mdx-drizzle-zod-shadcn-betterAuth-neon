@@ -80,7 +80,7 @@ export default async function PhysicianPage() {
     ]),
   );
 
-  //   console.log('sections: ', sections);
+  //  console.log('sections: ', sections);
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -209,6 +209,14 @@ export default async function PhysicianPage() {
           phone={profile.phone ?? ''}
           email={profile.email ?? ''}
           address={profile.address ?? ''}
+        />
+      )}
+
+      {/* test */}
+      {sections.test_2 && (
+        <InsuranceSection
+          title={sections.test_2.title}
+          content={sections.test_2.content}
         />
       )}
 

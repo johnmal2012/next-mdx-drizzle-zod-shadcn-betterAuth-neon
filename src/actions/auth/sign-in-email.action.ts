@@ -129,12 +129,12 @@ export async function signInEmailAction(
       error: '',
     };
   } catch (err) {
-    console.log('err: ', err);
+    // console.log('err: ', err);
     if (err instanceof APIError) {
       const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
       //   console.dir(err, { depth: 5 });
 
-      console.log('sign-in-email errCode: ', errCode);
+    //   console.log('sign-in-email errCode: ', errCode);
       switch (errCode) {
         case 'EMAIL_NOT_VERIFIED':
           redirect('/verify?error=email_not_verified');

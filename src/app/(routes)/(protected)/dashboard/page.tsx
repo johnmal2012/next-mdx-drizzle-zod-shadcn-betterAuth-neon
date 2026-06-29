@@ -1,3 +1,4 @@
+// 1) admin dashboard page
 // import { headers } from 'next/headers';
 // import { redirect } from 'next/navigation';
 // import { auth } from '@/lib/auth';
@@ -207,7 +208,7 @@ export default async function Dashboard() {
           </table>
         </div>
       </div>
-      <Separator className="my-10 h-2" />
+      <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Section list ***/}
       <div className="space-y-4">
         <h2 className="p-2 rounded-md text-lg bg-purple-400 text-white font-bold">
@@ -283,7 +284,7 @@ export default async function Dashboard() {
           </table>
         </div>
       </div>
-      <Separator className="my-10 h-2" />
+      <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Profile list ***/}
       <div className="space-y-4">
         <h2 className="p-2 rounded-md text-lg bg-blue-400 text-white font-bold">

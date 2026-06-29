@@ -1,3 +1,4 @@
+// 1) admin sections page
 import Link from 'next/link';
 
 import { db } from '@/db/db';
@@ -77,7 +78,7 @@ export default async function AdminSectionPage() {
                   >
                     <Link href={`/sections/${section.id}/edit`}>Edit</Link>
                   </Button>
-                  <SectionDeleteButton id={section.id} />
+                  <SectionDeleteButton sectionId={section.id} />
                 </div>
               </div>
             ))}

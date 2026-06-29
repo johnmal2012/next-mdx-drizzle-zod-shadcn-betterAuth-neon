@@ -135,7 +135,7 @@
 //     </>
 //   );
 // }
-
+// 2) admin sections page
 'use client';
 
 import { useState } from 'react';
@@ -157,7 +157,7 @@ import {
 import { deletePhysicianSection } from '@/actions/section/physician-section-actions';
 
 type Props = {
-  id: number;
+  sectionId: number;
 };
 
 type FormErrors = {
@@ -168,7 +168,7 @@ type FormErrors = {
   general?: string;
 };
 
-export function SectionDeleteButton({ id }: Props) {
+export function SectionDeleteButton({ sectionId }: Props) {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -197,7 +197,7 @@ export function SectionDeleteButton({ id }: Props) {
     setGeneralError(null);
 
     try {
-      const result = await deletePhysicianSection(id);
+      const result = await deletePhysicianSection(sectionId);
 
       if (!result.success) {
         if (result.error) {

@@ -1,3 +1,4 @@
+// 3) admin sections page
 'use server';
 
 import { revalidatePath } from 'next/cache';
@@ -138,11 +139,11 @@ export async function updatePhysicianSection(
 // DELETE
 // =========================
 export async function deletePhysicianSection(
-  id: number,
+  sectionId: number,
 ): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
   try {
     const existing = await db.query.physicianSections.findFirst({
-      where: eq(physicianSections.id, id),
+      where: eq(physicianSections.id, sectionId),
     });
 
     if (!existing) {
@@ -153,10 +154,17 @@ export async function deletePhysicianSection(
       };
     }
 
-    const deleted = await db
-      .delete(physicianSections)
-      .where(eq(physicianSections.id, id))
-      .returning();
+    // const deleted = await db
+    //   .delete(physicianSections)
+    //   .where(eq(physicianSections.id, id))
+    //   .returning();
+    await db
+      .update(physicianSections)
+      .set({
+        isActive: false,
+        deletedAt: new Date(),
+      })
+      .where(eq(physicianSections.id, sectionId));
 
     revalidatePath('/');
     revalidatePath('/profile');
@@ -164,7 +172,7 @@ export async function deletePhysicianSection(
 
     return {
       success: true,
-      data: deleted[0],
+      data: existing,
       message: 'Section deleted successfully',
     };
   } catch (error) {

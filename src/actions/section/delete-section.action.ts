@@ -1,3 +1,4 @@
+// 3) admin dashboard page - section
 'use server';
 
 import { db } from '@/db/db';
@@ -16,7 +17,7 @@ export async function deleteSectionAction({
 }: {
   sectionId: number;
 }) {
-  const headersList = await headers();
+//   const headersList = await headers();
 
   //   const session = await auth.api.getSession({
   //     headers: headersList,

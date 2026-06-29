@@ -1,3 +1,4 @@
+// 2) admin profile page
 'use client';
 
 import { useState } from 'react';

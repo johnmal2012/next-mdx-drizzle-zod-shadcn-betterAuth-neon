@@ -1,3 +1,4 @@
+// 2) admin dashboard page - profile
 'use client';
 
 import { useTransition } from 'react';

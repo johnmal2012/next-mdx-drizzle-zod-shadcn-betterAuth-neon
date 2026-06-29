@@ -9,7 +9,7 @@ interface PageProps {
 export default async function Page({ searchParams }: PageProps) {
   const error = (await searchParams).error;
 
-  console.log('verify page error: ', error);
+//   console.log('verify page error: ', error);
   // successful email verify without error:
   if (!error) redirect('/profile');
 
