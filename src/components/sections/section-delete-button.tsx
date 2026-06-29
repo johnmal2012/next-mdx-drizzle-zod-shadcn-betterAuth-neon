@@ -248,7 +248,7 @@ export function SectionDeleteButton({ sectionId }: Props) {
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>Delete Section</DialogTitle>
 

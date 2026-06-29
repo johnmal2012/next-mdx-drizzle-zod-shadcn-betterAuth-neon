@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import { Menu } from 'lucide-react';
 
 import {
@@ -14,6 +14,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { adminNavItems } from '@/lib/constants/admin-navitems';
+import { NavLink } from '@/components/shared/nav-link';
 
 export function MobileSidebar() {
   return (
@@ -31,13 +32,13 @@ export function MobileSidebar() {
         <nav className="mt-8 flex flex-col gap-2">
           {adminNavItems.map((item) => (
             <SheetClose asChild key={item.href}>
-              <Link
+              <NavLink
                 key={item.href}
                 href={item.href}
-                className="rounded-md px-3 py-2 hover:bg-accent"
+                className="justify-start w-36"
               >
                 {item.title}
-              </Link>
+              </NavLink>
             </SheetClose>
           ))}
         </nav>

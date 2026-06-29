@@ -35,7 +35,7 @@ export function RestoreProfileButton({ profileId }: RestoreProfileButtonProps) {
         </AlertDialogTrigger>
       </IconTooltip>
 
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Restore Profile?</AlertDialogTitle>
 

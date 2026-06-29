@@ -67,7 +67,7 @@ export function PhysicianProfileDeleteButton({ id }: Props) {
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>Delete Profile</DialogTitle>
 

@@ -41,7 +41,7 @@ export const DeleteSectionButton = ({
         </AlertDialogTrigger>
       </IconTooltip>
       
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Section?</AlertDialogTitle>
 

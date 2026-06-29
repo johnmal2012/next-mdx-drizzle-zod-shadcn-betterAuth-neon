@@ -40,7 +40,7 @@ export const DeleteProfileButton = ({
           </Button>
         </AlertDialogTrigger>
       </IconTooltip>
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Profile?</AlertDialogTitle>
 

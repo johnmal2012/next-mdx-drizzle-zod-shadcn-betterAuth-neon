@@ -29,7 +29,7 @@ export async function AdminNavbar({ session }: NavbarProps) {
 
         {/* Desktop Navigation */}
         {isAdmin && (
-          <div className="mx-auto hidden items-center gap-6 md:flex">
+          <div className="hidden flex-1 items-center justify-center gap-4 md:flex">
             {/* {adminNavItems.map((item) => (
               <Link
                 key={item.href}

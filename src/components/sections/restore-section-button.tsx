@@ -36,7 +36,7 @@ export function RestoreSectionButton({ sectionId }: RestoreSectionButtonProps) {
         </AlertDialogTrigger>
       </IconTooltip>
       
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Restore Section?</AlertDialogTitle>
 

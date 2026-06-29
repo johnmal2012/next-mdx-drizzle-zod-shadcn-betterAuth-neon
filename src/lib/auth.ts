@@ -277,9 +277,8 @@ const options = {
         }
       },
     }),
-    nextCookies(), // always last
   ],
-} satisfies BetterAuthOptions; 
+} satisfies BetterAuthOptions;
 
 export const auth = betterAuth({
   ...options,
@@ -303,6 +302,7 @@ export const auth = betterAuth({
         },
       };
     }, options),
+    nextCookies(), // always last
   ],
 });
 

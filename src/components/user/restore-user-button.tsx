@@ -35,7 +35,7 @@ export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
         </AlertDialogTrigger>
       </IconTooltip>
 
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Restore User?</AlertDialogTitle>
 
