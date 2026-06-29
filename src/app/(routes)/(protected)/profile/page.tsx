@@ -66,14 +66,14 @@ export default async function AdminProfilePage() {
 
   return (
     <div className="container mx-auto py-10 space-y-6">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h1 className="text-3xl font-bold">Physician Profiles</h1>
 
-          <p className="text-muted-foreground mt-1">
+          <p className="mt-1 text-muted-foreground">
             Manage physician profile content
           </p>
-          <Alert className="mb-6 border-amber-300 bg-amber-50 text-amber-900">
+          <Alert className="mt-3 border-amber-300 bg-amber-50 text-amber-900 lg:mb-6">
             <TriangleAlert className="h-4 w-4" />
             <AlertDescription>
               Only one profile record is allowed. If multiple records exist,
