@@ -39,7 +39,7 @@ export default async function AdminSectionPage() {
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 className="h-10 px-4 bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:ring-emerald-500/20"
                 asChild

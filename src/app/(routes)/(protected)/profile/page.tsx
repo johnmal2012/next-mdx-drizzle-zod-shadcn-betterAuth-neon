@@ -81,7 +81,7 @@ export default async function AdminProfilePage() {
             </AlertDescription>
           </Alert>
         </div>
-        <div className="flex justify-end items-center gap-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Button className="h-10 px-4" asChild>
             <Link href="/profile/create">Create Profile</Link>
           </Button>
