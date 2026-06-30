@@ -63,7 +63,7 @@ export async function proxy(request: NextRequest) {
 
   // Not signed in
   if (!session) {
-    const signInUrl = new URL('/sign-in', request.url);
+    const signInUrl = new URL('/login', request.url);
 
     signInUrl.searchParams.set(
       'callbackUrl',
