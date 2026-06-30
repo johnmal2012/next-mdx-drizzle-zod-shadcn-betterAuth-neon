@@ -63,6 +63,7 @@ export async function proxy(request: NextRequest) {
 
   // Not signed in
   if (!session) {
+    return NextResponse.next(); // TEMP DISABLE
     const signInUrl = new URL('/login', request.url);
 
     signInUrl.searchParams.set(
