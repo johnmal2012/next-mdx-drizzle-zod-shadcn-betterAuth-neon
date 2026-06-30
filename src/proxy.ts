@@ -107,6 +107,8 @@ export const config = {
     '/dashboard/:path*',
     '/profile/:path*',
     '/sections/:path*',
+    '/sections',
     '/account-settings/:path*',
+    '/account-settings',
   ],
 };
