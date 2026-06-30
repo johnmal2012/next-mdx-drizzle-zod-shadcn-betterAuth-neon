@@ -83,24 +83,29 @@ export async function proxy(request: NextRequest) {
     //   { status: 403 }
     // );
   }
-//   const result = await auth.api.userHasPermission({
-//     body: {
-//       userId: session.user.id,
-//       permissions: {
-//         admin: ['list'],
-//       },
-//     },
-//     headers: request.headers,
-//   });
+  //   const result = await auth.api.userHasPermission({
+  //     body: {
+  //       userId: session.user.id,
+  //       permissions: {
+  //         admin: ['list'],
+  //       },
+  //     },
+  //     headers: request.headers,
+  //   });
 
-//   if (!result.success) {
-//     return NextResponse.redirect(new URL('/unauthorized', request.url));
-//   }
+  //   if (!result.success) {
+  //     return NextResponse.redirect(new URL('/unauthorized', request.url));
+  //   }
   // to verify role directly:
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: [
+    '/dashboard/:path*',
+    '/profile/:path*',
+    '/sections/:path*',
+    '/account-settings/:path*',
+  ],
 };

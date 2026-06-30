@@ -4,10 +4,11 @@ import Link from 'next/link';
 
 import { Menu, Stethoscope } from 'lucide-react';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -51,27 +52,35 @@ export default function Navigation({
 }: Props) {
   const [activeSection, setActiveSection] = useState('hero');
 
+  // Build the section list once whenever navItems changes
+  const sections = useMemo(
+    () =>
+      navItems.map((item) => ({
+        id: item.href.replace('#', ''),
+      })),
+    [navItems],
+  );
+
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map((item) => ({
-        id: item.href.replace('#', ''),
-        element: document.querySelector(item.href) as HTMLElement | null,
+      const sectionElements = sections.map((section) => ({
+        ...section,
+        element: document.getElementById(section.id),
       }));
 
-      // Detect bottom of page
       const isBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 10;
 
-      if (isBottom) {
-        setActiveSection(sections[sections.length - 1].id);
+      if (isBottom && sectionElements.length > 0) {
+        setActiveSection(sectionElements.at(-1)!.id);
         return;
       }
 
       const scrollPosition = window.innerHeight * 0.35;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const section = sectionElements[i];
 
         if (!section.element) continue;
 
@@ -88,10 +97,8 @@ export default function Navigation({
 
     window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections]);
 
   return (
     <header className="sticky top-0 z-50 border-b bg-stone-100/90 backdrop-blur-md">
@@ -177,7 +184,7 @@ export default function Navigation({
                 <Menu className="h-12 w-12" />
               </Button>
             </SheetTrigger>
-            
+
             <SheetContent
               side="right"
               className="
@@ -205,28 +212,32 @@ export default function Navigation({
                   const isActive = activeSection === item.href.replace('#', '');
 
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={cn(
-                        'rounded-xl px-4 py-3 text-base font-medium transition-all',
-                        isActive
-                          ? 'bg-blue-600 text-white'
-                          : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
-                      )}
-                    >
-                      {item.label}
-                    </Link>
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={cn(
+                          'rounded-xl px-4 py-3 text-base font-medium transition-all',
+                          isActive
+                            ? 'bg-blue-600 text-white'
+                            : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </SheetClose>
                   );
                 })}
-                <Link
-                  href={footCareLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="not-first:rounded-xl px-4 py-3 text-base font-medium transition-all text-slate-700 hover:bg-blue-50 hover:text-blue-600 hover:underline underline-offset-2 decoration-1 hover:decoration-2"
-                >
-                  {linkName}
-                </Link>
+                <SheetClose asChild>
+                  <Link
+                    href={footCareLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="not-first:rounded-xl px-4 py-3 text-base font-medium transition-all text-slate-700 hover:bg-blue-50 hover:text-blue-600 hover:underline underline-offset-2 decoration-1 hover:decoration-2"
+                  >
+                    {linkName}
+                  </Link>
+                </SheetClose>
                 {/* <Button className="mt-6 rounded-full">
                   Request Appointment
                 </Button> */}
