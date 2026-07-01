@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  trailingSlash: true,
+  trailingSlash: false, // disable trailing slash in URLs otherwise signout not working
 };
 
 export default nextConfig;
