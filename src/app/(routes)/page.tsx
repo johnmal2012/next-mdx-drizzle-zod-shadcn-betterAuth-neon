@@ -238,7 +238,7 @@ import { db } from '@/db/db';
 
 import Navbar from '@/components/navigation/navBar';
 import FooterSection from '@/components/sections/footer-section';
-import MapSection from '@/components/sections/map-section';
+// import MapSection from '@/components/sections/map-section';
 import { SectionRenderer } from '@/components/sections/section-renderer';
 
 export default async function PhysicianPage() {
@@ -262,6 +262,7 @@ export default async function PhysicianPage() {
   }
 
   const profile = profiles[0];
+  //   console.log(profile.navItems);
 
   /*
   =====================================
@@ -279,10 +280,16 @@ export default async function PhysicianPage() {
     return <div>No physician sections found.</div>;
   }
 
+  const navItems = sections.map((section) => ({
+    id: section.slug,
+    // label: section.title,
+  }));
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <Navbar
-        navItems={profile.navItems ?? []}
+        // navItems={profile.navItems ?? []}
+        navItems={navItems}
         logo={profile.logo ?? ''}
         specialty={profile.specialty ?? ''}
         clinicName={profile.clinicName ?? ''}
@@ -291,7 +298,12 @@ export default async function PhysicianPage() {
       />
 
       {sections.map((section, index) => (
-        <SectionRenderer key={section.id} section={section} profile={profile} index={index} />
+        <SectionRenderer
+          key={section.id}
+          section={section}
+          profile={profile}
+          index={index}
+        />
       ))}
 
       {/* <MapSection

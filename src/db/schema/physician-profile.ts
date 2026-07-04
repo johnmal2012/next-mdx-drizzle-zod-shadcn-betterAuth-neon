@@ -62,7 +62,7 @@ export const physicianProfile = pgTable(
     //       }[]
     //     >()
     //     .default([]),
-    navItems: jsonb('nav_items').$type<string[]>().default([]),
+    // navItems: jsonb('nav_items').$type<string[]>().default([]),
 
     isActive: boolean('is_active').notNull().default(true),
 

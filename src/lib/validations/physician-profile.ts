@@ -42,7 +42,7 @@ export const physicianProfileSchema = z.object({
   //       href: z.string('Section reference is required'),
   //     }),
   //   ),
-  navItems: z.array(z.string().trim().min(1)).default([]),
+//   navItems: z.array(z.string().trim().min(1)).default([]),
 });
 
 export type PhysicianProfileInput = z.infer<typeof physicianProfileSchema>;

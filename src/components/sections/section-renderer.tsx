@@ -1,4 +1,4 @@
-import HeroSection from '@/components/sections/hero-section';
+import AboutSection from '@/components/sections/about-section';
 import EducationSection from '@/components/sections/education-section';
 import ExpertiseSection from '@/components/sections/expertise-section';
 import PhilosophySection from '@/components/sections/philosophy-section';
@@ -7,6 +7,7 @@ import OfficeHoursSection from '@/components/sections/office-hours-section';
 import InsuranceSection from '@/components/sections/insurance-section';
 import ContactSection from '@/components/sections/contact-section';
 import MapSection from '@/components/sections/map-section';
+import TestSection from '@/components/sections/test-section';
 
 import type { PhysicianProfile } from '@/lib/types/physician-profile';
 import type { PhysicianSections } from '@/lib/types/physician-section';
@@ -25,9 +26,9 @@ export function SectionRenderer({
   const background = index % 2 === 0 ? 'bg-white' : 'bg-slate-100';
 
   switch (section.slug) {
-    case 'hero':
+    case 'about':
       return (
-        <HeroSection
+        <AboutSection
           image={profile.image ?? ''}
           name={profile.name ?? ''}
           title={profile.title ?? ''}
@@ -35,6 +36,7 @@ export function SectionRenderer({
           specialty={profile.specialty ?? ''}
           content={section.content ?? ''}
           background={background}
+          slug={section.slug ?? ''}
         />
       );
 
@@ -43,6 +45,7 @@ export function SectionRenderer({
         <EducationSection
           title={section.title}
           content={section.content ?? ''}
+          slug={section.slug ?? ''}
           background={background}
         />
       );
@@ -53,6 +56,7 @@ export function SectionRenderer({
           title={section.title}
           content={section.content ?? ''}
           expertise={profile.expertise ?? []}
+          slug={section.slug ?? ''}
           background={background}
         />
       );
@@ -63,6 +67,7 @@ export function SectionRenderer({
           title={section.title}
           content={section.content ?? ''}
           background={background}
+          slug={section.slug ?? ''}
         />
       );
 
@@ -72,15 +77,17 @@ export function SectionRenderer({
           title={section.title}
           content={section.content ?? ''}
           background={background}
+          slug={section.slug ?? ''}
         />
       );
 
-    case 'office_hours':
+    case 'hours':
       return (
         <OfficeHoursSection
           title={section.title}
           content={section.content ?? ''}
           background={background}
+          slug={section.slug ?? ''}
         />
       );
 
@@ -89,6 +96,7 @@ export function SectionRenderer({
         <InsuranceSection
           title={section.title}
           content={section.content ?? ''}
+          slug={section.slug ?? ''}
           background={background}
         />
       );
@@ -100,6 +108,7 @@ export function SectionRenderer({
           phone={profile.phone ?? ''}
           email={profile.email ?? ''}
           address={profile.address ?? ''}
+          slug={section.slug ?? ''}
           background={background}
         />
       );
@@ -107,17 +116,20 @@ export function SectionRenderer({
     case 'location':
       return (
         <MapSection
-          location={profile.location ?? ''}
+          //   location={profile.location ?? ''}
+          location={section.title ?? ''}
           address={profile.address ?? ''}
+          slug={section.slug ?? ''}
           background={background}
         />
       );
 
     case 'test_2':
       return (
-        <MapSection
-          location={profile.location ?? ''}
-          address={profile.address ?? ''}
+        <TestSection
+          title={section.title ?? ''}
+          content={section.content ?? ''}
+          slug={section.slug ?? ''}
           background={background}
         />
       );

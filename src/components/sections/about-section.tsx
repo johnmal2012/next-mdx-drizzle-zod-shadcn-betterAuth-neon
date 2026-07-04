@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { renderMDX } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
 
-interface HeroSectionProps {
+interface AboutSectionProps {
   content: string;
   image: string;
   name: string;
@@ -16,9 +16,10 @@ interface HeroSectionProps {
   specialty: string;
   title: string;
   background: string;
+  slug: string;
 }
 
-export default async function HeroSection({
+export default async function AboutSection({
   content,
   image,
   name,
@@ -26,11 +27,12 @@ export default async function HeroSection({
   specialty,
   title,
   background,
-}: HeroSectionProps) {
+  slug,
+}: AboutSectionProps) {
   const mdx = await renderMDX(content);
   return (
     <section
-      id="about"
+      id={slug}
       className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">

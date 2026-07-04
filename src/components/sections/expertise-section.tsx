@@ -8,6 +8,7 @@ interface ExpertiseSectionProps {
   content: string;
   expertise: string[];
   background: string;
+  slug: string;
 }
 
 // const expertise = [
@@ -17,10 +18,10 @@ interface ExpertiseSectionProps {
 //   'Custom Orthotics',
 // ];
 
-export default async function ExpertiseSection({ title, content, expertise, background }: ExpertiseSectionProps) {
+export default async function ExpertiseSection({ title, content, expertise, background, slug }: ExpertiseSectionProps) {
   const mdx = await renderMDX(content);
   return (
-    <section id="expertise" className={cn("scroll-mt-28 px-6 py-12", background,)}>
+    <section id={slug} className={cn("scroll-mt-28 px-6 py-12", background,)}>
       <div className="mx-auto max-w-6xl">
         <Card className="rounded-3xl p-10 shadow-xl">
           <h2 className="mb-8 text-3xl font-bold">{title}</h2>

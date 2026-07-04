@@ -18,12 +18,14 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { NavItem } from '@/lib/types/navigation';
 // import { physicianData } from '@/data/physician';
 // import { headingData } from '@/data/heading';
 
 interface NavbarProps {
   //   navItems: { label: string; href: string }[];
-  navItems: string[];
+  //   navItems: string[];
+  navItems: NavItem[];
   logo: string;
   specialty: string;
   clinicName: string;
@@ -51,20 +53,20 @@ export default function Navbar({
   linkName,
   footCareLink,
 }: NavbarProps) {
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('about');
 
   // Build the section list once whenever navItems changes
-//   const sections = useMemo(
-//     () =>
-//       navItems.map((item) => ({
-//         id: item.href.replace('#', ''),
-//       })),
-//     [navItems],
-//   );
+  //   const sections = useMemo(
+  //     () =>
+  //       navItems.map((item) => ({
+  //         id: item.href.replace('#', ''),
+  //       })),
+  //     [navItems],
+  //   );
   const sections = useMemo(
     () =>
       navItems.map((item) => ({
-        id: item,
+        id: item.id,
       })),
     [navItems],
   );
@@ -131,12 +133,12 @@ export default function Navbar({
         <nav className="hidden items-center gap-2 md:flex">
           {navItems.map((item) => {
             // const isActive = activeSection === item.href.replace('#', '');
-            const isActive = activeSection === item;
+            const isActive = activeSection === item.id;
 
             return (
               <Link
-                key={item}
-                href={`#${item}`}
+                key={item.id}
+                href={`#${item.id}`}
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
                   isActive
@@ -144,7 +146,7 @@ export default function Navbar({
                     : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
                 )}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
               </Link>
             );
           })}
@@ -238,13 +240,13 @@ export default function Navbar({
                   );
                 })} */}
                 {navItems.map((item) => {
-                  const isActive = activeSection === item;
+                  const isActive = activeSection === item.id;
 
                   return (
-                    <SheetClose asChild key={item}>
+                    <SheetClose asChild key={item.id}>
                       <Link
-                        key={item}
-                        href={`#${item}`}
+                        key={item.id}
+                        href={`#${item.id}`}
                         className={cn(
                           'rounded-xl px-4 py-3 text-base font-medium transition-all',
                           isActive
@@ -252,7 +254,7 @@ export default function Navbar({
                             : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
                         )}
                       >
-                        {item.charAt(0).toUpperCase() + item.slice(1)}
+                        {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
                       </Link>
                     </SheetClose>
                   );

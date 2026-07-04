@@ -7,12 +7,13 @@ interface MapSectionProps {
   location: string;
   address: string;
   background: string;
+  slug: string;
 }
 
-export default function MapSection({ location, address, background }: MapSectionProps) {
+export default function MapSection({ location, address, background, slug }: MapSectionProps) {
   return (
     <section
-      id="location"
+      id={slug}
       className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-6xl">

@@ -6,13 +6,14 @@ interface InsuranceSectionProps {
   content: string;
   title: string;
   background: string;
+  slug: string;
 }
 
-export default function InsuranceSection({ title, content, background }: InsuranceSectionProps) {
+export default function InsuranceSection({ title, content, background, slug }: InsuranceSectionProps) {
   const mdx = renderMDX(content);
   return (
     <section
-      id="insurance"
+      id={slug}
       className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-5xl">

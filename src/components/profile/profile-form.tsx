@@ -47,7 +47,7 @@ type ProfileFormData = {
   linkName: string;
   footCareLink: string;
   expertise: string;
-  navItems: string;
+//   navItems: string;
 };
 
 // type FormErrors = {
@@ -110,7 +110,7 @@ export function ProfileForm({
     // navItems: profile?.navItems
     //   ? JSON.stringify(profile.navItems, null, 2)
     //   : '',
-    navItems: profile?.navItems?.join(', ') ?? '',
+    // navItems: profile?.navItems?.join(', ') ?? '',
   });
 
   function updateField(field: keyof ProfileFormData, value: string | number) {
@@ -154,7 +154,7 @@ export function ProfileForm({
         // }),
 
         // navItems: parsedNavItems.data,
-        navItems: formData.navItems.split(',').map((x: string) => x.trim()),
+        // navItems: formData.navItems.split(',').map((x: string) => x.trim()),
       };
 
       const result = profile
@@ -403,7 +403,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        {/* <div>
           <p className="text-sm text-muted-foreground ml-2.5">Navbar Items</p>
           <Input
             placeholder="comma separated e.g. about, education etc"
@@ -418,7 +418,7 @@ export function ProfileForm({
               {errors['navItems.0'][0]}
             </p>
           )}
-        </div>
+        </div> */}
       </div>
       {/* <div>
         <textarea

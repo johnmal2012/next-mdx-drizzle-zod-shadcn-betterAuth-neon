@@ -10,6 +10,7 @@ interface ContactSectionProps {
   email: string;
   address?: string;
   background: string;
+  slug: string;
 }
 
 export default function ContactSection({
@@ -18,10 +19,11 @@ export default function ContactSection({
     email,
     address,
     background,
+    slug,
 }: ContactSectionProps) {
   return (
     <section
-      id="contact"
+      id={slug}
       className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-5xl">

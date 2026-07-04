@@ -222,7 +222,7 @@ export default async function ProfilePage() {
                   )}
                 </div>
               </div> */}
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <h3 className="font-semibold">Navigation Items</h3>
 
                 <div className="flex flex-wrap gap-2">
@@ -232,7 +232,7 @@ export default async function ProfilePage() {
                     </Badge>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         ))}

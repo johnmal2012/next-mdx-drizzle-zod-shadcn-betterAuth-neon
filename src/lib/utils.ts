@@ -32,3 +32,8 @@ export function getInitials(name: string): string {
     .map((word) => word[0]?.toUpperCase())
     .join('');
 }
+
+export const formatLabel = (slug: string) =>
+  slug
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
