@@ -1,6 +1,6 @@
 // import { physicianData } from '@/data/_physician';
 
-interface Props {
+interface FooterSectionProps {
   clinicName: string;
   clinicAddress: string;
 }
@@ -8,7 +8,7 @@ interface Props {
 export default function FooterSection({
     clinicName,
     clinicAddress
-}: Props) {
+}: FooterSectionProps) {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-slate-200 px-6 py-10 text-gray-600">

@@ -20,11 +20,11 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 
-type Props = {
+type PhysicianProfileDeleteProps = {
   id: number;
 };
 
-export function PhysicianProfileDeleteButton({ id }: Props) {
+export function PhysicianProfileDeleteButton({ id }: PhysicianProfileDeleteProps) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);

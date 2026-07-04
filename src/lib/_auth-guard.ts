@@ -3,9 +3,10 @@
 import { redirect } from 'next/navigation';
 
 import { getSession } from '@/lib/session';
+import { USER_ROLE, type UserRole } from '@/db/schema/auth-schema';
 
 export async function requireRole(
-  role: 'admin' | 'user',
+  role: UserRole,
 ) {
   const session = await getSession();
 
@@ -21,5 +22,9 @@ export async function requireRole(
 }
 
 export async function requireAdmin() {
-  return requireRole('admin');
+  return requireRole(USER_ROLE.ADMIN);
+}
+
+export async function requireUser() {
+  return requireRole(USER_ROLE.USER);
 }

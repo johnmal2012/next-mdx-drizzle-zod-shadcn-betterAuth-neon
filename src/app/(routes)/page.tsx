@@ -236,7 +236,7 @@ import { redirect } from 'next/navigation';
 
 import { db } from '@/db/db';
 
-import Navigation from '@/components/navigation/navigation';
+import Navbar from '@/components/navigation/navBar';
 import FooterSection from '@/components/sections/footer-section';
 import MapSection from '@/components/sections/map-section';
 import { SectionRenderer } from '@/components/sections/section-renderer';
@@ -281,7 +281,7 @@ export default async function PhysicianPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      <Navigation
+      <Navbar
         navItems={profile.navItems ?? []}
         logo={profile.logo ?? ''}
         specialty={profile.specialty ?? ''}
@@ -290,14 +290,14 @@ export default async function PhysicianPage() {
         footCareLink={profile.footCareLink ?? ''}
       />
 
-      {sections.map((section) => (
-        <SectionRenderer key={section.id} section={section} profile={profile} />
+      {sections.map((section, index) => (
+        <SectionRenderer key={section.id} section={section} profile={profile} index={index} />
       ))}
 
-      <MapSection
+      {/* <MapSection
         location={profile.location ?? ''}
         address={profile.address ?? ''}
-      />
+      /> */}
 
       <FooterSection
         clinicName={profile.clinicName ?? ''}

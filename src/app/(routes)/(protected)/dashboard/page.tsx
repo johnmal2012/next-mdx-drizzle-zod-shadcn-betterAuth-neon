@@ -7,7 +7,7 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { DeleteSectionButton } from '@/components/sections/delete-section-button';
 import { DeleteProfileButton } from '@/components/profile/delete-profile-button';
 import { UserRoleSelect } from '@/components/user/user-role-select';
-import { UserRole } from '@/db/schema/auth-schema';
+import { USER_ROLE, UserRole } from '@/db/schema/auth-schema';
 import { requireAdmin } from '@/lib/auth-utils';
 import { db } from '@/db/db';
 import { RestoreUserButton } from '@/components/user/restore-user-button';
@@ -21,7 +21,7 @@ import { RestoreProfileButton } from '@/components/profile/restore-profile-butto
 
 // type AuthApiKeys = keyof typeof auth.api;
 
-export default async function Dashboard() {
+export default async function DashboardPage() {
   //   const headersList = await headers();
   // need to pass headers when using server components because auth.api needs the session cookie to determine if the user is logged in or not, and cookies are sent in headers
   //   const session = await auth.api.getSession({
@@ -42,7 +42,7 @@ export default async function Dashboard() {
   //   );
 
   //   console.log('user role in dashboard: ', session.user.role);
-  if (session.user.role !== 'admin') {
+  if (session.user.role !== USER_ROLE.ADMIN) {
     return (
       <div className="px-8 py-16 container mx-auto max-w-5xl space-y-8">
         <div className="space-y-4">
@@ -90,8 +90,8 @@ export default async function Dashboard() {
   // 1st condition:Put a before b if so admins move toward the beginning of the array
   // 2nd condition:Put b before a if b is admin and a is not, which also means admins move toward the beginning of the array
   const sortedUsers = activeUsers.sort((a, b) => {
-    if (a.role === 'admin' && b.role !== 'admin') return -1;
-    if (a.role !== 'admin' && b.role === 'admin') return 1;
+    if (a.role === USER_ROLE.ADMIN && b.role !== USER_ROLE.ADMIN) return -1;
+    if (a.role !== USER_ROLE.ADMIN && b.role === USER_ROLE.ADMIN) return 1;
     return 0;
   });
 
@@ -126,8 +126,7 @@ export default async function Dashboard() {
   return (
     <div className="px-8 py-16 container mx-auto max-w-5xl space-y-8">
       <div className="space-y-4">
-        <ReturnButton href="/profile" label="Profile" />
-
+        <ReturnButton href="/" label="Physician Portal" />
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
         {/*** User list ***/}
         <p className="p-2 rounded-md text-lg bg-green-400 text-white font-bold">

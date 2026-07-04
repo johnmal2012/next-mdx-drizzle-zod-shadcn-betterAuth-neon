@@ -4,7 +4,7 @@ import {
   AvatarFallback,
 } from "@/components/ui/avatar";
 
-type Props = {
+type UserAvatarProps = {
   image?: string | null;
   name?: string | null;
   className?: string;
@@ -14,7 +14,7 @@ export function UserAvatar({
   image,
   name,
   className
-}: Props) {
+}: UserAvatarProps) {
   return (
     <Avatar className={className}>
       <AvatarImage

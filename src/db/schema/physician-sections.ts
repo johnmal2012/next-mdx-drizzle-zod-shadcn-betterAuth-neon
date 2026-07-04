@@ -12,7 +12,7 @@ export const physicianSections = pgTable('physician_sections', {
     length: 255,
   }).notNull(),
 
-  content: text('content').notNull(),
+  content: text('content'),
 
   displayOrder: integer('display_order').notNull().default(0),
 

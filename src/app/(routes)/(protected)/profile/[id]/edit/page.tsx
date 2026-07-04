@@ -9,13 +9,13 @@ import { physicianProfile } from '@/db/schema';
 import { ProfileForm } from '@/components/profile/profile-form';
 import { getSession } from '@/lib/auth-utils';
 
-type Props = {
+type ProfileEditProps = {
   params: Promise<{
     id: string;
   }>;
 };
 
-export default async function Page({ params }: Props) {
+export default async function ProfileEditPage({ params }: ProfileEditProps) {
   const { id } = await params;
 
   const profile = await db.query.physicianProfile.findFirst({

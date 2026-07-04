@@ -46,7 +46,7 @@ function InfoItem({ label, value }: InfoItemProps) {
   );
 }
 
-export default async function AdminProfilePage() {
+export default async function ProfilePage() {
   //   const profiles = await db.query.physicianProfile.findMany({
   //     orderBy: asc(physicianProfile.id),
   //   });
@@ -85,7 +85,7 @@ export default async function AdminProfilePage() {
           <Button className="h-10 px-4" asChild>
             <Link href="/profile/create">Create Profile</Link>
           </Button>
-          <ReturnButton href="/" label="Home" />
+          <ReturnButton href="/" label="Physician Portal" />
         </div>
       </div>
 
@@ -181,10 +181,10 @@ export default async function AdminProfilePage() {
               </div>
 
               {/* Navigation Items */}
-              <div className="space-y-2">
-                <h3 className="font-semibold">Navigation Items</h3>
+              {/* <div className="space-y-2">
+                <h3 className="font-semibold">Navigation Items</h3> */}
 
-                <div className="grid gap-4 md:grid-cols-2">
+              {/* <div className="grid gap-4 md:grid-cols-2">
                   {profile.navItems?.map(
                     (
                       item: {
@@ -205,6 +205,32 @@ export default async function AdminProfilePage() {
                       </div>
                     ),
                   )}
+                </div> */}
+              {/* <div className="grid gap-4 md:grid-cols-2">
+                  {profile.navItems?.map(
+                    (
+                      item: string,
+                      index: number,
+                    ) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between rounded-lg border p-3"
+                      >
+                        <span className="font-medium">{item}</span>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div> */}
+              <div className="space-y-2">
+                <h3 className="font-semibold">Navigation Items</h3>
+
+                <div className="flex flex-wrap gap-2">
+                  {profile.navItems?.map((item: string) => (
+                    <Badge key={item} variant="secondary">
+                      {item}
+                    </Badge>
+                  ))}
                 </div>
               </div>
             </CardContent>

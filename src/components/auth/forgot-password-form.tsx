@@ -19,6 +19,7 @@ export const ForgotPasswordForm = () => {
 
     if (!email) return toast.error("Please enter your email.");
 
+    // click Forgot password link on login-form page > forgot-password-form page > requestPasswordReset function in auth-client.ts > better-auth send a request to /api/auth/request-password-reset and creates a reset token + redirectTo url + send password reset link email to user > clink reset link in email > onSuccess callback to success page
     await requestPasswordReset({
       email,
       redirectTo: "/reset-password",

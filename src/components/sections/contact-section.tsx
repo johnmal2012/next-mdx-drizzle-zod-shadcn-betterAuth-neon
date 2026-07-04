@@ -1,13 +1,15 @@
 import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { Mail, MapPin, Phone } from 'lucide-react';
 // import { physicianData } from '@/data/_physician';
 // import { headingData } from '@/data/heading';
 
-interface Props {
+interface ContactSectionProps {
   title?: string;
   phone?: string;
   email: string;
   address?: string;
+  background: string;
 }
 
 export default function ContactSection({
@@ -15,12 +17,12 @@ export default function ContactSection({
     phone,
     email,
     address,
-}: Props) {
+    background,
+}: ContactSectionProps) {
   return (
     <section
       id="contact"
-      className="scroll-mt-28 bg-white px-6 py-12
-    "
+      className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-5xl">
         <Card className="rounded-3xl p-10 shadow-xl">

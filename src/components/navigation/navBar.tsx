@@ -21,8 +21,9 @@ import { cn } from '@/lib/utils';
 // import { physicianData } from '@/data/physician';
 // import { headingData } from '@/data/heading';
 
-interface Props {
-  navItems: { label: string; href: string }[];
+interface NavbarProps {
+  //   navItems: { label: string; href: string }[];
+  navItems: string[];
   logo: string;
   specialty: string;
   clinicName: string;
@@ -42,21 +43,28 @@ interface Props {
 //   { label: 'Contact', href: '#contact' },
 // ];
 
-export default function Navigation({
+export default function Navbar({
   navItems,
   logo,
   specialty,
   clinicName,
   linkName,
   footCareLink,
-}: Props) {
+}: NavbarProps) {
   const [activeSection, setActiveSection] = useState('hero');
 
   // Build the section list once whenever navItems changes
+//   const sections = useMemo(
+//     () =>
+//       navItems.map((item) => ({
+//         id: item.href.replace('#', ''),
+//       })),
+//     [navItems],
+//   );
   const sections = useMemo(
     () =>
       navItems.map((item) => ({
-        id: item.href.replace('#', ''),
+        id: item,
       })),
     [navItems],
   );
@@ -122,12 +130,13 @@ export default function Navigation({
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-2 md:flex">
           {navItems.map((item) => {
-            const isActive = activeSection === item.href.replace('#', '');
+            // const isActive = activeSection === item.href.replace('#', '');
+            const isActive = activeSection === item;
 
             return (
               <Link
-                key={item.href}
-                href={item.href}
+                key={item}
+                href={`#${item}`}
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
                   isActive
@@ -135,7 +144,7 @@ export default function Navigation({
                     : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
                 )}
               >
-                {item.label}
+                {item.charAt(0).toUpperCase() + item.slice(1)}
               </Link>
             );
           })}
@@ -208,7 +217,7 @@ export default function Navigation({
               </SheetHeader>
 
               <nav className="mt-2 flex flex-col gap-2">
-                {navItems.map((item) => {
+                {/* {navItems.map((item) => {
                   const isActive = activeSection === item.href.replace('#', '');
 
                   return (
@@ -224,6 +233,26 @@ export default function Navigation({
                         )}
                       >
                         {item.label}
+                      </Link>
+                    </SheetClose>
+                  );
+                })} */}
+                {navItems.map((item) => {
+                  const isActive = activeSection === item;
+
+                  return (
+                    <SheetClose asChild key={item}>
+                      <Link
+                        key={item}
+                        href={`#${item}`}
+                        className={cn(
+                          'rounded-xl px-4 py-3 text-base font-medium transition-all',
+                          isActive
+                            ? 'bg-blue-600 text-white'
+                            : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
+                        )}
+                      >
+                        {item.charAt(0).toUpperCase() + item.slice(1)}
                       </Link>
                     </SheetClose>
                   );

@@ -1,11 +1,13 @@
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { renderMDX } from '@/lib/mdx';
+import { cn } from '@/lib/utils';
 
-interface Props {
+interface ExpertiseSectionProps {
   title: string;
   content: string;
   expertise: string[];
+  background: string;
 }
 
 // const expertise = [
@@ -15,10 +17,10 @@ interface Props {
 //   'Custom Orthotics',
 // ];
 
-export default async function ExpertiseSection({ title, content, expertise }: Props) {
+export default async function ExpertiseSection({ title, content, expertise, background }: ExpertiseSectionProps) {
   const mdx = await renderMDX(content);
   return (
-    <section id="expertise" className="scroll-mt-28 bg-slate-100 px-6 py-12">
+    <section id="expertise" className={cn("scroll-mt-28 px-6 py-12", background,)}>
       <div className="mx-auto max-w-6xl">
         <Card className="rounded-3xl p-10 shadow-xl">
           <h2 className="mb-8 text-3xl font-bold">{title}</h2>

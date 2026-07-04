@@ -1,22 +1,19 @@
 import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 // import { physicianData } from '@/data/physician';
 // import { headingData } from '@/data/heading';
 
-interface Props {
+interface MapSectionProps {
   location: string;
   address: string;
+  background: string;
 }
 
-export default function MapSection({ location,address }: Props) {
+export default function MapSection({ location, address, background }: MapSectionProps) {
   return (
     <section
       id="location"
-      className="
-        scroll-mt-28
-        bg-slate-50
-        px-6
-        py-12
-      "
+      className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-6xl">
         <Card className="overflow-hidden rounded-3xl shadow-xl">

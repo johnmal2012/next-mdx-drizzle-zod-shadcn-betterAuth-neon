@@ -1,15 +1,17 @@
 import { Card } from '@/components/ui/card';
 import { renderMDX } from '@/lib/mdx';
+import { cn } from '@/lib/utils';
 
-interface Props {
+interface OfficeHoursSectionProps {
   content: string;
   title: string;
+  background: string;
 }
 
-export default function OfficeHoursSection({ title, content }: Props) {
+export default function OfficeHoursSection({ title, content, background }: OfficeHoursSectionProps) {
   const mdx = renderMDX(content);
   return (
-    <section id="hours" className="scroll-mt-28 bg-white px-6 py-12">
+    <section id="hours" className={cn("scroll-mt-28 px-6 py-12", background,)}>
       <div className="mx-auto max-w-4xl">
         <Card className="rounded-3xl p-10 shadow-lg">
           <h2 className="mb-8 text-3xl font-bold">{title}</h2>

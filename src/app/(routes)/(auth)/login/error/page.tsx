@@ -1,10 +1,10 @@
 import { ReturnButton } from '@/components/navigation/return-button';
 
-interface PageProps {
+interface LoginErrorProps {
   searchParams: Promise<{ error: string }>;
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function LoginErrorPage({ searchParams }: LoginErrorProps) {
   const error = (await searchParams).error;
 
   return (

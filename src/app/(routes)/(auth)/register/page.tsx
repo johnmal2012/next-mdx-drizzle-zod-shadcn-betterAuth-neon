@@ -4,12 +4,12 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { SignInOauthButton } from '@/components/auth/sign-in-oauth-button';
 import Link from 'next/link';
 
-export default function Page() {
+export default function RegisterPage() {
   return (
     <div className="px-8 py-16 container mx-auto max-w-5xl space-y-8">
       <div className="space-y-4 max-w-sm mx-auto">
         <ReturnButton href="/" label="Physician Portal" />
-        <div className="max-w-sm not-last:my-2 h-1 bg-muted" />
+        <div className="h-1 bg-muted" />
         <h1 className="text-3xl font-bold">Register</h1>
       </div>
 

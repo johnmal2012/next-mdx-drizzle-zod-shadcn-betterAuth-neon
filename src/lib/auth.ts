@@ -17,6 +17,7 @@ import { ac, roles } from '@/lib/permissions';
 import { serverEnv } from '@/lib/env/server';
 import { clientEnv } from './env/client';
 import { sendEmailAction } from '@/actions/auth/send-email.action';
+import { USER_ROLE } from '@/db/schema/auth-schema';
 
 // const ac = createAccessControl({
 //   users: ['read'],
@@ -87,7 +88,7 @@ const options = {
       role: {
         type: 'string',
         required: true,
-        defaultValue: 'user',
+        defaultValue: USER_ROLE.USER, // default role is 'user'
         input: false, // This field exists in the database and user object, but Better Auth will not allow clients to provide or modify it through auth API inputs (sign up, update profile, etc.). We provide enum value by default, and it cannot be changed by the client.
       },
       //   isActive: {
@@ -107,7 +108,7 @@ const options = {
           const ADMIN_EMAILS = serverEnv.ADMIN_EMAILS?.split(';') ?? [];
 
           if (ADMIN_EMAILS.includes(user.email)) {
-            return { data: { ...user, role: 'admin' } };
+            return { data: { ...user, role: USER_ROLE.ADMIN } };
           }
 
           return { data: user };
@@ -212,8 +213,8 @@ const options = {
     //   },
     // }),
     admin({
-      defaultRole: 'user',
-      adminRoles: ['admin'],
+      defaultRole: USER_ROLE.USER,
+      adminRoles: [USER_ROLE.ADMIN],
       ac,
       roles,
     }),

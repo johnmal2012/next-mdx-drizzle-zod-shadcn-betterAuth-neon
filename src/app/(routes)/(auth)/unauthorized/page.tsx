@@ -1,6 +1,6 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { ReturnButton } from '@/components/navigation/return-button';
 
 export default function UnauthorizedPage() {

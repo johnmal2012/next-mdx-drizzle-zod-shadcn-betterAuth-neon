@@ -29,7 +29,7 @@ export const DeleteSectionButton = ({
 
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Delete section" side="right">
+      <IconTooltip tooltip="Delete section" side="left">
         <AlertDialogTrigger asChild>
           <Button
             variant="destructive"
@@ -76,16 +76,16 @@ export const DeleteSectionButton = ({
 };
 
 // this is for admin users to see a placeholder delete button for other admin users, since we don't want to allow deleting other admins, but we want to show that there is a delete button there for regular users
-export const PlaceholderDeleteSectionButton = () => {
-  return (
-    <Button
-      size="icon"
-      variant="destructive"
-      className="size-7 rounded-sm"
-      disabled
-    >
-      <span className="sr-only">Delete Section</span>
-      <TrashIcon />
-    </Button>
-  );
-};
+// export const PlaceholderDeleteSectionButton = () => {
+//   return (
+//     <Button
+//       size="icon"
+//       variant="destructive"
+//       className="size-7 rounded-sm"
+//       disabled
+//     >
+//       <span className="sr-only">Delete Section</span>
+//       <TrashIcon />
+//     </Button>
+//   );
+// };

@@ -156,7 +156,7 @@ import {
 } from '@/components/ui/dialog';
 import { deletePhysicianSection } from '@/actions/section/physician-section-actions';
 
-type Props = {
+type SectionDeleteButtonProps = {
   sectionId: number;
 };
 
@@ -168,7 +168,7 @@ type FormErrors = {
   general?: string;
 };
 
-export function SectionDeleteButton({ sectionId }: Props) {
+export function SectionDeleteButton({ sectionId }: SectionDeleteButtonProps) {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);

@@ -25,7 +25,7 @@ import { UserAvatar } from '@/components/user/user-avatar';
 
 type Profile = InferSelectModel<typeof physicianProfile>;
 
-type Props = {
+type ProfileFormProps = {
   profile?: Profile;
   userName?: string | null;
   userImage?: string | null;
@@ -80,7 +80,11 @@ type ProfileFormData = {
 
 // type Errors = Record<string, string[] | undefined>;
 
-export function ProfileForm({ profile, userName, userImage }: Props) {
+export function ProfileForm({
+  profile,
+  userName,
+  userImage,
+}: ProfileFormProps) {
   const router = useRouter();
 
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -103,9 +107,10 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
     linkName: profile?.linkName ?? '',
     footCareLink: profile?.footCareLink ?? '',
     expertise: profile?.expertise?.join(', ') ?? '',
-    navItems: profile?.navItems
-      ? JSON.stringify(profile.navItems, null, 2)
-      : '',
+    // navItems: profile?.navItems
+    //   ? JSON.stringify(profile.navItems, null, 2)
+    //   : '',
+    navItems: profile?.navItems?.join(', ') ?? '',
   });
 
   function updateField(field: keyof ProfileFormData, value: string | number) {
@@ -122,17 +127,17 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
 
     startTransition(async () => {
       // console.log('formData: ', formData)
-      const parsedNavItems = parseNavItems(formData.navItems);
+      //   const parsedNavItems = parseNavItems(formData.navItems);
 
-      if (!parsedNavItems.success) {
-        setErrors({
-          navItems: [parsedNavItems.error],
-        });
+      //   if (!parsedNavItems.success) {
+      //     setErrors({
+      //       navItems: [parsedNavItems.error],
+      //     });
 
-        toast.error(parsedNavItems.error);
+      //     toast.error(parsedNavItems.error);
 
-        return;
-      }
+      //     return;
+      //   }
 
       const payload = {
         ...formData,
@@ -148,7 +153,8 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         //   };
         // }),
 
-        navItems: parsedNavItems.data,
+        // navItems: parsedNavItems.data,
+        navItems: formData.navItems.split(',').map((x: string) => x.trim()),
       };
 
       const result = profile
@@ -193,16 +199,21 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
             <p className="text-sm text-destructive mt-1">{errors.image[0]}</p>
           )}
         </div> */}
-        <div className='flex flex-col items-center'>
+        <div className="flex flex-col items-center">
           <p className="text-sm text-muted-foreground pb-2">Image</p>
-          <UserAvatar image={userImage} name={getInitials(userName ?? '')} className="w-12 h-12" />
+          <UserAvatar
+            image={userImage}
+            name={getInitials(userName ?? '')}
+            className="w-12 h-12"
+          />
         </div>
         <div>
           <ProfileImageUpload />
         </div>
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Name</p>
           <Input
-            placeholder="Name e.g. Dr. Nikki Lam, DPM"
+            placeholder="e.g. Dr. Nikki Lam, DPM"
             value={formData.name}
             onChange={(e) => updateField('name', e.target.value)}
             className={cn(
@@ -217,8 +228,11 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">
+            Specialty
+          </p>
           <Input
-            placeholder="Specialty e.g. Foot & Ankle Specialist"
+            placeholder="e.g. Foot & Ankle Specialist"
             value={formData.specialty}
             onChange={(e) => updateField('specialty', e.target.value)}
           />
@@ -230,8 +244,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Email</p>
           <Input
-            placeholder="Email e.g. info@hudsonfootankle.com"
+            placeholder="e.g. info@hudsonfootankle.com"
             value={formData.email}
             onChange={(e) => updateField('email', e.target.value)}
           />
@@ -241,8 +256,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Phone</p>
           <Input
-            placeholder="Phone e.g. (718) 123-4567"
+            placeholder="e.g. (718) 123-4567"
             value={formData.phone}
             onChange={(e) => updateField('phone', e.target.value)}
           />
@@ -252,8 +268,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Title</p>
           <Input
-            placeholder="Title e.g. Board-Certified Podiatric Surgeon"
+            placeholder="e.g. Board-Certified Podiatric Surgeon"
             value={formData.title}
             onChange={(e) => updateField('title', e.target.value)}
           />
@@ -263,8 +280,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Clinic Name</p>
           <Input
-            placeholder="Clinic Name e.g. Meimo Foot & Ankle"
+            placeholder="e.g. Meimo Foot & Ankle"
             value={formData.clinicName}
             onChange={(e) => updateField('clinicName', e.target.value)}
           />
@@ -276,8 +294,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Clinic Address</p>
           <Input
-            placeholder="Clinic Address e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
+            placeholder="e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
             value={formData.clinicAddress}
             onChange={(e) => updateField('clinicAddress', e.target.value)}
           />
@@ -289,8 +308,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Logo</p>
           <Input
-            placeholder="Logo Name e.g. Dr. Nikki Lam"
+            placeholder="e.g. Dr. Nikki Lam"
             value={formData.logo}
             onChange={(e) => updateField('logo', e.target.value)}
           />
@@ -300,8 +320,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Address</p>
           <Input
-            placeholder="Address e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
+            placeholder="e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
             value={formData.address}
             onChange={(e) => updateField('address', e.target.value)}
           />
@@ -311,8 +332,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Header Location Section</p>
           <Input
-            placeholder="Header location section e.g. Office Location"
+            placeholder="e.g. Office Location"
             value={formData.location}
             onChange={(e) => updateField('location', e.target.value)}
           />
@@ -324,8 +346,11 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">
+            Board Specialty
+          </p>
           <Input
-            placeholder="Board Specialty e.g. Board-Certified Foot & Ankle Specialist"
+            placeholder="e.g. Board-Certified Foot & Ankle Specialist"
             value={formData.boardSpecialty}
             onChange={(e) => updateField('boardSpecialty', e.target.value)}
           />
@@ -337,8 +362,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Link Name</p>
           <Input
-            placeholder="Link Name e.g. Foot Care"
+            placeholder="e.g. Foot Care"
             value={formData.linkName}
             onChange={(e) => updateField('linkName', e.target.value)}
           />
@@ -350,8 +376,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Foot Care Link</p>
           <Input
-            placeholder="Foot Care Link e.g. https://www.footcaremd.org/"
+            placeholder="e.g. https://www.footcaremd.org/"
             value={formData.footCareLink}
             onChange={(e) => updateField('footCareLink', e.target.value)}
           />
@@ -363,8 +390,9 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
         </div>
 
         <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Expertise</p>
           <Input
-            placeholder="Expertise comma separated e.g. Sports Injuries, Foot Surgery, etc"
+            placeholder="comma separated e.g. Sports Injuries, Foot Surgery, etc"
             value={formData.expertise}
             onChange={(e) => updateField('expertise', e.target.value)}
           />
@@ -374,8 +402,25 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
             </p>
           )}
         </div>
+
+        <div>
+          <p className="text-sm text-muted-foreground ml-2.5">Navbar Items</p>
+          <Input
+            placeholder="comma separated e.g. about, education etc"
+            value={formData.navItems}
+            onChange={(e) => updateField('navItems', e.target.value)}
+          />
+          <p className="text-xs text-muted-foreground mt-1 ml-2.5">
+            Items can only be removed. Adding new items is not supported.
+          </p>
+          {errors['navItems.0']?.[0] && (
+            <p className="text-sm text-destructive mt-1">
+              {errors['navItems.0'][0]}
+            </p>
+          )}
+        </div>
       </div>
-      <div>
+      {/* <div>
         <textarea
           className="border rounded-md p-3 w-full min-h-37.5"
           placeholder="label with href comma separated  e.g. { label: 'Education', href: '#education' }, { label: 'Expertise', href: '#expertise' }, etc"
@@ -388,7 +433,7 @@ export function ProfileForm({ profile, userName, userImage }: Props) {
             {errors['navItems.0.href'][0]}
           </p>
         )}
-      </div>
+      </div> */}
       <div className="flex justify-start items-center gap-2">
         <Button
           disabled={isPending}

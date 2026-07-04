@@ -115,6 +115,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { auth } from '@/lib/auth';
+import { USER_ROLE } from '@/db/schema/auth-schema';
 
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
@@ -149,7 +150,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // 5. Role guard (admin-only sections example)
-  if (session.user.role !== 'admin') {
+  if (session.user.role !== USER_ROLE.ADMIN) {
     return NextResponse.redirect(new URL('/unauthorized', request.url));
   }
 

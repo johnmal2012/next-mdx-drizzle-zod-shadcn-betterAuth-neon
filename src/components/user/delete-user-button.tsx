@@ -27,7 +27,7 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
 
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Delete user" side="right">
+      <IconTooltip tooltip="Delete user" side="left">
         <AlertDialogTrigger asChild>
           <Button
             variant="destructive"
@@ -38,7 +38,7 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
           </Button>
         </AlertDialogTrigger>
       </IconTooltip>
-      
+
       <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete User?</AlertDialogTitle>
@@ -76,16 +76,20 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
 // this is for admin users to see a placeholder delete button for other admin users, since we don't want to allow deleting other admins, but we want to show that there is a delete button there for regular users
 export const PlaceholderDeleteUserButton = () => {
   return (
-    <IconTooltip tooltip="Delete user" side="right">
-      <Button
-        size="icon"
-        variant="destructive"
-        className="size-7 rounded-sm"
-        disabled
-      >
-        <span className="sr-only">Delete User</span>
-        <TrashIcon />
-      </Button>
+    <IconTooltip tooltip="Admin users cannot be deleted" side="left">
+      <span className="inline-flex cursor-not-allowed">
+        <Button
+          size="icon"
+          variant="destructive"
+          // className="size-7 rounded-sm opacity-50 cursor-not-allowed!"
+          className="size-7 rounded-sm opacity-50 pointer-events-none"
+          // disabled
+        >
+          <span className="sr-only">Delete User</span>
+          {/* <TrashIcon className="pointer-events-none" /> */}
+          <TrashIcon />
+        </Button>
+      </span>
     </IconTooltip>
   );
 };

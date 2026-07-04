@@ -323,7 +323,7 @@ import {
 import { physicianSections } from '@/db/schema';
 import { InferSelectModel } from 'drizzle-orm';
 
-type Props = {
+type SectionFormProps = {
   section?: Section;
 };
 
@@ -349,7 +349,7 @@ type FormErrors = {
 //   message: string;
 // };
 
-export default function SectionForm({ section }: Props) {
+export default function SectionForm({ section }: SectionFormProps) {
   const router = useRouter();
 
   const [isPending, startTransition] = useTransition();

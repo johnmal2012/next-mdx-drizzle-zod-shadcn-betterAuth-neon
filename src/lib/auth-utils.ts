@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { AppPermissions } from "@/lib/permissions";
+import { USER_ROLE } from '@/db/schema/auth-schema';
 
 // export async function getSession() {
 //   return auth.api.getSession({
@@ -42,7 +43,7 @@ export async function requireLogin() {
 export async function isAdmin() {
   const session = await getSession();
 
-  return session?.user.role === 'admin';
+  return session?.user.role === USER_ROLE.ADMIN;
 }
 
 export async function requireAdmin() {
@@ -57,7 +58,7 @@ export async function requireAdmin() {
     redirect('/login?reason=login-required'); // for unauthenticated users
   }
 
-  if (session.user.role !== 'admin') {
+  if (session.user.role !== USER_ROLE.ADMIN) {
     redirect('/unauthorized');
   }
 

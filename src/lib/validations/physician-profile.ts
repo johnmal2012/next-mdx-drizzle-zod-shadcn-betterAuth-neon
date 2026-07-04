@@ -35,13 +35,14 @@ export const physicianProfileSchema = z.object({
   //   optionalText(z.string().min(1))
   // ),
   expertise: z.array(z.string().trim().min(1)).default([]),
-  
-  navItems: z.array(
-    z.object({
-      label: z.string('Label is required'),
-      href: z.string('Section reference is required'),
-    }),
-  ),
+
+  //   navItems: z.array(
+  //     z.object({
+  //       label: z.string('Label is required'),
+  //       href: z.string('Section reference is required'),
+  //     }),
+  //   ),
+  navItems: z.array(z.string().trim().min(1)).default([]),
 });
 
 export type PhysicianProfileInput = z.infer<typeof physicianProfileSchema>;

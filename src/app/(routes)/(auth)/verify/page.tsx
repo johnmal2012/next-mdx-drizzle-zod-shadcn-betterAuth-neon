@@ -2,11 +2,11 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { SendVerificationEmailForm } from '@/components/auth/send-verification-email-form';
 import { redirect } from 'next/navigation';
 
-interface PageProps {
+interface VerifyProps {
   searchParams: Promise<{ error: string }>;
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function VerifyPage({ searchParams }: VerifyProps) {
   const error = (await searchParams).error;
 
 //   console.log('verify page error: ', error);

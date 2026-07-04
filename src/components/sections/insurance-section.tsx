@@ -1,17 +1,19 @@
 import { Card } from '@/components/ui/card';
 import { renderMDX } from '@/lib/mdx';
+import { cn } from '@/lib/utils';
 
-interface Props {
+interface InsuranceSectionProps {
   content: string;
   title: string;
+  background: string;
 }
 
-export default function InsuranceSection({ title, content }: Props) {
+export default function InsuranceSection({ title, content, background }: InsuranceSectionProps) {
   const mdx = renderMDX(content);
   return (
     <section
       id="insurance"
-      className="scroll-mt-28 bg-slate-100 px-6 py-12"
+      className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto max-w-5xl">
         <Card className="rounded-3xl p-10 shadow-lg">

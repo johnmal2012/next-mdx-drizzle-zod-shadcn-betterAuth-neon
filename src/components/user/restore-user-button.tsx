@@ -24,7 +24,7 @@ export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
   const [isPending, startTransition] = useTransition();
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Restore user" side="right">
+      <IconTooltip tooltip="Restore user" side="left">
         <AlertDialogTrigger asChild>
           <Button
             className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 focus-visible:border-emerald-400/40 focus-visible:ring-emerald-500/20 size-7 rounded-sm"

@@ -6,17 +6,18 @@ import { SignInOauthButton } from '@/components/auth/sign-in-oauth-button';
 import Link from 'next/link';
 import { getSession } from '@/lib/auth-utils';
 import { redirect } from 'next/navigation';
+import { USER_ROLE } from '@/db/schema/auth-schema';
 
-type Props = {
+type LoginProps = {
   searchParams: Promise<{
     reason?: string;
   }>;
 };
 
-export default async function LoginPage({ searchParams }: Props) {
+export default async function LoginPage({ searchParams }: LoginProps) {
   const { reason } = await searchParams;
     const session = await getSession();
-    if (session && (session.user.role === 'admin' || session.user.role === 'user')) {
+    if (session && (session.user.role === USER_ROLE.ADMIN || session.user.role === USER_ROLE.USER)) {
       redirect('/account-settings');
     }
 //   console.log('reason: ', reason);

@@ -6,14 +6,16 @@ import { Separator } from '@/components/ui/separator';
 
 // import { physicianData } from '@/data/_physician';
 import { renderMDX } from '@/lib/mdx';
+import { cn } from '@/lib/utils';
 
-interface Props {
+interface HeroSectionProps {
   content: string;
   image: string;
   name: string;
   boardSpecialty: string;
   specialty: string;
   title: string;
+  background: string;
 }
 
 export default async function HeroSection({
@@ -23,13 +25,13 @@ export default async function HeroSection({
   boardSpecialty,
   specialty,
   title,
-}: Props) {
+  background,
+}: HeroSectionProps) {
   const mdx = await renderMDX(content);
   return (
     <section
-      id="hero"
-      className="scroll-mt-28 bg-slate-50 px-6 py-12
-    "
+      id="about"
+      className={cn("scroll-mt-28 px-6 py-12", background,)}
     >
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
         <div className="relative w-64 h-64 mx-auto md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">

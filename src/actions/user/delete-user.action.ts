@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { user } from '@/db/schema/auth-schema';
+import { user, USER_ROLE } from '@/db/schema/auth-schema';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
 export async function deleteUserAction({ userId }: { userId: string }) {
@@ -24,7 +24,7 @@ export async function deleteUserAction({ userId }: { userId: string }) {
   //   if (session.user.role !== 'admin' || session.user.id === userId) {
   //     throw new Error('Forbidden');
   //   }
-  if (session.user.role !== 'admin') {
+  if (session.user.role !== USER_ROLE.ADMIN) {
     throw new Error('Forbidden');
   }
 

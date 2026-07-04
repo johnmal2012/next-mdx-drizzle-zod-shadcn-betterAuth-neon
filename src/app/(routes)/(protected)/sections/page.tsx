@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 // import AdminSectionOrderList
 // from '@/components/admin-section-order-list';
 
-export default async function AdminSectionPage() {
+export default async function SectionsPage() {
   //   const sections = await db
   //     .select()
   //     .from(physicianSections)
@@ -47,7 +47,7 @@ export default async function AdminSectionPage() {
                 <Link href="/sections/create">Create Section</Link>
               </Button>
 
-              <ReturnButton href="/" label="Home" />
+              <ReturnButton href="/" label="Physician Portal" />
             </div>
           </div>
 

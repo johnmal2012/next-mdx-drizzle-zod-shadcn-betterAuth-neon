@@ -6,19 +6,24 @@ import ResearchSection from '@/components/sections/research-section';
 import OfficeHoursSection from '@/components/sections/office-hours-section';
 import InsuranceSection from '@/components/sections/insurance-section';
 import ContactSection from '@/components/sections/contact-section';
+import MapSection from '@/components/sections/map-section';
 
 import type { PhysicianProfile } from '@/lib/types/physician-profile';
 import type { PhysicianSections } from '@/lib/types/physician-section';
 
-type Props = {
+type SectionRendererProps = {
   section: PhysicianSections;
   profile: PhysicianProfile;
+  index: number;
 };
 
 export function SectionRenderer({
   section,
   profile,
-}: Props) {
+  index,
+}: SectionRendererProps) {
+  const background = index % 2 === 0 ? 'bg-white' : 'bg-slate-100';
+
   switch (section.slug) {
     case 'hero':
       return (
@@ -28,7 +33,8 @@ export function SectionRenderer({
           title={profile.title ?? ''}
           boardSpecialty={profile.boardSpecialty ?? ''}
           specialty={profile.specialty ?? ''}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -36,7 +42,8 @@ export function SectionRenderer({
       return (
         <EducationSection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -44,8 +51,9 @@ export function SectionRenderer({
       return (
         <ExpertiseSection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
           expertise={profile.expertise ?? []}
+          background={background}
         />
       );
 
@@ -53,7 +61,8 @@ export function SectionRenderer({
       return (
         <PhilosophySection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -61,7 +70,8 @@ export function SectionRenderer({
       return (
         <ResearchSection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -69,7 +79,8 @@ export function SectionRenderer({
       return (
         <OfficeHoursSection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -77,7 +88,8 @@ export function SectionRenderer({
       return (
         <InsuranceSection
           title={section.title}
-          content={section.content}
+          content={section.content ?? ''}
+          background={background}
         />
       );
 
@@ -88,14 +100,25 @@ export function SectionRenderer({
           phone={profile.phone ?? ''}
           email={profile.email ?? ''}
           address={profile.address ?? ''}
+          background={background}
+        />
+      );
+
+    case 'location':
+      return (
+        <MapSection
+          location={profile.location ?? ''}
+          address={profile.address ?? ''}
+          background={background}
         />
       );
 
     case 'test_2':
       return (
-        <InsuranceSection
-          title={section.title}
-          content={section.content}
+        <MapSection
+          location={profile.location ?? ''}
+          address={profile.address ?? ''}
+          background={background}
         />
       );
 

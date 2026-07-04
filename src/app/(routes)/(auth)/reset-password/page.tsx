@@ -2,11 +2,11 @@ import { ResetPasswordForm } from "@/components/auth/reset-password-form";
 import { ReturnButton } from "@/components/navigation/return-button";
 import { redirect } from "next/navigation";
 
-interface PageProps {
+interface ResetPasswordProps {
   searchParams: Promise<{ token: string }>;
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function ResetPasswordPage({ searchParams }: ResetPasswordProps) {
   const token = (await searchParams).token;
 
   if (!token) redirect("/login");

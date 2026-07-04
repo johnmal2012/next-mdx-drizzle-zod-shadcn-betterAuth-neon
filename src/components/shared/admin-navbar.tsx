@@ -7,13 +7,14 @@ import { Stethoscope } from 'lucide-react';
 import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 import { adminNavItems } from '@/lib/constants/admin-navitems';
 import { NavLink } from '@/components/shared/nav-link';
+import { USER_ROLE } from '@/db/schema/auth-schema';
 
 type NavbarProps = {
   session: Awaited<ReturnType<typeof getSession>>;
 };
 
 export async function AdminNavbar({ session }: NavbarProps) {
-  const isAdmin = session?.user.role === 'admin';
+  const isAdmin = session?.user.role === USER_ROLE.ADMIN;
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-stone-100/90 backdrop-blur-md">

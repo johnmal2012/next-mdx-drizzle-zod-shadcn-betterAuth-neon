@@ -16,7 +16,7 @@ export const physicianSectionSchema = z.object({
     .min(1, 'Title is required')
     .max(255, 'Title cannot exceed 255 characters'),
 
-  content: z.string().min(1, 'Content is required'),
+  content: z.string(),
 
   displayOrder: z
     .number({

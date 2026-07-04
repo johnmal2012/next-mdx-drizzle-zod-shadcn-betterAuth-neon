@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm';
 
 import SectionForm from '@/components/sections/section-form';
 
-export default async function EditSectionPage({
+export default async function SectionsEditPage({
   params,
 }: {
   params: Promise<{
