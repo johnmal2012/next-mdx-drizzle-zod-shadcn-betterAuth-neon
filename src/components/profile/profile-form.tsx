@@ -392,7 +392,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Expertise</p>
           <Input
-            placeholder="comma separated e.g. Sports Injuries, Foot Surgery, etc"
+            placeholder="Separate each item with a comma (e.g., Sports Injuries, Foot Surgery, Knee Pain)"
             value={formData.expertise}
             onChange={(e) => updateField('expertise', e.target.value)}
           />
