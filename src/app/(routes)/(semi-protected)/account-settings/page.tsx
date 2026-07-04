@@ -9,7 +9,7 @@ import { Separator } from '@/components/ui/separator';
 // import { redirect } from 'next/navigation';
 // import { headers } from 'next/headers';
 // import Link from 'next/link';
-import { getSession, isAdmin } from '@/lib/auth-utils';
+import { getSession } from '@/lib/auth-utils';
 // import { UserAvatar } from '@/components/user/user-avatar';
 // import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import { db } from '@/db/db';

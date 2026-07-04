@@ -7,6 +7,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -20,7 +21,12 @@ export function MobileSidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation menu">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          aria-label="Open navigation menu"
+        >
           <Menu className="h-12 w-12" />
         </Button>
       </SheetTrigger>
@@ -28,6 +34,9 @@ export function MobileSidebar() {
       <SheetContent side="right" className="w-50! max-w-[75vw]!">
         <SheetHeader>
           <SheetTitle>Admin Menu</SheetTitle>
+          <SheetDescription className="text-sm text-slate-500">
+            Admin Menu
+          </SheetDescription>
         </SheetHeader>
         <nav className="mt-8 flex flex-col gap-2">
           {adminNavItems.map((item) => (

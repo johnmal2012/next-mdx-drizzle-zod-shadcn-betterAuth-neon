@@ -53,7 +53,7 @@ export default function Navbar({
   linkName,
   footCareLink,
 }: NavbarProps) {
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('hero');
 
   // Build the section list once whenever navItems changes
   //   const sections = useMemo(
