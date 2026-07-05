@@ -213,7 +213,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Name</p>
           <Input
-            placeholder="e.g. Dr. Nikki Lam, DPM"
+            placeholder="e.g., Dr. Nikki Lam, DPM"
             value={formData.name}
             onChange={(e) => updateField('name', e.target.value)}
             className={cn(
@@ -232,7 +232,7 @@ export function ProfileForm({
             Specialty
           </p>
           <Input
-            placeholder="e.g. Foot & Ankle Specialist"
+            placeholder="e.g., Foot & Ankle Specialist"
             value={formData.specialty}
             onChange={(e) => updateField('specialty', e.target.value)}
           />
@@ -246,7 +246,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Email</p>
           <Input
-            placeholder="e.g. info@hudsonfootankle.com"
+            placeholder="e.g., info@hudsonfootankle.com"
             value={formData.email}
             onChange={(e) => updateField('email', e.target.value)}
           />
@@ -258,7 +258,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Phone</p>
           <Input
-            placeholder="e.g. (718) 123-4567"
+            placeholder="e.g., (718) 123-4567"
             value={formData.phone}
             onChange={(e) => updateField('phone', e.target.value)}
           />
@@ -270,7 +270,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Title</p>
           <Input
-            placeholder="e.g. Board-Certified Podiatric Surgeon"
+            placeholder="e.g., Board-Certified Podiatric Surgeon"
             value={formData.title}
             onChange={(e) => updateField('title', e.target.value)}
           />
@@ -282,7 +282,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Clinic Name</p>
           <Input
-            placeholder="e.g. Meimo Foot & Ankle"
+            placeholder="e.g., Meimo Foot & Ankle"
             value={formData.clinicName}
             onChange={(e) => updateField('clinicName', e.target.value)}
           />
@@ -296,7 +296,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Clinic Address</p>
           <Input
-            placeholder="e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
+            placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
             value={formData.clinicAddress}
             onChange={(e) => updateField('clinicAddress', e.target.value)}
           />
@@ -310,7 +310,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Logo</p>
           <Input
-            placeholder="e.g. Dr. Nikki Lam"
+            placeholder="e.g., Dr. Nikki Lam"
             value={formData.logo}
             onChange={(e) => updateField('logo', e.target.value)}
           />
@@ -322,7 +322,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Address</p>
           <Input
-            placeholder="e.g. 4802 Tenth Avenue Brooklyn, NY 11219"
+            placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
             value={formData.address}
             onChange={(e) => updateField('address', e.target.value)}
           />
@@ -334,7 +334,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Header Location Section</p>
           <Input
-            placeholder="e.g. Office Location"
+            placeholder="e.g., Office Location"
             value={formData.location}
             onChange={(e) => updateField('location', e.target.value)}
           />
@@ -350,7 +350,7 @@ export function ProfileForm({
             Board Specialty
           </p>
           <Input
-            placeholder="e.g. Board-Certified Foot & Ankle Specialist"
+            placeholder="e.g., Board-Certified Foot & Ankle Specialist"
             value={formData.boardSpecialty}
             onChange={(e) => updateField('boardSpecialty', e.target.value)}
           />
@@ -364,7 +364,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Link Name</p>
           <Input
-            placeholder="e.g. Foot Care"
+            placeholder="e.g., Foot Care"
             value={formData.linkName}
             onChange={(e) => updateField('linkName', e.target.value)}
           />
@@ -378,7 +378,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Foot Care Link</p>
           <Input
-            placeholder="e.g. https://www.footcaremd.org/"
+            placeholder="e.g., https://www.footcaremd.org/"
             value={formData.footCareLink}
             onChange={(e) => updateField('footCareLink', e.target.value)}
           />
@@ -392,7 +392,7 @@ export function ProfileForm({
         <div>
           <p className="text-sm text-muted-foreground ml-2.5">Expertise</p>
           <Input
-            placeholder="Comma-separated (e.g., Sports Injuries, Foot Surgery)"
+            placeholder="e.g., Sports Injuries, Foot Surgery, Custom Orthotics"
             value={formData.expertise}
             onChange={(e) => updateField('expertise', e.target.value)}
           />

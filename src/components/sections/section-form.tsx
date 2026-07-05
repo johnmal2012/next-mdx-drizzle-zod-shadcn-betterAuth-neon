@@ -452,14 +452,14 @@ export default function SectionForm({ section }: SectionFormProps) {
             {/* Slug */}
             <div className="space-y-2">
               <label htmlFor="slug" className="text-sm font-medium">
-                Slug
+                Key to lookup each section
               </label>
 
               <Input
                 id="slug"
                 value={formData.slug}
                 onChange={(e) => updateField('slug', e.target.value)}
-                placeholder="Key to lookup each section. Use underscores for spaces, e.g. about_the_physician."
+                placeholder="No space.e.g., hours."
                 className={cn('h-11', errors.slug && 'border-destructive')}
               />
               {errors.slug && (
@@ -480,7 +480,7 @@ export default function SectionForm({ section }: SectionFormProps) {
                 id="title"
                 value={formData.title}
                 onChange={(e) => updateField('title', e.target.value)}
-                placeholder="Title for each section, e.g. Education & Credentials."
+                placeholder="Title for each section, e.g., Office Hours."
                 className={cn('h-11', errors.title && 'border-destructive')}
               />
               {errors.title && (
