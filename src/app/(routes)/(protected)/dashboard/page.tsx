@@ -134,7 +134,7 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto bg-slate-100">
         <table className="table-auto min-w-full whitespace-nowrap">
           <thead>
             <tr className="border-b text-sm text-left">
@@ -209,7 +209,7 @@ export default async function DashboardPage() {
       </div>
       <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Section list ***/}
-      <div className="space-y-4">
+      <div className="space-y-4 bg-slate-100">
         <h2 className="p-2 rounded-md text-lg bg-purple-400 text-white font-bold">
           Sections
         </h2>
@@ -285,7 +285,7 @@ export default async function DashboardPage() {
       </div>
       <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Profile list ***/}
-      <div className="space-y-4">
+      <div className="space-y-4 bg-slate-100">
         <h2 className="p-2 rounded-md text-lg bg-blue-400 text-white font-bold">
           Profiles
         </h2>

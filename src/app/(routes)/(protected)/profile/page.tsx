@@ -29,16 +29,17 @@ import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delet
 import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
-import { getInitials } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
 
 type InfoItemProps = {
   label: string;
   value: string | null;
+  className?: string;
 };
 
-function InfoItem({ label, value }: InfoItemProps) {
+function InfoItem({ label, value, className }: InfoItemProps) {
   return (
-    <div className="rounded-xl border p-4">
+    <div className={cn('rounded-xl border p-4', className)}>
       <p className="text-sm text-muted-foreground">{label}</p>
 
       <p className="mt-1 font-medium wrap-break-word">{value || '—'}</p>
@@ -98,93 +99,214 @@ export default async function ProfilePage() {
       )}
 
       <div className="grid gap-6">
-        {profiles.map((profile) => (
-          <Card key={profile.id} className="rounded-2xl shadow-sm">
-            <CardHeader className="space-y-2">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <CardTitle className="text-2xl">{profile.name}</CardTitle>
+        {profiles.map((profile) => {
+          const infoItems = [
+            { label: 'Title', value: profile.title },
+            { label: 'Board Specialty', value: profile.boardSpecialty },
+            { label: 'Email', value: profile.email },
+            { label: 'Phone', value: profile.phone },
+            { label: 'Clinic Name', value: profile.clinicName },
+            { label: 'Clinic Address', value: profile.clinicAddress },
+            { label: 'Address', value: profile.address },
+            { label: 'Location', value: profile.location },
+            { label: 'Logo', value: profile.logo },
+            { label: 'Link Name', value: profile.linkName },
+            { label: 'Foot Care Link', value: profile.footCareLink },
+          ];
 
-                  <CardDescription className="mt-1">
-                    {profile.specialty}
-                  </CardDescription>
+          return (
+            <Card key={profile.id} className="rounded-2xl shadow-sm">
+              <CardHeader className="space-y-2">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <CardTitle className="text-2xl">{profile.name}</CardTitle>
+
+                    <CardDescription className="mt-1">
+                      {profile.specialty}
+                    </CardDescription>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button
+                      className="h-10 w-24 bg-green-600! text-white! hover:bg-green-700!"
+                      asChild
+                    >
+                      <Link href={`/profile/${profile.id}/edit`}>Edit</Link>
+                    </Button>
+
+                    <PhysicianProfileDeleteButton id={profile.id} />
+                  </div>
                 </div>
+              </CardHeader>
 
-                <div className="flex gap-2">
-                  <Button
-                    className="h-10 w-24 bg-green-600! text-white! hover:bg-green-700!"
-                    asChild
-                  >
-                    <Link href={`/profile/${profile.id}/edit`}>Edit</Link>
-                  </Button>
+              <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
 
-                  <PhysicianProfileDeleteButton id={profile.id} />
-                </div>
-              </div>
-            </CardHeader>
-
-            <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
-
-            <CardContent className="space-y-6 pt-6">
-              {/* Basic Info */}
-              <div className="grid gap-4 md:grid-cols-2">
-                <InfoItem label="Title" value={profile.title} />
-
-                <InfoItem
-                  label="Board Specialty"
-                  value={profile.boardSpecialty}
-                />
-
-                <InfoItem label="Email" value={profile.email} />
-
-                <InfoItem label="Phone" value={profile.phone} />
-
-                <InfoItem label="Clinic Name" value={profile.clinicName} />
-
-                <InfoItem
-                  label="Clinic Address"
-                  value={profile.clinicAddress}
-                />
-
-                <InfoItem label="Address" value={profile.address} />
-
-                <InfoItem label="Location" value={profile.location} />
-
-                <InfoItem label="Logo" value={profile.logo} />
-
-                {/* <InfoItem label="Image" value={profile.image} /> */}
-                <div>
-                  <p className="text-sm text-muted-foreground">Image</p>
-                  <UserAvatar
-                    image={currentUser?.image}
-                    name={getInitials(currentUser?.name ?? '')}
-                    className="w-12 h-12"
+              <CardContent className="space-y-6 pt-6">
+                {/* Basic Info */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  {/* <InfoItem
+                    label="Title"
+                    value={profile.title}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
                   />
-                </div>
 
-                <InfoItem label="Link Name" value={profile.linkName} />
+                  <InfoItem
+                    label="Board Specialty"
+                    value={profile.boardSpecialty}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
 
-                <InfoItem label="Foot Care Link" value={profile.footCareLink} />
-              </div>
+                  <InfoItem
+                    label="Email"
+                    value={profile.email}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
 
-              {/* Expertise */}
-              <div className="space-y-2">
-                <h3 className="font-semibold">Expertise</h3>
+                  <InfoItem
+                    label="Phone"
+                    value={profile.phone}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
 
-                <div className="flex flex-wrap gap-2">
-                  {profile.expertise?.map((item: string) => (
-                    <Badge key={item} variant="secondary">
-                      {item}
-                    </Badge>
+                  <InfoItem
+                    label="Clinic Name"
+                    value={profile.clinicName}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
+
+                  <InfoItem
+                    label="Clinic Address"
+                    value={profile.clinicAddress}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
+
+                  <InfoItem
+                    label="Address"
+                    value={profile.address}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
+
+                  <InfoItem
+                    label="Location"
+                    value={profile.location}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
+
+                  <InfoItem
+                    label="Logo"
+                    value={profile.logo}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  /> */}
+
+                  {/* <InfoItem label="Image" value={profile.image} /> */}
+                  {/* <div>
+                    <p className="text-sm text-muted-foreground">Image</p>
+                    <UserAvatar
+                      image={currentUser?.image}
+                      name={getInitials(currentUser?.name ?? '')}
+                      className="w-12 h-12"
+                    />
+                  </div>
+
+                  <InfoItem
+                    label="Link Name"
+                    value={profile.linkName}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />
+
+                  <InfoItem
+                    label="Foot Care Link"
+                    value={profile.footCareLink}
+                    className={
+                      Math.floor(index / 2) % 2 === 0
+                        ? 'bg-slate-100'
+                        : 'bg-white'
+                    }
+                  />*/}
+                  {infoItems.map((item, index) => (
+                    <InfoItem
+                      key={item.label}
+                      label={item.label}
+                      value={item.value}
+                      className={
+                        Math.floor(index / 2) % 2 === 0
+                          ? 'bg-slate-100'
+                          : 'bg-white'
+                      }
+                    />
                   ))}
-                </div>
-              </div>
+                  {/* Image */}
+                  <div className="rounded-xl border p-4">
+                    <p className="text-sm text-muted-foreground">Image</p>
 
-              {/* Navigation Items */}
-              {/* <div className="space-y-2">
+                    <div className="mt-2">
+                      <UserAvatar
+                        image={currentUser?.image}
+                        name={getInitials(currentUser?.name ?? '')}
+                        className="h-12 w-12"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Expertise */}
+                  <div className="space-y-2">
+                    <h3 className="font-semibold">Expertise</h3>
+
+                    <div className="flex flex-wrap gap-2">
+                      {profile.expertise?.map((item: string) => (
+                        <Badge key={item} variant="secondary">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Navigation Items */}
+                {/* <div className="space-y-2">
                 <h3 className="font-semibold">Navigation Items</h3> */}
 
-              {/* <div className="grid gap-4 md:grid-cols-2">
+                {/* <div className="grid gap-4 md:grid-cols-2">
                   {profile.navItems?.map(
                     (
                       item: {
@@ -206,7 +328,7 @@ export default async function ProfilePage() {
                     ),
                   )}
                 </div> */}
-              {/* <div className="grid gap-4 md:grid-cols-2">
+                {/* <div className="grid gap-4 md:grid-cols-2">
                   {profile.navItems?.map(
                     (
                       item: string,
@@ -222,7 +344,7 @@ export default async function ProfilePage() {
                   )}
                 </div>
               </div> */}
-              {/* <div className="space-y-2">
+                {/* <div className="space-y-2">
                 <h3 className="font-semibold">Navigation Items</h3>
 
                 <div className="flex flex-wrap gap-2">
@@ -233,9 +355,10 @@ export default async function ProfilePage() {
                   ))}
                 </div>
               </div> */}
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );

@@ -450,7 +450,7 @@ export default function SectionForm({ section }: SectionFormProps) {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Slug */}
-            <div className="space-y-2">
+            <div className="space-y-2 bg-slate-100">
               <label htmlFor="slug" className="text-sm font-medium">
                 Key to lookup each section
               </label>
@@ -489,7 +489,7 @@ export default function SectionForm({ section }: SectionFormProps) {
             </div>
 
             {/* Display Order */}
-            <div className="space-y-2">
+            <div className="space-y-2 bg-slate-100">
               <label htmlFor="displayOrder" className="text-sm font-medium">
                 Display Order
               </label>

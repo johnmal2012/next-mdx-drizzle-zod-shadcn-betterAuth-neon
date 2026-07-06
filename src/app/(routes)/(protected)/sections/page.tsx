@@ -10,6 +10,8 @@ import { db } from '@/db/db';
 import { SectionDeleteButton } from '@/components/sections/section-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';
 import { Button } from '@/components/ui/button';
+import { chunk } from '@/lib/types/section-map';
+import { cn } from '@/lib/utils';
 
 // import AdminSectionOrderList
 // from '@/components/admin-section-order-list';
@@ -27,6 +29,8 @@ export default async function SectionsPage() {
       and(eq(sections.isActive, true), isNull(sections.deletedAt)),
     orderBy: (sections, { asc }) => [asc(sections.displayOrder)],
   });
+
+  //   const rows = chunk(sections, 2);
 
   return (
     <main className="min-h-screen bg-background">
@@ -52,7 +56,7 @@ export default async function SectionsPage() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {sections.map((section) => (
               <div
                 key={section.id}
@@ -80,6 +84,51 @@ export default async function SectionsPage() {
                   </Button>
                   <SectionDeleteButton sectionId={section.id} />
                 </div>
+              </div>
+            ))}
+          </div> */}
+
+          <div className="space-y-4">
+            {chunk(sections, 2).map((row, rowIndex) => (
+              <div
+                key={rowIndex}
+                className={cn(
+                  'grid gap-4 rounded-2xl p-4 lg:grid-cols-2',
+                  rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
+                )}
+              >
+                {row.map((section) => (
+                  <div
+                    key={section.id}
+                    className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
+                  >
+                    <div className="space-y-2">
+                      <h2 className="text-2xl font-semibold">
+                        {section.title}
+                      </h2>
+
+                      <p className="text-sm text-muted-foreground">
+                        Slug: {section.slug}
+                      </p>
+
+                      <p className="text-sm text-muted-foreground">
+                        Display Order: {section.displayOrder}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+                      <Button
+                        className="h-10 w-24 bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                        size="lg"
+                        asChild
+                      >
+                        <Link href={`/sections/${section.id}/edit`}>Edit</Link>
+                      </Button>
+
+                      <SectionDeleteButton sectionId={section.id} />
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

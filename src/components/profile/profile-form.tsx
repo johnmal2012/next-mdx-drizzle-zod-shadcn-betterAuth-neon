@@ -210,7 +210,7 @@ export function ProfileForm({
         <div>
           <ProfileImageUpload />
         </div>
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Name</p>
           <Input
             placeholder="e.g., Dr. Nikki Lam, DPM"
@@ -227,7 +227,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">
             Specialty
           </p>
@@ -243,7 +243,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Email</p>
           <Input
             placeholder="e.g., info@hudsonfootankle.com"
@@ -255,7 +255,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Phone</p>
           <Input
             placeholder="e.g., (718) 123-4567"
@@ -267,7 +267,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Title</p>
           <Input
             placeholder="e.g., Board-Certified Podiatric Surgeon"
@@ -279,7 +279,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Clinic Name</p>
           <Input
             placeholder="e.g., Meimo Foot & Ankle"
@@ -293,7 +293,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Clinic Address</p>
           <Input
             placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
@@ -307,7 +307,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Logo</p>
           <Input
             placeholder="e.g., Dr. Nikki Lam"
@@ -319,7 +319,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Address</p>
           <Input
             placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
@@ -331,7 +331,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Header Location Section</p>
           <Input
             placeholder="e.g., Office Location"
@@ -345,7 +345,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">
             Board Specialty
           </p>
@@ -361,7 +361,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-white p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Link Name</p>
           <Input
             placeholder="e.g., Foot Care"
@@ -375,7 +375,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Foot Care Link</p>
           <Input
             placeholder="e.g., https://www.footcaremd.org/"
@@ -389,7 +389,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div>
+        <div className='bg-slate-100 p-4 rounded-lg'>
           <p className="text-sm text-muted-foreground ml-2.5">Expertise</p>
           <Input
             placeholder="e.g., Sports Injuries, Foot Surgery, bunions"
