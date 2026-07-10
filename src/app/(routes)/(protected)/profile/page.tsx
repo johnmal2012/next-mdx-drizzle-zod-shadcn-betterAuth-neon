@@ -101,17 +101,17 @@ export default async function ProfilePage() {
       <div className="grid gap-6">
         {profiles.map((profile) => {
           const infoItems = [
-            { label: 'Title', value: profile.title },
-            { label: 'Board Specialty', value: profile.boardSpecialty },
-            { label: 'Email', value: profile.email },
-            { label: 'Phone', value: profile.phone },
-            { label: 'Clinic Name', value: profile.clinicName },
-            { label: 'Clinic Address', value: profile.clinicAddress },
-            { label: 'Address', value: profile.address },
-            { label: 'Location', value: profile.location },
-            { label: 'Logo', value: profile.logo },
-            { label: 'Link Name', value: profile.linkName },
-            { label: 'Foot Care Link', value: profile.footCareLink },
+            { id: 'title', label: 'Title', value: profile.title },
+            { id: 'board-specialty', label: 'Board Specialty', value: profile.boardSpecialty },
+            { id: 'email', label: 'Email', value: profile.email },
+            { id: 'phone', label: 'Phone', value: profile.phone },
+            { id: 'clinic-name', label: 'Clinic Name', value: profile.clinicName },
+            { id: 'clinic-address', label: 'Clinic Address', value: profile.clinicAddress },
+            { id: 'address', label: 'Address', value: profile.address },
+            { id: 'location', label: 'Location', value: profile.location },
+            { id: 'logo', label: 'Logo', value: profile.logo },
+            { id: 'link-name', label: 'Link Name', value: profile.linkName },
+            { id: 'foot-care-link', label: 'Foot Care Link', value: profile.footCareLink },
           ];
 
           return (
@@ -265,7 +265,7 @@ export default async function ProfilePage() {
                   />*/}
                   {infoItems.map((item, index) => (
                     <InfoItem
-                      key={item.label}
+                      key={item.id}
                       label={item.label}
                       value={item.value}
                       className={

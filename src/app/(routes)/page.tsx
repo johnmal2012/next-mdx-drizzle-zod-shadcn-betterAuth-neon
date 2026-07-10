@@ -247,6 +247,8 @@ export default async function PhysicianPage() {
   Physician Profile
   =====================================
   */
+// delay for testing loading state
+//   await new Promise((resolve) => setTimeout(resolve, 2000));
 
   const profiles = await db.query.physicianProfile.findMany({
     where: (profile, { and, eq, isNull }) =>

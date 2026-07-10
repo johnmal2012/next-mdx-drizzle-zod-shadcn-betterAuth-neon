@@ -352,6 +352,7 @@ type FormErrors = {
 export default function SectionForm({ section }: SectionFormProps) {
   const router = useRouter();
 
+  // This state update is not urgent. Keep the UI responsive while you update it where some state updates may trigger expensive rendering
   const [isPending, startTransition] = useTransition();
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -365,6 +366,8 @@ export default function SectionForm({ section }: SectionFormProps) {
     displayOrder: section?.displayOrder ?? 0,
   });
 
+  // prev = arbitary name = the previous state that react calls your function and passes in the previous or most recent current state as the argument
+  // square brackets = computed property name syntax, allows you to use the value stored in variable field as the property name; otherwise, javascript treats field as the literal property name, not the variable.
   function updateField(field: keyof SessionFormData, value: string | number) {
     setFormData((prev) => ({
       ...prev,

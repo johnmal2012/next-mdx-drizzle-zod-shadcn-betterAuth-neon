@@ -42,7 +42,6 @@ export function MobileSidebar() {
           {adminNavItems.map((item) => (
             <SheetClose asChild key={item.href}>
               <NavLink
-                key={item.href}
                 href={item.href}
                 className="justify-start w-36 pl-4"
               >

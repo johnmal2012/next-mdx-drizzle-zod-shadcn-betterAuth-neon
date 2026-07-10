@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn, getInitials } from '@/lib/utils';
 import { FieldErrors } from '@/lib/types/zod-error';
-import { parseNavItems } from '@/lib/parse-nav-items';
+// import { parseNavItems } from '@/lib/parse-nav-items';
 import { InferSelectModel } from 'drizzle-orm';
 import { physicianProfile } from '@/db/schema';
 import { UserAvatar } from '@/components/user/user-avatar';
