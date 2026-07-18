@@ -1,9 +1,8 @@
 'use server';
 
-import { auth, ErrorCode } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { APIError } from 'better-auth/api';
-import { RegisterInput, registerSchema } from '@/lib/validations/auth';
-import z from 'zod';
+import { RegisterFormInput, registerSchema } from '@/lib/validations/auth';
 import { headers } from 'next/headers';
 
 export type ActionState = {
@@ -16,7 +15,7 @@ export type ActionState = {
   };
 };
 
-export async function signUpEmailAction(values: RegisterInput) {
+export async function signUpEmailAction(values: RegisterFormInput) {
   const validated = registerSchema.safeParse(values);
 
   if (!validated.success) {
