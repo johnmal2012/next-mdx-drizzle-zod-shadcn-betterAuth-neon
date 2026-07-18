@@ -60,7 +60,7 @@ async function seed() {
       clinicAddress: '4802 Tenth Avenue Brooklyn, NY 11219',
       phone: '(718) 123-4567',
       email: 'info@hudsonfootankle.com',
-      address: '4802 Tenth Avenue Brooklyn, NY 11219',
+    //   address: '4802 Tenth Avenue Brooklyn, NY 11219',
       location: 'Office Location',
       linkName: 'Foot Care',
       footCareLink: 'https://www.footcaremd.org/',
