@@ -2,8 +2,9 @@
 
 import { auth, ErrorCode } from '@/lib/auth';
 import { APIError } from 'better-auth/api';
-import { registerSchema } from '@/lib/validations/auth';
+import { RegisterInput, registerSchema } from '@/lib/validations/auth';
 import z from 'zod';
+import { headers } from 'next/headers';
 
 export type ActionState = {
   success: boolean;
@@ -15,75 +16,31 @@ export type ActionState = {
   };
 };
 
-export async function signUpEmailAction(
-  prevState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  //   const name = String(formData.get("name"));
-  //   if (!name) return { error: "Please enter your name" };
-
-  //   const email = String(formData.get("email"));
-  //   if (!email) return { error: "Please enter your email" };
-
-  //   const password = String(formData.get("password"));
-  //   if (!password) return { error: "Please enter your password" };
-  const values = {
-    name: String(formData.get('name')),
-    email: String(formData.get('email')),
-    password: String(formData.get('password')),
-  };
-
+export async function signUpEmailAction(values: RegisterInput) {
   const validated = registerSchema.safeParse(values);
 
   if (!validated.success) {
     return {
-      success: false,
-      error: '',
-      fieldErrors: z.flattenError(validated.error).fieldErrors,
+      error: 'Invalid register data',
     };
   }
 
-  // server side: auth.api
   try {
-    // let data = {
-    //   name: values.name,
-    //   email: values.email,
-    //   password: values.password,
-    // };
     await auth.api.signUpEmail({
-      //   body: data,
-      body: validated.data,
-      //   email,
-      //   password,
+      headers: await headers(),
+      body: {
+        name: validated.data.name,
+        email: validated.data.email,
+        password: validated.data.password,
+      },
     });
 
-    return {
-      success: true,
-      error: '',
-    };
+    return { error: null };
   } catch (err) {
     if (err instanceof APIError) {
-      //   console.log('err.body: ', err.body);
-      const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
-
-      switch (errCode) {
-        case 'USER_ALREADY_EXISTS':
-          return {
-            success: false,
-            // error: 'User already exists.',
-            error: 'Oops! Something went wrong. Please try again.',
-          };
-        default:
-          return {
-            success: false,
-            error: err.message,
-          };
-      }
+      return { error: err.message };
     }
 
-    return {
-      success: false,
-      error: 'Internal Server Error',
-    };
+    return { error: 'Internal Server Error' };
   }
 }

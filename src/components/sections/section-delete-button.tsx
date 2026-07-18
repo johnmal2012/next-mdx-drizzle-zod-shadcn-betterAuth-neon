@@ -154,7 +154,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { deletePhysicianSection } from '@/actions/section/physician-section-actions';
+import { deletePhysicianSection } from '@/actions/section/_physician-section-actions';
 
 type SectionDeleteButtonProps = {
   sectionId: number;

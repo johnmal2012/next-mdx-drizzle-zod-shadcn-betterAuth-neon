@@ -28,4 +28,6 @@ export const physicianSectionSchema = z.object({
 
 export const physicianSectionUpdateSchema = physicianSectionSchema.partial();
 
-export type PhysicianSectionInput = z.infer<typeof physicianSectionSchema>;
+// export type PhysicianSectionFormInput = z.infer<typeof physicianSectionSchema>;
+export type PhysicianSectionFormInput =
+  z.infer<typeof physicianSectionUpdateSchema>;

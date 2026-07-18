@@ -8,6 +8,7 @@ import { requireAdmin } from '@/lib/auth-utils';
 
 export async function restoreProfile(profileId: number) {
   await requireAdmin();
+  
   await db
     .update(physicianProfile)
     .set({

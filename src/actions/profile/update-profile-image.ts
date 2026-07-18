@@ -71,7 +71,7 @@ import { db } from '@/db/db';
 import { physicianProfile, user } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
-import { requireLogin } from '@/lib/auth-utils';
+import { requireAdmin, requireLogin } from '@/lib/auth-utils';
 import { utapi } from '@/lib/uploadthing-server';
 import { revalidatePath } from 'next/cache';
 
@@ -79,7 +79,7 @@ export async function updateProfileImage(data: {
   imageUrl: string;
   imageKey: string;
 }) {
-  const session = await requireLogin();
+  const session = await requireAdmin();
 
   // Fetch user and physician profile in parallel
   // specify columns to limit return columns otherwise return all columns

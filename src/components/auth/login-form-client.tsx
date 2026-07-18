@@ -27,7 +27,7 @@ export const LoginForm = () => {
 
     try {
       const formData = new FormData(evt.currentTarget);
-
+    //   console.log('formData: ', Object.fromEntries(formData));
       const formValues = {
         email: String(formData.get('email') ?? ''),
         password: String(formData.get('password') ?? ''),
@@ -35,8 +35,8 @@ export const LoginForm = () => {
 
       const validatedFields = loginSchema.safeParse(formValues);
 
-    //   console.log('formValues: ', formValues);
-    //   console.log('validatedFields: ', validatedFields);
+      //   console.log('formValues: ', formValues);
+      //   console.log('validatedFields: ', validatedFields);
 
       if (!validatedFields.success) {
         const fieldErrors = z.flattenError(validatedFields.error).fieldErrors;
@@ -111,7 +111,9 @@ export const LoginForm = () => {
           autoComplete="current-password"
         />
       </div>
-      {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+      {errors.password && (
+        <p className="text-sm text-red-500">{errors.password}</p>
+      )}
 
       <Button type="submit" className="w-full" disabled={isPending}>
         Login

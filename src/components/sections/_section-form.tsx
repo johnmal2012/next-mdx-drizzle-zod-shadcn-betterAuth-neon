@@ -302,7 +302,7 @@
 
 'use client';
 
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -319,21 +319,9 @@ import { cn } from '@/lib/utils';
 import {
   createPhysicianSection,
   updatePhysicianSection,
-} from '@/actions/section/physician-section-actions';
+} from '@/actions/section/_physician-section-actions';
 import { physicianSections } from '@/db/schema';
 import { InferSelectModel } from 'drizzle-orm';
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
-import { useForm } from 'react-hook-form';
-import {
-  PhysicianSectionFormInput,
-  physicianSectionUpdateSchema,
-} from '@/lib/validations/physician-section';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 type SectionFormProps = {
   section?: Section;
@@ -341,20 +329,20 @@ type SectionFormProps = {
 
 type Section = InferSelectModel<typeof physicianSections>;
 
-// type SessionFormData = {
-//   title: string;
-//   slug: string;
-//   content: string;
-//   displayOrder: number;
-// };
+type SessionFormData = {
+  title: string;
+  slug: string;
+  content: string;
+  displayOrder: number;
+};
 
-// type FormErrors = {
-//   slug?: string;
-//   title?: string;
-//   content?: string;
-//   displayOrder?: string;
-//   general?: string;
-// };
+type FormErrors = {
+  slug?: string;
+  title?: string;
+  content?: string;
+  displayOrder?: string;
+  general?: string;
+};
 
 // type ApiFieldError = {
 //   path: string[];
@@ -367,28 +355,25 @@ export default function SectionForm({ section }: SectionFormProps) {
   // This state update is not urgent. Keep the UI responsive while you update it where some state updates may trigger expensive rendering
   const [isPending, startTransition] = useTransition();
 
-  //   const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  //   const [generalError, setGeneralError] = useState<string | null>(null);
+  const [generalError, setGeneralError] = useState<string | null>(null);
 
-  const form = useForm<PhysicianSectionFormInput>({
-    resolver: zodResolver(physicianSectionUpdateSchema),
-    defaultValues: {
-      title: section?.title ?? '',
-      slug: section?.slug ?? '',
-      content: section?.content ?? '',
-      displayOrder: section?.displayOrder ?? 0,
-    },
+  const [formData, setFormData] = useState<SessionFormData>({
+    title: section?.title ?? '',
+    slug: section?.slug ?? '',
+    content: section?.content ?? '',
+    displayOrder: section?.displayOrder ?? 0,
   });
 
   // prev = arbitary name = the previous state that react calls your function and passes in the previous or most recent current state as the argument
   // square brackets = computed property name syntax, allows you to use the value stored in variable field as the property name; otherwise, javascript treats field as the literal property name, not the variable.
-  //   function updateField(field: keyof SessionFormData, value: string | number) {
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       [field]: value,
-  //     }));
-  //   }
+  function updateField(field: keyof SessionFormData, value: string | number) {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
 
   // useEffect(() => {
   //   if (!errors) return;
@@ -401,34 +386,56 @@ export default function SectionForm({ section }: SectionFormProps) {
   //   return () => clearTimeout(timer);
   // }, [errors]);
 
-  async function onFormSubmit(values: PhysicianSectionFormInput) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setErrors({});
+    setGeneralError(null);
+
     // TESTING:
     // Use an ID that does not exist in database
     // const testId = 999999;
     // console.log('Deleting section id:', testId);
 
-    startTransition(async () => {
-      try {
+    try {
+      startTransition(async () => {
         // const result = await createPhysicianSection(formData);
-        const { error } = section
-          ? await updatePhysicianSection(section.id, values)
-          : await createPhysicianSection(values);
+        const result = section
+          ? await updatePhysicianSection(section.id, formData)
+          : await createPhysicianSection(formData);
 
-        if (error) {
-          toast.error(error);
+        if (!result.success) {
+          if (result.error) {
+            setErrors({
+              slug: result.error.slug?.[0],
+              title: result.error.title?.[0],
+              content: result.error.content?.[0],
+              displayOrder: result.error.displayOrder?.[0],
+              general: result.error._form?.[0],
+            });
+          }
+
+          toast.error(result.message ?? 'Failed to create section');
+
           return;
         }
-        toast.success('Section created/updated successfully');
-        //   (evt.target as HTMLFormElement).reset();
-        //   setCurrentPassword('');
-        //   setNewPassword('');
+
+        toast.success(section ? 'Section updated' : 'Section created', {
+          duration: 4000,
+        });
+
         router.push('/sections');
+
         router.refresh();
-      } catch (err) {
-        toast.error('Something went wrong. Please try again.');
-        console.error(err);
-      }
-    });
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Something went wrong';
+
+      setGeneralError(message);
+
+      toast.error(message);
+    }
   }
 
   return (
@@ -444,115 +451,110 @@ export default function SectionForm({ section }: SectionFormProps) {
             </p>
           </div>
 
-          <form
-            onSubmit={form.handleSubmit(onFormSubmit)}
-            className="space-y-6"
-          >
-            <FieldGroup>
-              {/* Slug */}
-              <Field className="bg-slate-100 p-4 rounded-lg">
-                <FieldLabel
-                  htmlFor="slug"
-                  className="text-sm text-muted-foreground ml-2.5"
-                >
-                  Key to lookup each section
-                  <span className="text-destructive ml-1">*</span>
-                </FieldLabel>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Slug */}
+            <div className="space-y-2 bg-slate-100">
+              <label htmlFor="slug" className="text-sm font-medium">
+                Key to lookup each section
+              </label>
 
-                <Input
-                  id="slug"
-                  placeholder="No spaces (e.g. office_hours)"
-                  aria-required="true"
-                  aria-invalid={!!form.formState.errors.slug}
-                  {...form.register('slug')}
-                />
+              <Input
+                id="slug"
+                value={formData.slug}
+                onChange={(e) => updateField('slug', e.target.value)}
+                placeholder="No space (e.g., hours)"
+                className={cn('h-11', errors.slug && 'border-destructive')}
+              />
+              {errors.slug && (
+                <p className="text-sm text-destructive">{errors.slug}</p>
+              )}
+              {/* <p className="text-xs text-muted-foreground">
+                URL-friendly unique section identifier.
+              </p> */}
+            </div>
 
-                <FieldError>{form.formState.errors.slug?.message}</FieldError>
-              </Field>
+            {/* Title */}
+            <div className="space-y-2">
+              <label htmlFor="title" className="text-sm font-medium">
+                Title
+              </label>
 
-              {/* Title */}
-              <Field className="bg-white p-4 rounded-lg">
-                <FieldLabel
-                  htmlFor="title"
-                  className="text-sm text-muted-foreground ml-2.5"
-                >
-                  Title
-                  <span className="text-destructive ml-1">*</span>
-                </FieldLabel>
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => updateField('title', e.target.value)}
+                placeholder="Title for each section ( e.g., Office Hours)"
+                className={cn('h-11', errors.title && 'border-destructive')}
+              />
+              {errors.title && (
+                <p className="text-sm text-destructive">{errors.title}</p>
+              )}
+            </div>
 
-                <Input
-                  id="title"
-                  placeholder="Title for each section (e.g. Office Hours)"
-                  aria-required="true"
-                  aria-invalid={!!form.formState.errors.title}
-                  {...form.register('title')}
-                />
+            {/* Display Order */}
+            <div className="space-y-2 bg-slate-100">
+              <label htmlFor="displayOrder" className="text-sm font-medium">
+                Display Order
+              </label>
 
-                <FieldError>{form.formState.errors.title?.message}</FieldError>
-              </Field>
+              <Input
+                id="displayOrder"
+                type="number"
+                min={1}
+                value={formData.displayOrder}
+                onChange={(e) =>
+                  updateField('displayOrder', Number(e.target.value))
+                }
+                className={cn(
+                  'h-11',
+                  errors.displayOrder && 'border-destructive',
+                )}
+              />
 
-              {/* Display Order */}
-              <Field className="bg-slate-100 p-4 rounded-lg">
-                <FieldLabel
-                  htmlFor="displayOrder"
-                  className="text-sm text-muted-foreground ml-2.5"
-                >
-                  Display Order
-                  {/* <span className="text-destructive ml-1">*</span> */}
-                </FieldLabel>
-
-                <Input
-                  id="displayOrder"
-                  type="number"
-                  min={0}
-                  aria-required="true"
-                  aria-invalid={!!form.formState.errors.displayOrder}
-                  {...form.register('displayOrder', {
-                    valueAsNumber: true,
-                  })}
-                />
-
-                <p className="text-xs text-muted-foreground mt-2">
-                  For display in Manage Sections only. Not used in the Physician
-                  Portal.
+              <p className="text-xs text-muted-foreground">
+                For display in Manage Sections only. Not used in the Physician
+                Portal.
+              </p>
+              {errors.displayOrder && (
+                <p className="text-sm text-destructive">
+                  {errors.displayOrder}
                 </p>
+              )}
+            </div>
 
-                <FieldError>
-                  {form.formState.errors.displayOrder?.message}
-                </FieldError>
-              </Field>
+            {/* Content */}
+            <div className="space-y-2">
+              <label htmlFor="content" className="text-sm font-medium">
+                MDX Content
+              </label>
 
-              {/* Content */}
-              <Field className="bg-white p-4 rounded-lg">
-                <FieldLabel
-                  htmlFor="content"
-                  className="text-sm text-muted-foreground ml-2.5"
-                >
-                  MDX Content
-                </FieldLabel>
+              <Textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) => updateField('content', e.target.value)}
+                placeholder="Write MDX content here..."
+                className={cn(
+                  'min-h-96',
+                  'resize-y',
+                  'font-mono',
+                  'text-sm',
+                  errors.content && 'border-destructive',
+                )}
+              />
 
-                <Textarea
-                  id="content"
-                  placeholder="Write MDX content here..."
-                  className="min-h-96 resize-y font-mono text-sm"
-                  aria-invalid={!!form.formState.errors.content}
-                  {...form.register('content')}
-                />
+              <p className="text-xs text-muted-foreground">
+                Use markdown symbols for formatting: # for headings, ** for
+                bold, * for italic.
+              </p>
+              {errors.content && (
+                <p className="text-sm text-destructive">{errors.content}</p>
+              )}
+            </div>
 
-                <p className="text-xs text-muted-foreground mt-2">
-                  Use markdown symbols for formatting: # for headings, ** for
-                  bold, * for italic.
-                </p>
-
-                <FieldError>
-                  {form.formState.errors.content?.message}
-                </FieldError>
-              </Field>
-
-              {/* Error */}
-              {/* {generalError && (
-                <div
-                  className="
+            {/* Error */}
+            {generalError && (
+              <div
+                className="
                   rounded-xl
                   border
                   border-destructive/30
@@ -562,11 +564,11 @@ export default function SectionForm({ section }: SectionFormProps) {
                   text-sm
                   text-destructive
                 "
-                >
-                  {generalError}
-                </div> 
-              )}*/}
-            </FieldGroup>
+              >
+                {generalError}
+              </div>
+            )}
+
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button type="submit" className="h-10 w-28" disabled={isPending}>

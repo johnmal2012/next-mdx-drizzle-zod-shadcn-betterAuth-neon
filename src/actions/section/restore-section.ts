@@ -8,6 +8,7 @@ import { requireAdmin } from '@/lib/auth-utils';
 
 export async function restoreSection(sectionId: number) {
   await requireAdmin();
+  
   await db
     .update(physicianSections)
     .set({

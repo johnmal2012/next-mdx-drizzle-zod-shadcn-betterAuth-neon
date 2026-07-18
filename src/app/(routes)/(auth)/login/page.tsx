@@ -1,4 +1,4 @@
-// import { LoginForm } from "@/components/login-form-client";
+// import { LoginForm } from '@/components/auth/login-form-client';
 import { LoginForm } from '@/components/auth/login-form';
 import { MagicLinkLoginForm } from '@/components/auth/magic-link-login-form';
 import { ReturnButton } from '@/components/navigation/return-button';

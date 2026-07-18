@@ -10,7 +10,7 @@ import { db } from '@/db/db';
 import { physicianSections } from '@/db/schema/physician-sections';
 
 import {
-  PhysicianSectionFormInput,
+  PhysicianSectionInput,
   physicianSectionSchema,
   physicianSectionUpdateSchema,
 } from '@/lib/validations/physician-section';
@@ -19,8 +19,7 @@ import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
 
 import { Result } from '@/lib/types/result';
 import { PhysicianSections } from '@/lib/types/physician-section';
-import { APIError } from 'better-auth/api';
-// import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth-utils';
 
 export async function getPhysicianSections() {
   try {
@@ -43,35 +42,43 @@ export async function getPhysicianSections() {
 // =========================
 
 export async function createPhysicianSection(
-  values: PhysicianSectionFormInput,
-) {
+  data: PhysicianSectionInput,
+): Promise<Result<PhysicianSections, FieldErrors>> {
   try {
-    // await requireAdmin();
+    await requireAdmin();
 
-    const validated = physicianSectionSchema.safeParse(values);
+    const result = physicianSectionSchema.safeParse(data);
 
-    if (!validated.success) {
+    if (!result.success) {
       return {
-        error: 'Invalid section data',
+        success: false,
+        error: zodFieldErrors(result.error),
+        message: 'Validation failed',
       };
     }
 
     const inserted = await db
       .insert(physicianSections)
-      .values(validated.data)
+      .values(result.data)
       .returning();
 
     revalidatePath('/');
     revalidatePath('/profile');
     revalidatePath('/section');
 
-    return { error: null };
-  } catch (err) {
-    if (err instanceof APIError) {
-      return { error: err.message };
-    }
-
-    return { error: 'Internal Server Error' };
+    return {
+      success: true,
+      data: inserted[0],
+      message: 'Sections created successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: {
+        _form: ['Database error'],
+      },
+      message: 'Failed to create section',
+    };
   }
 }
 
@@ -80,14 +87,16 @@ export async function createPhysicianSection(
 // =========================
 export async function updatePhysicianSection(
   id: number,
-  values: PhysicianSectionFormInput,
-) {
+  data: PhysicianSectionInput,
+): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
   try {
-    const validated = physicianSectionUpdateSchema.safeParse(values);
+    const result = physicianSectionUpdateSchema.safeParse(data);
 
-    if (!validated.success) {
+    if (!result.success) {
       return {
-        error: 'Invalid section data',
+        success: false,
+        error: zodFieldErrors(result.error),
+        message: 'Please fix validation errors',
       };
     }
 
@@ -97,13 +106,15 @@ export async function updatePhysicianSection(
 
     if (!existing) {
       return {
-        error: 'Section not found',
+        success: false,
+        error: {},
+        message: 'Section not found',
       };
     }
 
     const updated = await db
       .update(physicianSections)
-      .set(validated.data)
+      .set(result.data)
       .where(eq(physicianSections.id, id))
       .returning();
 
@@ -111,13 +122,19 @@ export async function updatePhysicianSection(
     revalidatePath('/profile');
     revalidatePath('/section');
 
-    return { error: null };
-  } catch (err) {
-    if (err instanceof APIError) {
-      return { error: err.message };
-    }
-
-    return { error: 'Internal Server Error' };
+    return {
+      success: true,
+      data: updated[0],
+      message: 'Section updated successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: {
+        _form: ['Database error'],
+      },
+      message: 'Failed to update profile',
+    };
   }
 }
 
@@ -126,7 +143,7 @@ export async function updatePhysicianSection(
 // =========================
 export async function deletePhysicianSection(
   sectionId: number,
-) {
+): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
   try {
     const existing = await db.query.physicianSections.findFirst({
       where: eq(physicianSections.id, sectionId),
@@ -134,7 +151,9 @@ export async function deletePhysicianSection(
 
     if (!existing) {
       return {
-        error: 'Section not found',
+        success: false,
+        error: {},
+        message: 'Section not found',
       };
     }
 
@@ -154,12 +173,18 @@ export async function deletePhysicianSection(
     revalidatePath('/profile');
     revalidatePath('/section');
 
-    return { error: null };
-  } catch (err) {
-    if (err instanceof APIError) {
-      return { error: err.message };
-    }
-
-    return { error: 'Internal Server Error' };
+    return {
+      success: true,
+      data: existing,
+      message: 'Section deleted successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: {
+        _form: ['Database error'],
+      },
+      message: 'Failed to delete section',
+    };
   }
 }

@@ -44,7 +44,7 @@ export const physicianProfile = pgTable(
 
     email: text('email'),
 
-    address: text('address'),
+    // address: text('address'),
 
     location: text('location'),
 

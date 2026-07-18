@@ -1,143 +1,215 @@
-// // import { NextRequest, NextResponse } from "next/server";
-// // import { getSessionCookie } from "better-auth/cookies";
+// // // import { NextRequest, NextResponse } from "next/server";
+// // // import { getSessionCookie } from "better-auth/cookies";
 
-// // const protectedRoutes = ["/profile", "/admin/dashboard"];
+// // // const protectedRoutes = ["/profile", "/admin/dashboard"];
 
-// // export async function proxy(req: NextRequest) {
-// //   const { nextUrl } = req;
-// //   // check the existence of the session cookie to determine if the user is logged in or not, you can also do more complex checks here like verifying the cookie value with your backend if you want to be extra sure
-// //   const sessionCookie = getSessionCookie(req);
+// // // export async function proxy(req: NextRequest) {
+// // //   const { nextUrl } = req;
+// // //   // check the existence of the session cookie to determine if the user is logged in or not, you can also do more complex checks here like verifying the cookie value with your backend if you want to be extra sure
+// // //   const sessionCookie = getSessionCookie(req);
 
-// //   const res = NextResponse.next();
+// // //   const res = NextResponse.next();
 
-// //   const isLoggedIn = !!sessionCookie;
-// //   const isOnProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
-// //   const isOnAuthRoute = nextUrl.pathname.startsWith("/auth");
+// // //   const isLoggedIn = !!sessionCookie;
+// // //   const isOnProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
+// // //   const isOnAuthRoute = nextUrl.pathname.startsWith("/auth");
 
-// //   if (isOnProtectedRoute && !isLoggedIn) {
-// //     return NextResponse.redirect(new URL("/auth/login", req.url));
+// // //   if (isOnProtectedRoute && !isLoggedIn) {
+// // //     return NextResponse.redirect(new URL("/auth/login", req.url));
+// // //   }
+
+// // //   if (isOnAuthRoute && isLoggedIn) {
+// // //     return NextResponse.redirect(new URL("/profile", req.url));
+// // //   }
+
+// // //   return res;
+// // // }
+
+// // // // //match paths
+// // // // // multiple paths
+// // // // export const config = {
+// // // //   matcher: ['/about/:path*', '/dashboard/:path*'],
+// // // // };
+// // // // // single path
+// // // // export const config = {
+// // // //   matcher: '/blog/:slug',
+// // // // };
+// // // // //or
+// // // // //where do want to apply this proxy middleware? we can apply it to all routes, or just a subset of routes like /profile and /admin/*
+// // // /*
+// // // * Match all request paths except for the ones starting with:
+// // // * - api (API routes)
+// // // * - _next/static (static files)
+// // // * - _next/image (image optimization files)
+// // // * - favicon.ico (favicon file)
+// // // * - sitemap.xml (sitemap file)
+// // // * - robots.txt (robots file)
+// // // */
+// // // export const config = {
+// // //   matcher: [
+// // //     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+// // //   ],
+// // // };
+// // // // or better:
+// // import { NextResponse } from 'next/server';
+// // import type { NextRequest } from 'next/server';
+
+// // import { auth } from '@/lib/auth';
+
+// // export async function proxy(request: NextRequest) {
+// //   const session = await auth.api.getSession({
+// //     headers: request.headers,
+// //   });
+
+// //   // Not signed in
+// //   if (!session) {
+// //     // return NextResponse.next(); // TEMP DISABLE
+// //     const signInUrl = new URL('/login', request.url);
+
+// //     signInUrl.searchParams.set(
+// //       'callbackUrl',
+// //       request.nextUrl.pathname + request.nextUrl.search,
+// //     );
+
+// //     return NextResponse.redirect(signInUrl);
 // //   }
 
-// //   if (isOnAuthRoute && isLoggedIn) {
-// //     return NextResponse.redirect(new URL("/profile", req.url));
-// //   }
+// //   // Not an admin
+// //   if (session.user.role !== 'admin') {
+// //     return NextResponse.redirect(new URL('/unauthorized', request.url));
 
-// //   return res;
+// //     // Alternatively:
+// //     // return NextResponse.json(
+// //     //   { message: "Forbidden" },
+// //     //   { status: 403 }
+// //     // );
+// //   }
+// //   //   const result = await auth.api.userHasPermission({
+// //   //     body: {
+// //   //       userId: session.user.id,
+// //   //       permissions: {
+// //   //         admin: ['list'],
+// //   //       },
+// //   //     },
+// //   //     headers: request.headers,
+// //   //   });
+
+// //   //   if (!result.success) {
+// //   //     return NextResponse.redirect(new URL('/unauthorized', request.url));
+// //   //   }
+// //   // to verify role directly:
+
+// //   return NextResponse.next();
 // // }
 
-// // // //match paths
-// // // // multiple paths
-// // // export const config = {
-// // //   matcher: ['/about/:path*', '/dashboard/:path*'],
-// // // };
-// // // // single path
-// // // export const config = {
-// // //   matcher: '/blog/:slug',
-// // // };
-// // // //or
-// // // //where do want to apply this proxy middleware? we can apply it to all routes, or just a subset of routes like /profile and /admin/*
-// // /*
-// // * Match all request paths except for the ones starting with:
-// // * - api (API routes)
-// // * - _next/static (static files)
-// // * - _next/image (image optimization files)
-// // * - favicon.ico (favicon file)
-// // * - sitemap.xml (sitemap file)
-// // * - robots.txt (robots file)
-// // */
 // // export const config = {
 // //   matcher: [
-// //     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+// //     '/dashboard/:path*',
+// //     '/profile/:path*',
+// //     '/sections/:path*',
+// //     '/sections',
+// //     '/account-settings/:path*',
+// //     '/account-settings',
 // //   ],
 // // };
-// // // or better:
 // import { NextResponse } from 'next/server';
 // import type { NextRequest } from 'next/server';
-
 // import { auth } from '@/lib/auth';
+// import { USER_ROLE } from '@/db/schema/auth-schema';
 
 // export async function proxy(request: NextRequest) {
+// //   console.log('Proxy: ', request.nextUrl.pathname);
+
+//   const { pathname, search } = request.nextUrl;
+
+//   // 1. Define protected routes safely (prefix-based)
+//   //   const isProtected =
+//   //     pathname.startsWith('/dashboard') ||
+//   //     pathname.startsWith('/profile') ||
+//   //     pathname.startsWith('/sections') ||
+//   //     pathname.startsWith('/account-settings');
+//   const isAdminRoute =
+//     pathname.startsWith('/dashboard') ||
+//     pathname.startsWith('/profile') ||
+//     pathname.startsWith('/sections');
+
+//   const isAuthenticatedRoute = pathname.startsWith('/account-settings');
+
+//   // 2. Skip non-protected routes immediately
+//   if (!isAdminRoute || !isAuthenticatedRoute) {
+//     return NextResponse.next();
+//   }
+
+//   // 3. Get session (must be consistent server-side)
 //   const session = await auth.api.getSession({
 //     headers: request.headers,
 //   });
 
-//   // Not signed in
+//   // 4. Not logged in → redirect to login
 //   if (!session) {
-//     // return NextResponse.next(); // TEMP DISABLE
-//     const signInUrl = new URL('/login', request.url);
+//     const loginUrl = new URL('/login', request.url);
 
-//     signInUrl.searchParams.set(
-//       'callbackUrl',
-//       request.nextUrl.pathname + request.nextUrl.search,
-//     );
+//     loginUrl.searchParams.set('callbackUrl', pathname + search);
 
-//     return NextResponse.redirect(signInUrl);
+//     return NextResponse.redirect(loginUrl);
 //   }
 
-//   // Not an admin
-//   if (session.user.role !== 'admin') {
+//   // 5. Role guard (admin-only sections example)
+//   if (session.user.role !== USER_ROLE.ADMIN) {
 //     return NextResponse.redirect(new URL('/unauthorized', request.url));
-
-//     // Alternatively:
-//     // return NextResponse.json(
-//     //   { message: "Forbidden" },
-//     //   { status: 403 }
-//     // );
 //   }
-//   //   const result = await auth.api.userHasPermission({
-//   //     body: {
-//   //       userId: session.user.id,
-//   //       permissions: {
-//   //         admin: ['list'],
-//   //       },
-//   //     },
-//   //     headers: request.headers,
-//   //   });
-
-//   //   if (!result.success) {
-//   //     return NextResponse.redirect(new URL('/unauthorized', request.url));
-//   //   }
-//   // to verify role directly:
 
 //   return NextResponse.next();
 // }
 
+// // 6. IMPORTANT: broad matcher prevents edge cases like /sections only
+// // export const config = {
+// //   matcher: ['/((?!api|_next|favicon.ico).*)'],
+// // };
 // export const config = {
 //   matcher: [
 //     '/dashboard/:path*',
 //     '/profile/:path*',
 //     '/sections/:path*',
-//     '/sections',
 //     '/account-settings/:path*',
-//     '/account-settings',
 //   ],
 // };
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
 import { auth } from '@/lib/auth';
 import { USER_ROLE } from '@/db/schema/auth-schema';
+
+const ADMIN_ROUTES = [
+  '/dashboard',
+  '/profile',
+  '/sections',
+];
+
+const AUTHENTICATED_ROUTES = [
+  '/account-settings',
+];
+
+function matchesRoute(pathname: string, routes: string[]) {
+  return routes.some(route => pathname.startsWith(route));
+}
 
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  // 1. Define protected routes safely (prefix-based)
-  const isProtected =
-    pathname.startsWith('/dashboard') ||
-    pathname.startsWith('/profile') ||
-    pathname.startsWith('/sections') ||
-    pathname.startsWith('/account-settings');
+  const isAdminRoute = matchesRoute(pathname, ADMIN_ROUTES);
+  const isAuthenticatedRoute = matchesRoute(
+    pathname,
+    AUTHENTICATED_ROUTES
+  );
 
-  // 2. Skip non-protected routes immediately
-  if (!isProtected) {
+  if (!isAdminRoute && !isAuthenticatedRoute) {
     return NextResponse.next();
   }
 
-  // 3. Get session (must be consistent server-side)
   const session = await auth.api.getSession({
     headers: request.headers,
   });
 
-  // 4. Not logged in → redirect to login
   if (!session) {
     const loginUrl = new URL('/login', request.url);
 
@@ -149,15 +221,23 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // 5. Role guard (admin-only sections example)
-  if (session.user.role !== USER_ROLE.ADMIN) {
-    return NextResponse.redirect(new URL('/unauthorized', request.url));
+  if (
+    isAdminRoute &&
+    session.user.role !== USER_ROLE.ADMIN
+  ) {
+    return NextResponse.redirect(
+      new URL('/unauthorized', request.url)
+    );
   }
 
   return NextResponse.next();
 }
 
-// 6. IMPORTANT: broad matcher prevents edge cases like /sections only
 export const config = {
-  matcher: ['/((?!api|_next|favicon.ico).*)'],
+  matcher: [
+    '/dashboard/:path*',
+    '/profile/:path*',
+    '/sections/:path*',
+    '/account-settings/:path*',
+  ],
 };

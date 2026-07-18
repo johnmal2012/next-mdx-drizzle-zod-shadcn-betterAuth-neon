@@ -17,7 +17,7 @@ export async function deleteProfileAction({
 }: {
   profileId: number;
 }) {
-  const headersList = await headers();
+//   const headersList = await headers();
 
   //   const session = await auth.api.getSession({
   //     headers: headersList,

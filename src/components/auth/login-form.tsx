@@ -1,125 +1,112 @@
 'use client';
 
-// import { signIn } from "@/lib/auth-client";
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-// import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import {
-  ActionState,
-  signInEmailAction,
-} from '@/actions/auth/sign-in-email.action';
+import { signInEmailAction } from '@/actions/auth/sign-in-email.action';
 import Link from 'next/link';
-import { useActionState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginFormInput, loginSchema } from '@/lib/validations/auth';
+import { useTransition } from 'react';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { useRouter } from 'next/navigation';
+// import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const initialState: ActionState = {
-  success: false,
-  error: '',
-  fieldErrors: {},
-};
-
-// export const LoginForm = () => {
-//   const [isPending, setIsPending] = useState(false);
-//   const router = useRouter();
-
-//   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
-//     evt.preventDefault();
-
-//     setIsPending(true);
-
-//     const formData = new FormData(evt.currentTarget);
-
-// const { error } = await signInEmailAction(formData);
-
-// console.log('signInEmailAction return error: ', error);
-// if (error) {
-//   toast.error(error);
-//   setIsPending(false);
-// } else {
-//   toast.success("Login successful. Good to have you back.");
-//   router.push("/profile");
-// }
-//   }
 export const LoginForm = () => {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState(
-    signInEmailAction,
-    initialState,
-  );
+  const [isPending, startTransition] = useTransition();
 
-  //   console.log('login-form state: ', state);
-  useEffect(() => {
-    // console.log('useEffectstate: ', state);
-    if (state.success) {
-      toast.success('Login successful. Good to have you back.');
+  const form = useForm<LoginFormInput>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-      //   router.push('/auth/register/success');
-      //   router.push('/profile');
-      router.replace('/account-settings');
-      router.refresh();
-    } //else {
-    //   toast.error('Login failure.');
-    //   router.push('/auth/login');
-    // }
+  async function onFormSubmit(values: LoginFormInput) {
+    startTransition(async () => {
+      try {
+        const { error } = await signInEmailAction(values);
 
-    //     if (state.error) {
-    //       toast.error(state.error);
-    //     }
-    //   }, [state.success, state.error, router]);
-  }, [state.success, router]);
+        if (error) {
+          toast.error(error);
+        //   form.setError('root', {
+        //     type: 'server',
+        //     message: error,
+        //   });
+          return;
+        }
+        toast.success('Login successfully. Good to have you back.');
+        // form.reset();
+        router.replace('/account-settings');
+        // router.refresh();
+      } catch (err) {
+        toast.error('Something went wrong. Please try again.');
+        console.error(err);
+      }
+    });
+  }
 
   return (
     <form
-      action={formAction}
+      onSubmit={form.handleSubmit(onFormSubmit)}
       className="max-w-sm w-full space-y-4"
       autoComplete="off"
     >
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          type="email"
-          id="email"
-          name="email"
-          //   defaultValue={state.fields?.email ?? ''}
-          autoComplete="new-password"
-          className="w-full rounded-md border px-3 py-2"
-        />
-      </div>
-      {state.fieldErrors?.email && (
-        <p className="text-sm text-red-500">{state.fieldErrors.email[0]}</p>
-      )}
+      {/* {form.formState.errors.root && (
+        <Alert variant="destructive">
+          <AlertDescription>{form.formState.errors.root?.message}</AlertDescription>
+        </Alert>
+      )} */}
 
-      <div className="space-y-2">
-        <div className="flex justify-between items-center gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Link
-            tabIndex={-1}
-            href="/forgot-password"
-            className="text-sm italic text-muted-foreground hover:text-foreground"
-          >
-            Forgot password?
-          </Link>
-        </div>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">Email</FieldLabel>
 
-        <Input
-          type="password"
-          id="password"
-          name="password"
-          autoComplete="new-password"
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {state.fieldErrors?.password && (
-          <p className="text-sm text-red-500">
-            {state.fieldErrors.password[0]}
-          </p>
-        )}
-      </div>
-      {state.error && <p className="text-sm text-red-500">{state.error}</p>}
+          <Input
+            id="email"
+            type="email"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.email}
+            {...form.register('email')}
+          />
 
-      <Button type="submit" className="w-full" disabled={pending}>
-        Login
+          <FieldError errors={[form.formState.errors.email]} />
+        </Field>
+
+        <Field>
+          <div className="flex items-center justify-between">
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+
+            <Link
+              href="/forgot-password"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          <Input
+            id="password"
+            type="password"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.password}
+            {...form.register('password')}
+          />
+
+          <FieldError errors={[form.formState.errors.password]} />
+        </Field>
+      </FieldGroup>
+
+      <Button type="submit" disabled={isPending} className="w-full">
+        {isPending ? 'Logging in...' : 'Login'}
       </Button>
     </form>
   );

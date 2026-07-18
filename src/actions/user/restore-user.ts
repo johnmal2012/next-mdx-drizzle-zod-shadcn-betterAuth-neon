@@ -8,7 +8,7 @@ import { user } from '@/db/schema/auth-schema';
 import { requireAdmin } from '@/lib/auth-utils';
 
 export async function restoreUser(userId: string) {
-  const session = await requireAdmin();
+  await requireAdmin();
 
   await db
     .update(user)

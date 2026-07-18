@@ -1,89 +1,113 @@
 'use client';
 
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { signUpEmailAction } from '@/actions/auth/sign-up-email.action';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterFormInput, registerSchema } from '@/lib/validations/auth';
+import { useTransition } from 'react';
 import {
-  ActionState,
-  signUpEmailAction,
-} from '@/actions/auth/sign-up-email.action';
-import { useActionState, useEffect } from 'react';
-
-const initialState: ActionState = {
-  success: false,
-  error: '',
-  fieldErrors: {},
-};
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { useRouter } from 'next/navigation';
 
 export const RegisterForm = () => {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState(
-    signUpEmailAction,
-    initialState,
-  );
+  const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    if (!state.success) return;
-    toast.success('Login successful. Good to have you back.');
+  const form = useForm<RegisterFormInput>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+  });
 
-    router.push('/register/success');
-  }, [state.success, router]);
+  async function onFormSubmit(values: RegisterFormInput) {
+    startTransition(async () => {
+      try {
+        const { error } = await signUpEmailAction(values);
+
+        if (error) {
+          toast.error(error);
+        //   form.setError('root', {
+        //     type: 'server',
+        //     message: error,
+        //   });
+          return;
+        }
+        toast.success('Registration complete. You are all set.');
+        // form.reset();
+        router.replace('/register/success');
+        // router.refresh();
+      } catch (err) {
+        toast.error('Something went wrong. Please try again.');
+        console.error(err);
+      }
+    });
+  }
 
   return (
-    <form action={formAction} className="max-w-sm w-full space-y-4">
-      <div className="space-y-2">
-        {/* <Label htmlFor="name">Name</Label> */}
-        <input
-          id="name"
-          name="name"
-          placeholder="Name"
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {state.fieldErrors?.name && (
-          <p className="text-sm text-red-500">{state.fieldErrors.name[0]}</p>
-        )}
-      </div>
+    <form
+      onSubmit={form.handleSubmit(onFormSubmit)}
+      className="max-w-sm w-full space-y-4"
+      autoComplete="off"
+    >
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">Name</FieldLabel>
 
-      <div className="space-y-2">
-        {/* <Label htmlFor="email">Email</Label> */}
-        <input
-          type="email"
-          id="email"
-          name="email"
-          autoComplete="username"
-          placeholder="Email"
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {state.fieldErrors?.email && (
-          <p className="text-sm text-red-500">{state.fieldErrors.email[0]}</p>
-        )}
-      </div>
+          <Input
+            id="name"
+            type="text"
+            autoComplete="new-name"
+            aria-invalid={!!form.formState.errors.name}
+            {...form.register('name')}
+          />
 
-      <div className="space-y-2">
-        {/* <Label htmlFor="password">Password</Label> */}
-        <input
-          type="password"
-          id="password"
-          name="password"
-          autoComplete="current-password"
-          placeholder="Password"
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {state.fieldErrors?.password && (
-          <p className="text-sm text-red-500">
-            {state.fieldErrors.password[0]}
-          </p>
-        )}
-      </div>
+          <FieldError errors={[form.formState.errors.name]} />
+        </Field>
 
-      {state.error && <p className="text-sm text-red-500">{state.error}</p>}
+        <Field>
+          <FieldLabel htmlFor="email">Email</FieldLabel>
 
-      <button
-        type="submit"
-        className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
-        disabled={pending}
-      >
-        {pending ? 'Creating account...' : 'Register'}
-      </button>
+          <Input
+            id="email"
+            type="email"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.email}
+            {...form.register('email')}
+          />
+
+          <FieldError errors={[form.formState.errors.email]} />
+        </Field>
+
+        <Field>
+          <div className="flex items-center justify-between">
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+          </div>
+
+          <Input
+            id="password"
+            type="password"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.password}
+            {...form.register('password')}
+          />
+
+          <FieldError errors={[form.formState.errors.password]} />
+        </Field>
+      </FieldGroup>
+
+      <Button type="submit" disabled={isPending} className="w-full">
+        {isPending ? 'Registering...' : 'Register'}
+      </Button>
     </form>
   );
 };

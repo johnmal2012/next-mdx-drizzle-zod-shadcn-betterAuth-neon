@@ -10,23 +10,27 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { user, USER_ROLE } from '@/db/schema/auth-schema';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
+import { requireAdmin } from '@/lib/auth-utils';
 
 export async function deleteUserAction({ userId }: { userId: string }) {
-  const headersList = await headers();
+  //   const headersList = await headers();
 
-  const session = await auth.api.getSession({
-    headers: headersList,
-  });
+  //   const session = await auth.api.getSession({
+  //     headers: headersList,
+  //   });
 
-  if (!session) throw new Error('Unauthorized');
+  //   if (!session) throw new Error('Unauthorized');
 
-  // only allow admin users to delete other users, and prevent users from deleting themselves
-  //   if (session.user.role !== 'admin' || session.user.id === userId) {
+  //   // only allow admin users to delete other users, and prevent users from deleting themselves
+  //   //   if (session.user.role !== 'admin' || session.user.id === userId) {
+  //   //     throw new Error('Forbidden');
+  //   //   }
+  //   if (session.user.role !== USER_ROLE.ADMIN) {
   //     throw new Error('Forbidden');
   //   }
-  if (session.user.role !== USER_ROLE.ADMIN) {
-    throw new Error('Forbidden');
-  }
+
+  const headersList = await headers();
+  const session = await requireAdmin();
 
   try {
     // const deletedUsers = await db

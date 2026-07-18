@@ -1,5 +1,5 @@
-// import { RegisterForm } from '@/components/register-form';
-import { RegisterForm } from '@/components/auth/register-form-client';
+import { RegisterForm } from '@/components/auth/register-form';
+// import { RegisterForm } from '@/components/auth/register-form-client';
 import { ReturnButton } from '@/components/navigation/return-button';
 import { SignInOauthButton } from '@/components/auth/sign-in-oauth-button';
 import Link from 'next/link';

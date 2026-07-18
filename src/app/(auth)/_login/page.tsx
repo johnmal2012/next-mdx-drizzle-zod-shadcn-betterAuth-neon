@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/auth/_login-form';
+import { LoginForm } from '@/components/auth/__login-form';
 
 import { SocialLogin } from '@/components/auth/_social-login';
 

@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 
-import { deletePhysicianProfile } from '@/actions/profile/physician-profile-actions';
+import { deletePhysicianProfile } from '@/actions/profile/_physician-profile-actions';
 
 import {
   Dialog,
@@ -24,7 +24,9 @@ type PhysicianProfileDeleteProps = {
   id: number;
 };
 
-export function PhysicianProfileDeleteButton({ id }: PhysicianProfileDeleteProps) {
+export function PhysicianProfileDeleteButton({
+  id,
+}: PhysicianProfileDeleteProps) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
