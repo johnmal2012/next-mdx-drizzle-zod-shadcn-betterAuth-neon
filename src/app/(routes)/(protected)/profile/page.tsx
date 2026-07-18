@@ -107,7 +107,7 @@ export default async function ProfilePage() {
             { id: 'phone', label: 'Phone', value: profile.phone },
             { id: 'clinic-name', label: 'Clinic Name', value: profile.clinicName },
             { id: 'clinic-address', label: 'Clinic Address', value: profile.clinicAddress },
-            { id: 'address', label: 'Address', value: profile.address },
+            // { id: 'address', label: 'Address', value: profile.address },
             { id: 'location', label: 'Location', value: profile.location },
             { id: 'logo', label: 'Logo', value: profile.logo },
             { id: 'link-name', label: 'Link Name', value: profile.linkName },
