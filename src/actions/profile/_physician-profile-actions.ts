@@ -180,7 +180,7 @@ import { physicianProfile } from '@/db/schema/physician-profile';
 
 import {
   physicianProfileSchema,
-  PhysicianProfileInput,
+  PhysicianProfileFormInput,
 } from '@/lib/validations/physician-profile';
 
 import { Result } from '@/lib/types/result';
@@ -195,7 +195,7 @@ import { requireAdmin, requireLogin } from '@/lib/auth-utils';
 /* -------------------------------------------------- */
 
 export async function createPhysicianProfile(
-  data: PhysicianProfileInput,
+  data: PhysicianProfileFormInput,
 ): Promise<Result<PhysicianProfile, FieldErrors>> {
   const validated = physicianProfileSchema.safeParse(data);
 
@@ -248,7 +248,7 @@ export async function createPhysicianProfile(
 
 export async function updatePhysicianProfile(
   id: number,
-  data: PhysicianProfileInput,
+  data: PhysicianProfileFormInput,
 ): Promise<Result<PhysicianProfile, Record<string, string[] | undefined>>> {
   await requireAdmin();
 

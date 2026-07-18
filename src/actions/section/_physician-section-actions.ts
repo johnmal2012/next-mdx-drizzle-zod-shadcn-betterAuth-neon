@@ -10,7 +10,7 @@ import { db } from '@/db/db';
 import { physicianSections } from '@/db/schema/physician-sections';
 
 import {
-  PhysicianSectionInput,
+  PhysicianSectionFormInput,
   physicianSectionSchema,
   physicianSectionUpdateSchema,
 } from '@/lib/validations/physician-section';
@@ -42,7 +42,7 @@ export async function getPhysicianSections() {
 // =========================
 
 export async function createPhysicianSection(
-  data: PhysicianSectionInput,
+  data: PhysicianSectionFormInput,
 ): Promise<Result<PhysicianSections, FieldErrors>> {
   try {
     await requireAdmin();
@@ -87,7 +87,7 @@ export async function createPhysicianSection(
 // =========================
 export async function updatePhysicianSection(
   id: number,
-  data: PhysicianSectionInput,
+  data: PhysicianSectionFormInput,
 ): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
   try {
     const result = physicianSectionUpdateSchema.safeParse(data);
