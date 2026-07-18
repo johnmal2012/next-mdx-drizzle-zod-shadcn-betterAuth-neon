@@ -42,7 +42,7 @@ type ProfileFormData = {
   clinicAddress: string;
   phone: string;
   email: string;
-  address: string;
+//   address: string;
   location: string;
   linkName: string;
   footCareLink: string;
@@ -102,7 +102,7 @@ export function ProfileForm({
     clinicAddress: profile?.clinicAddress ?? '',
     phone: profile?.phone ?? '',
     email: profile?.email ?? '',
-    address: profile?.address ?? '',
+    // address: profile?.address ?? '',
     location: profile?.location ?? '',
     linkName: profile?.linkName ?? '',
     footCareLink: profile?.footCareLink ?? '',
@@ -317,7 +317,7 @@ export function ProfileForm({
           )}
         </div>
 
-        <div className="bg-slate-100 p-4 rounded-lg">
+        {/* <div className="bg-slate-100 p-4 rounded-lg">
           <p className="text-sm text-muted-foreground ml-2.5">Address</p>
           <Input
             placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
@@ -327,7 +327,7 @@ export function ProfileForm({
           {errors.address?.[0] && (
             <p className="text-sm text-destructive mt-1">{errors.address[0]}</p>
           )}
-        </div>
+        </div> */}
 
         <div className="bg-slate-100 p-4 rounded-lg">
           <p className="text-sm text-muted-foreground ml-2.5">
