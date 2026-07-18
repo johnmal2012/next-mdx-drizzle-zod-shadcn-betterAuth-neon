@@ -1,12 +1,12 @@
 'use server';
 
-import { auth, ErrorCode } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { APIError } from 'better-auth/api';
-import { LoginInput, loginSchema } from '@/lib/validations/auth';
-import { redirect } from 'next/navigation';
+import { LoginFormInput, loginSchema } from '@/lib/validations/auth';
+// import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
-export async function signInEmailAction(values: LoginInput) {
+export async function signInEmailAction(values: LoginFormInput) {
   const validated = loginSchema.safeParse(values);
 
   if (!validated.success) {
