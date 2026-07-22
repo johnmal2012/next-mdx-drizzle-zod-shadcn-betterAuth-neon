@@ -30,10 +30,7 @@ export default async function SectionsPage() {
     orderBy: (sections, { asc }) => [asc(sections.displayOrder)],
   });
 
-  // Create mobile pattern: [gray, white, gray, white, ...]
-  const getMobileBackground = (index: number) => {
-    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  };
+  //   const rows = chunk(sections, 2);
 
   return (
     <main className="min-h-screen bg-background">
@@ -58,67 +55,53 @@ export default async function SectionsPage() {
             </div>
           </div>
 
-          {/* Responsive Grid */}
-          <div className="space-y-4">
-            {/* Desktop: Show in pairs with alternating row backgrounds */}
-            <div className="hidden lg:block">
-              {chunk(sections, 2).map((row, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  className={cn(
-                    'grid gap-4 rounded-2xl p-4 lg:grid-cols-2',
-                    rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
-                  )}
-                >
-                  {row.map((section) => (
-                    <div
-                      key={section.id}
-                      className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
-                    >
-                      <div className="space-y-2">
-                        <h2 className="text-2xl font-semibold">
-                          {section.title}
-                        </h2>
+          {/* Grid */}
+          {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {sections.map((section) => (
+              <div
+                key={section.id}
+                className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
+              >
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-semibold">{section.title}</h2>
 
-                        <p className="text-sm text-muted-foreground">
-                          Slug: {section.slug}
-                        </p>
+                  <p className="text-sm text-muted-foreground">
+                    Slug: {section.slug}
+                  </p>
 
-                        <p className="text-sm text-muted-foreground">
-                          Display Order: {section.displayOrder}
-                        </p>
-                      </div>
-
-                      <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
-                        <Button
-                          className="h-10 w-24 bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-                          size="lg"
-                          asChild
-                        >
-                          <Link href={`/sections/${section.id}/edit`}>
-                            Edit
-                          </Link>
-                        </Button>
-
-                        <SectionDeleteButton sectionId={section.id} />
-                      </div>
-                    </div>
-                  ))}
+                  <p className="text-sm text-muted-foreground">
+                    Display Order: {section.displayOrder}
+                  </p>
                 </div>
-              ))}
-            </div>
 
-            {/* Mobile: Show individual items with alternating backgrounds */}
-            <div className="block lg:hidden">
-              {sections.map((section, index) => (
-                <div
-                  key={section.id}
-                  className={cn(
-                    'rounded-2xl p-4 transition hover:shadow-md',
-                    index % 2 === 0 ? 'bg-slate-100' : 'bg-white',
-                  )}
-                >
-                  <div className="rounded-2xl border bg-background p-5">
+                <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+                  <Button
+                    className="h-10 w-24 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 focus-visible:border-emerald-400/40 focus-visible:ring-emerald-500/20"
+                    size="lg"
+                    asChild
+                  >
+                    <Link href={`/sections/${section.id}/edit`}>Edit</Link>
+                  </Button>
+                  <SectionDeleteButton sectionId={section.id} />
+                </div>
+              </div>
+            ))}
+          </div> */}
+
+          <div className="space-y-4">
+            {chunk(sections, 2).map((row, rowIndex) => (
+              <div
+                key={rowIndex}
+                className={cn(
+                  'grid gap-4 rounded-2xl p-4 lg:grid-cols-2',
+                  rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
+                )}
+              >
+                {row.map((section) => (
+                  <div
+                    key={section.id}
+                    className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
+                  >
                     <div className="space-y-2">
                       <h2 className="text-2xl font-semibold">
                         {section.title}
@@ -139,17 +122,15 @@ export default async function SectionsPage() {
                         size="lg"
                         asChild
                       >
-                        <Link href={`/sections/${section.id}/edit`}>
-                          Edit
-                        </Link>
+                        <Link href={`/sections/${section.id}/edit`}>Edit</Link>
                       </Button>
 
                       <SectionDeleteButton sectionId={section.id} />
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>

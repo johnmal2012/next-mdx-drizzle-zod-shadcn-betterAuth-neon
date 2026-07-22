@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import React, { useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -33,6 +33,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
 type Profile = InferSelectModel<typeof physicianProfile>;
 
@@ -41,23 +42,6 @@ type ProfileFormProps = {
   userName?: string | null;
   userImage?: string | null;
 };
-
-// type ProfileFormData = {
-//   logo: string;
-//   name: string;
-//   boardSpecialty: string;
-//   specialty: string;
-//   title: string;
-//   clinicName: string;
-//   clinicAddress: string;
-//   phone: string;
-//   email: string;
-//   address: string;
-//   location: string;
-//   linkName: string;
-//   footCareLink: string;
-//   expertise: string;
-// };
 
 export function ProfileForm({
   profile,
@@ -84,7 +68,6 @@ export function ProfileForm({
       clinicAddress: profile?.clinicAddress ?? '',
       phone: profile?.phone ?? '',
       email: profile?.email ?? '',
-      //   address: profile?.address ?? '',
       location: profile?.location ?? '',
       linkName: profile?.linkName ?? '',
       footCareLink: profile?.footCareLink ?? '',
@@ -114,16 +97,155 @@ export function ProfileForm({
           return;
         }
         toast.success('Profile created/updated successfully');
-        //   (evt.target as HTMLFormElement).reset();
-        //   setCurrentPassword('');
-        //   setNewPassword('');
         router.push('/profile');
-        // router.refresh();
       } catch (err) {
         toast.error('Something went wrong. Please try again.');
         console.error(err);
       }
     });
+  }
+
+  // Get alternating background for mobile view
+  const getMobileBackground = (index: number) => {
+    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+  };
+
+  // Define field configurations with their properties
+  const formFields = [
+    {
+      id: 'image',
+      type: 'image',
+      label: 'Image',
+      required: false,
+    },
+    {
+      id: 'name',
+      type: 'input',
+      label: 'Name',
+      placeholder: 'e.g., Dr. Nikki Lam, DPM',
+      required: true,
+      fieldName: 'name',
+      register: form.register('name'),
+      error: form.formState.errors.name,
+    },
+    {
+      id: 'specialty',
+      type: 'input',
+      label: 'Specialty',
+      placeholder: 'e.g., Foot & Ankle Specialist',
+      required: false,
+      fieldName: 'specialty',
+      register: form.register('specialty'),
+      error: form.formState.errors.specialty,
+    },
+    {
+      id: 'email',
+      type: 'input',
+      label: 'Email',
+      placeholder: 'e.g., info@hudsonfootankle.com',
+      required: false,
+      fieldName: 'email',
+      register: form.register('email'),
+      error: form.formState.errors.email,
+    },
+    {
+      id: 'phone',
+      type: 'input',
+      label: 'Phone',
+      placeholder: 'e.g., (718) 123-4567',
+      required: true,
+      fieldName: 'phone',
+      register: form.register('phone'),
+      error: form.formState.errors.phone,
+    },
+    {
+      id: 'title',
+      type: 'input',
+      label: 'Title',
+      placeholder: 'e.g., Board-Certified Podiatric Surgeon',
+      required: false,
+      fieldName: 'title',
+      register: form.register('title'),
+      error: form.formState.errors.title,
+    },
+    {
+      id: 'clinicName',
+      type: 'input',
+      label: 'Clinic Name',
+      placeholder: 'e.g., Meimo Foot & Ankle',
+      required: true,
+      fieldName: 'clinicName',
+      register: form.register('clinicName'),
+      error: form.formState.errors.clinicName,
+    },
+    {
+      id: 'clinicAddress',
+      type: 'input',
+      label: 'Clinic Address',
+      placeholder: 'e.g., 4802 Tenth Avenue Brooklyn, NY 11219',
+      required: true,
+      fieldName: 'clinicAddress',
+      register: form.register('clinicAddress'),
+      error: form.formState.errors.clinicAddress,
+    },
+    {
+      id: 'logo',
+      type: 'input',
+      label: 'Logo',
+      placeholder: 'e.g., Dr. Nikki Lam',
+      required: false,
+      fieldName: 'logo',
+      register: form.register('logo'),
+      error: form.formState.errors.logo,
+    },
+    {
+      id: 'boardSpecialty',
+      type: 'input',
+      label: 'Board Specialty',
+      placeholder: 'e.g., Board-Certified Foot & Ankle Specialist',
+      required: false,
+      fieldName: 'boardSpecialty',
+      register: form.register('boardSpecialty'),
+      error: form.formState.errors.boardSpecialty,
+    },
+    {
+      id: 'linkName',
+      type: 'input',
+      label: 'Link Name',
+      placeholder: 'e.g., Foot Care',
+      required: false,
+      fieldName: 'linkName',
+      register: form.register('linkName'),
+      error: form.formState.errors.linkName,
+    },
+    {
+      id: 'footCareLink',
+      type: 'input',
+      label: 'Foot Care Link',
+      placeholder: 'e.g., https://www.footcaremd.org/',
+      required: false,
+      fieldName: 'footCareLink',
+      register: form.register('footCareLink'),
+      error: form.formState.errors.footCareLink,
+      helperText: 'URL must begin with https:// or http://',
+    },
+    {
+      id: 'expertise',
+      type: 'input',
+      label: 'Expertise',
+      placeholder: 'e.g., Sports Injuries, Foot Surgery, bunions',
+      required: false,
+      fieldName: 'expertise',
+      register: form.register('expertise'),
+      error: form.formState.errors.expertise,
+      helperText: 'Items must be separated by commas',
+    },
+  ];
+
+  // Split fields into rows for desktop view (2 per row)
+  const desktopRows = [];
+  for (let i = 0; i < formFields.length; i += 2) {
+    desktopRows.push(formFields.slice(i, i + 2));
   }
 
   return (
@@ -135,240 +257,120 @@ export function ProfileForm({
       <div>
         <h1 className="text-3xl py-6 font-bold">Edit Physician Profiles</h1>
       </div>
-      <FieldGroup className="grid gap-4 md:grid-cols-2">
-        <div className="flex flex-col items-center">
-          <p className="text-sm text-muted-foreground pb-2">Image</p>
-          <UserAvatar
-            image={userImage}
-            name={getInitials(userName ?? '')}
-            className="w-12 h-12"
-          />
-        </div>
-        <div>
-          <ProfileImageUpload />
-        </div>
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="name"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Name <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Dr. Nikki Lam, DPM"
-            aria-required="true"
-            aria-invalid={!!form.formState.errors.name}
-            {...form.register('name')}
-          />
-          <FieldError>{form.formState.errors.name?.message}</FieldError>
-        </Field>
 
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="specialty"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Specialty
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Foot & Ankle Specialist"
-            aria-invalid={!!form.formState.errors.specialty}
-            {...form.register('specialty')}
-          />
-          <FieldError>{form.formState.errors.specialty?.message}</FieldError>
-        </Field>
+      {/* Desktop View - Hidden on mobile */}
+      <FieldGroup className="hidden md:grid md:grid-cols-2 gap-4">
+        {desktopRows.map((row, rowIndex) => (
+          <React.Fragment key={rowIndex}>
+            {row.map((field, fieldIndex) => (
+              <div
+                key={field.id}
+                className={cn(
+                  'rounded-lg',
+                  rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
+                  fieldIndex === 0 ? 'p-4' : 'p-4'
+                )}
+              >
+                {field.type === 'image' ? (
+                  <div className="flex flex-col items-center">
+                    <p className="text-sm text-muted-foreground pb-2">
+                      {field.label}
+                    </p>
+                    <UserAvatar
+                      image={userImage}
+                      name={getInitials(userName ?? '')}
+                      className="w-12 h-12"
+                    />
+                    <div className="mt-2">
+                      <ProfileImageUpload />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Field>
+                      <FieldLabel
+                        htmlFor={field.id}
+                        className="text-sm text-muted-foreground ml-2.5"
+                      >
+                        {field.label}
+                        {field.required && (
+                          <span className="text-destructive"> *</span>
+                        )}
+                      </FieldLabel>
+                      <Input
+                        placeholder={field.placeholder}
+                        aria-required={field.required}
+                        aria-invalid={!!field.error}
+                        {...field.register}
+                      />
+                      {field.helperText && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          {field.helperText}
+                        </p>
+                      )}
+                      <FieldError>{field.error?.message}</FieldError>
+                    </Field>
+                  </>
+                )}
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
+      </FieldGroup>
 
-        <Field className="bg-white p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="email"
-            className="text-sm text-muted-foreground ml-2.5"
+      {/* Mobile View - Hidden on desktop */}
+      <FieldGroup className="grid md:hidden gap-4">
+        {formFields.map((field, index) => (
+          <div
+            key={field.id}
+            className={cn(
+              'rounded-lg p-4',
+              getMobileBackground(index)
+            )}
           >
-            Email
-          </FieldLabel>
-          <Input
-            placeholder="e.g., info@hudsonfootankle.com"
-            aria-invalid={!!form.formState.errors.email}
-            {...form.register('email')}
-          />
-          <FieldError>{form.formState.errors.email?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-white p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="phone"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Phone <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            placeholder="e.g., (718) 123-4567"
-            aria-invalid={!!form.formState.errors.phone}
-            {...form.register('phone')}
-          />
-          <FieldError>{form.formState.errors.phone?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="title"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Title
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Board-Certified Podiatric Surgeon"
-            aria-invalid={!!form.formState.errors.title}
-            {...form.register('title')}
-          />
-          <FieldError>{form.formState.errors.title?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="clinicName"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Clinic Name <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Meimo Foot & Ankle"
-            aria-invalid={!!form.formState.errors.clinicName}
-            {...form.register('clinicName')}
-          />
-          <FieldError>{form.formState.errors.clinicName?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-white p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="clinicAddress"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Clinic Address <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
-            aria-invalid={!!form.formState.errors.clinicAddress}
-            {...form.register('clinicAddress')}
-          />
-          <FieldError>
-            {form.formState.errors.clinicAddress?.message}
-          </FieldError>
-        </Field>
-
-        <Field className="bg-white p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="logo"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Logo
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Dr. Nikki Lam"
-            aria-invalid={!!form.formState.errors.logo}
-            {...form.register('logo')}
-          />
-          <FieldError>{form.formState.errors.logo?.message}</FieldError>
-        </Field>
-
-        {/* <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="address"
-            className="text-sm text-muted-foreground ml-2.5"
-          >Address</FieldLabel>
-          <Input
-            placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
-            aria-invalid={!!form.formState.errors.address}
-            {...form.register('address')}
-          />
-          <FieldError>{form.formState.errors.address?.message}</FieldError>
-        </Field> */}
-
-        {/* <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="location"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Header Location Section <span className="text-destructive">*</span>
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Office Location"
-            aria-invalid={!!form.formState.errors.location}
-            {...form.register('location')}
-          />
-          <p className="text-xs text-muted-foreground mt-2">
-            Use this field to specify the title displayed at the top of the
-            section
-          </p>
-          <FieldError>{form.formState.errors.location?.message}</FieldError>
-        </Field> */}
-
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="boardSpecialty"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Board Specialty
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Board-Certified Foot & Ankle Specialist"
-            aria-invalid={!!form.formState.errors.boardSpecialty}
-            {...form.register('boardSpecialty')}
-          />
-          <FieldError>
-            {form.formState.errors.boardSpecialty?.message}
-          </FieldError>
-        </Field>
-
-        <Field className="bg-white-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="linkName"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Link Name
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Foot Care"
-            aria-invalid={!!form.formState.errors.linkName}
-            {...form.register('linkName')}
-          />
-          <FieldError>{form.formState.errors.linkName?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-white-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="footCareLink"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Foot Care Link
-          </FieldLabel>
-          <Input
-            placeholder="e.g., https://www.footcaremd.org/"
-            aria-invalid={!!form.formState.errors.footCareLink}
-            {...form.register('footCareLink')}
-          />
-          <p className="text-xs text-muted-foreground mt-2">
-            URL must begin with https:// or http://
-          </p>
-          <FieldError>{form.formState.errors.footCareLink?.message}</FieldError>
-        </Field>
-
-        <Field className="bg-slate-100 p-4 rounded-lg">
-          <FieldLabel
-            htmlFor="expertise"
-            className="text-sm text-muted-foreground ml-2.5"
-          >
-            Expertise
-          </FieldLabel>
-          <Input
-            placeholder="e.g., Sports Injuries, Foot Surgery, bunions"
-            aria-invalid={!!form.formState.errors.expertise}
-            {...form.register('expertise')}
-          />
-          <p className="text-xs text-muted-foreground mt-2">
-            Items must be separated by commas
-          </p>
-          <FieldError>{form.formState.errors.expertise?.message}</FieldError>
-        </Field>
+            {field.type === 'image' ? (
+              <div className="flex flex-col items-center">
+                <p className="text-sm text-muted-foreground pb-2">
+                  {field.label}
+                </p>
+                <UserAvatar
+                  image={userImage}
+                  name={getInitials(userName ?? '')}
+                  className="w-12 h-12"
+                />
+                <div className="mt-2">
+                  <ProfileImageUpload />
+                </div>
+              </div>
+            ) : (
+              <>
+                <Field>
+                  <FieldLabel
+                    htmlFor={field.id}
+                    className="text-sm text-muted-foreground ml-2.5"
+                  >
+                    {field.label}
+                    {field.required && (
+                      <span className="text-destructive"> *</span>
+                    )}
+                  </FieldLabel>
+                  <Input
+                    placeholder={field.placeholder}
+                    aria-required={field.required}
+                    aria-invalid={!!field.error}
+                    {...field.register}
+                  />
+                  {field.helperText && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {field.helperText}
+                    </p>
+                  )}
+                  <FieldError>{field.error?.message}</FieldError>
+                </Field>
+              </>
+            )}
+          </div>
+        ))}
       </FieldGroup>
 
       <div className="flex justify-start items-center gap-2">

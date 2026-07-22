@@ -1,14 +1,6 @@
 // 1) admin profile page
 import Link from 'next/link';
-
-// import { asc } from 'drizzle-orm';
-
 import { db } from '@/db/db';
-
-// import { physicianProfile } from '@/db/schema';
-
-// import { user } from '@/db/schema/auth-schema';
-
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { TriangleAlert } from 'lucide-react';
@@ -30,7 +22,6 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
 import { cn, getInitials } from '@/lib/utils';
-// import { DeleteProfileButton } from '@/components/profile/delete-profile-button';
 
 type InfoItemProps = {
   label: string;
@@ -49,9 +40,6 @@ function InfoItem({ label, value, className }: InfoItemProps) {
 }
 
 export default async function ProfilePage() {
-  //   const profiles = await db.query.physicianProfile.findMany({
-  //     orderBy: asc(physicianProfile.id),
-  //   });
   const profiles = await db.query.physicianProfile.findMany({
     where: (profiles, { and, eq, isNull }) =>
       and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
@@ -65,6 +53,11 @@ export default async function ProfilePage() {
         where: (users, { eq }) => eq(users.id, data.user.id),
       })
     : null;
+
+  // Helper function for alternating backgrounds on mobile
+  const getMobileBackground = (index: number) => {
+    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+  };
 
   return (
     <div className="container mx-auto py-10 space-y-6">
@@ -120,8 +113,6 @@ export default async function ProfilePage() {
               label: 'Clinic Address',
               value: profile.clinicAddress,
             },
-            // { id: 'address', label: 'Address', value: profile.address },
-            // { id: 'location', label: 'Location', value: profile.location },
             { id: 'logo', label: 'Logo', value: profile.logo },
             { id: 'link-name', label: 'Link Name', value: profile.linkName },
             {
@@ -152,7 +143,6 @@ export default async function ProfilePage() {
                     </Button>
 
                     <PhysicianProfileDeleteButton profileId={profile.id} />
-                    {/* <DeleteProfileButton profileId={profile.id} /> */}
                   </div>
                 </div>
               </CardHeader>
@@ -160,127 +150,8 @@ export default async function ProfilePage() {
               <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
 
               <CardContent className="space-y-6 pt-6">
-                {/* Basic Info */}
-                <div className="grid gap-4 md:grid-cols-2">
-                  {/* <InfoItem
-                    label="Title"
-                    value={profile.title}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Board Specialty"
-                    value={profile.boardSpecialty}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Email"
-                    value={profile.email}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Phone"
-                    value={profile.phone}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Clinic Name"
-                    value={profile.clinicName}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Clinic Address"
-                    value={profile.clinicAddress}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Address"
-                    value={profile.address}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Location"
-                    value={profile.location}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Logo"
-                    value={profile.logo}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  /> */}
-
-                  {/* <InfoItem label="Image" value={profile.image} /> */}
-                  {/* <div>
-                    <p className="text-sm text-muted-foreground">Image</p>
-                    <UserAvatar
-                      image={currentUser?.image}
-                      name={getInitials(currentUser?.name ?? '')}
-                      className="w-12 h-12"
-                    />
-                  </div>
-
-                  <InfoItem
-                    label="Link Name"
-                    value={profile.linkName}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />
-
-                  <InfoItem
-                    label="Foot Care Link"
-                    value={profile.footCareLink}
-                    className={
-                      Math.floor(index / 2) % 2 === 0
-                        ? 'bg-slate-100'
-                        : 'bg-white'
-                    }
-                  />*/}
+                {/* Basic Info Grid - Desktop: pairs with alternating backgrounds */}
+                <div className="hidden md:grid md:grid-cols-2 gap-4">
                   {infoItems.map((item, index) => (
                     <InfoItem
                       key={item.id}
@@ -293,8 +164,52 @@ export default async function ProfilePage() {
                       }
                     />
                   ))}
-                  {/* Image */}
-                  <div className="rounded-xl border p-4">
+                </div>
+
+                {/* Basic Info Grid - Mobile: single column with alternating backgrounds */}
+                <div className="grid md:hidden gap-4">
+                  {infoItems.map((item, index) => (
+                    <InfoItem
+                      key={item.id}
+                      label={item.label}
+                      value={item.value}
+                      className={getMobileBackground(index)}
+                    />
+                  ))}
+                </div>
+
+                {/* Image and Expertise Section - Alternating for both layouts */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  {/* Expertise - Desktop: right item, Mobile: follows alternating pattern */}
+                  <div
+                    className={cn(
+                      'rounded-xl border p-4',
+                      // On desktop: white (since it's the second item in the row)
+                      'md:bg-white',
+                      // On mobile: white (second item after image)
+                      'bg-white',
+                    )}
+                  >
+                    <p className="text-sm text-muted-foreground">Expertise</p>
+
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {profile.expertise?.map((item: string) => (
+                        <Badge key={item} variant="secondary">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Image - Desktop: left item, Mobile: follows alternating pattern */}
+                  <div
+                    className={cn(
+                      'rounded-xl border p-4',
+                      // On desktop: same row pattern as info items
+                      'md:bg-slate-100',
+                      // On mobile: start with gray (since it's the first item after info items)
+                      'bg-slate-100',
+                    )}
+                  >
                     <p className="text-sm text-muted-foreground">Image</p>
 
                     <div className="mt-2">
@@ -305,74 +220,7 @@ export default async function ProfilePage() {
                       />
                     </div>
                   </div>
-
-                  {/* Expertise */}
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">Expertise</h3>
-
-                    <div className="flex flex-wrap gap-2">
-                      {profile.expertise?.map((item: string) => (
-                        <Badge key={item} variant="secondary">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
                 </div>
-
-                {/* Navigation Items */}
-                {/* <div className="space-y-2">
-                <h3 className="font-semibold">Navigation Items</h3> */}
-
-                {/* <div className="grid gap-4 md:grid-cols-2">
-                  {profile.navItems?.map(
-                    (
-                      item: {
-                        label: string;
-                        href: string;
-                      },
-                      index: number,
-                    ) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between rounded-lg border p-3"
-                      >
-                        <span className="font-medium">{item.label}</span>
-
-                        <span className="text-sm text-muted-foreground">
-                          {item.href}
-                        </span>
-                      </div>
-                    ),
-                  )}
-                </div> */}
-                {/* <div className="grid gap-4 md:grid-cols-2">
-                  {profile.navItems?.map(
-                    (
-                      item: string,
-                      index: number,
-                    ) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between rounded-lg border p-3"
-                      >
-                        <span className="font-medium">{item}</span>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div> */}
-                {/* <div className="space-y-2">
-                <h3 className="font-semibold">Navigation Items</h3>
-
-                <div className="flex flex-wrap gap-2">
-                  {profile.navItems?.map((item: string) => (
-                    <Badge key={item} variant="secondary">
-                      {item}
-                    </Badge>
-                  ))}
-                </div>
-              </div> */}
               </CardContent>
             </Card>
           );
