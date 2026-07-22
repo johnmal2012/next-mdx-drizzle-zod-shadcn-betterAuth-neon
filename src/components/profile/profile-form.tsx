@@ -84,7 +84,7 @@ export function ProfileForm({
       clinicAddress: profile?.clinicAddress ?? '',
       phone: profile?.phone ?? '',
       email: profile?.email ?? '',
-    //   address: profile?.address ?? '',
+      //   address: profile?.address ?? '',
       location: profile?.location ?? '',
       linkName: profile?.linkName ?? '',
       footCareLink: profile?.footCareLink ?? '',
@@ -100,7 +100,9 @@ export function ProfileForm({
         const payload = {
           ...values,
 
-          expertise: (values.expertise ?? '').split(',').map((x: string) => x.trim()),
+          expertise: (values.expertise ?? '')
+            .split(',')
+            .map((x: string) => x.trim()),
         };
 
         const { error } = profile
@@ -116,7 +118,7 @@ export function ProfileForm({
         //   setCurrentPassword('');
         //   setNewPassword('');
         router.push('/profile');
-        router.refresh();
+        // router.refresh();
       } catch (err) {
         toast.error('Something went wrong. Please try again.');
         console.error(err);
@@ -128,6 +130,7 @@ export function ProfileForm({
     <form
       onSubmit={form.handleSubmit(onFormSubmit)}
       className="container mx-auto py-10 space-y-6"
+      noValidate
     >
       <div>
         <h1 className="text-3xl py-6 font-bold">Edit Physician Profiles</h1>
@@ -164,7 +167,9 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="specialty"
             className="text-sm text-muted-foreground ml-2.5"
-          >Specialty</FieldLabel>
+          >
+            Specialty
+          </FieldLabel>
           <Input
             placeholder="e.g., Foot & Ankle Specialist"
             aria-invalid={!!form.formState.errors.specialty}
@@ -177,7 +182,9 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="email"
             className="text-sm text-muted-foreground ml-2.5"
-          >Email</FieldLabel>
+          >
+            Email
+          </FieldLabel>
           <Input
             placeholder="e.g., info@hudsonfootankle.com"
             aria-invalid={!!form.formState.errors.email}
@@ -190,7 +197,9 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="phone"
             className="text-sm text-muted-foreground ml-2.5"
-          >Phone <span className="text-destructive">*</span></FieldLabel>
+          >
+            Phone <span className="text-destructive">*</span>
+          </FieldLabel>
           <Input
             placeholder="e.g., (718) 123-4567"
             aria-invalid={!!form.formState.errors.phone}
@@ -218,7 +227,9 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="clinicName"
             className="text-sm text-muted-foreground ml-2.5"
-          >Clinic Name <span className="text-destructive">*</span></FieldLabel>
+          >
+            Clinic Name <span className="text-destructive">*</span>
+          </FieldLabel>
           <Input
             placeholder="e.g., Meimo Foot & Ankle"
             aria-invalid={!!form.formState.errors.clinicName}
@@ -231,20 +242,26 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="clinicAddress"
             className="text-sm text-muted-foreground ml-2.5"
-          >Clinic Address <span className="text-destructive">*</span></FieldLabel>
+          >
+            Clinic Address <span className="text-destructive">*</span>
+          </FieldLabel>
           <Input
             placeholder="e.g., 4802 Tenth Avenue Brooklyn, NY 11219"
             aria-invalid={!!form.formState.errors.clinicAddress}
             {...form.register('clinicAddress')}
           />
-          <FieldError>{form.formState.errors.clinicAddress?.message}</FieldError>
+          <FieldError>
+            {form.formState.errors.clinicAddress?.message}
+          </FieldError>
         </Field>
 
         <Field className="bg-white p-4 rounded-lg">
           <FieldLabel
             htmlFor="logo"
             className="text-sm text-muted-foreground ml-2.5"
-          >Logo</FieldLabel>
+          >
+            Logo
+          </FieldLabel>
           <Input
             placeholder="e.g., Dr. Nikki Lam"
             aria-invalid={!!form.formState.errors.logo}
@@ -266,37 +283,49 @@ export function ProfileForm({
           <FieldError>{form.formState.errors.address?.message}</FieldError>
         </Field> */}
 
-        <Field className="bg-slate-100 p-4 rounded-lg">
+        {/* <Field className="bg-slate-100 p-4 rounded-lg">
           <FieldLabel
             htmlFor="location"
             className="text-sm text-muted-foreground ml-2.5"
-          >Header Location Section <span className="text-destructive">*</span></FieldLabel>
+          >
+            Header Location Section <span className="text-destructive">*</span>
+          </FieldLabel>
           <Input
             placeholder="e.g., Office Location"
             aria-invalid={!!form.formState.errors.location}
             {...form.register('location')}
           />
+          <p className="text-xs text-muted-foreground mt-2">
+            Use this field to specify the title displayed at the top of the
+            section
+          </p>
           <FieldError>{form.formState.errors.location?.message}</FieldError>
-        </Field>
+        </Field> */}
 
         <Field className="bg-slate-100 p-4 rounded-lg">
           <FieldLabel
             htmlFor="boardSpecialty"
             className="text-sm text-muted-foreground ml-2.5"
-          >Board Specialty</FieldLabel>
+          >
+            Board Specialty
+          </FieldLabel>
           <Input
             placeholder="e.g., Board-Certified Foot & Ankle Specialist"
             aria-invalid={!!form.formState.errors.boardSpecialty}
             {...form.register('boardSpecialty')}
           />
-          <FieldError>{form.formState.errors.boardSpecialty?.message}</FieldError>
+          <FieldError>
+            {form.formState.errors.boardSpecialty?.message}
+          </FieldError>
         </Field>
 
         <Field className="bg-white-100 p-4 rounded-lg">
           <FieldLabel
             htmlFor="linkName"
             className="text-sm text-muted-foreground ml-2.5"
-          >Link Name</FieldLabel>
+          >
+            Link Name
+          </FieldLabel>
           <Input
             placeholder="e.g., Foot Care"
             aria-invalid={!!form.formState.errors.linkName}
@@ -317,6 +346,9 @@ export function ProfileForm({
             aria-invalid={!!form.formState.errors.footCareLink}
             {...form.register('footCareLink')}
           />
+          <p className="text-xs text-muted-foreground mt-2">
+            URL must begin with https:// or http://
+          </p>
           <FieldError>{form.formState.errors.footCareLink?.message}</FieldError>
         </Field>
 
@@ -324,12 +356,17 @@ export function ProfileForm({
           <FieldLabel
             htmlFor="expertise"
             className="text-sm text-muted-foreground ml-2.5"
-          >Expertise</FieldLabel>
+          >
+            Expertise
+          </FieldLabel>
           <Input
             placeholder="e.g., Sports Injuries, Foot Surgery, bunions"
             aria-invalid={!!form.formState.errors.expertise}
             {...form.register('expertise')}
           />
+          <p className="text-xs text-muted-foreground mt-2">
+            Items must be separated by commas
+          </p>
           <FieldError>{form.formState.errors.expertise?.message}</FieldError>
         </Field>
       </FieldGroup>

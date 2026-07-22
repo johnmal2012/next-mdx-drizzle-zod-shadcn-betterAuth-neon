@@ -1,7 +1,7 @@
 // 2) admin profile page
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -9,95 +9,54 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 
-import { deletePhysicianProfile } from '@/actions/profile/_physician-profile-actions';
+import { deletePhysicianProfile } from '@/actions/profile/physician-profile-actions';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { ConfirmActionDialog } from '@/components/shared/confirm-action-dialog';
 
 type PhysicianProfileDeleteProps = {
-  id: number;
+  profileId: number;
 };
 
 export function PhysicianProfileDeleteButton({
-  id,
+  profileId,
 }: PhysicianProfileDeleteProps) {
   const router = useRouter();
 
-  const [open, setOpen] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-
-  //   const [isPending, startTransition] =
-  //     useTransition();
-
-  async function handleDelete() {
-    // startTransition(async () => {
-    setLoading(false);
+  async function handleDelete(): Promise<{ error: string | null }> {
     try {
-      await deletePhysicianProfile(id);
+      const { error } = await deletePhysicianProfile(profileId);
+
+      if (error) {
+        toast.error(error);
+        return { error };
+      }
 
       toast.success('Profile deleted');
-      setLoading(true);
-      setOpen(false);
-
       router.refresh();
+
+      return { error: null };
     } catch (error) {
       console.error(error);
 
       toast.error('Failed to delete profile');
+      return { error: 'Failed to delete profile' };
     }
-    // });
   }
 
   return (
-    <>
-      {/* Trigger Button */}
-      <Button
-        variant="destructive"
-        className="h-10 w-24"
-        onClick={() => setOpen(true)}
-        disabled={loading}
-      >
-        Delete
-      </Button>
-
-      {/* Dialog */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent aria-describedby={undefined}>
-          <DialogHeader>
-            <DialogTitle>Delete Profile</DialogTitle>
-
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete the
-              physician profile.
-            </DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setOpen(false)}
-              disabled={loading}
-            >
-              Cancel
-            </Button>
-
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={loading}
-            >
-              {loading ? 'Deleting...' : 'Delete'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+    <ConfirmActionDialog
+      title="Delete Profile?"
+      description="This profile will be marked as inactive and can be restored later."
+      confirmText="Delete"
+      pendingText="Deleting..."
+      confirmButtonClassName="bg-destructive hover:bg-destructive/90"
+      trigger={
+        <Button variant="destructive" className="h-10 w-24">
+          Delete
+        </Button>
+      }
+      //   onConfirm={() => deletePhysicianProfile(profileId)}
+      onConfirm={handleDelete}
+    />
   );
 }

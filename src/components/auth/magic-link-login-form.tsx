@@ -1,41 +1,50 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { StarIcon } from 'lucide-react';
 import { signIn } from '@/lib/auth-client';
 import { toast } from 'sonner';
+import {
+  magicLinkLoginSchema,
+  type MagicLinkLoginFormInput,
+  type MagicLinkLoginInput,
+} from '@/lib/validations/auth';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export const MagicLinkLoginForm = () => {
-  const [isPending, setIsPending] = useState(false);
-  const ref = useRef<HTMLDetailsElement>(null);
+  //   const [isPending, setIsPending] = useState(false);
+  const detailsRef = useRef<HTMLDetailsElement>(null);
 
-  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    const formData = new FormData(evt.currentTarget);
-    const email = String(formData.get('email'));
-    // console.log('email from handleSubmit: ', email)
-    if (!email) return toast.error('Please enter your email.');
+  const form = useForm<MagicLinkLoginFormInput, unknown, MagicLinkLoginInput>({
+    resolver: zodResolver(magicLinkLoginSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
 
+  async function onFormSubmit(values: MagicLinkLoginInput) {
     await signIn.magicLink({
-      email,
-      name: email.split('@')[0],
+      email: values.email,
+      name: values.email.split('@')[0],
       callbackURL: '/account-settings',
       fetchOptions: {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
+        onRequest: () => {},
+        onResponse: () => {},
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
         onSuccess: () => {
           toast.success('Check your email for the magic link!');
-          if (ref.current) ref.current.open = false;
+          if (detailsRef.current) detailsRef.current.open = false;
         },
       },
     });
@@ -43,7 +52,14 @@ export const MagicLinkLoginForm = () => {
 
   return (
     <details
-      ref={ref}
+      ref={detailsRef}
+      //   onToggle={() => {
+      //     if (detailsRef.current?.open) {
+      //       form.reset({
+      //         email: '',
+      //       });
+      //     }
+      //   }}
       className="max-w-sm rounded-md border border-purple-600 overflow-hidden cursor-pointer"
     >
       {/* when user clicks summary element, browser automatically toggles detail element: native browser behavior */}
@@ -51,14 +67,36 @@ export const MagicLinkLoginForm = () => {
         Try Magic Link <StarIcon size={16} />
       </summary>
 
-      <form onSubmit={handleSubmit} className="px-2 py-1">
-        <Label htmlFor="email" className="sr-only">
-          Email
-        </Label>
-        <div className="flex gap-2 items-center">
-          <Input type="email" id="email" name="email" />
-          <Button disabled={isPending} className="cursor-pointer">
-            Send
+      <form
+        autoComplete="off"
+        onSubmit={form.handleSubmit(onFormSubmit)}
+        className="px-2 py-1"
+        noValidate
+      >
+        <div className="flex items-end gap-2">
+          <div className="flex-1">
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  aria-invalid={!!form.formState.errors.email}
+                  disabled={form.formState.isSubmitting}
+                  {...form.register('email')}
+                />
+                <FieldError>{form.formState.errors.email?.message}</FieldError>
+              </Field>
+            </FieldGroup>
+          </div>
+
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            className="cursor-pointer"
+          >
+            {form.formState.isSubmitting ? 'Sending...' : 'Send'}
           </Button>
         </div>
       </form>

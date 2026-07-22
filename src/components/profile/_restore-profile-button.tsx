@@ -1,6 +1,5 @@
 'use client';
 
-import { restoreUser } from '@/actions/user/restore-user';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -14,17 +13,18 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useTransition } from 'react';
-import { Undo2 } from 'lucide-react';
+import { restoreProfile } from '@/actions/profile/profile-restore-action';
 import { IconTooltip } from '@/components/shared/icon-tooltip';
+import { Undo2 } from 'lucide-react';
 
-interface RestoreUserButtonProps {
-  userId: string;
+interface RestoreProfileButtonProps {
+  profileId: number;
 }
-export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
+export function RestoreProfileButton({ profileId }: RestoreProfileButtonProps) {
   const [isPending, startTransition] = useTransition();
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Restore user" side="left">
+      <IconTooltip tooltip="Restore section" side="left">
         <AlertDialogTrigger asChild>
           <Button
             className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 focus-visible:border-emerald-400/40 focus-visible:ring-emerald-500/20 size-7 rounded-sm"
@@ -37,11 +37,11 @@ export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
 
       <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Restore User?</AlertDialogTitle>
+          <AlertDialogTitle>Restore Profile?</AlertDialogTitle>
 
           <AlertDialogDescription>
-            This will reactivate the user account and allow the user to appear
-            in the active users list again.
+            This will reactivate the profile and allow the profile to appear in
+            the active profile list again.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -56,7 +56,7 @@ export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
                 e.preventDefault();
 
                 startTransition(async () => {
-                  await restoreUser(userId);
+                  await restoreProfile(profileId);
                 });
               }}
             >

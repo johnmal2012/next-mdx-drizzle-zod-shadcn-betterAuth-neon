@@ -10,14 +10,16 @@ import { UserRoleSelect } from '@/components/user/user-role-select';
 import { USER_ROLE, UserRole } from '@/db/schema/auth-schema';
 import { requireAdmin } from '@/lib/auth-utils';
 import { db } from '@/db/db';
-import { RestoreUserButton } from '@/components/user/restore-user-button';
+import { RestoreUserButton } from '@/components/user/user-restore-button';
 import { Separator } from '@/components/ui/separator';
 import {
   DeleteUserButton,
   PlaceholderDeleteUserButton,
-} from '@/components/user/delete-user-button';
-import { RestoreSectionButton } from '@/components/sections/restore-section-button';
-import { RestoreProfileButton } from '@/components/profile/restore-profile-button';
+} from '@/components/user/user-delete-button';
+import { RestoreSectionButton } from '@/components/sections/section-restore-button';
+import { RestoreProfileButton } from '@/components/profile/profile-restore-button';
+import { Badge } from '@/components/ui/badge';
+// import { profile } from 'console';
 
 // type AuthApiKeys = keyof typeof auth.api;
 
@@ -129,8 +131,11 @@ export default async function DashboardPage() {
         <ReturnButton href="/" label="Physician Portal" />
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
         {/*** User list ***/}
-        <p className="p-2 rounded-md text-lg bg-green-400 text-white font-bold">
-          Users
+        <p className="flex items-center p-2 rounded-md text-lg bg-green-400 text-white font-bold">
+          Users{' '}
+          <Badge className="ml-2" variant="secondary">
+            {sortedUsers.length}
+          </Badge>
         </p>
       </div>
 
@@ -171,8 +176,11 @@ export default async function DashboardPage() {
         </table>
       </div>
       <div className="space-y-4">
-        <h2 className="p-2 rounded-md text-lg bg-red-400 text-white font-bold">
-          Deleted Users
+        <h2 className="flex items-center p-2 rounded-md text-lg bg-red-400 text-white font-bold">
+          Deleted Users{' '}
+          <Badge className="ml-2" variant="secondary">
+            {deletedUsers.length}
+          </Badge>
         </h2>
 
         <div className="w-full overflow-x-auto">
@@ -210,8 +218,11 @@ export default async function DashboardPage() {
       <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Section list ***/}
       <div className="space-y-4 bg-slate-100">
-        <h2 className="p-2 rounded-md text-lg bg-purple-400 text-white font-bold">
-          Sections
+        <h2 className="flex items-center p-2 rounded-md text-lg bg-purple-400 text-white font-bold">
+          Sections{' '}
+          <Badge className="ml-2" variant="secondary">
+            {activeSections.length}
+          </Badge>
         </h2>
 
         <div className="w-full overflow-x-auto">
@@ -247,8 +258,9 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div className="space-y-4">
-        <h2 className="p-2 rounded-md text-lg bg-red-400 text-white font-bold">
-          Deleted Sections
+        <h2 className="flex items-center p-2 rounded-md text-lg bg-red-400 text-white font-bold">
+          Deleted Sections{' '}
+          <Badge className='ml-2' variant="secondary">{deletedSections.length}</Badge>
         </h2>
 
         <div className="w-full overflow-x-auto">
@@ -286,8 +298,8 @@ export default async function DashboardPage() {
       <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/*** Profile list ***/}
       <div className="space-y-4 bg-slate-100">
-        <h2 className="p-2 rounded-md text-lg bg-blue-400 text-white font-bold">
-          Profiles
+        <h2 className="flex items-center p-2 rounded-md text-lg bg-blue-400 text-white font-bold">
+          Profiles <Badge className='ml-2' variant="secondary">{activeProfile.length}</Badge>
         </h2>
 
         <div className="w-full overflow-x-auto">
@@ -323,8 +335,8 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div className="space-y-4">
-        <h2 className="p-2 rounded-md text-lg bg-red-400 text-white font-bold">
-          Deleted Profiles
+        <h2 className="flex items-center p-2 rounded-md text-lg bg-red-400 text-white font-bold">
+          Deleted Profiles <Badge className='ml-2' variant="secondary">{deletedProfile.length}</Badge>
         </h2>
 
         <div className="w-full overflow-x-auto">

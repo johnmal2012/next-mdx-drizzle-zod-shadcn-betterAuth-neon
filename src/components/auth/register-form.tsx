@@ -6,7 +6,11 @@ import { toast } from 'sonner';
 import { signUpEmailAction } from '@/actions/auth/sign-up-email.action';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterFormInput, registerSchema } from '@/lib/validations/auth';
+import {
+  RegisterFormInput,
+  RegisterInput,
+  registerSchema,
+} from '@/lib/validations/auth';
 import { useTransition } from 'react';
 import {
   Field,
@@ -20,12 +24,18 @@ export const RegisterForm = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<RegisterFormInput>({
+  //   const form = useForm<RegisterFormInput>({
+  //     resolver: zodResolver(registerSchema),
+  //     defaultValues: {
+  //       name: '',
+  //       email: '',
+  //       password: '',
+  //     },
+  //   });
+  const form = useForm<RegisterFormInput, unknown, RegisterInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: '',
       email: '',
-      password: '',
     },
   });
 
@@ -36,10 +46,10 @@ export const RegisterForm = () => {
 
         if (error) {
           toast.error(error);
-        //   form.setError('root', {
-        //     type: 'server',
-        //     message: error,
-        //   });
+          //   form.setError('root', {
+          //     type: 'server',
+          //     message: error,
+          //   });
           return;
         }
         toast.success('Registration complete. You are all set.');
@@ -57,6 +67,7 @@ export const RegisterForm = () => {
     <form
       onSubmit={form.handleSubmit(onFormSubmit)}
       className="max-w-sm w-full space-y-4"
+      noValidate
       autoComplete="off"
     >
       <FieldGroup>

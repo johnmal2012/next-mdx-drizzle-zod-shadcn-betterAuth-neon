@@ -50,14 +50,76 @@ export const changePasswordSchema = z
     path: ["confirmPassword"],
   });
 
+// reset password validation schema
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(6, "Password must be at least 6 characters"),
+
+    confirmPassword: z
+      .string()
+      .min(6, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match.",
+  });
+
+// forget password validation schema
+export const forgotPasswordSchema = z.object({
+    email: z.email("Please enter a valid email address."),
+});
+
+// magic link login validation schema
+export const magicLinkLoginSchema = z.object({
+  email: z.email('Please enter a valid email address.'),
+});
+
+// send verification validation schema
+export const sendVerificationEmailSchema = z.object({
+  email: z.email('Please enter a valid email address.'),
+});
+
 // Infer the TypeScript type from the schema
 
-export type RegisterFormInput = z.infer<
-  typeof registerSchema
+// export type RegisterFormInput = z.infer<
+//   typeof registerSchema
+// >;
+
+// export type LoginFormInput = z.infer<
+//   typeof loginSchema
+// >;
+
+// export type ChangePasswordFormInput = z.infer<typeof changePasswordSchema>;
+
+// export type ResetPasswordFormInput = z.infer<typeof resetPasswordSchema>;
+
+// export type ForgotPasswordFormInput = z.infer<typeof forgotPasswordSchema>;
+
+export type RegisterFormInput = z.input<typeof registerSchema
+>;
+export type RegisterInput = z.output<typeof registerSchema
 >;
 
-export type LoginFormInput = z.infer<
-  typeof loginSchema
+export type LoginFormInput = z.input<typeof loginSchema
+>;
+export type LoginInput = z.output<typeof loginSchema
 >;
 
-export type ChangePasswordFormInput = z.infer<typeof changePasswordSchema>;
+export type ChangePasswordFormInput = z.input<typeof changePasswordSchema>;
+export type ChangePasswordInput = z.output<typeof changePasswordSchema>;
+
+export type ResetPasswordFormInput = z.input<typeof resetPasswordSchema>;
+export type ResetPasswordInput = z.output<typeof resetPasswordSchema>;
+
+export type ForgotPasswordFormInput = z.input<typeof forgotPasswordSchema>;
+export type ForgotPasswordInput = z.output<typeof forgotPasswordSchema>;
+
+export type MagicLinkLoginFormInput = z.input<typeof magicLinkLoginSchema>;
+export type MagicLinkLoginInput  = z.output<typeof magicLinkLoginSchema>;
+
+export type SendVerificationEmailFormInput =
+  z.input<typeof sendVerificationEmailSchema>;
+export type SendVerificationEmailInput =
+  z.output<typeof sendVerificationEmailSchema>;

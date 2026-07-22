@@ -69,8 +69,10 @@ export const physicianProfileFormSchema = z.object({
 
 // export type PhysicianProfileFormInput =
 //     z.infer<typeof physicianProfileFormSchema>;
-export type PhysicianProfileInput = z.output<typeof physicianProfileSchema>;
-
+// physicianProfileFormSchema describes what the UI collects
 export type PhysicianProfileFormInput = z.input<
   typeof physicianProfileFormSchema
 >;
+
+// physicianProfileSchema describes what the server and database expect
+export type PhysicianProfileInput = z.output<typeof physicianProfileSchema>;

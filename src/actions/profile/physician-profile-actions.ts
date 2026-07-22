@@ -71,6 +71,14 @@ export async function updatePhysicianProfile(
   await requireAdmin();
 
   const validated = physicianProfileSchema.safeParse(values);
+  // or conversion handled in server layer, not client side; or even create a helper function
+//   const validated = physicianProfileSchema.parse({
+//     ...values,
+//     expertise: values.expertise
+//       ?.split(',')
+//       .map((s) => s.trim())
+//       .filter(Boolean),
+//   });
 
   if (!validated.success) {
     return {
@@ -110,7 +118,7 @@ export async function deletePhysicianProfile(profileId: number) {
   try {
     // await db.delete(physicianProfile).where(eq(physicianProfile.id, id));
     await requireAdmin();
-    
+
     const updated = await db
       .update(physicianProfile)
       .set({

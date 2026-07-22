@@ -86,7 +86,7 @@ import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { UploadDropzone } from '@/lib/uploadthing';
-import { updateProfileImage } from '@/actions/profile/update-profile-image';
+import { updateProfileImage } from '@/actions/profile/profile-update-image';
 
 export function ProfileImageUpload() {
   const router = useRouter();

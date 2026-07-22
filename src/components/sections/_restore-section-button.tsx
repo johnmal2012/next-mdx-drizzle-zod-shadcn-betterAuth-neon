@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useTransition } from 'react';
-import { restoreSection } from '@/actions/section/restore-section';
+import { restoreSection } from '@/actions/section/section-restore-action';
 import { IconTooltip } from '@/components/shared/icon-tooltip';
 import { Undo2 } from 'lucide-react';
 
@@ -35,7 +35,7 @@ export function RestoreSectionButton({ sectionId }: RestoreSectionButtonProps) {
           </Button>
         </AlertDialogTrigger>
       </IconTooltip>
-      
+
       <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Restore Section?</AlertDialogTitle>

@@ -1,90 +1,64 @@
-// 2) admin dashboard page - profile
+// 2) admin dashboard page - profile part
 'use client';
 
-import { useTransition } from 'react';
-import { Button } from '@/components/ui/button';
 import { TrashIcon } from 'lucide-react';
-import { deleteProfileAction } from '@/actions/profile/delete-profile.action';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { IconTooltip } from '@/components/shared/icon-tooltip';
+
+import { deletePhysicianProfile } from '@/actions/profile/physician-profile-actions';
+
+import { Button } from '@/components/ui/button';
+
+import { ConfirmActionDialog } from '@/components/shared/confirm-action-dialog';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface DeleteProfileButtonProps {
   profileId: number;
 }
 
-export const DeleteProfileButton = ({
-  profileId,
-}: DeleteProfileButtonProps) => {
-  const [isPending, startTransition] = useTransition();
+export function DeleteProfileButton({ profileId }: DeleteProfileButtonProps) {
+  const router = useRouter();
+
+  async function handleDelete(): Promise<{ error: string | null }> {
+    try {
+      const { error } = await deletePhysicianProfile(profileId);
+
+      if (error) {
+        toast.error(error);
+        return { error };
+      }
+
+      toast.success('Profile deleted');
+      router.refresh();
+
+      return { error: null };
+    } catch (error) {
+      console.error(error);
+
+      toast.error('Failed to delete profile');
+      return { error: 'Failed to delete profile' };
+    }
+  }
 
   return (
-    <AlertDialog>
-      <IconTooltip tooltip="Delete profile" side="right">
-        <AlertDialogTrigger asChild>
-          <Button
-            variant="destructive"
-            size="icon"
-            className="size-7 rounded-sm"
-          >
-            <TrashIcon />
-          </Button>
-        </AlertDialogTrigger>
-      </IconTooltip>
-      <AlertDialogContent aria-describedby={undefined}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Delete Profile?</AlertDialogTitle>
-
-          <AlertDialogDescription>
-            This profile will be marked as inactive and removed from the active
-            profile list. The account can be restored later.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-          <AlertDialogAction asChild>
-            <Button
-              className="bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20"
-              disabled={isPending}
-              onClick={(e) => {
-                e.preventDefault();
-
-                startTransition(async () => {
-                  await deleteProfileAction({ profileId });
-                });
-              }}
-            >
-              {isPending ? 'Deleting...' : 'Delete'}
-            </Button>
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <ConfirmActionDialog
+      tooltip="Delete profile"
+      title="Delete Profile?"
+      description="This profile will be marked as inactive and can be restored later."
+      confirmText="Delete"
+      pendingText="Deleting..."
+      confirmButtonClassName="bg-destructive/10 text-destructive hover:bg-destructive/20"
+      trigger={
+        <Button
+          type="button"
+          variant="destructive"
+          size="icon"
+          className="size-7 rounded-sm"
+        >
+          <TrashIcon />
+          <span className="sr-only">Delete profile</span>
+        </Button>
+      }
+      onConfirm={handleDelete}
+    />
   );
-};
-
-// this is for admin users to see a placeholder delete button for other admin users, since we don't want to allow deleting other admins, but we want to show that there is a delete button there for regular users
-// export const PlaceholderDeleteSectionButton = () => {
-//   return (
-//     <Button
-//       size="icon"
-//       variant="destructive"
-//       className="size-7 rounded-sm"
-//       disabled
-//     >
-//       <span className="sr-only">Delete Section</span>
-//       <TrashIcon />
-//     </Button>
-//   );
-// };
+}

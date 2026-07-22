@@ -423,7 +423,7 @@ export default function SectionForm({ section }: SectionFormProps) {
         //   setCurrentPassword('');
         //   setNewPassword('');
         router.push('/sections');
-        router.refresh();
+        // router.refresh();
       } catch (err) {
         toast.error('Something went wrong. Please try again.');
         console.error(err);
@@ -447,6 +447,7 @@ export default function SectionForm({ section }: SectionFormProps) {
           <form
             onSubmit={form.handleSubmit(onFormSubmit)}
             className="space-y-6"
+            noValidate
           >
             <FieldGroup>
               {/* Slug */}
@@ -462,7 +463,7 @@ export default function SectionForm({ section }: SectionFormProps) {
                 <Input
                   id="slug"
                   placeholder="No spaces (e.g. office_hours)"
-                  aria-required="true"
+                  //   aria-required="true"
                   aria-invalid={!!form.formState.errors.slug}
                   {...form.register('slug')}
                 />
@@ -483,11 +484,13 @@ export default function SectionForm({ section }: SectionFormProps) {
                 <Input
                   id="title"
                   placeholder="Title for each section (e.g. Office Hours)"
-                  aria-required="true"
+                  //   aria-required="true"
                   aria-invalid={!!form.formState.errors.title}
                   {...form.register('title')}
                 />
-
+                <p className="text-xs text-muted-foreground mt-2">
+                  Specify the title displayed at the top of each section
+                </p>
                 <FieldError>{form.formState.errors.title?.message}</FieldError>
               </Field>
 
@@ -505,7 +508,7 @@ export default function SectionForm({ section }: SectionFormProps) {
                   id="displayOrder"
                   type="number"
                   min={0}
-                  aria-required="true"
+                  //   aria-required="true"
                   aria-invalid={!!form.formState.errors.displayOrder}
                   {...form.register('displayOrder', {
                     valueAsNumber: true,
@@ -569,8 +572,11 @@ export default function SectionForm({ section }: SectionFormProps) {
             </FieldGroup>
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Button type="submit" className="h-10 w-28" disabled={isPending}>
-                {isPending ? 'Saving...' : 'Save Changes'}
+              <Button
+                disabled={isPending}
+                className="h-10 px-4 w-28 bg-green-600! hover:bg-green-700!"
+              >
+                {section ? 'Update' : 'Create'}
               </Button>
 
               <Button

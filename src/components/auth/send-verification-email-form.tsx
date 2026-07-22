@@ -1,54 +1,91 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { sendVerificationEmail } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { sendVerificationEmail } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import {
+  SendVerificationEmailFormInput,
+  SendVerificationEmailInput,
+  sendVerificationEmailSchema,
+} from '@/lib/validations/auth';
 
 export const SendVerificationEmailForm = () => {
-  const [isPending, setIsPending] = useState(false);
+  //   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
+  const form = useForm<
+    SendVerificationEmailFormInput,
+    unknown,
+    SendVerificationEmailInput
+  >({
+    resolver: zodResolver(sendVerificationEmailSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
 
-  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    const formData = new FormData(evt.currentTarget);
-    const email = String(formData.get("email"));
+  async function onFormSubmit(values: SendVerificationEmailFormInput) {
+    // evt.preventDefault();
+    // const formData = new FormData(evt.currentTarget);
+    // const email = String(formData.get("email"));
 
-    if (!email) return toast.error("Please enter your email.");
+    // if (!email) return toast.error("Please enter your email.");
 
     await sendVerificationEmail({
-      email,
-      callbackURL: "/verify",
+      email: values.email,
+      callbackURL: '/verify',
       fetchOptions: {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
+        onRequest: () => {},
+        onResponse: () => {},
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
         onSuccess: () => {
-          toast.success("Verification email sent successfully.");
-          router.push("/verify/success");
+          toast.success('Verification email sent successfully.');
+          router.push('/verify/success');
         },
       },
     });
   }
 
   return (
-    <form className="max-w-sm w-full space-y-4" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" name="email" />
-      </div>
+    <form
+      className="max-w-sm w-full space-y-4"
+      noValidate
+      onSubmit={form.handleSubmit(onFormSubmit)}
+    >
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">Email</FieldLabel>
 
-      <Button type="submit" disabled={isPending}>
-        Resend Verification Email
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            aria-invalid={!!form.formState.errors.email}
+            disabled={form.formState.isSubmitting}
+            {...form.register('email')}
+          />
+
+          <FieldError>{form.formState.errors.email?.message}</FieldError>
+        </Field>
+      </FieldGroup>
+
+      <Button type="submit" disabled={form.formState.isSubmitting}>
+        {form.formState.isSubmitting
+          ? 'Sending...'
+          : 'Resend Verification Email'}
       </Button>
     </form>
   );

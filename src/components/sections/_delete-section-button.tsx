@@ -1,10 +1,10 @@
-// 2) admin dashboard page - user
+// 2) admin dashboard page - section
 'use client';
 
 import { useTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { TrashIcon } from 'lucide-react';
-import { deleteUserAction } from '@/actions/user/delete-user.action';
+import { deleteSectionAction } from '@/actions/section/_delete-section.action';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,16 +18,18 @@ import {
 } from '@/components/ui/alert-dialog';
 import { IconTooltip } from '@/components/shared/icon-tooltip';
 
-interface DeleteUserButtonProps {
-  userId: string;
+interface DeleteSectionButtonProps {
+  sectionId: number;
 }
 
-export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
+export const DeleteSectionButton = ({
+  sectionId,
+}: DeleteSectionButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Delete user" side="left">
+      <IconTooltip tooltip="Delete section" side="left">
         <AlertDialogTrigger asChild>
           <Button
             variant="destructive"
@@ -38,14 +40,14 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
           </Button>
         </AlertDialogTrigger>
       </IconTooltip>
-
+      
       <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete User?</AlertDialogTitle>
+          <AlertDialogTitle>Delete Section?</AlertDialogTitle>
 
           <AlertDialogDescription>
-            This user will be marked as inactive and removed from the active
-            users list. The account can be restored later.
+            This section will be marked as inactive and removed from the active
+            section list. The account can be restored later.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -60,7 +62,7 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
                 e.preventDefault();
 
                 startTransition(async () => {
-                  await deleteUserAction({ userId });
+                  await deleteSectionAction({ sectionId });
                 });
               }}
             >
@@ -74,22 +76,16 @@ export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
 };
 
 // this is for admin users to see a placeholder delete button for other admin users, since we don't want to allow deleting other admins, but we want to show that there is a delete button there for regular users
-export const PlaceholderDeleteUserButton = () => {
-  return (
-    <IconTooltip tooltip="Admin users cannot be deleted" side="left">
-      <span className="inline-flex cursor-not-allowed">
-        <Button
-          size="icon"
-          variant="destructive"
-          // className="size-7 rounded-sm opacity-50 cursor-not-allowed!"
-          className="size-7 rounded-sm opacity-50 pointer-events-none"
-          // disabled
-        >
-          <span className="sr-only">Delete User</span>
-          {/* <TrashIcon className="pointer-events-none" /> */}
-          <TrashIcon />
-        </Button>
-      </span>
-    </IconTooltip>
-  );
-};
+// export const PlaceholderDeleteSectionButton = () => {
+//   return (
+//     <Button
+//       size="icon"
+//       variant="destructive"
+//       className="size-7 rounded-sm"
+//       disabled
+//     >
+//       <span className="sr-only">Delete Section</span>
+//       <TrashIcon />
+//     </Button>
+//   );
+// };

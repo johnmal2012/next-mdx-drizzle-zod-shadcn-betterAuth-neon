@@ -30,6 +30,7 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
 import { cn, getInitials } from '@/lib/utils';
+// import { DeleteProfileButton } from '@/components/profile/delete-profile-button';
 
 type InfoItemProps = {
   label: string;
@@ -102,16 +103,32 @@ export default async function ProfilePage() {
         {profiles.map((profile) => {
           const infoItems = [
             { id: 'title', label: 'Title', value: profile.title },
-            { id: 'board-specialty', label: 'Board Specialty', value: profile.boardSpecialty },
+            {
+              id: 'board-specialty',
+              label: 'Board Specialty',
+              value: profile.boardSpecialty,
+            },
             { id: 'email', label: 'Email', value: profile.email },
             { id: 'phone', label: 'Phone', value: profile.phone },
-            { id: 'clinic-name', label: 'Clinic Name', value: profile.clinicName },
-            { id: 'clinic-address', label: 'Clinic Address', value: profile.clinicAddress },
+            {
+              id: 'clinic-name',
+              label: 'Clinic Name',
+              value: profile.clinicName,
+            },
+            {
+              id: 'clinic-address',
+              label: 'Clinic Address',
+              value: profile.clinicAddress,
+            },
             // { id: 'address', label: 'Address', value: profile.address },
-            { id: 'location', label: 'Location', value: profile.location },
+            // { id: 'location', label: 'Location', value: profile.location },
             { id: 'logo', label: 'Logo', value: profile.logo },
             { id: 'link-name', label: 'Link Name', value: profile.linkName },
-            { id: 'foot-care-link', label: 'Foot Care Link', value: profile.footCareLink },
+            {
+              id: 'foot-care-link',
+              label: 'Foot Care Link',
+              value: profile.footCareLink,
+            },
           ];
 
           return (
@@ -134,7 +151,8 @@ export default async function ProfilePage() {
                       <Link href={`/profile/${profile.id}/edit`}>Edit</Link>
                     </Button>
 
-                    <PhysicianProfileDeleteButton id={profile.id} />
+                    <PhysicianProfileDeleteButton profileId={profile.id} />
+                    {/* <DeleteProfileButton profileId={profile.id} /> */}
                   </div>
                 </div>
               </CardHeader>

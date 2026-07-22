@@ -7,7 +7,11 @@ import { signInEmailAction } from '@/actions/auth/sign-in-email.action';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFormInput, loginSchema } from '@/lib/validations/auth';
+import {
+  LoginFormInput,
+  LoginInput,
+  loginSchema,
+} from '@/lib/validations/auth';
 import { useTransition } from 'react';
 import {
   Field,
@@ -22,7 +26,14 @@ export const LoginForm = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<LoginFormInput>({
+  //   const form = useForm<LoginFormInput>({
+  //     resolver: zodResolver(loginSchema),
+  //     defaultValues: {
+  //       email: '',
+  //       password: '',
+  //     },
+  //   });
+  const form = useForm<LoginFormInput, unknown, LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -37,10 +48,10 @@ export const LoginForm = () => {
 
         if (error) {
           toast.error(error);
-        //   form.setError('root', {
-        //     type: 'server',
-        //     message: error,
-        //   });
+          //   form.setError('root', {
+          //     type: 'server',
+          //     message: error,
+          //   });
           return;
         }
         toast.success('Login successfully. Good to have you back.');
@@ -58,6 +69,7 @@ export const LoginForm = () => {
     <form
       onSubmit={form.handleSubmit(onFormSubmit)}
       className="max-w-sm w-full space-y-4"
+      noValidate
       autoComplete="off"
     >
       {/* {form.formState.errors.root && (

@@ -8,17 +8,20 @@ type UserAvatarProps = {
   image?: string | null;
   name?: string | null;
   className?: string;
+  size?: 'sm' | 'default' | 'lg';
 };
 
 export function UserAvatar({
   image,
   name,
-  className
+  className,
+  size = 'default',
 }: UserAvatarProps) {
   return (
-    <Avatar className={className}>
+    <Avatar size={size} className={className}>
       <AvatarImage
         src={image ?? ""}
+        alt={name ?? 'User'}
       />
 
       <AvatarFallback>

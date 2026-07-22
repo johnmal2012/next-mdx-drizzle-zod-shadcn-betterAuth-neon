@@ -1,5 +1,6 @@
 'use client';
 
+import { restoreUser } from '@/actions/user/_restore-user';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -13,18 +14,17 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useTransition } from 'react';
-import { restoreProfile } from '@/actions/profile/restore-profile';
-import { IconTooltip } from '@/components/shared/icon-tooltip';
 import { Undo2 } from 'lucide-react';
+import { IconTooltip } from '@/components/shared/icon-tooltip';
 
-interface RestoreProfileButtonProps {
-  profileId: number;
+interface RestoreUserButtonProps {
+  userId: string;
 }
-export function RestoreProfileButton({ profileId }: RestoreProfileButtonProps) {
+export function RestoreUserButton({ userId }: RestoreUserButtonProps) {
   const [isPending, startTransition] = useTransition();
   return (
     <AlertDialog>
-      <IconTooltip tooltip="Restore section" side="left">
+      <IconTooltip tooltip="Restore user" side="left">
         <AlertDialogTrigger asChild>
           <Button
             className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 focus-visible:border-emerald-400/40 focus-visible:ring-emerald-500/20 size-7 rounded-sm"
@@ -37,11 +37,11 @@ export function RestoreProfileButton({ profileId }: RestoreProfileButtonProps) {
 
       <AlertDialogContent aria-describedby={undefined}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Restore Profile?</AlertDialogTitle>
+          <AlertDialogTitle>Restore User?</AlertDialogTitle>
 
           <AlertDialogDescription>
-            This will reactivate the profile and allow the profile to appear in
-            the active profile list again.
+            This will reactivate the user account and allow the user to appear
+            in the active users list again.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -56,7 +56,7 @@ export function RestoreProfileButton({ profileId }: RestoreProfileButtonProps) {
                 e.preventDefault();
 
                 startTransition(async () => {
-                  await restoreProfile(profileId);
+                  await restoreUser(userId);
                 });
               }}
             >

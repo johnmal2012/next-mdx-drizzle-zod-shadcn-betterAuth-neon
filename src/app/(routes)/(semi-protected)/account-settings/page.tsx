@@ -1,8 +1,8 @@
-import { ChangePasswordForm } from '@/components/auth/_change-password-form';
+import { ChangePasswordForm } from '@/components/auth/change-password-form';
 import { ReturnButton } from '@/components/navigation/return-button';
 // import { SignOutButton } from '@/components/auth/sign-out-button';
 // import { Button } from '@/components/ui/button';
-import { UpdateUserForm } from '@/components/user/update-user-form';
+import { UpdateUserForm } from '@/components/user/user-update-form';
 import { Separator } from '@/components/ui/separator';
 // import { auth } from '@/lib/auth';
 // import { AppRole, roles } from '@/lib/permissions';

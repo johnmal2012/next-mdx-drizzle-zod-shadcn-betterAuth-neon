@@ -1,69 +1,109 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { resetPassword } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+// import { Label } from '@/components/ui/label';
+import { resetPassword } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+// import { useState } from 'react';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    ResetPasswordInput,
+  resetPasswordSchema,
+  type ResetPasswordFormInput,
+} from '@/lib/validations/auth';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 
 interface ResetPasswordFormProps {
   token: string;
 }
 
 export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
-  const [isPending, setIsPending] = useState(false);
+  //   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
 
-  async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    const formData = new FormData(evt.currentTarget);
+//   const form = useForm<ResetPasswordFormInput>({
+//     resolver: zodResolver(resetPasswordSchema),
+//     defaultValues: {
+//       password: '',
+//       confirmPassword: '',
+//     },
+//   });
+  const form = useForm<ResetPasswordFormInput, unknown, ResetPasswordInput>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      password: '',
+      confirmPassword: '',
+    },
+  });
 
-    const password = String(formData.get("password"));
-    if (!password) return toast.error("Please enter your email.");
-
-    const confirmPassword = String(formData.get("confirmPassword"));
-
-    if (password !== confirmPassword) {
-      return toast.error("Passwords do not match.");
-    }
-
+  async function onFormSubmit(values: ResetPasswordFormInput) {
     await resetPassword({
-      newPassword: password,
+      newPassword: values.password,
       token,
       fetchOptions: {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
         onSuccess: () => {
-          toast.success("Password reset successfully.");
-          router.push("/login");
+          toast.success('Password reset successfully.');
+          router.push('/login');
         },
       },
     });
   }
 
   return (
-    <form className="max-w-sm w-full space-y-4" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="password">New Password</Label>
-        <Input type="password" id="password" name="password" />
-      </div>
+    <form
+      className="max-w-sm w-full space-y-4"
+      noValidate
+      onSubmit={form.handleSubmit(onFormSubmit)}
+    >
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="password">New Password</FieldLabel>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input type="password" id="confirmPassword" name="confirmPassword" />
-      </div>
+          <Input
+            id="password"
+            type="password"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.password}
+            {...form.register('password')}
+          />
 
-      <Button type="submit" disabled={isPending}>
-        Reset Password
+          <FieldError>{form.formState.errors.password?.message}</FieldError>
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
+
+          <Input
+            id="confirmPassword"
+            type="password"
+            autoComplete="new-password"
+            aria-invalid={!!form.formState.errors.confirmPassword}
+            {...form.register('confirmPassword')}
+          />
+
+          <FieldError>
+            {form.formState.errors.confirmPassword?.message}
+          </FieldError>
+        </Field>
+      </FieldGroup>
+
+      <Button
+        type="submit"
+        disabled={form.formState.isSubmitting}
+        className="w-full"
+      >
+        {form.formState.isSubmitting ? 'Resetting...' : 'Reset Password'}
       </Button>
     </form>
   );

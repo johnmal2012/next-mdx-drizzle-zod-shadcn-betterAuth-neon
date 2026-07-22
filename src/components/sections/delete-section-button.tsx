@@ -1,22 +1,26 @@
 // 2) admin dashboard page - section
 'use client';
 
-import { useTransition } from 'react';
+// import { useTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { TrashIcon } from 'lucide-react';
-import { deleteSectionAction } from '@/actions/section/delete-section.action';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { IconTooltip } from '@/components/shared/icon-tooltip';
+// import { deleteSectionAction } from '@/actions/section/_delete-section.action';
+// import {
+//   AlertDialog,
+//   AlertDialogAction,
+//   AlertDialogCancel,
+//   AlertDialogContent,
+//   AlertDialogDescription,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogTitle,
+//   AlertDialogTrigger,
+// } from '@/components/ui/alert-dialog';
+// import { IconTooltip } from '@/components/shared/icon-tooltip';
+import { deletePhysicianSection } from '@/actions/section/physician-section-actions';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { ConfirmActionDialog } from '@/components/shared/confirm-action-dialog';
 
 interface DeleteSectionButtonProps {
   sectionId: number;
@@ -25,53 +29,50 @@ interface DeleteSectionButtonProps {
 export const DeleteSectionButton = ({
   sectionId,
 }: DeleteSectionButtonProps) => {
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  async function handleDelete(): Promise<{ error: string | null }> {
+    try {
+      const { error } = await deletePhysicianSection(sectionId);
+
+      if (error) {
+        toast.error(error);
+        return { error };
+      }
+
+      toast.success('Section deleted');
+      router.refresh();
+
+      return { error: null };
+    } catch (error) {
+      console.error(error);
+
+      toast.error('Failed to delete section');
+      return { error: 'Failed to delete section' };
+    }
+  }
 
   return (
-    <AlertDialog>
-      <IconTooltip tooltip="Delete section" side="left">
-        <AlertDialogTrigger asChild>
-          <Button
-            variant="destructive"
-            size="icon"
-            className="size-7 rounded-sm"
-          >
-            <TrashIcon />
-          </Button>
-        </AlertDialogTrigger>
-      </IconTooltip>
-      
-      <AlertDialogContent aria-describedby={undefined}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Delete Section?</AlertDialogTitle>
-
-          <AlertDialogDescription>
-            This section will be marked as inactive and removed from the active
-            section list. The account can be restored later.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-          <AlertDialogAction asChild>
-            <Button
-              className="bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20"
-              disabled={isPending}
-              onClick={(e) => {
-                e.preventDefault();
-
-                startTransition(async () => {
-                  await deleteSectionAction({ sectionId });
-                });
-              }}
-            >
-              {isPending ? 'Deleting...' : 'Delete'}
-            </Button>
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <ConfirmActionDialog
+      tooltip="Delete section"
+      title="Delete Section?"
+      description="This section will be marked as inactive and can be restored later."
+      confirmText="Delete"
+      pendingText="Deleting..."
+      confirmButtonClassName="bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20"
+      trigger={
+        <Button
+          type="button"
+          variant="destructive"
+          size="icon"
+          className="size-7 rounded-sm"
+        >
+          <TrashIcon />
+          <span className="sr-only">Delete section</span>
+        </Button>
+      }
+      onConfirm={handleDelete}
+    />
   );
 };
 

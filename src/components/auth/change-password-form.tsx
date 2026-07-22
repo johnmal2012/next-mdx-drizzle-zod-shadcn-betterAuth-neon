@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ChangePasswordFormInput,
+  ChangePasswordInput,
   changePasswordSchema,
 } from '@/lib/validations/auth';
 import {
@@ -29,7 +30,15 @@ export const ChangePasswordForm = () => {
 
   //   const [newPassword, setNewPassword] = useState('');
 
-  const form = useForm<ChangePasswordFormInput>({
+  //   const form = useForm<ChangePasswordFormInput>({
+  //     resolver: zodResolver(changePasswordSchema),
+  //     defaultValues: {
+  //       currentPassword: '',
+  //       newPassword: '',
+  //       confirmPassword: '',
+  //     },
+  //   });
+  const form = useForm<ChangePasswordFormInput, unknown, ChangePasswordInput>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
       currentPassword: '',
@@ -61,7 +70,11 @@ export const ChangePasswordForm = () => {
         //   (evt.target as HTMLFormElement).reset();
         //   setCurrentPassword('');
         //   setNewPassword('');
-        form.reset();
+        form.reset({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        });
       } catch (err) {
         toast.error('Something went wrong. Please try again.');
         console.error(err);
@@ -74,15 +87,16 @@ export const ChangePasswordForm = () => {
       //   onSubmit={handleSubmit}
       onSubmit={form.handleSubmit(onFormSubmit)}
       className="max-w-sm w-full space-y-4"
+      noValidate
       autoComplete="off"
     >
-      {/* <Input
+      <Input
         type="text"
         name="username"
         autoComplete="off"
         style={{ display: 'none' }}
         aria-hidden="true"
-      /> */}
+      />
       <FieldGroup>
         {/* <div className="flex flex-col gap-2"> */}
         {/* <Label htmlFor="currentPassword">Current Password</Label>
@@ -134,6 +148,7 @@ export const ChangePasswordForm = () => {
 
           <Input
             type="password"
+            autoComplete="new-password"
             aria-invalid={!!form.formState.errors.confirmPassword}
             {...form.register('confirmPassword')}
           />
@@ -146,7 +161,7 @@ export const ChangePasswordForm = () => {
       </FieldGroup>
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? 'Changing password...' : 'Change Password'}
+        {isPending ? 'Changing...' : 'Change Password'}
       </Button>
     </form>
   );

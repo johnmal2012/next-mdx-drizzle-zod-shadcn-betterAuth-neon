@@ -329,7 +329,8 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4">
+    <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4"
+    noValidate>
       <div className="space-y-2">
         <Label htmlFor="name">Name</Label>
 
