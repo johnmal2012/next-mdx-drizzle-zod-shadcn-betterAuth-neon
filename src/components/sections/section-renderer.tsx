@@ -10,10 +10,10 @@ import MapSection from '@/components/sections/map-section';
 import TestSection from '@/components/sections/test-section';
 
 import type { PhysicianProfile } from '@/lib/types/physician-profile';
-import type { PhysicianSections } from '@/lib/types/physician-section';
+import type { PhysicianSection } from '@/lib/types/physician-section';
 
 type SectionRendererProps = {
-  section: PhysicianSections;
+  section: PhysicianSection;
   profile: PhysicianProfile;
   index: number;
 };
