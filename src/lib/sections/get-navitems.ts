@@ -1,7 +1,7 @@
-import type {  PhysicianSections } from '@/lib/types/physician-section'
+import type { PhysicianSection } from '@/lib/types/physician-section'
 
 export function buildNavItems(
-    sections: PhysicianSections[],
+    sections: PhysicianSection[],
 ) {
     return sections.map(({ slug }) => ({
         id: slug,
