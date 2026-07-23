@@ -18,7 +18,7 @@ import {
 import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
 
 import { Result } from '@/lib/types/result';
-import { PhysicianSections } from '@/lib/types/physician-section';
+import { PhysicianSection } from '@/lib/types/physician-section';
 import { requireAdmin } from '@/lib/auth-utils';
 
 export async function getPhysicianSections() {
@@ -43,7 +43,7 @@ export async function getPhysicianSections() {
 
 export async function createPhysicianSection(
   data: PhysicianSectionFormInput,
-): Promise<Result<PhysicianSections, FieldErrors>> {
+): Promise<Result<PhysicianSection, FieldErrors>> {
   try {
     await requireAdmin();
 
@@ -88,7 +88,7 @@ export async function createPhysicianSection(
 export async function updatePhysicianSection(
   id: number,
   data: PhysicianSectionFormInput,
-): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
+): Promise<Result<PhysicianSection, Record<string, string[] | undefined>>> {
   try {
     const result = physicianSectionUpdateSchema.safeParse(data);
 
@@ -143,7 +143,7 @@ export async function updatePhysicianSection(
 // =========================
 export async function deletePhysicianSection(
   sectionId: number,
-): Promise<Result<PhysicianSections, Record<string, string[] | undefined>>> {
+): Promise<Result<PhysicianSection, Record<string, string[] | undefined>>> {
   try {
     const existing = await db.query.physicianSections.findFirst({
       where: eq(physicianSections.id, sectionId),
