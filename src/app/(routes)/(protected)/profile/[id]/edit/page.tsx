@@ -8,6 +8,8 @@ import { physicianProfile } from '@/db/schema';
 
 import { ProfileForm } from '@/components/profile/profile-form';
 import { getSession } from '@/lib/auth-utils';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { UserRoundArrowLeft } from 'lucide-react';
 
 type ProfileEditProps = {
   params: Promise<{
@@ -18,19 +20,33 @@ type ProfileEditProps = {
 export default async function ProfileEditPage({ params }: ProfileEditProps) {
   const { id } = await params;
 
-  const profile = await db.query.physicianProfile.findFirst({
+//   const profile = await db.query.physicianProfile.findFirst({
+//     where: eq(physicianProfile.id, Number(id)),
+//   });
+  const [profile, session] = await Promise.all([
+    db.query.physicianProfile.findFirst({
     where: eq(physicianProfile.id, Number(id)),
-  });
-
+  }),
+    getSession(),
+  ]);
+  //   if (!profile) {
+  //     notFound();
+  //   }
   if (!profile) {
-    notFound();
+    return (
+      <EmptyState
+        title="No Physician Profile found."
+        description="Create a physician profile to display on website."
+        icon={<UserRoundArrowLeft className="size-12" />}
+      />
+    );
   }
 
-  const data = await getSession();
+//   const data = await getSession();
 
-  const currentUser = data
+  const currentUser = session
     ? await db.query.user.findFirst({
-        where: (users, { eq }) => eq(users.id, data.user.id),
+        where: (users, { eq }) => eq(users.id, session.user.id),
       })
     : null;
 

@@ -12,10 +12,6 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { Button } from '@/components/ui/button';
 import { chunk } from '@/lib/types/section-map';
 import { cn } from '@/lib/utils';
-import { getActivePhysicianSections } from '@/lib/sections/get-physician-sections';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { LayoutTemplate } from 'lucide-react';
-import { SectionCard } from '@/components/sections/section-card';
 
 // import AdminSectionOrderList
 // from '@/components/admin-section-order-list';
@@ -28,28 +24,16 @@ export default async function SectionsPage() {
   //   const sections = await db.query.physicianSections.findMany({
   //     orderBy: asc(physicianSections.id),
   //   });
-  //   const sections = await db.query.physicianSections.findMany({
-  //     where: (sections, { and, eq, isNull }) =>
-  //       and(eq(sections.isActive, true), isNull(sections.deletedAt)),
-  //     orderBy: (sections, { asc }) => [asc(sections.displayOrder)],
-  //   });
-  const sections = await getActivePhysicianSections();
-
-  if (!sections.length) {
-    // return <div>No physician sections found.</div>;
-    return (
-      <EmptyState
-        title="No Physician sections found."
-        description="Create physician sections to display on website."
-        icon={<LayoutTemplate className="size-12" />}
-      />
-    );
-  }
+  const sections = await db.query.physicianSections.findMany({
+    where: (sections, { and, eq, isNull }) =>
+      and(eq(sections.isActive, true), isNull(sections.deletedAt)),
+    orderBy: (sections, { asc }) => [asc(sections.displayOrder)],
+  });
 
   // Create mobile pattern: [gray, white, gray, white, ...]
-  //   const getMobileBackground = (index: number) => {
-  //     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  //   };
+  const getMobileBackground = (index: number) => {
+    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -91,7 +75,33 @@ export default async function SectionsPage() {
                       key={section.id}
                       className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
                     >
-                      <SectionCard section={section} />
+                      <div className="space-y-2">
+                        <h2 className="text-2xl font-semibold">
+                          {section.title}
+                        </h2>
+
+                        <p className="text-sm text-muted-foreground">
+                          Slug: {section.slug}
+                        </p>
+
+                        <p className="text-sm text-muted-foreground">
+                          Display Order: {section.displayOrder}
+                        </p>
+                      </div>
+
+                      <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+                        <Button
+                          className="h-10 w-24 bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                          size="lg"
+                          asChild
+                        >
+                          <Link href={`/sections/${section.id}/edit`}>
+                            Edit
+                          </Link>
+                        </Button>
+
+                        <SectionDeleteButton sectionId={section.id} />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -108,7 +118,35 @@ export default async function SectionsPage() {
                     index % 2 === 0 ? 'bg-slate-100' : 'bg-white',
                   )}
                 >
-                  <SectionCard section={section} />
+                  <div className="rounded-2xl border bg-background p-5">
+                    <div className="space-y-2">
+                      <h2 className="text-2xl font-semibold">
+                        {section.title}
+                      </h2>
+
+                      <p className="text-sm text-muted-foreground">
+                        Slug: {section.slug}
+                      </p>
+
+                      <p className="text-sm text-muted-foreground">
+                        Display Order: {section.displayOrder}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+                      <Button
+                        className="h-10 w-24 bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                        size="lg"
+                        asChild
+                      >
+                        <Link href={`/sections/${section.id}/edit`}>
+                          Edit
+                        </Link>
+                      </Button>
+
+                      <SectionDeleteButton sectionId={section.id} />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

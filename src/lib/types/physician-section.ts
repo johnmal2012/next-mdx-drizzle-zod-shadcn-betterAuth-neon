@@ -1,7 +1,7 @@
 import { physicianSections } from '@/db/schema';
 
-export type PhysicianSections =
+export type PhysicianSection =
   typeof physicianSections.$inferSelect;
 
-export type NewPhysicianSections =
+export type NewPhysicianSection =
   typeof physicianSections.$inferInsert;

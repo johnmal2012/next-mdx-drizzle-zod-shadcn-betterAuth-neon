@@ -5,6 +5,8 @@ import { physicianSections } from '@/db/schema/physician-sections';
 import { eq } from 'drizzle-orm';
 
 import SectionForm from '@/components/sections/section-form';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { LayoutTemplate } from 'lucide-react';
 
 export default async function SectionsEditPage({
   params,
@@ -21,8 +23,17 @@ export default async function SectionsEditPage({
     .where(eq(physicianSections.id, Number(id)))
     .then((rows) => rows[0]);
 
+  //   if (!section) {
+  //     return <div>Section not found</div>;
+  //   }
   if (!section) {
-    return <div>Section not found</div>;
+    return (
+      <EmptyState
+        title="No Physician sections found."
+        description="Create physician sections to display on website."
+        icon={<LayoutTemplate className="size-12" />}
+      />
+    );
   }
 
   return (

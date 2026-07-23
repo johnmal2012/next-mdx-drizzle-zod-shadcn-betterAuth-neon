@@ -232,14 +232,15 @@
 // }
 export const dynamic = 'force-dynamic';
 
-import { redirect } from 'next/navigation';
-
-import { db } from '@/db/db';
-
 import Navbar from '@/components/navigation/navBar';
 import FooterSection from '@/components/sections/footer-section';
 // import MapSection from '@/components/sections/map-section';
 import { SectionRenderer } from '@/components/sections/section-renderer';
+import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
+import { getActivePhysicianSections } from '@/lib/sections/get-physician-sections';
+import { buildNavItems } from '@/lib/sections/get-navitems';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { LayoutTemplate, UserRoundArrowLeft } from 'lucide-react';
 
 export default async function PhysicianPage() {
   /*
@@ -247,23 +248,47 @@ export default async function PhysicianPage() {
   Physician Profile
   =====================================
   */
-// delay for testing loading state
-//   await new Promise((resolve) => setTimeout(resolve, 2000));
+  // delay for testing loading state
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const profiles = await db.query.physicianProfile.findMany({
-    where: (profile, { and, eq, isNull }) =>
-      and(eq(profile.isActive, true), isNull(profile.deletedAt)),
-  });
+  //   const profiles = await db.query.physicianProfile.findMany({
+  //     where: (profile, { and, eq, isNull }) =>
+  //       and(eq(profile.isActive, true), isNull(profile.deletedAt)),
+  //   });
 
-  if (profiles.length === 0) {
-    return <div>No physician profile found.</div>;
+  //   if (profiles.length === 0) {
+  //     return <div>No physician profile found.</div>;
+  //   }
+
+  //   if (profiles.length > 1) {
+  //     redirect('/error');
+  //   }
+
+  //   const profile = profiles[0];
+  // const profile = await getPhysicianProfile();
+  // 1. move queries into a service layer such as lib/profile
+  // 2. fetch both in parallel to save one network round-trip
+  //   const TEST_EMPTY_PROFILE = true;
+  //   const [realProfile, sections] = await Promise.all([
+  const [profile, sections] = await Promise.all([
+    getActivePhysicianProfile(),
+    getActivePhysicianSections(),
+  ]);
+
+  //   if (TEST_EMPTY_PROFILE) {
+  //     profile = null;
+  //   }
+  // const profile = TEST_EMPTY_PROFILE ? null : realProfile;
+  // console.log('profile: ', profile);
+  if (!profile) {
+    return (
+      <EmptyState
+        title="No Physician Profile found."
+        description="Create a physician profile to display on website."
+        icon={<UserRoundArrowLeft className="size-12" />}
+      />
+    );
   }
-
-  if (profiles.length > 1) {
-    redirect('/error');
-  }
-
-  const profile = profiles[0];
   //   console.log(profile.navItems);
 
   /*
@@ -272,20 +297,33 @@ export default async function PhysicianPage() {
   =====================================
   */
 
-  const sections = await db.query.physicianSections.findMany({
-    where: (section, { and, eq, isNull }) =>
-      and(eq(section.isActive, true), isNull(section.deletedAt)),
-    orderBy: (section, { asc }) => [asc(section.displayOrder)],
-  });
+  //   const sections = await db.query.physicianSections.findMany({
+  //     where: (section, { and, eq, isNull }) =>
+  //       and(eq(section.isActive, true), isNull(section.deletedAt)),
+  //     orderBy: (section, { asc }) => [asc(section.displayOrder)],
+  //   });
 
-  if (sections.length === 0) {
-    return <div>No physician sections found.</div>;
+  //   if (sections.length === 0) {
+  //     return <div>No physician sections found.</div>;
+  //   }
+  // const sections = await getPhysicianSections();
+
+  if (!sections) {
+    // return <div>No physician sections found.</div>;
+    return (
+      <EmptyState
+        title="No Physician sections found."
+        description="Create physician sections to display on website."
+        icon={<LayoutTemplate className="size-12" />}
+      />
+    );
   }
 
-  const navItems = sections.map((section) => ({
-    id: section.slug,
-    // label: section.title,
-  }));
+  //   const navItems = sections.map((section) => ({
+  //     id: section.slug,
+  //     // label: section.title,
+  //   }));
+  const navItems = buildNavItems(sections);
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -301,7 +339,7 @@ export default async function PhysicianPage() {
 
       {sections.map((section, index) => (
         <SectionRenderer
-          key={section.id}
+          key={section.slug}
           section={section}
           profile={profile}
           index={index}

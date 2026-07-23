@@ -1,9 +1,10 @@
 // 1) admin profile page
+import React from 'react';
 import Link from 'next/link';
 import { db } from '@/db/db';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { TriangleAlert } from 'lucide-react';
+import { TriangleAlert, UserRoundArrowLeft } from 'lucide-react';
 
 import {
   Card,
@@ -22,45 +23,91 @@ import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
 import { cn, getInitials } from '@/lib/utils';
+import { getProfileItems } from '@/lib/profile/get-profile-items';
+import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
+import { EmptyState } from '@/components/shared/EmptyState';
 
-type InfoItemProps = {
-  label: string;
-  value: string | null;
-  className?: string;
-};
+// type InfoItemProps = {
+//   label: string;
+//   value: string | null;
+//   className?: string;
+// };
 
-function InfoItem({ label, value, className }: InfoItemProps) {
-  return (
-    <div className={cn('rounded-xl border p-4', className)}>
-      <p className="text-sm text-muted-foreground">{label}</p>
+// function InfoItem({ label, value, className }: InfoItemProps) {
+//   return (
+//     <div className={cn('rounded-xl border p-4', className)}>
+//       <p className="text-sm text-muted-foreground">{label}</p>
 
-      <p className="mt-1 font-medium wrap-break-word">{value || '—'}</p>
-    </div>
-  );
-}
+//       <p className="mt-1 font-medium wrap-break-word">{value || '—'}</p>
+//     </div>
+//   );
+// }
 
 export default async function ProfilePage() {
-  const profiles = await db.query.physicianProfile.findMany({
-    where: (profiles, { and, eq, isNull }) =>
-      and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
-    orderBy: (profiles, { asc }) => [asc(profiles.name)],
-  });
+  // const profiles = await db.query.physicianProfile.findMany({
+  //   where: (profiles, { and, eq, isNull }) =>
+  //     and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
+  //   // orderBy: (profiles, { asc }) => [asc(profiles.name)],
+  // });
 
-  const data = await getSession();
+  //   const data = await getSession();
 
-  const currentUser = data
+  //   const currentUser = data
+  //     ? await db.query.user.findFirst({
+  //         where: (users, { eq }) => eq(users.id, data.user.id),
+  //       })
+  //     : null;
+  // only fetch image and name, not whole user record
+  //   const session = await getSession();
+
+  //   const [profiles, session] = await Promise.all([
+  //     await db.query.physicianProfile.findMany({
+  //       where: (profiles, { and, eq, isNull }) =>
+  //         and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
+  //       // orderBy: (profiles, { asc }) => [asc(profiles.name)],
+  //     }),
+  //     getSession(),
+  //   ]);
+
+  const [profile, session] = await Promise.all([
+    getActivePhysicianProfile(),
+    getSession(),
+  ]);
+
+  if (!profile) {
+    return (
+      <EmptyState
+        title="No Physician Profile found."
+        description="Create a physician profile to display on website."
+        icon={<UserRoundArrowLeft className="size-12" />}
+      />
+    );
+  }
+
+  const currentUser = session
     ? await db.query.user.findFirst({
-        where: (users, { eq }) => eq(users.id, data.user.id),
+        columns: {
+          image: true,
+          name: true,
+        },
+        where: (user, { eq }) => eq(user.id, session.user.id),
       })
     : null;
+
+  const allItems = getProfileItems(profile);
 
   // Helper function for alternating backgrounds on mobile
   const getMobileBackground = (index: number) => {
     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
   };
 
+  const desktopRows = [];
+  for (let i = 0; i < allItems.length; i += 2) {
+    desktopRows.push(allItems.slice(i, i + 2));
+  }
+
   return (
-    <div className="container mx-auto py-10 space-y-6">
+    <div className="container mx-auto space-y-6 py-10">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h1 className="text-3xl font-bold">Physician Profiles</h1>
@@ -68,6 +115,7 @@ export default async function ProfilePage() {
           <p className="mt-1 text-muted-foreground">
             Manage physician profile content
           </p>
+
           <Alert className="mt-3 border-amber-300 bg-amber-50 text-amber-900 lg:mb-6">
             <TriangleAlert className="h-4 w-4" />
             <AlertDescription>
@@ -76,142 +124,127 @@ export default async function ProfilePage() {
             </AlertDescription>
           </Alert>
         </div>
+
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center lg:self-start">
-          <Button className="h-10 px-4" asChild>
+          <Button asChild className="h-10 px-4">
             <Link href="/profile/create">Create Profile</Link>
           </Button>
+
           <ReturnButton href="/" label="Physician Portal" />
         </div>
       </div>
 
-      {profiles.length === 0 && (
-        <Card>
-          <CardContent className="py-10 text-center text-muted-foreground">
-            No physician profiles found.
-          </CardContent>
-        </Card>
-      )}
+      <Card className="rounded-2xl shadow-sm">
+        <CardHeader className="space-y-2">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <CardTitle className="text-2xl">{profile.name}</CardTitle>
 
-      <div className="grid gap-6">
-        {profiles.map((profile) => {
-          const infoItems = [
-            { id: 'title', label: 'Title', value: profile.title },
-            {
-              id: 'board-specialty',
-              label: 'Board Specialty',
-              value: profile.boardSpecialty,
-            },
-            { id: 'email', label: 'Email', value: profile.email },
-            { id: 'phone', label: 'Phone', value: profile.phone },
-            {
-              id: 'clinic-name',
-              label: 'Clinic Name',
-              value: profile.clinicName,
-            },
-            {
-              id: 'clinic-address',
-              label: 'Clinic Address',
-              value: profile.clinicAddress,
-            },
-            { id: 'logo', label: 'Logo', value: profile.logo },
-            { id: 'link-name', label: 'Link Name', value: profile.linkName },
-            {
-              id: 'foot-care-link',
-              label: 'Foot Care Link',
-              value: profile.footCareLink,
-            },
-          ];
+              <CardDescription className="mt-1">
+                {profile.specialty}
+              </CardDescription>
+            </div>
 
-          return (
-            <Card key={profile.id} className="rounded-2xl shadow-sm">
-              <CardHeader className="space-y-2">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <CardTitle className="text-2xl">{profile.name}</CardTitle>
+            <div className="flex gap-2">
+              <Button
+                asChild
+                className="h-10 w-24 bg-green-600! text-white! hover:bg-green-700!"
+              >
+                <Link href={`/profile/${profile.id}/edit`}>Edit</Link>
+              </Button>
 
-                    <CardDescription className="mt-1">
-                      {profile.specialty}
-                    </CardDescription>
-                  </div>
+              <PhysicianProfileDeleteButton profileId={profile.id} />
+            </div>
+          </div>
+        </CardHeader>
 
-                  <div className="flex gap-2">
-                    <Button
-                      className="h-10 w-24 bg-green-600! text-white! hover:bg-green-700!"
-                      asChild
-                    >
-                      <Link href={`/profile/${profile.id}/edit`}>Edit</Link>
-                    </Button>
+        <Separator className="bg-slate-300 data-[orientation=horizontal]:h-1" />
 
-                    <PhysicianProfileDeleteButton profileId={profile.id} />
-                  </div>
-                </div>
-              </CardHeader>
+        <CardContent className="space-y-6 pt-6">
+          {/* Desktop View - Hidden on mobile */}
 
-              <Separator className="data-[orientation=horizontal]:h-1 bg-slate-300" />
-
-              <CardContent className="space-y-6 pt-6">
-                {/* Basic Info Grid - Desktop: pairs with alternating backgrounds */}
-                <div className="hidden md:grid md:grid-cols-2 gap-4">
-                  {infoItems.map((item, index) => (
-                    <InfoItem
-                      key={item.id}
-                      label={item.label}
-                      value={item.value}
-                      className={
-                        Math.floor(index / 2) % 2 === 0
-                          ? 'bg-slate-100'
-                          : 'bg-white'
-                      }
-                    />
-                  ))}
-                </div>
-
-                {/* Basic Info Grid - Mobile: single column with alternating backgrounds */}
-                <div className="grid md:hidden gap-4">
-                  {infoItems.map((item, index) => (
-                    <InfoItem
-                      key={item.id}
-                      label={item.label}
-                      value={item.value}
-                      className={getMobileBackground(index)}
-                    />
-                  ))}
-                </div>
-
-                {/* Image and Expertise Section - Alternating for both layouts */}
-                <div className="grid gap-4 md:grid-cols-2">
-                  {/* Expertise - Desktop: right item, Mobile: follows alternating pattern */}
+          <div className="hidden gap-4 md:grid md:grid-cols-2">
+            {desktopRows.map((row, rowIndex) => (
+              <React.Fragment key={rowIndex}>
+                {row.map((item) => (
                   <div
+                    key={item.id}
                     className={cn(
                       'rounded-xl border p-4',
-                      // On desktop: white (since it's the second item in the row)
-                      'md:bg-white',
-                      // On mobile: white (second item after image)
-                      'bg-white',
+                      rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
                     )}
                   >
-                    <p className="text-sm text-muted-foreground">Expertise</p>
+                    {item.type === 'info' && (
+                      <>
+                        <p className="text-sm text-muted-foreground">
+                          {item.label}
+                        </p>
 
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {profile.expertise?.map((item: string) => (
-                        <Badge key={item} variant="secondary">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Image - Desktop: left item, Mobile: follows alternating pattern */}
-                  <div
-                    className={cn(
-                      'rounded-xl border p-4',
-                      // On desktop: same row pattern as info items
-                      'md:bg-slate-100',
-                      // On mobile: start with gray (since it's the first item after info items)
-                      'bg-slate-100',
+                        <p className="mt-1 wrap-break-word font-medium">
+                          {item.value || '—'}
+                        </p>
+                      </>
                     )}
-                  >
+
+                    {item.type === 'image' && (
+                      <>
+                        <p className="text-sm text-muted-foreground">Image</p>
+
+                        <div className="mt-2">
+                          <UserAvatar
+                            image={currentUser?.image}
+                            name={getInitials(currentUser?.name ?? '')}
+                            className="h-12 w-12"
+                          />
+                        </div>
+                      </>
+                    )}
+
+                    {item.type === 'expertise' && (
+                      <>
+                        <p className="text-sm text-muted-foreground">
+                          Expertise
+                        </p>
+
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {profile.expertise?.map((skill) => (
+                            <Badge key={skill} variant="secondary">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {/* Mobile - Hidden on desktop */}
+
+          <div className="grid md:hidden gap-4">
+            {allItems.map((item, index) => (
+              <div
+                key={item.id}
+                className={cn(
+                  'rounded-xl border p-4',
+                  getMobileBackground(index),
+                )}
+              >
+                {item.type === 'info' && (
+                  <>
+                    <p className="text-sm text-muted-foreground">
+                      {item.label}
+                    </p>
+                    <p className="mt-1 font-medium wrap-break-word">
+                      {item.value || '—'}
+                    </p>
+                  </>
+                )}
+                {item.type === 'image' && (
+                  <>
                     <p className="text-sm text-muted-foreground">Image</p>
-
                     <div className="mt-2">
                       <UserAvatar
                         image={currentUser?.image}
@@ -219,13 +252,25 @@ export default async function ProfilePage() {
                         className="h-12 w-12"
                       />
                     </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+                  </>
+                )}
+                {item.type === 'expertise' && (
+                  <>
+                    <p className="text-sm text-muted-foreground">Expertise</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {profile.expertise?.map((item: string) => (
+                        <Badge key={item} variant="secondary">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
