@@ -15,10 +15,10 @@ import {
   physicianSectionUpdateSchema,
 } from '@/lib/validations/physician-section';
 
-import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
+// import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
 
-import { Result } from '@/lib/types/result';
-import { PhysicianSections } from '@/lib/types/physician-section';
+// import { Result } from '@/lib/types/result';
+// import { PhysicianSection } from '@/lib/types/physician-section';
 import { APIError } from 'better-auth/api';
 // import { requireAdmin } from '@/lib/auth-utils';
 
