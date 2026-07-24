@@ -25,8 +25,6 @@ import {
   physicianSectionUpdateSchema,
 } from '@/lib/validations/physician-section';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn, getCardBackground } from '@/lib/utils';
-import { sectionFields } from '@/lib/constants/section-fields';
 
 type SectionFormProps = {
   section?: Section;
@@ -34,35 +32,11 @@ type SectionFormProps = {
 
 type Section = InferSelectModel<typeof physicianSections>;
 
-// type SessionFormData = {
-//   title: string;
-//   slug: string;
-//   content: string;
-//   displayOrder: number;
-// };
-
-// type FormErrors = {
-//   slug?: string;
-//   title?: string;
-//   content?: string;
-//   displayOrder?: string;
-//   general?: string;
-// };
-
-// type ApiFieldError = {
-//   path: string[];
-//   message: string;
-// };
-
 export default function SectionForm({ section }: SectionFormProps) {
   const router = useRouter();
 
   // This state update is not urgent. Keep the UI responsive while you update it where some state updates may trigger expensive rendering
   const [isPending, startTransition] = useTransition();
-
-  //   const [errors, setErrors] = useState<FormErrors>({});
-
-  //   const [generalError, setGeneralError] = useState<string | null>(null);
 
   const form = useForm<PhysicianSectionFormInput>({
     resolver: zodResolver(physicianSectionUpdateSchema),
@@ -142,53 +116,126 @@ export default function SectionForm({ section }: SectionFormProps) {
             className="space-y-6"
             noValidate
           >
-            <FieldGroup className="space-y-4">
-              {sectionFields.map((field, index) => (
-                <Field
-                  key={field.id}
-                  className={cn('rounded-lg p-4', getCardBackground(index, 1))} // one-column form if size > md:
+            <FieldGroup>
+              {/* Slug */}
+              <Field className="bg-slate-100 p-4 rounded-lg">
+                <FieldLabel
+                  htmlFor="slug"
+                  className="text-sm text-muted-foreground ml-2.5"
                 >
-                  <FieldLabel
-                    htmlFor={field.id}
-                    className="ml-2.5 text-sm text-muted-foreground"
-                  >
-                    {field.label}
+                  Key to lookup each section
+                  <span className="text-destructive ml-1">*</span>
+                </FieldLabel>
 
-                    {field.required && (
-                      <span className="ml-1 text-destructive">*</span>
-                    )}
-                  </FieldLabel>
+                <Input
+                  id="slug"
+                  placeholder="No spaces (e.g. office_hours)"
+                  //   aria-required="true"
+                  aria-invalid={!!form.formState.errors.slug}
+                  {...form.register('slug')}
+                />
 
-                  {field.type === 'textarea' ? (
-                    <Textarea
-                      id={field.id}
-                      placeholder={field.placeholder}
-                      className="min-h-96 resize-y font-mono text-sm"
-                      aria-invalid={!!form.formState.errors[field.id]}
-                      {...form.register(field.id)}
-                    />
-                  ) : (
-                    <Input
-                      id={field.id}
-                      type={field.type === 'number' ? 'number' : 'text'}
-                      min={field.type === 'number' ? 0 : undefined}
-                      placeholder={field.placeholder}
-                      aria-invalid={!!form.formState.errors[field.id]}
-                      {...form.register(field.id, {
-                        valueAsNumber: field.type === 'number',
-                      })}
-                    />
-                  )}
+                <FieldError>{form.formState.errors.slug?.message}</FieldError>
+              </Field>
 
-                  {field.helperText && (
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {field.helperText}
-                    </p>
-                  )}
+              {/* Title */}
+              <Field className="bg-white p-4 rounded-lg">
+                <FieldLabel
+                  htmlFor="title"
+                  className="text-sm text-muted-foreground ml-2.5"
+                >
+                  Title
+                  <span className="text-destructive ml-1">*</span>
+                </FieldLabel>
 
-                  <FieldError>{form.formState.errors[field.id]?.message}</FieldError>
-                </Field>
-              ))}
+                <Input
+                  id="title"
+                  placeholder="Title for each section (e.g. Office Hours)"
+                  //   aria-required="true"
+                  aria-invalid={!!form.formState.errors.title}
+                  {...form.register('title')}
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  Specify the title displayed at the top of each section
+                </p>
+                <FieldError>{form.formState.errors.title?.message}</FieldError>
+              </Field>
+
+              {/* Display Order */}
+              <Field className="bg-slate-100 p-4 rounded-lg">
+                <FieldLabel
+                  htmlFor="displayOrder"
+                  className="text-sm text-muted-foreground ml-2.5"
+                >
+                  Display Order
+                  {/* <span className="text-destructive ml-1">*</span> */}
+                </FieldLabel>
+
+                <Input
+                  id="displayOrder"
+                  type="number"
+                  min={0}
+                  //   aria-required="true"
+                  aria-invalid={!!form.formState.errors.displayOrder}
+                  {...form.register('displayOrder', {
+                    valueAsNumber: true,
+                  })}
+                />
+
+                <p className="text-xs text-muted-foreground mt-2">
+                  For display in Manage Sections only. Not used in the Physician
+                  Portal.
+                </p>
+
+                <FieldError>
+                  {form.formState.errors.displayOrder?.message}
+                </FieldError>
+              </Field>
+
+              {/* Content */}
+              <Field className="bg-white p-4 rounded-lg">
+                <FieldLabel
+                  htmlFor="content"
+                  className="text-sm text-muted-foreground ml-2.5"
+                >
+                  MDX Content
+                </FieldLabel>
+
+                <Textarea
+                  id="content"
+                  placeholder="Write MDX content here..."
+                  className="min-h-96 resize-y font-mono text-sm"
+                  aria-invalid={!!form.formState.errors.content}
+                  {...form.register('content')}
+                />
+
+                <p className="text-xs text-muted-foreground mt-2">
+                  Use markdown symbols for formatting: # for headings, ** for
+                  bold, * for italic.
+                </p>
+
+                <FieldError>
+                  {form.formState.errors.content?.message}
+                </FieldError>
+              </Field>
+
+              {/* Error */}
+              {/* {generalError && (
+                <div
+                  className="
+                  rounded-xl
+                  border
+                  border-destructive/30
+                  bg-destructive/10
+                  px-4
+                  py-3
+                  text-sm
+                  text-destructive
+                "
+                >
+                  {generalError}
+                </div> 
+              )}*/}
             </FieldGroup>
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">

@@ -38,11 +38,17 @@ export const formatLabel = (slug: string) =>
     .replace(/_/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
-export const getCardBackground = (index: number) => {
-  const mobile = index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+export const getCardBackground = (
+  index: number,
+  cardsPerRow = 2,
+) => {
+  const mobile =
+    index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
 
   const desktop =
-    Math.floor(index / 2) % 2 === 0 ? 'md:bg-slate-100' : 'md:bg-white';
+    Math.floor(index / cardsPerRow) % 2 === 0
+      ? 'md:bg-slate-100'
+      : 'md:bg-white';
 
   return cn(mobile, desktop);
 };

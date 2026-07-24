@@ -318,7 +318,7 @@ export function ProfileForm({
         {formFields.map((field, index) => (
           <div
             key={field.id}
-            className={cn('rounded-lg p-4', getCardBackground(index))}
+            className={cn('rounded-lg p-4', getCardBackground(index, 2))} // 2-columns form if size > md:
           >
             {field.type === 'image' ? (
               <div className="flex flex-col items-center">
