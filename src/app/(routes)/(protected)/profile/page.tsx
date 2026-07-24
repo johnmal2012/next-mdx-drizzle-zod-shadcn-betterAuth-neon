@@ -22,53 +22,13 @@ import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delet
 import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
-import { cn, getInitials } from '@/lib/utils';
+import { cn, getCardBackground, getInitials } from '@/lib/utils';
 import { getProfileItems } from '@/lib/profile/get-profile-items';
 import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
 import { EmptyState } from '@/components/shared/EmptyState';
-
-// type InfoItemProps = {
-//   label: string;
-//   value: string | null;
-//   className?: string;
-// };
-
-// function InfoItem({ label, value, className }: InfoItemProps) {
-//   return (
-//     <div className={cn('rounded-xl border p-4', className)}>
-//       <p className="text-sm text-muted-foreground">{label}</p>
-
-//       <p className="mt-1 font-medium wrap-break-word">{value || '—'}</p>
-//     </div>
-//   );
-// }
+import { ProfileField } from '@/components/profile/ProfileField';
 
 export default async function ProfilePage() {
-  // const profiles = await db.query.physicianProfile.findMany({
-  //   where: (profiles, { and, eq, isNull }) =>
-  //     and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
-  //   // orderBy: (profiles, { asc }) => [asc(profiles.name)],
-  // });
-
-  //   const data = await getSession();
-
-  //   const currentUser = data
-  //     ? await db.query.user.findFirst({
-  //         where: (users, { eq }) => eq(users.id, data.user.id),
-  //       })
-  //     : null;
-  // only fetch image and name, not whole user record
-  //   const session = await getSession();
-
-  //   const [profiles, session] = await Promise.all([
-  //     await db.query.physicianProfile.findMany({
-  //       where: (profiles, { and, eq, isNull }) =>
-  //         and(eq(profiles.isActive, true), isNull(profiles.deletedAt)),
-  //       // orderBy: (profiles, { asc }) => [asc(profiles.name)],
-  //     }),
-  //     getSession(),
-  //   ]);
-
   const [profile, session] = await Promise.all([
     getActivePhysicianProfile(),
     getSession(),
@@ -85,26 +45,26 @@ export default async function ProfilePage() {
   }
 
   const currentUser = session
-    ? await db.query.user.findFirst({
+    ? ((await db.query.user.findFirst({
         columns: {
           image: true,
           name: true,
         },
         where: (user, { eq }) => eq(user.id, session.user.id),
-      })
+      })) ?? null)
     : null;
 
   const allItems = getProfileItems(profile);
 
   // Helper function for alternating backgrounds on mobile
-  const getMobileBackground = (index: number) => {
-    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  };
+  //   const getMobileBackground = (index: number) => {
+  //     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+  //   };
 
-  const desktopRows = [];
-  for (let i = 0; i < allItems.length; i += 2) {
-    desktopRows.push(allItems.slice(i, i + 2));
-  }
+  //   const desktopRows = [];
+  //   for (let i = 0; i < allItems.length; i += 2) {
+  //     desktopRows.push(allItems.slice(i, i + 2));
+  //   }
 
   return (
     <div className="container mx-auto space-y-6 py-10">
@@ -164,60 +124,14 @@ export default async function ProfilePage() {
           {/* Desktop View - Hidden on mobile */}
 
           <div className="hidden gap-4 md:grid md:grid-cols-2">
-            {desktopRows.map((row, rowIndex) => (
-              <React.Fragment key={rowIndex}>
-                {row.map((item) => (
-                  <div
-                    key={item.id}
-                    className={cn(
-                      'rounded-xl border p-4',
-                      rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
-                    )}
-                  >
-                    {item.type === 'info' && (
-                      <>
-                        <p className="text-sm text-muted-foreground">
-                          {item.label}
-                        </p>
-
-                        <p className="mt-1 wrap-break-word font-medium">
-                          {item.value || '—'}
-                        </p>
-                      </>
-                    )}
-
-                    {item.type === 'image' && (
-                      <>
-                        <p className="text-sm text-muted-foreground">Image</p>
-
-                        <div className="mt-2">
-                          <UserAvatar
-                            image={currentUser?.image}
-                            name={getInitials(currentUser?.name ?? '')}
-                            className="h-12 w-12"
-                          />
-                        </div>
-                      </>
-                    )}
-
-                    {item.type === 'expertise' && (
-                      <>
-                        <p className="text-sm text-muted-foreground">
-                          Expertise
-                        </p>
-
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {profile.expertise?.map((skill) => (
-                            <Badge key={skill} variant="secondary">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </React.Fragment>
+            {allItems.map((item, index) => (
+              <div key={item.id} className={cn("rounded-xl border p-4", getCardBackground(index))}>
+                <ProfileField
+                  item={item}
+                  profile={profile}
+                  currentUser={currentUser}
+                />
+              </div>
             ))}
           </div>
 
@@ -227,45 +141,13 @@ export default async function ProfilePage() {
             {allItems.map((item, index) => (
               <div
                 key={item.id}
-                className={cn(
-                  'rounded-xl border p-4',
-                  getMobileBackground(index),
-                )}
+                className={cn("rounded-xl border p-4", getCardBackground(index))}
               >
-                {item.type === 'info' && (
-                  <>
-                    <p className="text-sm text-muted-foreground">
-                      {item.label}
-                    </p>
-                    <p className="mt-1 font-medium wrap-break-word">
-                      {item.value || '—'}
-                    </p>
-                  </>
-                )}
-                {item.type === 'image' && (
-                  <>
-                    <p className="text-sm text-muted-foreground">Image</p>
-                    <div className="mt-2">
-                      <UserAvatar
-                        image={currentUser?.image}
-                        name={getInitials(currentUser?.name ?? '')}
-                        className="h-12 w-12"
-                      />
-                    </div>
-                  </>
-                )}
-                {item.type === 'expertise' && (
-                  <>
-                    <p className="text-sm text-muted-foreground">Expertise</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {profile.expertise?.map((item: string) => (
-                        <Badge key={item} variant="secondary">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </>
-                )}
+                <ProfileField
+                  item={item}
+                  profile={profile}
+                  currentUser={currentUser}
+                />
               </div>
             ))}
           </div>

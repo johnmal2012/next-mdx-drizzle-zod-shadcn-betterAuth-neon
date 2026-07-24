@@ -16,7 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { Input } from '@/components/ui/input';
-import { getCardBackground, getInitials } from '@/lib/utils';
+import { getInitials } from '@/lib/utils';
 import { InferSelectModel } from 'drizzle-orm';
 import { physicianProfile } from '@/db/schema';
 import { UserAvatar } from '@/components/user/user-avatar';
@@ -106,9 +106,9 @@ export function ProfileForm({
   }
 
   // Get alternating background for mobile view
-  //   const getMobileBackground = (index: number) => {
-  //     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  //   };
+  const getMobileBackground = (index: number) => {
+    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+  };
 
   // Define field configurations with their properties
   const formFields = [
@@ -243,10 +243,10 @@ export function ProfileForm({
   ];
 
   // Split fields into rows for desktop view (2 per row)
-  //   const desktopRows = [];
-  //   for (let i = 0; i < formFields.length; i += 2) {
-  //     desktopRows.push(formFields.slice(i, i + 2));
-  //   }
+  const desktopRows = [];
+  for (let i = 0; i < formFields.length; i += 2) {
+    desktopRows.push(formFields.slice(i, i + 2));
+  }
 
   return (
     <form
@@ -259,66 +259,74 @@ export function ProfileForm({
       </div>
 
       {/* Desktop View - Hidden on mobile */}
-      <FieldGroup className="hidden gap-4 md:grid md:grid-cols-2">
-        {formFields.map((field, index) => (
-          <div
-            key={field.id}
-            className={cn('rounded-lg p-4', getCardBackground(index))}
-          >
-            {field.type === 'image' ? (
-              <div className="flex flex-col items-center">
-                <p className="pb-2 text-sm text-muted-foreground">
-                  {field.label}
-                </p>
-
-                <UserAvatar
-                  image={userImage}
-                  name={getInitials(userName ?? '')}
-                  className="h-12 w-12"
-                />
-
-                <div className="mt-2">
-                  <ProfileImageUpload />
-                </div>
-              </div>
-            ) : (
-              <Field>
-                <FieldLabel
-                  htmlFor={field.id}
-                  className="ml-2.5 text-sm text-muted-foreground"
-                >
-                  {field.label}
-                  {field.required && (
-                    <span className="text-destructive"> *</span>
-                  )}
-                </FieldLabel>
-
-                <Input
-                  placeholder={field.placeholder}
-                  aria-required={field.required}
-                  aria-invalid={!!field.error}
-                  {...field.register}
-                />
-
-                {field.helperText && (
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    {field.helperText}
-                  </p>
+      <FieldGroup className="hidden md:grid md:grid-cols-2 gap-4">
+        {desktopRows.map((row, rowIndex) => (
+          <React.Fragment key={rowIndex}>
+            {row.map((field, fieldIndex) => (
+              <div
+                key={field.id}
+                className={cn(
+                  'rounded-lg',
+                  rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
+                  fieldIndex === 0 ? 'p-4' : 'p-4'
                 )}
-
-                <FieldError>{field.error?.message}</FieldError>
-              </Field>
-            )}
-          </div>
+              >
+                {field.type === 'image' ? (
+                  <div className="flex flex-col items-center">
+                    <p className="text-sm text-muted-foreground pb-2">
+                      {field.label}
+                    </p>
+                    <UserAvatar
+                      image={userImage}
+                      name={getInitials(userName ?? '')}
+                      className="w-12 h-12"
+                    />
+                    <div className="mt-2">
+                      <ProfileImageUpload />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Field>
+                      <FieldLabel
+                        htmlFor={field.id}
+                        className="text-sm text-muted-foreground ml-2.5"
+                      >
+                        {field.label}
+                        {field.required && (
+                          <span className="text-destructive"> *</span>
+                        )}
+                      </FieldLabel>
+                      <Input
+                        placeholder={field.placeholder}
+                        aria-required={field.required}
+                        aria-invalid={!!field.error}
+                        {...field.register}
+                      />
+                      {field.helperText && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          {field.helperText}
+                        </p>
+                      )}
+                      <FieldError>{field.error?.message}</FieldError>
+                    </Field>
+                  </>
+                )}
+              </div>
+            ))}
+          </React.Fragment>
         ))}
       </FieldGroup>
 
       {/* Mobile View - Hidden on desktop */}
-      <FieldGroup className="grid gap-4 md:hidden">
+      <FieldGroup className="grid md:hidden gap-4">
         {formFields.map((field, index) => (
           <div
             key={field.id}
-            className={cn('rounded-lg p-4', getCardBackground(index))}
+            className={cn(
+              'rounded-lg p-4',
+              getMobileBackground(index)
+            )}
           >
             {field.type === 'image' ? (
               <div className="flex flex-col items-center">

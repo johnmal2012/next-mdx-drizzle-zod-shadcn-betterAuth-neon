@@ -4,17 +4,42 @@ import { UserAvatar } from "@/components/user/user-avatar";
 import { getInitials } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
-type ProfileItem = {
-    id: string,
-    label: string,
-    value: string,
-    type: string,
-}
+// type ProfileItem = {
+//     id: string,
+//     label: string,
+//     value: string | null;
+//     type: string,
+// }
+export type InfoItem = {
+  id: string;
+  label: string;
+  value: string | null;
+  type: 'info';
+};
+
+export type ImageItem = {
+  id: 'image';
+  label: 'Image';
+  type: 'image';
+};
+
+export type ExpertiseItem = {
+  id: 'expertise';
+  label: 'Expertise';
+  type: 'expertise';
+};
+
+export type ProfileItem =
+  | InfoItem
+  | ImageItem
+  | ExpertiseItem;
+
+type CurrentUser = Pick<User, 'name' | 'image'>;
 
 type ProfileFieldProps = {
   item: ProfileItem;
   profile: PhysicianProfile;
-  currentUser: User | null;
+  currentUser: CurrentUser | null;
 };
 
 export function ProfileField({
@@ -55,7 +80,16 @@ export function ProfileField({
           <div className="mt-2 flex flex-wrap gap-2">
             {profile.expertise?.length ? (
               profile.expertise.map((skill) => (
-                <Badge key={skill}>{skill}</Badge>
+                <Badge key={skill} variant="secondary" className="h-auto
+                rounded-full
+                border
+                border-blue-200
+                bg-blue-50
+                px-5
+                py-2
+                text-sm
+                font-medium
+                text-blue-700">{skill}</Badge>
               ))
             ) : (
               <span className="text-muted-foreground">—</span>
