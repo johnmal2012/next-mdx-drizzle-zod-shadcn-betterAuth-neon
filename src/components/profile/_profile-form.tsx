@@ -11,7 +11,7 @@ import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import {
   createPhysicianProfile,
   updatePhysicianProfile,
-} from '@/actions/profile/_physician-profile-actions';
+} from '@/actions/profile/physician-profile-actions';
 
 import { Button } from '@/components/ui/button';
 
@@ -161,17 +161,17 @@ export function ProfileForm({
         ? await updatePhysicianProfile(profile.id, payload)
         : await createPhysicianProfile(payload);
 
-      if (!result.success) {
-        if (result.error) {
-          setErrors(result.error);
-        }
+    //   if (!result.error) {
+    //     if (result.error) {
+    //       setErrors(result.error);
+    //     }
 
-        toast.error(result.message ?? 'Validation failed', {
-          duration: 4000,
-        });
+    //     toast.error(result.message ?? 'Validation failed', {
+    //       duration: 4000,
+    //     });
 
-        return;
-      }
+    //     return;
+    //   }
 
       toast.success(profile ? 'Profile updated' : 'Profile created', {
         duration: 4000,

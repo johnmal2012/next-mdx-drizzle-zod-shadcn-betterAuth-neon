@@ -1,7 +1,7 @@
 'use client';
 
 // React
-// import { useTransition } from 'react';
+import { useTransition } from 'react';
 // Next
 import { useRouter } from 'next/navigation';
 // Form
@@ -17,8 +17,15 @@ import {
 } from '@/actions/section/physician-section-actions';
 // UI
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Field, FieldGroup } from '@/components/ui/field';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 // Validation
 import {
   PhysicianSectionFormInput,
@@ -27,11 +34,9 @@ import {
 // Utils
 import { cn, getCardBackground } from '@/lib/utils';
 // const
-import { SectionField } from '@/components/sections/section-form-field';
+import { sectionFields } from '@/lib/constants/section-fields';
 // Misc
 import { toast } from 'sonner';
-import { getSectionDefaultValues } from './section-default-values';
-import { sectionFormFields } from '@/components/sections/section-form-fields';
 
 type SectionFormProps = {
   section?: Section;
@@ -63,8 +68,7 @@ export default function SectionForm({ section }: SectionFormProps) {
   const router = useRouter();
 
   // This state update is not urgent. Keep the UI responsive while you update it where some state updates may trigger expensive rendering
-  // For server actions called from RHF, no need to  use useTransition
-  //   const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   //   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -72,7 +76,12 @@ export default function SectionForm({ section }: SectionFormProps) {
 
   const form = useForm<PhysicianSectionFormInput>({
     resolver: zodResolver(physicianSectionUpdateSchema),
-    defaultValues: getSectionDefaultValues(section),
+    defaultValues: {
+      title: section?.title ?? '',
+      slug: section?.slug ?? '',
+      content: section?.content ?? '',
+      displayOrder: section?.displayOrder ?? 0,
+    },
   });
 
   // prev = arbitary name = the previous state that react calls your function and passes in the previous or most recent current state as the argument
@@ -100,26 +109,29 @@ export default function SectionForm({ section }: SectionFormProps) {
     // Use an ID that does not exist in database
     // const testId = 999999;
     // console.log('Deleting section id:', testId);
-    try {
-      // const result = await createPhysicianSection(formData);
-      const { error } = section
-        ? await updatePhysicianSection(section.id, values)
-        : await createPhysicianSection(values);
 
-      if (error) {
-        toast.error(error);
-        return;
+    startTransition(async () => {
+      try {
+        // const result = await createPhysicianSection(formData);
+        const { error } = section
+          ? await updatePhysicianSection(section.id, values)
+          : await createPhysicianSection(values);
+
+        if (error) {
+          toast.error(error);
+          return;
+        }
+        toast.success('Section created/updated successfully');
+        //   (evt.target as HTMLFormElement).reset();
+        //   setCurrentPassword('');
+        //   setNewPassword('');
+        router.push('/sections');
+        // router.refresh();
+      } catch (err) {
+        toast.error('Something went wrong. Please try again.');
+        console.error(err);
       }
-      toast.success('Section created/updated successfully');
-      //   (evt.target as HTMLFormElement).reset();
-      //   setCurrentPassword('');
-      //   setNewPassword('');
-      router.push('/sections');
-      // router.refresh();
-    } catch (err) {
-      toast.error('Something went wrong. Please try again.');
-      console.error(err);
-    }
+    });
   }
 
   return (
@@ -141,19 +153,57 @@ export default function SectionForm({ section }: SectionFormProps) {
             noValidate
           >
             <FieldGroup className="space-y-4">
-              {sectionFormFields.map((field, index) => (
+              {sectionFields.map((field, index) => (
                 <Field
                   key={field.id}
                   className={cn('rounded-lg p-4', getCardBackground(index, 1))} // one-column form if size > md:
                 >
-                  <SectionField field={field} form={form} />
+                  <FieldLabel
+                    htmlFor={field.id}
+                    className="ml-2.5 text-sm text-muted-foreground"
+                  >
+                    {field.label}
+
+                    {field.required && (
+                      <span className="ml-1 text-destructive">*</span>
+                    )}
+                  </FieldLabel>
+
+                  {field.type === 'textarea' ? (
+                    <Textarea
+                      id={field.id}
+                      placeholder={field.placeholder}
+                      className="min-h-96 resize-y font-mono text-sm"
+                      aria-invalid={!!form.formState.errors[field.id]}
+                      {...form.register(field.id)}
+                    />
+                  ) : (
+                    <Input
+                      id={field.id}
+                      type={field.type === 'number' ? 'number' : 'text'}
+                      min={field.type === 'number' ? 0 : undefined}
+                      placeholder={field.placeholder}
+                      aria-invalid={!!form.formState.errors[field.id]}
+                      {...form.register(field.id, {
+                        valueAsNumber: field.type === 'number',
+                      })}
+                    />
+                  )}
+
+                  {field.helperText && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {field.helperText}
+                    </p>
+                  )}
+
+                  <FieldError>{form.formState.errors[field.id]?.message}</FieldError>
                 </Field>
               ))}
             </FieldGroup>
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button
-                disabled={form.formState.isSubmitting}
+                disabled={isPending}
                 className="h-10 px-4 w-28 bg-green-600! hover:bg-green-700!"
               >
                 {section ? 'Update' : 'Create'}

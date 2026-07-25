@@ -1,5 +1,4 @@
 // 1) admin profile page
-import React from 'react';
 import Link from 'next/link';
 import { db } from '@/db/db';
 import { Button } from '@/components/ui/button';
@@ -14,19 +13,27 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 
 import { Separator } from '@/components/ui/separator';
 
 import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';
-import { UserAvatar } from '@/components/user/user-avatar';
+// import { UserAvatar } from '@/components/user/user-avatar';
 import { getSession } from '@/lib/auth-utils';
-import { cn, getCardBackground, getInitials } from '@/lib/utils';
-import { getProfileItems } from '@/lib/profile/get-profile-items';
+import { cn, getCardBackground } from '@/lib/utils';
+// import { getProfileItems } from '@/lib/profile/get-profile-items';
 import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { ProfileField } from '@/components/profile/profile-field';
+import { ProfileFormField } from '@/components/profile/profile-form-field';
+import { profileFormFields } from '@/components/profile/profile-form-fields';
+import { ProfileDisplayField } from '@/components/profile/profile-display-field';
+import { getProfileItems } from '@/lib/profile/get-profile-items';
+// import { PhysicianProfileFormInput, physicianProfileFormSchema } from '@/lib/validations/physician-profile';
+// import z from 'zod';
+// import { useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
+// import { getProfileDefaultValues } from '@/components/profile/profile-default-values';
 
 export default async function ProfilePage() {
   const [profile, session] = await Promise.all([
@@ -125,8 +132,14 @@ export default async function ProfilePage() {
 
           <div className="hidden gap-4 md:grid md:grid-cols-2">
             {allItems.map((item, index) => (
-              <div key={item.id} className={cn("rounded-xl border p-4", getCardBackground(index))}>
-                <ProfileField
+              <div
+                key={item.id}
+                className={cn(
+                  'rounded-xl border p-4',
+                  getCardBackground(index),
+                )}
+              >
+                <ProfileDisplayField
                   item={item}
                   profile={profile}
                   currentUser={currentUser}
@@ -141,9 +154,12 @@ export default async function ProfilePage() {
             {allItems.map((item, index) => (
               <div
                 key={item.id}
-                className={cn("rounded-xl border p-4", getCardBackground(index))}
+                className={cn(
+                  'rounded-xl border p-4',
+                  getCardBackground(index),
+                )}
               >
-                <ProfileField
+                <ProfileDisplayField
                   item={item}
                   profile={profile}
                   currentUser={currentUser}
