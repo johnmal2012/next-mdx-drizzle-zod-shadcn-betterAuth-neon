@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import { useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -34,6 +34,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { cn } from '@/lib/utils';
+import { getProfileFormFields } from '@/components/profile/profile-form-fields';
 
 type Profile = InferSelectModel<typeof physicianProfile>;
 
@@ -75,6 +76,8 @@ export function ProfileForm({
     },
   });
 
+  const formFields = getProfileFormFields(form);
+
   async function onFormSubmit(
     values: z.output<typeof physicianProfileFormSchema>,
   ) {
@@ -110,138 +113,6 @@ export function ProfileForm({
   //     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
   //   };
 
-  // Define field configurations with their properties
-  const formFields = [
-    {
-      id: 'image',
-      type: 'image',
-      label: 'Image',
-      required: false,
-    },
-    {
-      id: 'name',
-      type: 'input',
-      label: 'Name',
-      placeholder: 'e.g., Dr. Nikki Lam, DPM',
-      required: true,
-      fieldName: 'name',
-      register: form.register('name'),
-      error: form.formState.errors.name,
-    },
-    {
-      id: 'specialty',
-      type: 'input',
-      label: 'Specialty',
-      placeholder: 'e.g., Foot & Ankle Specialist',
-      required: false,
-      fieldName: 'specialty',
-      register: form.register('specialty'),
-      error: form.formState.errors.specialty,
-    },
-    {
-      id: 'email',
-      type: 'input',
-      label: 'Email',
-      placeholder: 'e.g., info@hudsonfootankle.com',
-      required: false,
-      fieldName: 'email',
-      register: form.register('email'),
-      error: form.formState.errors.email,
-    },
-    {
-      id: 'phone',
-      type: 'input',
-      label: 'Phone',
-      placeholder: 'e.g., (718) 123-4567',
-      required: true,
-      fieldName: 'phone',
-      register: form.register('phone'),
-      error: form.formState.errors.phone,
-    },
-    {
-      id: 'title',
-      type: 'input',
-      label: 'Title',
-      placeholder: 'e.g., Board-Certified Podiatric Surgeon',
-      required: false,
-      fieldName: 'title',
-      register: form.register('title'),
-      error: form.formState.errors.title,
-    },
-    {
-      id: 'clinicName',
-      type: 'input',
-      label: 'Clinic Name',
-      placeholder: 'e.g., Meimo Foot & Ankle',
-      required: true,
-      fieldName: 'clinicName',
-      register: form.register('clinicName'),
-      error: form.formState.errors.clinicName,
-    },
-    {
-      id: 'clinicAddress',
-      type: 'input',
-      label: 'Clinic Address',
-      placeholder: 'e.g., 4802 Tenth Avenue Brooklyn, NY 11219',
-      required: true,
-      fieldName: 'clinicAddress',
-      register: form.register('clinicAddress'),
-      error: form.formState.errors.clinicAddress,
-    },
-    {
-      id: 'logo',
-      type: 'input',
-      label: 'Logo',
-      placeholder: 'e.g., Dr. Nikki Lam',
-      required: false,
-      fieldName: 'logo',
-      register: form.register('logo'),
-      error: form.formState.errors.logo,
-    },
-    {
-      id: 'boardSpecialty',
-      type: 'input',
-      label: 'Board Specialty',
-      placeholder: 'e.g., Board-Certified Foot & Ankle Specialist',
-      required: false,
-      fieldName: 'boardSpecialty',
-      register: form.register('boardSpecialty'),
-      error: form.formState.errors.boardSpecialty,
-    },
-    {
-      id: 'linkName',
-      type: 'input',
-      label: 'Link Name',
-      placeholder: 'e.g., Foot Care',
-      required: false,
-      fieldName: 'linkName',
-      register: form.register('linkName'),
-      error: form.formState.errors.linkName,
-    },
-    {
-      id: 'footCareLink',
-      type: 'input',
-      label: 'Foot Care Link',
-      placeholder: 'e.g., https://www.footcaremd.org/',
-      required: false,
-      fieldName: 'footCareLink',
-      register: form.register('footCareLink'),
-      error: form.formState.errors.footCareLink,
-      helperText: 'URL must begin with https:// or http://',
-    },
-    {
-      id: 'expertise',
-      type: 'input',
-      label: 'Expertise',
-      placeholder: 'e.g., Sports Injuries, Foot Surgery, bunions',
-      required: false,
-      fieldName: 'expertise',
-      register: form.register('expertise'),
-      error: form.formState.errors.expertise,
-      helperText: 'Items must be separated by commas',
-    },
-  ];
-
   // Split fields into rows for desktop view (2 per row)
   //   const desktopRows = [];
   //   for (let i = 0; i < formFields.length; i += 2) {
@@ -263,7 +134,7 @@ export function ProfileForm({
         {formFields.map((field, index) => (
           <div
             key={field.id}
-            className={cn('rounded-lg p-4', getCardBackground(index))}
+            className={cn('rounded-lg p-4', getCardBackground(index, 2))}
           >
             {field.type === 'image' ? (
               <div className="flex flex-col items-center">
@@ -306,7 +177,7 @@ export function ProfileForm({
                   </p>
                 )}
 
-                <FieldError>{field.error?.message}</FieldError>
+                <FieldError>{field.error}</FieldError>
               </Field>
             )}
           </div>
@@ -357,7 +228,7 @@ export function ProfileForm({
                       {field.helperText}
                     </p>
                   )}
-                  <FieldError>{field.error?.message}</FieldError>
+                  <FieldError>{field.error}</FieldError>
                 </Field>
               </>
             )}

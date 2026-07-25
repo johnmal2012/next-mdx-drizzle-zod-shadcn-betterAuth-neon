@@ -1,32 +1,42 @@
 'use client';
 
+// React
 import { useTransition } from 'react';
+// Next
 import { useRouter } from 'next/navigation';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
+// Form
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+// Database
+import { physicianSections } from '@/db/schema';
+import { InferSelectModel } from 'drizzle-orm';
+// Actions
 import {
   createPhysicianSection,
   updatePhysicianSection,
 } from '@/actions/section/physician-section-actions';
-import { physicianSections } from '@/db/schema';
-import { InferSelectModel } from 'drizzle-orm';
+// UI
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field';
-import { useForm } from 'react-hook-form';
+// Validation
 import {
   PhysicianSectionFormInput,
   physicianSectionUpdateSchema,
 } from '@/lib/validations/physician-section';
-import { zodResolver } from '@hookform/resolvers/zod';
+// Utils
 import { cn, getCardBackground } from '@/lib/utils';
+// const
 import { sectionFields } from '@/lib/constants/section-fields';
+// Misc
+import { toast } from 'sonner';
 
 type SectionFormProps = {
   section?: Section;

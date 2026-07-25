@@ -26,7 +26,7 @@ import { cn, getCardBackground, getInitials } from '@/lib/utils';
 import { getProfileItems } from '@/lib/profile/get-profile-items';
 import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { ProfileField } from '@/components/profile/ProfileField';
+import { ProfileField } from '@/components/profile/profile-field';
 
 export default async function ProfilePage() {
   const [profile, session] = await Promise.all([
