@@ -57,6 +57,13 @@
       "when": 1783195177824,
       "tag": "0007_slippery_sway",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1785073173780,
+      "tag": "0008_lean_nemesis",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,12 @@
-import { pgTable, serial, varchar, text, integer, boolean, timestamp } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  serial,
+  varchar,
+  text,
+  integer,
+  boolean,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 
 // table name = physician_sections
 export const physicianSections = pgTable('physician_sections', {
@@ -8,9 +16,12 @@ export const physicianSections = pgTable('physician_sections', {
     length: 255,
   }).notNull(),
 
+  //   title: varchar('title', {
+  //     length: 255,
+  //   }).notNull(),
   title: varchar('title', {
     length: 255,
-  }).notNull(),
+  }),
 
   content: text('content'),
 

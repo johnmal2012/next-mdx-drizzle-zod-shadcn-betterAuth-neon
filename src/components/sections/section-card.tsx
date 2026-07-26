@@ -13,10 +13,16 @@ export function SectionCard({ section }: Props) {
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold">{section.title}</h2>
 
-        <p className="text-sm text-muted-foreground">Slug: {section.slug}</p>
+        <p className="text-sm text-muted-foreground">
+          Menu Label:{' '}
+          <span className="font-medium text-foreground">{section.slug}</span>
+        </p>
 
         <p className="text-sm text-muted-foreground">
-          Display Order: {section.displayOrder}
+          Display Order:{' '}
+          <span className="font-medium text-foreground">
+            {section.displayOrder}
+          </span>
         </p>
       </div>
 
