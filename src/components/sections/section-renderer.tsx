@@ -43,7 +43,7 @@ export function SectionRenderer({
     case 'education':
       return (
         <EducationSection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           slug={section.slug ?? ''}
           background={background}
@@ -53,7 +53,7 @@ export function SectionRenderer({
     case 'expertise':
       return (
         <ExpertiseSection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           expertise={profile.expertise ?? []}
           slug={section.slug ?? ''}
@@ -64,7 +64,7 @@ export function SectionRenderer({
     case 'philosophy':
       return (
         <PhilosophySection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           background={background}
           slug={section.slug ?? ''}
