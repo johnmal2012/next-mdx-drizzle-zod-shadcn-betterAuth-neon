@@ -74,7 +74,7 @@ export function SectionRenderer({
     case 'research':
       return (
         <ResearchSection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           background={background}
           slug={section.slug ?? ''}
@@ -84,7 +84,7 @@ export function SectionRenderer({
     case 'hours':
       return (
         <OfficeHoursSection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           background={background}
           slug={section.slug ?? ''}
@@ -94,7 +94,7 @@ export function SectionRenderer({
     case 'insurance':
       return (
         <InsuranceSection
-          title={section.title}
+          title={section.title ?? ''}
           content={section.content ?? ''}
           slug={section.slug ?? ''}
           background={background}
@@ -104,7 +104,7 @@ export function SectionRenderer({
     case 'contact':
       return (
         <ContactSection
-          title={section.title}
+          title={section.title ?? ''}
           phone={profile.phone ?? ''}
           email={profile.email ?? ''}
           address={profile.clinicAddress ?? ''}
