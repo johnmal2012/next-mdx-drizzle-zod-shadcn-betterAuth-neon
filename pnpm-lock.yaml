@@ -51,7 +51,7 @@ importers:
         specifier: ^1.27.0
         version: 1.27.0(react@19.2.8)
       next:
-        specifier: ^16.2.12
+        specifier: ~16.2.12
         version: 16.2.12(@babel/core@7.29.7(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       next-mdx-remote:
         specifier: ^6.0.0
@@ -63,10 +63,10 @@ importers:
         specifier: ^1.6.7
         version: 1.6.7(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
-        specifier: 19.2.8
+        specifier: ~19.2.8
         version: 19.2.8
       react-dom:
-        specifier: 19.2.8
+        specifier: ~19.2.8
         version: 19.2.8(react@19.2.8)
       react-hook-form:
         specifier: ^7.83.0
@@ -118,7 +118,7 @@ importers:
         specifier: ^10.8.0
         version: 10.8.0(jiti@2.7.0)(supports-color@7.2.0)
       eslint-config-next:
-        specifier: ^16.2.12
+        specifier: ~16.2.12
         version: 16.2.12(@typescript-eslint/parser@8.65.0(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       tailwindcss:
         specifier: ^4.3.3
