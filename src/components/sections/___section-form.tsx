@@ -34,7 +34,7 @@ import {
 // Utils
 import { cn, getCardBackground } from '@/lib/utils';
 // const
-import { sectionFields } from '@/lib/constants/section-fields';
+import { sectionFields } from '@/lib/constants/_section-fields';
 // Misc
 import { toast } from 'sonner';
 

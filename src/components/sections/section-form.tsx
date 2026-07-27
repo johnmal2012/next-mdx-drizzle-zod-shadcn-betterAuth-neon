@@ -31,7 +31,7 @@ import { SectionField } from '@/components/sections/section-form-field';
 // Misc
 import { toast } from 'sonner';
 import { getSectionDefaultValues } from './section-default-values';
-import { sectionFormFields } from '@/components/sections/section-form-fields';
+import { sectionFormFields } from '@/lib/constants/section-form-fields';
 
 type SectionFormProps = {
   section?: Section;

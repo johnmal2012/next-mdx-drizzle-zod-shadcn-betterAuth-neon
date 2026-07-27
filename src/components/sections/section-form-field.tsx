@@ -9,7 +9,7 @@ import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 
 import { PhysicianSectionFormInput } from '@/lib/validations/physician-section';
 
-import { SectionFormField } from '@/components/sections/section-form-fields';
+import { SectionFormField } from '@/lib/constants/section-form-fields';
 
 type SectionFormProps = {
   field: SectionFormField;
@@ -18,7 +18,7 @@ type SectionFormProps = {
 
 export function SectionField({ field, form }: SectionFormProps) {
   const error = form.formState.errors[field.name]?.message;
-
+  console.log('section form field: ', field);
   return (
     <Field>
       <FieldLabel
@@ -52,7 +52,9 @@ export function SectionField({ field, form }: SectionFormProps) {
       )}
 
       {field.helperText && (
-        <p className="mt-2 text-xs text-muted-foreground">{field.helperText}</p>
+        <p className="ml-3 mt-2 text-xs text-muted-foreground">
+          {field.helperText}
+        </p>
       )}
 
       <FieldError>{error}</FieldError>
