@@ -241,6 +241,9 @@ import { getActivePhysicianSections } from '@/lib/sections/get-physician-section
 import { buildNavItems } from '@/lib/sections/get-navitems';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { LayoutTemplate, UserRoundArrowLeft } from 'lucide-react';
+import { NoSectionState } from '@/components/sections/section-empty-state';
+import { NoProfileState } from '@/components/profile/profile-empty-state';
+import { getWebsiteData } from '@/lib/website/get-website-data';
 
 export default async function PhysicianPage() {
   /*
@@ -270,25 +273,16 @@ export default async function PhysicianPage() {
   // 2. fetch both in parallel to save one network round-trip
   //   const TEST_EMPTY_PROFILE = true;
   //   const [realProfile, sections] = await Promise.all([
-  const [profile, sections] = await Promise.all([
-    getActivePhysicianProfile(),
-    getActivePhysicianSections(),
-  ]);
+
+  // moving all page data loading into one service
+  const { profile, sections, navItems } = await getWebsiteData();
 
   //   if (TEST_EMPTY_PROFILE) {
   //     profile = null;
   //   }
   // const profile = TEST_EMPTY_PROFILE ? null : realProfile;
   // console.log('profile: ', profile);
-  if (!profile) {
-    return (
-      <EmptyState
-        title="No Physician Profile found."
-        description="Create a physician profile to display on website."
-        icon={<UserRoundArrowLeft className="size-12" />}
-      />
-    );
-  }
+  if (!profile) return <NoProfileState />;
   //   console.log(profile.navItems);
 
   /*
@@ -308,22 +302,13 @@ export default async function PhysicianPage() {
   //   }
   // const sections = await getPhysicianSections();
 
-  if (!sections) {
-    // return <div>No physician sections found.</div>;
-    return (
-      <EmptyState
-        title="No Physician sections found."
-        description="Create physician sections to display on website."
-        icon={<LayoutTemplate className="size-12" />}
-      />
-    );
-  }
+  if (!sections) return <NoSectionState />;
 
   //   const navItems = sections.map((section) => ({
   //     id: section.slug,
   //     // label: section.title,
   //   }));
-  const navItems = buildNavItems(sections);
+  //   const navItems = buildNavItems(physicianSections);
 
   return (
     <main className="min-h-screen bg-white text-slate-900">

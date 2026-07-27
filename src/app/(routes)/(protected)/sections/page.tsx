@@ -1,24 +1,12 @@
 // 1) admin sections page
-import Link from 'next/link';
+// Components
+import { DesktopSectionGrid } from '@/components/sections/desktop-section-grid';
+import { MobileSectionList } from '@/components/sections/mobile-section-list';
+import { NoSectionState } from '@/components/sections/section-empty-state';
 
-import { db } from '@/db/db';
-
-// import { physicianSections } from '@/db/schema/physician-sections';
-
-// import { asc } from 'drizzle-orm';
-
-import { SectionDeleteButton } from '@/components/sections/section-delete-button';
-import { ReturnButton } from '@/components/navigation/return-button';
-import { Button } from '@/components/ui/button';
-import { chunk } from '@/lib/types/section-map';
-import { cn } from '@/lib/utils';
+// Lib
 import { getActivePhysicianSections } from '@/lib/sections/get-physician-sections';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { LayoutTemplate } from 'lucide-react';
-import { SectionCard } from '@/components/sections/section-card';
-
-// import AdminSectionOrderList
-// from '@/components/admin-section-order-list';
+import { SectionHeader } from '@/components/sections/section-header';
 
 export default async function SectionsPage() {
   //   const sections = await db
@@ -35,16 +23,7 @@ export default async function SectionsPage() {
   //   });
   const sections = await getActivePhysicianSections();
 
-  if (!sections.length) {
-    // return <div>No physician sections found.</div>;
-    return (
-      <EmptyState
-        title="No Physician sections found."
-        description="Create physician sections to display on website."
-        icon={<LayoutTemplate className="size-12" />}
-      />
-    );
-  }
+  if (!sections.length) return <NoSectionState />;
 
   // Create mobile pattern: [gray, white, gray, white, ...]
   //   const getMobileBackground = (index: number) => {
@@ -54,66 +33,17 @@ export default async function SectionsPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="container mx-auto py-10 space-y-6 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border bg-card p-6 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            {/* Left Side */}
-            <div>
-              <h1 className="text-4xl font-bold">Manage Sections</h1>
-            </div>
-
-            {/* Right Side */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button
-                className="h-10 px-4 bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:ring-emerald-500/20"
-                asChild
-              >
-                <Link href="/sections/create">Create Section</Link>
-              </Button>
-
-              <ReturnButton href="/" label="Physician Portal" />
-            </div>
-          </div>
-
+        <section className="rounded-2xl border bg-card p-6 shadow-sm">
+          <SectionHeader />
           {/* Responsive Grid */}
           <div className="space-y-4">
             {/* Desktop: Show in pairs with alternating row backgrounds */}
-            <div className="hidden lg:block">
-              {chunk(sections, 2).map((row, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  className={cn(
-                    'grid gap-4 rounded-2xl p-4 lg:grid-cols-2',
-                    rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
-                  )}
-                >
-                  {row.map((section) => (
-                    <div
-                      key={section.id}
-                      className="rounded-2xl border bg-background p-5 transition hover:shadow-md"
-                    >
-                      <SectionCard section={section} />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <DesktopSectionGrid sections={sections} />
 
             {/* Mobile: Show individual items with alternating backgrounds */}
-            <div className="block lg:hidden">
-              {sections.map((section, index) => (
-                <div
-                  key={section.id}
-                  className={cn(
-                    'rounded-2xl p-4 transition hover:shadow-md',
-                    index % 2 === 0 ? 'bg-slate-100' : 'bg-white',
-                  )}
-                >
-                  <SectionCard section={section} />
-                </div>
-              ))}
-            </div>
+            <MobileSectionList sections={sections} />
           </div>
-        </div>
+        </section>
       </div>
     </main>
   );
