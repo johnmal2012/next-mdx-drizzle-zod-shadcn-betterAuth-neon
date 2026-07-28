@@ -13,6 +13,7 @@ import { getSession } from '@/lib/auth-utils';
 // import { UserAvatar } from '@/components/user/user-avatar';
 // import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import { db } from '@/db/db';
+import { SettingsSection } from '@/components/settings/settings-section';
 
 // import { toLowerCase } from 'zod';
 // import { redirect } from 'next/navigation';
@@ -49,11 +50,15 @@ export default async function AccountSettingsPage() {
   // safer if session is null
   const session = await getSession();
 
-  const currentUser = session
-    ? await db.query.user.findFirst({
-        where: (users, { eq }) => eq(users.id, session.user.id),
-      })
-    : null;
+  if (!session) {
+    return null;
+  }
+
+  const { user } = session;
+
+  const currentUser = await db.query.user.findFirst({
+    where: (users, { eq }) => eq(users.id, session.user.id),
+  });
 
   //   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
   // console.log('UserSesionPage::session: ', session);
@@ -97,34 +102,45 @@ export default async function AccountSettingsPage() {
   return (
     <div className="px-8 py-16 container mx-auto max-w-3xl space-y-4">
       <ReturnButton href="/" label="Physician Portal" />
-      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-blue-600">
+      <h1 className="text-3xl font-bold">Account Settings</h1>
+      {/* <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-blue-600">
         <h2 className="text-2xl font-bold">Update User Name and/or Image</h2>
 
         <UpdateUserForm
           name={session?.user.name ?? ''}
           image={session?.user.image ?? ''}
         />
-      </div>
+      </div> */}
+      <SettingsSection
+        title="Update User Name and/or Image"
+        borderColor="border-t-blue-600"
+      >
+        <UpdateUserForm name={user.name} image={user.image ?? ''} />
+      </SettingsSection>
 
-      <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
+      {/* <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
         <h2 className="text-2xl font-bold">Change Password</h2>
 
         <ChangePasswordForm />
-      </div>
-      <Separator className="my-8 data-[orientation=horizontal]:h-1 bg-slate-300" />
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold">Profile</h1>
+      </div> */}
+      <SettingsSection title="Change Password" borderColor="border-t-red-600">
+        <ChangePasswordForm />
+      </SettingsSection>
 
-        {/* <div className="flex items-center gap-2"> */}
-          {/* {session && ( */}
-          {/* <Button size="sm" asChild>
+      <Separator className="my-8 data-[orientation=horizontal]:h-1 bg-slate-300" />
+      {/* <div className="space-y-4">
+        <h1 className="text-3xl font-bold">Profile</h1> */}
+
+      {/* <div className="flex items-center gap-2"> */}
+      {/* {session && ( */}
+      {/* <Button size="sm" asChild>
             <Link href="/dashboard">Admin Dashboard</Link>
           </Button> */}
-          {/* )} */}
+      {/* )} */}
 
-          {/* <SignOutButton /> */}
-        {/* </div> */}
-      </div>
+      {/* <SignOutButton /> */}
+      {/* </div> */}
+      {/* </div> */}
 
       {/* <h2 className="text-2xl font-bold">Permissions</h2>
 
@@ -135,7 +151,7 @@ export default async function AccountSettingsPage() {
         </Button>
       </div> */}
 
-      {currentUser?.image ? (
+      {/* {currentUser?.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentUser?.image}
@@ -148,7 +164,25 @@ export default async function AccountSettingsPage() {
             {session?.user.name.slice(0, 2)}
           </span>
         </div>
-      )}
+      )} */}
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">Profile Preview</h2>
+
+        {currentUser?.image ? (
+          <img
+            src={currentUser.image}
+            alt={user.name}
+            className="size-32 rounded-md border border-primary object-cover"
+          />
+        ) : (
+          <div className="flex size-32 items-center justify-center rounded-md border border-primary bg-primary text-primary-foreground">
+            <span className="text-lg font-bold uppercase">
+              {user.name.slice(0, 2)}
+            </span>
+          </div>
+        )}
+      </section>
 
       <pre className="text-sm overflow-clip">
         {JSON.stringify(session, null, 2)}
