@@ -30,7 +30,8 @@ const options = {
     schema,
   }),
 
-  baseURL: clientEnv.NEXT_PUBLIC_APP_URL,
+  // Better Auth server configuration should ideally use the server environment rather than the client environment
+  baseURL: serverEnv.BETTER_AUTH_URL,
 
   trustedOrigins: [
     'http://localhost:3000',
