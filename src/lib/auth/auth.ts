@@ -15,9 +15,9 @@ import { normalizeName } from '@/lib/utils';
 import { getValidDomains } from '@/lib/server/auth-utils';
 import { ac, roles } from '@/lib/auth/permissions';
 import { serverEnv } from '@/lib/env/server';
-import { clientEnv } from '../env/client';
 import { sendEmailAction } from '@/actions/auth/send-email.action';
 import { USER_ROLE } from '@/db/schema/auth-schema';
+import { clientEnv } from '@/lib/env/client';
 
 // const ac = createAccessControl({
 //   users: ['read'],
@@ -33,10 +33,7 @@ const options = {
   // Better Auth server configuration should ideally use the server environment rather than the client environment
   baseURL: serverEnv.BETTER_AUTH_URL,
 
-  trustedOrigins: [
-    'http://localhost:3000',
-    'https://next-mdx-drizzle-zod-shadcn-better.vercel.app',
-  ],
+  trustedOrigins: ['http://localhost:3000', clientEnv.NEXT_PUBLIC_APP_URL],
 
   emailAndPassword: {
     enabled: true,
