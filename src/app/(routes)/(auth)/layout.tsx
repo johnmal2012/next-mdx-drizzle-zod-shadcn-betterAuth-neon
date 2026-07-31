@@ -1,5 +1,5 @@
 import { AuthNavbar } from '@/components/shared/auth-navbar';
-import { getSession } from '@/lib/auth-utils';
+import { getSession } from '@/lib/auth/auth-utils';
 import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
@@ -7,11 +7,11 @@ export default async function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-//   const session = await getSession();
-// //   console.log('AuthLayout session:', session?.user.role);
-//   if (session) {
-//     redirect('/user-session');
-//   }
+  //   const session = await getSession();
+  // //   console.log('AuthLayout session:', session?.user.role);
+  //   if (session) {
+  //     redirect('/user-session');
+  //   }
   return (
     <>
       <AuthNavbar />

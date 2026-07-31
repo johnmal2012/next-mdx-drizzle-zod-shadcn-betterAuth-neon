@@ -10,14 +10,14 @@ import { headers } from 'next/headers';
 // import { redirect } from 'next/navigation';
 import { physicianSections } from '@/db/schema/physician-sections';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
-import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth/auth-utils';
 
 export async function deleteSectionAction({
   sectionId,
 }: {
   sectionId: number;
 }) {
-//   const headersList = await headers();
+  //   const headersList = await headers();
 
   //   const session = await auth.api.getSession({
   //     headers: headersList,

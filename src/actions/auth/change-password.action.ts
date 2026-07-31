@@ -2,21 +2,22 @@
 
 'use server';
 
-import { auth } from '@/lib/auth';
-import { ChangePasswordFormInput, changePasswordSchema } from '@/lib/validations/auth';
+import { auth } from '@/lib/auth/auth';
+import {
+  ChangePasswordFormInput,
+  changePasswordSchema,
+} from '@/lib/validations/auth';
 import { APIError } from 'better-auth/api';
 import { headers } from 'next/headers';
 
 // type Session = typeof auth.$Infer.Session;
 
-export async function changePasswordAction(
-  values: ChangePasswordFormInput
-) {
-//   const currentPassword = String(formData.get('currentPassword'));
-//   if (!currentPassword) return { error: 'Please enter your current password' };
+export async function changePasswordAction(values: ChangePasswordFormInput) {
+  //   const currentPassword = String(formData.get('currentPassword'));
+  //   if (!currentPassword) return { error: 'Please enter your current password' };
 
-//   const newPassword = String(formData.get('newPassword'));
-//   if (!newPassword) return { error: 'Please enter your new password' };
+  //   const newPassword = String(formData.get('newPassword'));
+  //   if (!newPassword) return { error: 'Please enter your new password' };
   const validated = changePasswordSchema.safeParse(values);
 
   if (!validated.success) {
@@ -24,8 +25,8 @@ export async function changePasswordAction(
       error: 'Invalid password data',
     };
   }
-//   console.log('currentPassword: ', currentPassword);
-//   console.log('newPassword: ', newPassword);
+  //   console.log('currentPassword: ', currentPassword);
+  //   console.log('newPassword: ', newPassword);
   try {
     await auth.api.changePassword({
       headers: await headers(),

@@ -8,14 +8,14 @@ import { admin, customSession, magicLink } from 'better-auth/plugins';
 // import { createAccessControl } from 'better-auth/plugins';
 // import { resend } from '@/lib/resend';
 // import { transporter } from '@/lib/_mail';
-import { hashPassword, verifyPassword } from '@/lib/argon2';
+import { hashPassword, verifyPassword } from '@/lib/auth/argon2';
 import { nextCookies } from 'better-auth/next-js';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { normalizeName } from '@/lib/utils';
 import { getValidDomains } from '@/lib/server/auth-utils';
-import { ac, roles } from '@/lib/permissions';
+import { ac, roles } from '@/lib/auth/permissions';
 import { serverEnv } from '@/lib/env/server';
-import { clientEnv } from './env/client';
+import { clientEnv } from '../env/client';
 import { sendEmailAction } from '@/actions/auth/send-email.action';
 import { USER_ROLE } from '@/db/schema/auth-schema';
 

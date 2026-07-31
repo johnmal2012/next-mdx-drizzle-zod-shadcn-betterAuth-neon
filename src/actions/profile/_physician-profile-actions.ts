@@ -188,7 +188,7 @@ import { Result } from '@/lib/types/result';
 import { zodFieldErrors, FieldErrors } from '@/lib/types/zod-error';
 
 import type { PhysicianProfile } from '@/lib/types/physician-profile';
-import { requireAdmin, requireLogin } from '@/lib/auth-utils';
+import { requireAdmin, requireLogin } from '@/lib/auth/auth-utils';
 
 /* -------------------------------------------------- */
 /* CREATE */

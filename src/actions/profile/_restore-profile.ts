@@ -4,11 +4,11 @@ import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { db } from '@/db/db';
 import { physicianProfile } from '@/db/schema/physician-profile';
-import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth/auth-utils';
 
 export async function restoreProfile(profileId: number) {
   await requireAdmin();
-  
+
   await db
     .update(physicianProfile)
     .set({

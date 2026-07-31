@@ -1,7 +1,7 @@
 // import Link from 'next/link';
 // import { redirect } from 'next/navigation';
 
-import { requireLogin } from '@/lib/auth-utils';
+import { requireLogin } from '@/lib/auth/auth-utils';
 import { AdminNavbar } from '@/components/shared/admin-navbar';
 // import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 
@@ -24,8 +24,7 @@ export default async function SemiProtectedLayout({
 
   return (
     <>
-    {session && (
-      <AdminNavbar session={session} />)}
+      {session && <AdminNavbar session={session} />}
       <div className="flex min-h-screen">
         {/* Sidebar */}
         {/* <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-48 shrink-0 border-r bg-muted/30 md:block">

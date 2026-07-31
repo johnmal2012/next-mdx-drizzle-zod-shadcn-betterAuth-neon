@@ -1,6 +1,6 @@
 'use server';
 
-import { auth, ErrorCode } from '@/lib/auth';
+import { auth, ErrorCode } from '@/lib/auth/auth';
 // import { cookies, headers } from 'next/headers';
 import { APIError } from 'better-auth/api';
 // import { redirect } from 'next/navigation';
@@ -134,7 +134,7 @@ export async function signInEmailAction(
       const errCode = err.body ? (err.body.code as ErrorCode) : 'UNKNOWN';
       //   console.dir(err, { depth: 5 });
 
-    //   console.log('sign-in-email errCode: ', errCode);
+      //   console.log('sign-in-email errCode: ', errCode);
       switch (errCode) {
         case 'EMAIL_NOT_VERIFIED':
           redirect('/verify?error=email_not_verified');

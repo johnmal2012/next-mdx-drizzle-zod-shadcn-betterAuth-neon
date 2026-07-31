@@ -12,31 +12,26 @@ import { Input } from '@/components/ui/input';
 
 import { Label } from '@/components/ui/label';
 
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/auth/auth-client';
 
 export function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
 
-  const [password, setPassword] =
-    useState('');
+  const [password, setPassword] = useState('');
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  async function onSubmit(
-    e: React.SubmitEvent,
-  ) {
+  async function onSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
     setLoading(true);
 
-    const { error } =
-      await authClient.signIn.email({
-        email,
-        password,
-      });
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+    });
 
     setLoading(false);
 
@@ -50,40 +45,30 @@ export function LoginForm() {
   }
 
   return (
-    <Card className='max-w-md mx-auto'>
-      <CardContent className='pt-6'>
-        <form
-          onSubmit={onSubmit}
-          className='space-y-4'
-        >
-          <div className='space-y-2'>
+    <Card className="max-w-md mx-auto">
+      <CardContent className="pt-6">
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="space-y-2">
             <Label>Email</Label>
 
             <Input
-              type='email'
+              type="email"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className='space-y-2'>
+          <div className="space-y-2">
             <Label>Password</Label>
 
             <Input
-              type='password'
+              type="password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <Button
-            className='w-full'
-            disabled={loading}
-          >
+          <Button className="w-full" disabled={loading}>
             Login
           </Button>
         </form>

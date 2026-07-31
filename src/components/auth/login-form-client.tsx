@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { FormErrors } from '@/lib/types/erros';
 import { loginSchema } from '@/lib/validations/auth';
 import z from 'zod';
-import { signIn } from '@/lib/auth-client';
+import { signIn } from '@/lib/auth/auth-client';
 
 export const LoginForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -27,7 +27,7 @@ export const LoginForm = () => {
 
     try {
       const formData = new FormData(evt.currentTarget);
-    //   console.log('formData: ', Object.fromEntries(formData));
+      //   console.log('formData: ', Object.fromEntries(formData));
       const formValues = {
         email: String(formData.get('email') ?? ''),
         password: String(formData.get('password') ?? ''),
@@ -85,8 +85,11 @@ export const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4"
-    noValidate>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-sm w-full space-y-4"
+      noValidate
+    >
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" name="email" />

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { resetPassword } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { resetPassword } from '@/lib/auth/auth-client';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface ResetPasswordFormProps {
   token: string;
@@ -20,13 +20,13 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
 
-    const password = String(formData.get("password"));
-    if (!password) return toast.error("Please enter your email.");
+    const password = String(formData.get('password'));
+    if (!password) return toast.error('Please enter your email.');
 
-    const confirmPassword = String(formData.get("confirmPassword"));
+    const confirmPassword = String(formData.get('confirmPassword'));
 
     if (password !== confirmPassword) {
-      return toast.error("Passwords do not match.");
+      return toast.error('Passwords do not match.');
     }
 
     await resetPassword({
@@ -43,8 +43,8 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
           toast.error(ctx.error.message);
         },
         onSuccess: () => {
-          toast.success("Password reset successfully.");
-          router.push("/login");
+          toast.success('Password reset successfully.');
+          router.push('/login');
         },
       },
     });

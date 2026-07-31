@@ -18,7 +18,7 @@ import {
 // import { zodFieldErrors, FieldErrors } from '@/lib/types/zod-error';
 
 // import type { PhysicianProfile } from '@/lib/types/physician-profile';
-import { requireAdmin, requireLogin } from '@/lib/auth-utils';
+import { requireAdmin, requireLogin } from '@/lib/auth/auth-utils';
 import { APIError } from 'better-auth/api';
 
 /* -------------------------------------------------- */
@@ -72,13 +72,13 @@ export async function updatePhysicianProfile(
 
   const validated = physicianProfileSchema.safeParse(values);
   // or conversion handled in server layer, not client side; or even create a helper function
-//   const validated = physicianProfileSchema.parse({
-//     ...values,
-//     expertise: values.expertise
-//       ?.split(',')
-//       .map((s) => s.trim())
-//       .filter(Boolean),
-//   });
+  //   const validated = physicianProfileSchema.parse({
+  //     ...values,
+  //     expertise: values.expertise
+  //       ?.split(',')
+  //       .map((s) => s.trim())
+  //       .filter(Boolean),
+  //   });
 
   if (!validated.success) {
     return {

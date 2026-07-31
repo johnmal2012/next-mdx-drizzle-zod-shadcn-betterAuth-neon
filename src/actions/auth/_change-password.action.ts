@@ -2,10 +2,8 @@
 
 'use server';
 
-import { auth } from '@/lib/auth';
-import {
-  changePasswordSchema,
-} from '@/lib/validations/auth';
+import { auth } from '@/lib/auth/auth';
+import { changePasswordSchema } from '@/lib/validations/auth';
 import { APIError } from 'better-auth/api';
 import { headers } from 'next/headers';
 import z from 'zod';

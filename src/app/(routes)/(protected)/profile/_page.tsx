@@ -28,7 +28,7 @@ import { Separator } from '@/components/ui/separator';
 import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
-import { getSession } from '@/lib/auth-utils';
+import { getSession } from '@/lib/auth/auth-utils';
 import { cn, getInitials } from '@/lib/utils';
 // import { DeleteProfileButton } from '@/components/profile/delete-profile-button';
 

@@ -21,7 +21,7 @@ import { Separator } from '@/components/ui/separator';
 import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';
 import { UserAvatar } from '@/components/user/user-avatar';
-import { getSession } from '@/lib/auth-utils';
+import { getSession } from '@/lib/auth/auth-utils';
 import { cn, getInitials } from '@/lib/utils';
 
 // type InfoItemProps = {
@@ -98,14 +98,39 @@ export default async function ProfilePage() {
           // Combine all items into a single array with proper ordering
           const allItems = [
             { id: 'title', label: 'Title', value: profile.title, type: 'info' },
-            { id: 'board-specialty', label: 'Board Specialty', value: profile.boardSpecialty, type: 'info' },
+            {
+              id: 'board-specialty',
+              label: 'Board Specialty',
+              value: profile.boardSpecialty,
+              type: 'info',
+            },
             { id: 'email', label: 'Email', value: profile.email, type: 'info' },
             { id: 'phone', label: 'Phone', value: profile.phone, type: 'info' },
-            { id: 'clinic-name', label: 'Clinic Name', value: profile.clinicName, type: 'info' },
-            { id: 'clinic-address', label: 'Clinic Address', value: profile.clinicAddress, type: 'info' },
+            {
+              id: 'clinic-name',
+              label: 'Clinic Name',
+              value: profile.clinicName,
+              type: 'info',
+            },
+            {
+              id: 'clinic-address',
+              label: 'Clinic Address',
+              value: profile.clinicAddress,
+              type: 'info',
+            },
             { id: 'logo', label: 'Logo', value: profile.logo, type: 'info' },
-            { id: 'link-name', label: 'Link Name', value: profile.linkName, type: 'info' },
-            { id: 'foot-care-link', label: 'Foot Care Link', value: profile.footCareLink, type: 'info' },
+            {
+              id: 'link-name',
+              label: 'Link Name',
+              value: profile.linkName,
+              type: 'info',
+            },
+            {
+              id: 'foot-care-link',
+              label: 'Foot Care Link',
+              value: profile.footCareLink,
+              type: 'info',
+            },
             { id: 'image', label: 'Image', type: 'image' },
             { id: 'expertise', label: 'Expertise', type: 'expertise' },
           ];
@@ -153,18 +178,24 @@ export default async function ProfilePage() {
                           key={item.id}
                           className={cn(
                             'rounded-xl border p-4',
-                            rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white'
+                            rowIndex % 2 === 0 ? 'bg-slate-100' : 'bg-white',
                           )}
                         >
                           {item.type === 'info' && (
                             <>
-                              <p className="text-sm text-muted-foreground">{item.label}</p>
-                              <p className="mt-1 font-medium wrap-break-word">{item.value || '—'}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {item.label}
+                              </p>
+                              <p className="mt-1 font-medium wrap-break-word">
+                                {item.value || '—'}
+                              </p>
                             </>
                           )}
                           {item.type === 'image' && (
                             <>
-                              <p className="text-sm text-muted-foreground">Image</p>
+                              <p className="text-sm text-muted-foreground">
+                                Image
+                              </p>
                               <div className="mt-2">
                                 <UserAvatar
                                   image={currentUser?.image}
@@ -176,7 +207,9 @@ export default async function ProfilePage() {
                           )}
                           {item.type === 'expertise' && (
                             <>
-                              <p className="text-sm text-muted-foreground">Expertise</p>
+                              <p className="text-sm text-muted-foreground">
+                                Expertise
+                              </p>
                               <div className="mt-2 flex flex-wrap gap-2">
                                 {profile.expertise?.map((item: string) => (
                                   <Badge key={item} variant="secondary">
@@ -199,13 +232,17 @@ export default async function ProfilePage() {
                       key={item.id}
                       className={cn(
                         'rounded-xl border p-4',
-                        getMobileBackground(index)
+                        getMobileBackground(index),
                       )}
                     >
                       {item.type === 'info' && (
                         <>
-                          <p className="text-sm text-muted-foreground">{item.label}</p>
-                          <p className="mt-1 font-medium wrap-break-word">{item.value || '—'}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {item.label}
+                          </p>
+                          <p className="mt-1 font-medium wrap-break-word">
+                            {item.value || '—'}
+                          </p>
                         </>
                       )}
                       {item.type === 'image' && (
@@ -222,7 +259,9 @@ export default async function ProfilePage() {
                       )}
                       {item.type === 'expertise' && (
                         <>
-                          <p className="text-sm text-muted-foreground">Expertise</p>
+                          <p className="text-sm text-muted-foreground">
+                            Expertise
+                          </p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             {profile.expertise?.map((item: string) => (
                               <Badge key={item} variant="secondary">

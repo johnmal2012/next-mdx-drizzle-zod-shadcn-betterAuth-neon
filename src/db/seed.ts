@@ -1,11 +1,14 @@
 // intended for development or initial setup, such as:
 // Creating an admin user.
 // Populating default physician sections (hero, education, expertise, etc.)
-
 import { db } from './db';
-
-import { user, physicianProfile, physicianSections } from '@/db/schema';
-
+import {
+  user,
+  physicianProfile,
+  physicianSections,
+  USER_ROLE,
+} from '@/db/schema';
+import { createCredentialUser } from '@/lib/auth/create-credential-user';
 import { eq } from 'drizzle-orm';
 
 async function seed() {
@@ -17,25 +20,19 @@ async function seed() {
 
   const email = 'test@gmail.com';
 
-  let existingUser = await db.query.user.findFirst({
+  await createCredentialUser({
+    name: 'lam',
+    email,
+    password: '123456',
+    role: USER_ROLE.ADMIN,
+  });
+
+  const existingUser = await db.query.user.findFirst({
     where: eq(user.email, email),
   });
 
   if (!existingUser) {
-    const [createdUser] = await db
-      .insert(user)
-      .values({
-        name: 'Dr. John Smith',
-        email,
-        emailVerified: true,
-      })
-      .returning();
-
-    existingUser = createdUser;
-
-    console.log('User created');
-  } else {
-    console.log('User already exists');
+    throw new Error(`Failed to create seed user: ${email}`);
   }
 
   // --------------------------------------------------
@@ -46,21 +43,23 @@ async function seed() {
     where: eq(physicianProfile.userId, existingUser.id),
   });
 
+  // use uploadthing image url and key
   if (!existingProfile) {
     await db.insert(physicianProfile).values({
       userId: existingUser.id,
       logo: 'Dr. Lam',
       name: 'Dr. Nikki Lam',
       boardSpecialty: 'Board-Certified Foot & Ankle',
-      specialty: 'Specialist	Foot & Ankle Specialist',
+      specialty: 'Specialist Foot & Ankle Specialist',
       title: 'Board-Certified Podiatric Surgeon',
       image:
         'https://ffkf9c9vt3.ufs.sh/f/mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
+      imageKey: 'mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
       clinicName: 'Maimonides Foot & Ankle',
       clinicAddress: '4802 Tenth Avenue Brooklyn, NY 11219',
       phone: '(718) 123-4567',
       email: 'info@hudsonfootankle.com',
-    //   address: '4802 Tenth Avenue Brooklyn, NY 11219',
+      //   address: '4802 Tenth Avenue Brooklyn, NY 11219',
       location: 'Office Location',
       linkName: 'Foot Care',
       footCareLink: 'https://www.footcaremd.org/',
@@ -70,23 +69,22 @@ async function seed() {
         'Diabetic Foot Care',
         'Custom Orthotics',
       ],
-    //   navItems: [
-    //     'about',
-    //     'education',
-    //     'expertise',
-    //     'research',
-    //     'philosophy',
-    //     'hours',
-    //     'insurance',
-    //     'contact',
-    //     'location',
-    //   ],
+      //   navItems: [
+      //     'about',
+      //     'education',
+      //     'expertise',
+      //     'research',
+      //     'philosophy',
+      //     'hours',
+      //     'insurance',
+      //     'contact',
+      //     'location',
+      //   ],
       //   createdAt: '2026-05-19 23:07:31.855239',
       //   updatedAt: '2026-05-20 19:50:13.556',
       isActive: true,
       deletedAt: null,
       //   user_id: '8c2a700c-3b36-405d-8049-492d89acfb75',
-      imageKey: 'mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
     });
 
     console.log('Physician profile created');
@@ -100,10 +98,10 @@ async function seed() {
 
   const sections = [
     {
-      slug: 'hero',
-      title: 'Hero',
+      slug: 'about',
+      title: '',
       content:
-        '### Compassionate Foot & Ankle Care\n\nDr. Lam specializes in advanced foot and ankle treatments focused on restoring mobility, relieving pain, and improving quality of life.\n\nWith over 5 years of clinical experience, Dr. Lam combines modern surgical techniques with compassionate patient-centered care.',
+        '### Compassionate Foot & Ankle Care\n\nDr. Lam specializes in advanced foot and ankle treatments focused on restoring mobility, relieving pain, and improving quality of life.\n\nWith over 6 years of clinical experience, Dr. Lam combines modern surgical techniques with compassionate patient-centered care.',
       displayOrder: 1,
       isActive: true,
       deletedAt: null,

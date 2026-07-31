@@ -19,8 +19,8 @@
 //     </div>
 //   );
 // }
-import { GetStartedButton } from "@/components/navigation/get-started-button";
-import { auth } from "@/lib/auth";
+import { GetStartedButton } from '@/components/navigation/get-started-button';
+import { auth } from '@/lib/auth/auth';
 
 // type AuthApi = typeof auth.api;
 // type AuthApiKeys = keyof AuthApi;

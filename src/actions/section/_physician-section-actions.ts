@@ -19,7 +19,7 @@ import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
 
 import { Result } from '@/lib/types/result';
 import { PhysicianSection } from '@/lib/types/physician-section';
-import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth/auth-utils';
 
 export async function getPhysicianSections() {
   try {

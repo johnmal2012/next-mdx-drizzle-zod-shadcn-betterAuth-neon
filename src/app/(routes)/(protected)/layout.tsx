@@ -1,7 +1,7 @@
 // import Link from 'next/link';
 // import { redirect } from 'next/navigation';
 
-import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth/auth-utils';
 import { AdminNavbar } from '@/components/shared/admin-navbar';
 // import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 

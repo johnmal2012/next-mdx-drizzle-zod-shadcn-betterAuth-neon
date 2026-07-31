@@ -1,9 +1,9 @@
 import 'server-only';
 // best: easy to customize later
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import type { AppPermissions } from "@/lib/permissions";
+import type { AppPermissions } from '@/lib/auth/permissions';
 import { USER_ROLE } from '@/db/schema/auth-schema';
 
 // export async function getSession() {
@@ -14,16 +14,16 @@ import { USER_ROLE } from '@/db/schema/auth-schema';
 export async function getSession() {
   const headerList = await headers();
 
-//   console.log(
-//     'getSession cookie:',
-//     headerList.get('cookie')
-//   );
+  //   console.log(
+  //     'getSession cookie:',
+  //     headerList.get('cookie')
+  //   );
 
   const session = await auth.api.getSession({
     headers: headerList,
   });
 
-//   console.log('getSession session:', session);
+  //   console.log('getSession session:', session);
 
   return session;
 }
@@ -34,7 +34,7 @@ export async function requireLogin() {
   });
 
   if (!session) {
-    redirect("/login?reason=login-required");
+    redirect('/login?reason=login-required');
   }
 
   return session;
@@ -66,18 +66,16 @@ export async function requireAdmin() {
 }
 
 // client page
-export async function requirePermission(
-  permissions: AppPermissions,
-) {
+export async function requirePermission(permissions: AppPermissions) {
   const session = await requireLogin();
 
-//   console.log('auth-utils::requirePagePermission session: ', session);
-//   if (!session) {
-//     // forbidden();
-//     redirect('/unauthorized');
-//   }
+  //   console.log('auth-utils::requirePagePermission session: ', session);
+  //   if (!session) {
+  //     // forbidden();
+  //     redirect('/unauthorized');
+  //   }
 
-//  console.log('requirePermission session:', session);
+  //  console.log('requirePermission session:', session);
 
   const result = await auth.api.userHasPermission({
     body: {
@@ -86,7 +84,7 @@ export async function requirePermission(
     },
   });
 
-//   console.log('auth-utils::userHasPermission result: ', result);
+  //   console.log('auth-utils::userHasPermission result: ', result);
   if (!result.success) {
     // forbidden();
     redirect('/unauthorized');

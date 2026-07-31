@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { sendVerificationEmail } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { sendVerificationEmail } from '@/lib/auth/auth-client';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export const SendVerificationEmailForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -15,13 +15,13 @@ export const SendVerificationEmailForm = () => {
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
-    const email = String(formData.get("email"));
+    const email = String(formData.get('email'));
 
-    if (!email) return toast.error("Please enter your email.");
+    if (!email) return toast.error('Please enter your email.');
 
     await sendVerificationEmail({
       email,
-      callbackURL: "/verify",
+      callbackURL: '/verify',
       fetchOptions: {
         onRequest: () => {
           setIsPending(true);
@@ -33,8 +33,8 @@ export const SendVerificationEmailForm = () => {
           toast.error(ctx.error.message);
         },
         onSuccess: () => {
-          toast.success("Verification email sent successfully.");
-          router.push("/verify/success");
+          toast.success('Verification email sent successfully.');
+          router.push('/verify/success');
         },
       },
     });

@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 
 import { db } from '@/db/db';
 import { user } from '@/db/schema/auth-schema';
-import { requireAdmin } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth/auth-utils';
 
 export async function restoreUser(userId: string) {
   await requireAdmin();

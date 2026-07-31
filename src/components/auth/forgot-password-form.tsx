@@ -3,14 +3,14 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 // import { Label } from '@/components/ui/label';
-import { requestPasswordReset } from '@/lib/auth-client';
+import { requestPasswordReset } from '@/lib/auth/auth-client';
 import { useRouter } from 'next/navigation';
 // import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-    ForgotPasswordInput,
+  ForgotPasswordInput,
   forgotPasswordSchema,
   type ForgotPasswordFormInput,
 } from '@/lib/validations/auth';
@@ -75,9 +75,7 @@ export const ForgotPasswordForm = () => {
       </FieldGroup>
 
       <Button type="submit" disabled={form.formState.isSubmitting}>
-        {form.formState.isSubmitting
-          ? 'Sending...'
-          : 'Send Reset Link'}
+        {form.formState.isSubmitting ? 'Sending...' : 'Send Reset Link'}
       </Button>
     </form>
   );

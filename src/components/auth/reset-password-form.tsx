@@ -3,14 +3,14 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 // import { Label } from '@/components/ui/label';
-import { resetPassword } from '@/lib/auth-client';
+import { resetPassword } from '@/lib/auth/auth-client';
 import { useRouter } from 'next/navigation';
 // import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-    ResetPasswordInput,
+  ResetPasswordInput,
   resetPasswordSchema,
   type ResetPasswordFormInput,
 } from '@/lib/validations/auth';
@@ -29,13 +29,13 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
   //   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
 
-//   const form = useForm<ResetPasswordFormInput>({
-//     resolver: zodResolver(resetPasswordSchema),
-//     defaultValues: {
-//       password: '',
-//       confirmPassword: '',
-//     },
-//   });
+  //   const form = useForm<ResetPasswordFormInput>({
+  //     resolver: zodResolver(resetPasswordSchema),
+  //     defaultValues: {
+  //       password: '',
+  //       confirmPassword: '',
+  //     },
+  //   });
   const form = useForm<ResetPasswordFormInput, unknown, ResetPasswordInput>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {

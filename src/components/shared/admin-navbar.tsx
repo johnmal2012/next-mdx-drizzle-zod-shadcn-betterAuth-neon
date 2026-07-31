@@ -2,7 +2,7 @@ import Link from 'next/link';
 // import { auth } from '@/lib/auth';
 // import { headers } from 'next/headers';
 import { AuthButtons } from '@/components/auth/auth-buttons';
-import { getSession, isAdmin } from '@/lib/auth-utils';
+import { getSession, isAdmin } from '@/lib/auth/auth-utils';
 import { Stethoscope } from 'lucide-react';
 import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 import { adminNavItems } from '@/lib/constants/admin-navitems';
@@ -25,7 +25,9 @@ export async function AdminNavbar({ session }: NavbarProps) {
             <Stethoscope className="h-8 w-8 text-blue-700" />
           </div>
 
-          <span className="text-lg font-semibold border-transparent text-gray-900 hover:border-blue-100 hover:bg-blue-50 hover:text-blue-600">Physician Portal</span>
+          <span className="text-lg font-semibold border-transparent text-gray-900 hover:border-blue-100 hover:bg-blue-50 hover:text-blue-600">
+            Physician Portal
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -41,10 +43,7 @@ export async function AdminNavbar({ session }: NavbarProps) {
               </Link>
             ))} */}
             {adminNavItems.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-              >
+              <NavLink key={item.href} href={item.href}>
                 {item.title}
               </NavLink>
             ))}

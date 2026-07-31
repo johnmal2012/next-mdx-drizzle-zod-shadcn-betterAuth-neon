@@ -2,12 +2,10 @@
 // cons: the authorization logic is tied directly to the role names
 import { redirect } from 'next/navigation';
 
-import { getSession } from '@/lib/session';
+import { getSession } from '@/lib/auth/session';
 import { USER_ROLE, type UserRole } from '@/db/schema/auth-schema';
 
-export async function requireRole(
-  role: UserRole,
-) {
+export async function requireRole(role: UserRole) {
   const session = await getSession();
 
   if (!session) {

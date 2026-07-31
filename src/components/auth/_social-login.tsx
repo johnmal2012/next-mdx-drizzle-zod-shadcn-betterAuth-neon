@@ -2,14 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/auth/auth-client';
 
 export function SocialLogin() {
   return (
-    <div className='max-w-md mx-auto space-y-8 py-10'>
+    <div className="max-w-md mx-auto space-y-8 py-10">
       <Button
-        className='w-full'
-        variant='outline'
+        className="w-full"
+        variant="outline"
         onClick={() =>
           authClient.signIn.social({
             provider: 'google',
@@ -21,8 +21,8 @@ export function SocialLogin() {
       </Button>
 
       <Button
-        className='w-full' 
-        variant='outline'
+        className="w-full"
+        variant="outline"
         onClick={() =>
           authClient.signIn.social({
             provider: 'github',
