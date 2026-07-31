@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { db } from '@/db/db';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -15,7 +16,7 @@ const inter = Inter({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const physician = await db.query.physicianProfile.findFirst();
+  const physician = await getActivePhysicianProfile();
 
   return {
     title: physician?.name ?? 'Dr. Nikki Lam',
