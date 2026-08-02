@@ -30,8 +30,8 @@ import { cn, getCardBackground } from '@/lib/utils';
 import { SectionField } from '@/components/sections/section-form-field';
 // Misc
 import { toast } from 'sonner';
-import { getSectionDefaultValues } from './section-default-values';
-import { sectionFormFields } from '@/lib/constants/section-form-fields';
+import { getSectionDefaultValues } from '../../lib/sections/section-default-values';
+import { sectionFormFields } from '@/lib/sections/section-form-fields';
 
 type SectionFormProps = {
   section?: Section;

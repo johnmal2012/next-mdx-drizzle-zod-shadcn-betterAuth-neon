@@ -9,7 +9,7 @@ import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 
 import { PhysicianSectionFormInput } from '@/lib/validations/physician-section';
 
-import { SectionFormField } from '@/lib/constants/section-form-fields';
+import { SectionFormField } from '@/lib/sections/section-form-fields';
 
 type SectionFormProps = {
   field: SectionFormField;

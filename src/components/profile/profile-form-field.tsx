@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 
-import type { ProfileFieldConfig } from '@/components/profile/profile-form-fields';
+import type { ProfileFieldConfig } from '@/lib/profile/profile-form-fields';
 
 import { PhysicianProfileFormInput } from '@/lib/validations/physician-profile';
 
