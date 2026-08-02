@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { signIn } from '@/lib/auth/auth-client';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 
 interface SignInOauthButtonProps {
   provider: 'google' | 'github';
@@ -16,14 +15,11 @@ export const SignInOauthButton = ({
   signUp,
 }: SignInOauthButtonProps) => {
   const [isPending, setIsPending] = useState(false);
-  const router = useRouter();
 
   async function handleClick() {
-    // setIsPending(true);
-
     await signIn.social({
       provider,
-      callbackURL: '/profile',
+      callbackURL: '/account-settings',
       errorCallbackURL: '/login/error',
       fetchOptions: {
         onRequest: () => {
@@ -37,12 +33,9 @@ export const SignInOauthButton = ({
         },
         onSuccess: () => {
           toast.success('Login successful. Good to have you back.');
-          router.refresh();
         },
       },
     });
-
-    // setIsPending(false);
   }
 
   const action = signUp ? 'Up' : 'In';
