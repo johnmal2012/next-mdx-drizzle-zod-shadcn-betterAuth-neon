@@ -25,7 +25,7 @@ export const physicianProfileSchema = z.object({
 
 //   address: optionalText(z.string().min(1)),
 
-  location: z.string().min(1, 'Header Location Section'),
+//   location: z.string().min(1, 'Header Location Section'),
 
   linkName: optionalText(z.string().min(1)),
 
@@ -57,7 +57,7 @@ export const physicianProfileFormSchema = z.object({
   phone: z.string().trim().min(1, 'Phone is required'),
   email: optionalSpecial(z.email()),
 //   address: optionalText(z.string().min(1)),
-  location: z.string().min(1, 'Header Location Section'),
+//   location: z.string().min(1, 'Header Location Section'),
   linkName: optionalText(z.string().min(1)),
   footCareLink: optionalSpecial(z.url()),
 

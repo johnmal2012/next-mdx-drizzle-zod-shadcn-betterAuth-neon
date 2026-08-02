@@ -232,6 +232,7 @@ export async function createPhysicianProfile(
       message: 'Profile created successfully',
     };
   } catch (err) {
+    console.error('Error creating profile: ', err);
     return {
       success: false,
       error: {

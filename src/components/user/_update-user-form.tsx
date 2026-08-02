@@ -33,7 +33,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
 
     // console.log('Submitting::nameValue: ', nameValue);
 
-    const result = await updateUser({
+    await updateUser({
       // Spreading a falsy primitive contributes no enumerable properties, so the result is effectively nothing
       //   ...(name && { name }),
       //   image,

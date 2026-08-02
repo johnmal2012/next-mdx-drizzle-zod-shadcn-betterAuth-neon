@@ -14,6 +14,7 @@ import { getSession } from '@/lib/auth/auth-utils';
 // import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import { db } from '@/db/db';
 import { SettingsSection } from '@/components/settings/settings-section';
+import Image from 'next/image';
 
 // import { toLowerCase } from 'zod';
 // import { redirect } from 'next/navigation';
@@ -170,7 +171,7 @@ export default async function AccountSettingsPage() {
         <h2 className="text-2xl font-semibold">Profile Preview</h2>
 
         {currentUser?.image ? (
-          <img
+          <Image
             src={currentUser.image}
             alt={user.name}
             className="size-32 rounded-md border border-primary object-cover"

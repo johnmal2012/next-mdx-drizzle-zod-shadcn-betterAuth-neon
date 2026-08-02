@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 import { UserAvatar } from '@/components/user/user-avatar';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import {
   UpdateUserFormInput,
   UpdateUserInput,
@@ -20,6 +20,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field';
+import { getInitials } from '@/lib/utils';
 // import { getRandomValues } from 'crypto';
 
 interface UpdateUserFormProps {
@@ -40,6 +41,11 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
     },
   });
 
+  const watchedName = useWatch({
+    control: form.control,
+    name: 'name',
+  });
+
   async function onFormSubmit(values: UpdateUserFormInput) {
     // evt.preventDefault();
     // const formData = new FormData(evt.target as HTMLFormElement);
@@ -53,7 +59,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
 
     // console.log('Submitting::nameValue: ', nameValue);
 
-    const result = await updateUser({
+    await updateUser({
       // Spreading a falsy primitive contributes no enumerable properties, so the result is effectively nothing
       //   ...(name && { name }),
       //   image,
@@ -102,7 +108,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
 
           <UserAvatar
             image={image}
-            name={form.watch('name')}
+            name={getInitials(watchedName)}
             // className="h-12 w-12"
             size="lg"
           />

@@ -6,7 +6,6 @@ import { db } from '@/db/db';
 import { APIError } from 'better-auth/api';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-import { headers } from 'next/headers';
 // import { redirect } from 'next/navigation';
 import { physicianSections } from '@/db/schema/physician-sections';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';

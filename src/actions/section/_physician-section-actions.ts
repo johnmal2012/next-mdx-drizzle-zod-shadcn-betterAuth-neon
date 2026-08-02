@@ -20,6 +20,7 @@ import { FieldErrors, zodFieldErrors } from '@/lib/types/zod-error';
 import { Result } from '@/lib/types/result';
 import { PhysicianSection } from '@/lib/types/physician-section';
 import { requireAdmin } from '@/lib/auth/auth-utils';
+import { APIError } from 'better-auth/api';
 
 export async function getPhysicianSections() {
   try {
@@ -30,6 +31,7 @@ export async function getPhysicianSections() {
       data: sections,
     };
   } catch (error) {
+    console.error(error);
     return {
       success: false,
       message: 'Failed to fetch sections',
@@ -72,6 +74,7 @@ export async function createPhysicianSection(
       message: 'Sections created successfully',
     };
   } catch (error) {
+    console.error(error);
     return {
       success: false,
       error: {
@@ -128,6 +131,9 @@ export async function updatePhysicianSection(
       message: 'Section updated successfully',
     };
   } catch (error) {
+    if (error instanceof APIError) {
+      console.error('APIError:', error.message);
+    }
     return {
       success: false,
       error: {
@@ -179,6 +185,7 @@ export async function deletePhysicianSection(
       message: 'Section deleted successfully',
     };
   } catch (error) {
+    console.error(error);
     return {
       success: false,
       error: {

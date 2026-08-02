@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { deletePhysicianSection } from '@/actions/section/physician-section-actions';
 import { ConfirmActionDialog } from '../shared/confirm-action-dialog';
-import { TrashIcon } from 'lucide-react';
 
 type SectionDeleteButtonProps = {
   sectionId: number;

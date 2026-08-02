@@ -1,6 +1,3 @@
-import { InferSelectModel } from 'drizzle-orm';
-
-import { physicianSections } from '@/db/schema';
 import { PhysicianSection } from '@/lib/types/physician-section';
 
 export function getSectionDefaultValues(

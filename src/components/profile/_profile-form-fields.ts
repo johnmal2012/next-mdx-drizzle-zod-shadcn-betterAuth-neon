@@ -1,5 +1,4 @@
 import {
-  FieldErrors,
   UseFormRegisterReturn,
   UseFormReturn,
 } from 'react-hook-form';
@@ -33,7 +32,6 @@ export function getProfileFormFields(
 ): ProfileFormField[] {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = form;
 

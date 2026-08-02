@@ -31,6 +31,7 @@ export async function getPhysicianSections() {
       data: sections,
     };
   } catch (error) {
+    console.error(error);
     return {
       success: false,
       message: 'Failed to fetch sections',
@@ -56,10 +57,9 @@ export async function createPhysicianSection(
       };
     }
 
-    const inserted = await db
+    await db
       .insert(physicianSections)
-      .values(validated.data)
-      .returning();
+      .values(validated.data);
 
     revalidatePath('/');
     revalidatePath('/profile');
@@ -101,11 +101,10 @@ export async function updatePhysicianSection(
       };
     }
 
-    const updated = await db
+    await db
       .update(physicianSections)
       .set(validated.data)
-      .where(eq(physicianSections.id, id))
-      .returning();
+      .where(eq(physicianSections.id, id));
 
     revalidatePath('/');
     revalidatePath('/profile');

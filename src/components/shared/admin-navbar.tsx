@@ -2,7 +2,7 @@ import Link from 'next/link';
 // import { auth } from '@/lib/auth';
 // import { headers } from 'next/headers';
 import { AuthButtons } from '@/components/auth/auth-buttons';
-import { getSession, isAdmin } from '@/lib/auth/auth-utils';
+import { getSession } from '@/lib/auth/auth-utils';
 import { Stethoscope } from 'lucide-react';
 import { MobileSidebar } from '@/components/shared/mobile-sidebar';
 import { adminNavItems } from '@/lib/constants/admin-navitems';

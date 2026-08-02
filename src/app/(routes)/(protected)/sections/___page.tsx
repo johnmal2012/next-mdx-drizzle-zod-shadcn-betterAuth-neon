@@ -31,9 +31,9 @@ export default async function SectionsPage() {
   });
 
   // Create mobile pattern: [gray, white, gray, white, ...]
-  const getMobileBackground = (index: number) => {
-    return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  };
+//   const _getMobileBackground = (index: number) => {
+//     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
+//   };
 
   return (
     <main className="min-h-screen bg-background">

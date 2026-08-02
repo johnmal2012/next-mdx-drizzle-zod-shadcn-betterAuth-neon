@@ -1,8 +1,7 @@
 import { Inter, Geist } from 'next/font/google';
-import './globals.css';
+import '@/app/globals.css';
 import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
-import { db } from '@/db/db';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
 
@@ -16,11 +15,12 @@ const inter = Inter({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const physician = await getActivePhysicianProfile();
+  const result = await getActivePhysicianProfile();
+  const profile = result.success ? result.profile : null;
 
   return {
-    title: physician?.name ?? 'Dr. Nikki Lam',
-    description: physician?.clinicName ?? 'Dr. Nikki Lam Site',
+    title: profile?.name ?? 'Dr. Nikki Lam',
+    description: profile?.clinicName ?? 'Dr. Nikki Lam Site',
   };
 }
 

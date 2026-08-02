@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Stethoscope } from 'lucide-react';
 import { AuthButtons } from '@/components/auth/auth-buttons';
 import { getSession } from '@/lib/auth/auth-utils';

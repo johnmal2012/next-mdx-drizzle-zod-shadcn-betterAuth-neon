@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { StarIcon } from 'lucide-react';
@@ -19,10 +18,10 @@ import {
 } from '@/components/ui/field';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 
 export const MagicLinkLoginForm = () => {
-  //   const [isPending, setIsPending] = useState(false);
-  const detailsRef = useRef<HTMLDetailsElement>(null);
+  const [open, setOpen] = useState(false);
 
   const form = useForm<MagicLinkLoginFormInput, unknown, MagicLinkLoginInput>({
     resolver: zodResolver(magicLinkLoginSchema),
@@ -44,7 +43,7 @@ export const MagicLinkLoginForm = () => {
         },
         onSuccess: () => {
           toast.success('Check your email for the magic link!');
-          if (detailsRef.current) detailsRef.current.open = false;
+          setOpen(false);
         },
       },
     });
@@ -52,7 +51,9 @@ export const MagicLinkLoginForm = () => {
 
   return (
     <details
-      ref={detailsRef}
+      open={open}
+      onToggle={(e) => setOpen(e.currentTarget.open)}
+      //   ref={detailsRef}
       //   onToggle={() => {
       //     if (detailsRef.current?.open) {
       //       form.reset({

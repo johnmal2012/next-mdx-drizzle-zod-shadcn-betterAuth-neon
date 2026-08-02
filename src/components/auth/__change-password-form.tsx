@@ -15,7 +15,7 @@ export const ChangePasswordForm = () => {
 
   async function handleSubmit(evt: React.SubmitEvent<HTMLFormElement>) {
     evt.preventDefault();
-    const formData = new FormData(evt.target as HTMLFormElement);
+    // const formData = new FormData(evt.target as HTMLFormElement);
 
     setIsPending(true);
 

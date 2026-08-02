@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 // import { Input } from '@/components/ui/input';
-import { getCardBackground, getInitials } from '@/lib/utils';
+import { getCardBackground } from '@/lib/utils';
 import { InferSelectModel } from 'drizzle-orm';
 import { physicianProfile } from '@/db/schema';
 // import { UserAvatar } from '@/components/user/user-avatar';
@@ -24,7 +24,6 @@ import {
   PhysicianProfileFormInput,
   physicianProfileFormSchema,
 } from '@/lib/validations/physician-profile';
-import z from 'zod';
 import { FieldGroup } from '@/components/ui/field';
 import { cn } from '@/lib/utils';
 import { profileFormFields } from '@/components/profile/profile-form-fields';
@@ -47,11 +46,7 @@ export function ProfileForm({
 }: ProfileFormProps) {
   const router = useRouter();
 
-  const form = useForm<
-    PhysicianProfileFormInput,
-    unknown,
-    z.output<typeof physicianProfileFormSchema>
-  >({
+  const form = useForm<PhysicianProfileFormInput>({
     resolver: zodResolver(physicianProfileFormSchema),
     defaultValues: getProfileDefaultValues(profile),
   });
@@ -59,9 +54,7 @@ export function ProfileForm({
   //   const formFields = ProfileFormFields(form);
 
   // For server actions called from RHF, no need to  use useTransition
-  async function onFormSubmit(
-    values: z.output<typeof physicianProfileFormSchema>,
-  ) {
+  async function onFormSubmit(values: PhysicianProfileFormInput) {
     try {
       const payload = toProfilePayload(values);
 
@@ -81,9 +74,17 @@ export function ProfileForm({
     }
   }
 
+  // temporary development - only error logger
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   return (
     <form
-      onSubmit={form.handleSubmit(onFormSubmit)}
+      onSubmit={form.handleSubmit(
+        onFormSubmit,
+        isDevelopment
+          ? (errors) => console.log('Validation errors:', errors)
+          : undefined,
+      )}
       className="container mx-auto py-10 space-y-6"
       noValidate
     >
@@ -91,25 +92,8 @@ export function ProfileForm({
         <h1 className="text-3xl py-6 font-bold">Edit Physician Profiles</h1>
       </div>
 
-      {/* Desktop View - Hidden on mobile */}
+      {/* Desktop or mobile view depending on tailwind classes */}
       <FieldGroup className="hidden gap-4 md:grid md:grid-cols-2">
-        {profileFormFields.map((field, index) => (
-          <div
-            key={field.id}
-            className={cn('rounded-lg p-4', getCardBackground(index, 2))}
-          >
-            <ProfileFormField
-              field={field}
-              form={form}
-              userName={userName}
-              userImage={userImage}
-            />
-          </div>
-        ))}
-      </FieldGroup>
-
-      {/* Mobile View - Hidden on desktop */}
-      <FieldGroup className="grid gap-4 md:hidden">
         {profileFormFields.map((field, index) => (
           <div
             key={field.id}
@@ -127,6 +111,7 @@ export function ProfileForm({
 
       <div className="flex justify-start items-center gap-2">
         <Button
+          type="submit"
           disabled={form.formState.isSubmitting}
           className="h-10 px-4 w-24 bg-green-600! hover:bg-green-700!"
         >

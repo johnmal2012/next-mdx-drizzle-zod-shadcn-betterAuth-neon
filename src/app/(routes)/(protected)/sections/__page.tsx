@@ -10,7 +10,6 @@ import { db } from '@/db/db';
 import { SectionDeleteButton } from '@/components/sections/section-delete-button';
 import { ReturnButton } from '@/components/navigation/return-button';
 import { Button } from '@/components/ui/button';
-import { chunk } from '@/lib/types/section-map';
 import { cn } from '@/lib/utils';
 
 // import AdminSectionOrderList

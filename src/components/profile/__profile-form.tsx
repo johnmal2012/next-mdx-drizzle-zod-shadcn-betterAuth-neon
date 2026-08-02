@@ -85,7 +85,7 @@ export function ProfileForm({
       phone: profile?.phone ?? '',
       email: profile?.email ?? '',
       //   address: profile?.address ?? '',
-      location: profile?.location ?? '',
+    //   location: profile?.location ?? '',
       linkName: profile?.linkName ?? '',
       footCareLink: profile?.footCareLink ?? '',
       expertise: profile?.expertise?.join(', ') ?? '',

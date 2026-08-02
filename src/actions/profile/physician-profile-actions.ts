@@ -28,8 +28,12 @@ import { APIError } from 'better-auth/api';
 export async function createPhysicianProfile(values: PhysicianProfileInput) {
   await requireAdmin();
 
+  console.log('Received:', values);
+
   const validated = physicianProfileSchema.safeParse(values);
 
+  console.log(validated);
+  
   if (!validated.success) {
     return {
       error: 'Invalid profile data',
@@ -38,13 +42,12 @@ export async function createPhysicianProfile(values: PhysicianProfileInput) {
 
   try {
     const session = await requireLogin();
-    const [created] = await db
+    await db
       .insert(physicianProfile)
       .values({
         ...validated.data,
         userId: session.user.id,
-      })
-      .returning();
+      });
 
     revalidatePath('/');
     revalidatePath('/profile');
@@ -87,14 +90,13 @@ export async function updatePhysicianProfile(
   }
 
   try {
-    const [updated] = await db
+    await db
       .update(physicianProfile)
       .set({
         ...validated.data,
         updatedAt: new Date(),
       })
-      .where(eq(physicianProfile.id, id))
-      .returning();
+      .where(eq(physicianProfile.id, id));
 
     revalidatePath('/');
     revalidatePath('/profile');
@@ -119,14 +121,13 @@ export async function deletePhysicianProfile(profileId: number) {
     // await db.delete(physicianProfile).where(eq(physicianProfile.id, id));
     await requireAdmin();
 
-    const updated = await db
+    await db
       .update(physicianProfile)
       .set({
         isActive: false,
         deletedAt: new Date(),
       })
-      .where(eq(physicianProfile.id, profileId))
-      .returning();
+      .where(eq(physicianProfile.id, profileId));
 
     revalidatePath('/');
     revalidatePath('/profile');

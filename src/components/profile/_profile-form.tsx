@@ -8,11 +8,6 @@ import { toast } from 'sonner';
 
 import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
 
-import {
-  createPhysicianProfile,
-  updatePhysicianProfile,
-} from '@/actions/profile/physician-profile-actions';
-
 import { Button } from '@/components/ui/button';
 
 import { Input } from '@/components/ui/input';
@@ -139,10 +134,10 @@ export function ProfileForm({
       //     return;
       //   }
 
-      const payload = {
-        ...formData,
+    //   const payload = {
+    //     ...formData,
 
-        expertise: formData.expertise.split(',').map((x: string) => x.trim()),
+    //     expertise: formData.expertise.split(',').map((x: string) => x.trim()),
 
         // navItems: formData.navItems.split('\n').map((x: string) => {
         //   const [label, href] = x.split('|');
@@ -155,11 +150,11 @@ export function ProfileForm({
 
         // navItems: parsedNavItems.data,
         // navItems: formData.navItems.split(',').map((x: string) => x.trim()),
-      };
+    //   };
 
-      const result = profile
-        ? await updatePhysicianProfile(profile.id, payload)
-        : await createPhysicianProfile(payload);
+    //   const _result = profile
+    //     ? await updatePhysicianProfile(profile.id, payload)
+    //     : await createPhysicianProfile(payload);
 
     //   if (!result.error) {
     //     if (result.error) {

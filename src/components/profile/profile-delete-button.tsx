@@ -1,8 +1,6 @@
 // 2) admin profile page
 'use client';
 
-import { useState, useTransition } from 'react';
-
 import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';

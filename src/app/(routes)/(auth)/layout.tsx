@@ -1,6 +1,4 @@
 import { AuthNavbar } from '@/components/shared/auth-navbar';
-import { getSession } from '@/lib/auth/auth-utils';
-import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
   children,

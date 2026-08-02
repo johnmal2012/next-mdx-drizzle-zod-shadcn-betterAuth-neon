@@ -4,15 +4,9 @@ import { UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 
-import type {
-  ProfileFieldConfig ,
-} from '@/components/profile/profile-form-fields';
+import type { ProfileFieldConfig } from '@/components/profile/profile-form-fields';
 
 import { PhysicianProfileFormInput } from '@/lib/validations/physician-profile';
 
@@ -45,6 +39,8 @@ export function ProfileFormField({
 
   const error = form.formState.errors[field.name]?.message;
 
+  const register = form.register(field.name);
+
   return (
     <Field>
       <FieldLabel
@@ -53,12 +49,7 @@ export function ProfileFormField({
       >
         {field.label}
 
-        {field.required && (
-          <span className="text-destructive">
-            {' '}
-            *
-          </span>
-        )}
+        {field.required && <span className="text-destructive"> *</span>}
       </FieldLabel>
 
       <Input
@@ -66,13 +57,11 @@ export function ProfileFormField({
         placeholder={field.placeholder}
         aria-required={field.required}
         aria-invalid={!!error}
-        {...form.register(field.name)}
+        {...register}
       />
 
       {field.helperText && (
-        <p className="mt-2 text-xs text-muted-foreground">
-          {field.helperText}
-        </p>
+        <p className="mt-2 text-xs text-muted-foreground">{field.helperText}</p>
       )}
 
       <FieldError>{error}</FieldError>
