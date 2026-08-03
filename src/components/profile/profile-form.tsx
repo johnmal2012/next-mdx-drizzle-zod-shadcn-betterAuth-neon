@@ -1,23 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-
 import { toast } from 'sonner';
-
-// import { ProfileImageUpload } from '@/components/profile/profile-image-upload';
-
 import {
   createPhysicianProfile,
   updatePhysicianProfile,
 } from '@/actions/profile/physician-profile-actions';
-
 import { Button } from '@/components/ui/button';
-
-// import { Input } from '@/components/ui/input';
 import { getCardBackground } from '@/lib/utils';
 import { InferSelectModel } from 'drizzle-orm';
 import { physicianProfile } from '@/db/schema';
-// import { UserAvatar } from '@/components/user/user-avatar';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -93,7 +85,7 @@ export function ProfileForm({
       </div>
 
       {/* Desktop or mobile view depending on tailwind classes */}
-      <FieldGroup className="hidden gap-4 md:grid md:grid-cols-2">
+      <FieldGroup className="grid gap-4 md:grid-cols-2">
         {profileFormFields.map((field, index) => (
           <div
             key={field.id}
