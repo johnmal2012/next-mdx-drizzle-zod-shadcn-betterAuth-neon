@@ -1,6 +1,7 @@
 // import type { Metadata } from 'next';
 // import { db } from '@/db/db';
 // import { physicianProfile } from '@/db/schema';
+import { SiteStatusBanner } from '@/components/site/site-status-banner';
 import { Toaster } from 'sonner';
 // import { AuthNavbar } from '@/components/shared/auth-navbar';
 
@@ -28,6 +29,7 @@ export default function RoutesLayout({
   return (
     <>
       {/* <AuthNavbar /> */}
+      <SiteStatusBanner />
       {children}
       <Toaster position="top-right" richColors />
     </>
