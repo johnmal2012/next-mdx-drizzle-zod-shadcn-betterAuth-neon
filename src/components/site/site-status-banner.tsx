@@ -1,5 +1,5 @@
 export function SiteStatusBanner() {
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NEXT_PUBLIC_SITE_STATUS !== 'demo') {
     return null;
   }
 
