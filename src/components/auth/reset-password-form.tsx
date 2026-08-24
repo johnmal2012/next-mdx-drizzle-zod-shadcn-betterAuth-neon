@@ -54,7 +54,7 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         },
         onSuccess: () => {
           toast.success('Password reset successfully.');
-          router.push('/login');
+          router.push('/nikkilam20020404/login');
         },
       },
     });

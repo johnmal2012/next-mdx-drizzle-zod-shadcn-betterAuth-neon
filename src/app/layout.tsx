@@ -19,8 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const profile = result.success ? result.profile : null;
 
   return {
-    title: profile?.name ?? 'Dr. Nikki Lam',
-    description: profile?.clinicName ?? 'Dr. Nikki Lam Site',
+    title: profile?.name ?? 'Dr. Arron Lam',
+    description: profile?.clinicName ?? 'Dr. Arron Lam Site',
   };
 }
 

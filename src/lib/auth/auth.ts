@@ -103,13 +103,29 @@ const options = {
     user: {
       create: {
         before: async (user) => {
-          const ADMIN_EMAILS = serverEnv.ADMIN_EMAILS?.split(';') ?? [];
+          //   const ADMIN_EMAILS = serverEnv.ADMIN_EMAILS?.split(';') ?? [];
 
-          if (ADMIN_EMAILS.includes(user.email)) {
-            return { data: { ...user, role: USER_ROLE.ADMIN } };
+          //   if (ADMIN_EMAILS.includes(user.email)) {
+          //     return { data: { ...user, role: USER_ROLE.ADMIN } };
+          //   }
+
+          //   return { data: user };
+          // normalize email to lowercase
+          const ADMIN_EMAILS =
+            serverEnv.ADMIN_EMAILS?.split(';')
+              .map((email) => email.trim().toLowerCase())
+              .filter(Boolean) ?? [];
+
+          const email = user.email.trim().toLowerCase();
+
+          if (ADMIN_EMAILS.includes(email)) {
+            return {
+              data: {
+                ...user,
+                role: USER_ROLE.ADMIN,
+              },
+            };
           }
-
-          return { data: user };
         },
       },
     },

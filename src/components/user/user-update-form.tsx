@@ -75,7 +75,9 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
           //   (evt.target as HTMLFormElement).reset();
           //   setNameValue('');
           //   setImageValue('');
-          form.reset(values);
+          form.reset({
+            name: '',
+          });
           router.refresh();
         },
       },
@@ -86,6 +88,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
   return (
     <form
       className="max-w-sm w-full space-y-4"
+      autoComplete="off"
       noValidate
       onSubmit={form.handleSubmit(onFormSubmit)}
     >
@@ -96,6 +99,7 @@ export const UpdateUserForm = ({ name, image }: UpdateUserFormProps) => {
           <Input
             id="name"
             disabled={form.formState.isSubmitting}
+            autoComplete="off"
             aria-invalid={!!form.formState.errors.name}
             {...form.register('name')}
           />

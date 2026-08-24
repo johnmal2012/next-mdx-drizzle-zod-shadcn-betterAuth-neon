@@ -17,7 +17,7 @@ export const GetStartedButton = () => {
     );
   }
 
-  const href = session ? '/profile' : '/login';
+  const href = session ? '/profile' : '/nikkilam20020404/login';
 
   return (
     <div className="flex flex-col items-center gap-4">

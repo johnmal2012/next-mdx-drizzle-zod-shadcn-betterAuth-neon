@@ -1,3 +1,5 @@
+// use src/app/not-found.tsx for entire app
+// use src/app/(routes)/not-found.tsx when you intentionally want a different 404 UI for routes inside (routes)
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';

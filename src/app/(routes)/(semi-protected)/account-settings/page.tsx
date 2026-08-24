@@ -15,6 +15,8 @@ import { getSession } from '@/lib/auth/auth-utils';
 import { db } from '@/db/db';
 import { SettingsSection } from '@/components/settings/settings-section';
 import Image from 'next/image';
+import { USER_ROLE } from '@/db/schema/auth-schema';
+import { CreateAdminUserForm } from '@/components/user/create-admin-user-form';
 
 // import { toLowerCase } from 'zod';
 // import { redirect } from 'next/navigation';
@@ -60,6 +62,8 @@ export default async function AccountSettingsPage() {
   const currentUser = await db.query.user.findFirst({
     where: (users, { eq }) => eq(users.id, session.user.id),
   });
+
+  const isAdmin = user.role === USER_ROLE.ADMIN;
 
   //   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
   // console.log('UserSesionPage::session: ', session);
@@ -115,6 +119,7 @@ export default async function AccountSettingsPage() {
       <SettingsSection
         title="Update User Name and/or Image"
         borderColor="border-t-blue-600"
+        backgroundColor='bg-slate-100'
       >
         <UpdateUserForm name={user.name} image={user.image ?? ''} />
       </SettingsSection>
@@ -124,9 +129,24 @@ export default async function AccountSettingsPage() {
 
         <ChangePasswordForm />
       </div> */}
-      <SettingsSection title="Change Password" borderColor="border-t-red-600">
+      <SettingsSection title="Change Password" borderColor="border-t-red-600"
+      backgroundColor='bg-white'>
         <ChangePasswordForm />
       </SettingsSection>
+
+      {isAdmin && (
+        <>
+          <Separator className="my-8 data-[orientation=horizontal]:h-1 bg-slate-300" />
+
+          <SettingsSection
+            title="Create Admin User"
+            borderColor="border-t-purple-600"
+            backgroundColor='bg-slate-100'
+          >
+            <CreateAdminUserForm />
+          </SettingsSection>
+        </>
+      )}
 
       <Separator className="my-8 data-[orientation=horizontal]:h-1 bg-slate-300" />
       {/* <div className="space-y-4">
@@ -174,6 +194,8 @@ export default async function AccountSettingsPage() {
           <Image
             src={currentUser.image}
             alt={user.name}
+            width={128}
+            height={128}
             className="size-32 rounded-md border border-primary object-cover"
           />
         ) : (
