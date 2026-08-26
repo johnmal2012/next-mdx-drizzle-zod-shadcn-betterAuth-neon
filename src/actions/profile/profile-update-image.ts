@@ -83,6 +83,7 @@ export async function updateProfileImage(data: {
 
   // Fetch user and physician profile in parallel
   // specify columns to limit return columns otherwise return all columns
+  // output: destructure to get currentUser from user; physicianProfileData from physicianProfile
   const [currentUser, physicianProfileData] = await Promise.all([
     db.query.user.findFirst({
       where: eq(user.id, session.user.id),
@@ -137,7 +138,7 @@ export async function updateProfileImage(data: {
   //       });
   //     }
   //   });
-  // Update user
+  // 1. Update Better Auth user's image and imageKey.
   await db
     .update(user)
     .set({
@@ -146,6 +147,7 @@ export async function updateProfileImage(data: {
     })
     .where(eq(user.id, session.user.id));
 
+  // 2. Update physician profile's image and imageKey.
   if (physicianProfileData) {
     // Update physician profile
     await db
@@ -177,8 +179,11 @@ export async function updateProfileImage(data: {
     await utapi.deleteFiles(physicianProfileData.imageKey);
   }
 
+  // revalidatePath() = the rendered/data result associated with these routes should be considered stale; but it does not delete every cached copy of every image that those pages display
+  // 3. Invalidate all pages that display the image.
   revalidatePath('/profile');
   revalidatePath('/account-settings');
+  revalidatePath('/');
 
   return {
     success: true,

@@ -17,6 +17,8 @@ import { SettingsSection } from '@/components/settings/settings-section';
 import Image from 'next/image';
 import { USER_ROLE } from '@/db/schema/auth-schema';
 import { CreateAdminUserForm } from '@/components/user/create-admin-user-form';
+import { eq } from 'drizzle-orm';
+import { physicianProfile } from '@/db/schema/physician-profile';
 
 // import { toLowerCase } from 'zod';
 // import { redirect } from 'next/navigation';
@@ -65,6 +67,16 @@ export default async function AccountSettingsPage() {
 
   const isAdmin = user.role === USER_ROLE.ADMIN;
 
+    // Get the physician profile belonging to the current user.
+  const physician = await db.query.physicianProfile.findFirst({
+    where: eq(physicianProfile.userId, user.id),
+    columns: {
+      image: true,
+    },
+  });
+
+  // image is the current UploadThing image url.
+  const image = physician?.image ?? '';
   //   console.log('currentUser from DB:', currentUser?.id, currentUser?.name);
   // console.log('UserSesionPage::session: ', session);
   // console.log('UserSesionPage::currentUser: ', currentUser);
@@ -121,7 +133,7 @@ export default async function AccountSettingsPage() {
         borderColor="border-t-blue-600"
         backgroundColor='bg-slate-100'
       >
-        <UpdateUserForm name={user.name} image={user.image ?? ''} />
+        <UpdateUserForm name={user.name} image={image} />
       </SettingsSection>
 
       {/* <div className="space-y-4 p-4 rounded-b-md border border-t-8 border-red-600">
