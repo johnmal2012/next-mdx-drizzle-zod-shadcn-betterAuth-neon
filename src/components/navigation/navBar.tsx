@@ -112,7 +112,7 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-50 border-b bg-stone-100/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      {/* <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-100">
             <Stethoscope className="h-5 w-5 text-blue-700" />
@@ -127,10 +127,31 @@ export default function Navbar({
               <Link href="#hero">{specialty}</Link>
             </p>
           </div>
+        </div> */}
+      {/* Logo */}
+      <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:py-4">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          {/* Logo icon */}
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 sm:h-11 sm:w-11">
+            <Stethoscope className="h-5 w-5 shrink-0 text-blue-700" />
+          </div>
+
+          {/* Logo text */}
+          <div className="shrink-0">
+            <h1 className="whitespace-nowrap text-sm font-bold text-slate-900 sm:text-base lg:text-lg">
+              <Link href="#hero">{logo}</Link>
+            </h1>
+
+            {/* <p className="whitespace-nowrap text-[10px] text-slate-500 sm:text-[11px] lg:text-xs"> */}
+            <p className="max-w-36 text-[10px] leading-tight text-slate-500 sm:max-w-32 sm:text-[11px] lg:max-w-36 lg:text-xs">
+              <Link href="#hero">{specialty}</Link>
+            </p>
+          </div>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden items-center gap-2 md:flex">
+        {/* <nav className="hidden items-center gap-2 md:flex"> */}
+        <nav className="ml-auto hidden items-center gap-0.5 md:flex lg:gap-1.5">
           {navItems.map((item) => {
             // const isActive = activeSection === item.href.replace('#', '');
             const isActive = activeSection === item.id;
@@ -139,8 +160,14 @@ export default function Navbar({
               <Link
                 key={item.id}
                 href={`#${item.id}`}
+                // className={cn(
+                //   'whitespace-nowrap rounded-full px-1.5 py-2 text-[11px] font-medium transition-all duration-200 sm:px-2 sm:text-xs lg:px-3 lg:text-sm',
+                //   isActive
+                //     ? 'bg-blue-600 text-white shadow-md'
+                //     : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
+                // )}
                 className={cn(
-                  'rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
+                  'whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-all duration-200 lg:px-3 lg:py-2 lg:text-sm',
                   isActive
                     ? 'bg-blue-600 text-white shadow-md'
                     : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
@@ -162,8 +189,9 @@ export default function Navbar({
           {/* <Button className="ml-3 rounded-full">Request Appointment</Button> */}
         </nav>
 
-        {/* Mobile Nav */}
-        <div className="md:hidden">
+        {/* Mobile Nav / Tablet Navigation */}
+        {/* <div className="md:hidden"> */}
+        <div className="ml-auto md:hidden">
           <Sheet>
             {/* <SheetTrigger asChild>
               <Button
