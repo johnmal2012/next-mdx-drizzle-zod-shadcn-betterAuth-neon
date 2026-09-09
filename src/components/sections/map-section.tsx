@@ -5,12 +5,13 @@ import { cn } from '@/lib/utils';
 
 interface MapSectionProps {
   location: string;
+  clinicName: string;
   address: string;
   background: string;
   slug: string;
 }
 
-export default function MapSection({ location, address, background, slug }: MapSectionProps) {
+export default function MapSection({ location, clinicName, address, background, slug }: MapSectionProps) {
   return (
     <section
       id={slug}
@@ -19,6 +20,9 @@ export default function MapSection({ location, address, background, slug }: MapS
       <div className="mx-auto max-w-6xl">
         <Card className="overflow-hidden rounded-3xl shadow-xl">
           <div className="border-b px-8 py-6">
+            <h2 className="text-3xl font-bold text-slate-900">
+              {clinicName}
+            </h2>
             <h2 className="text-3xl font-bold text-slate-900">
               {location}
             </h2>

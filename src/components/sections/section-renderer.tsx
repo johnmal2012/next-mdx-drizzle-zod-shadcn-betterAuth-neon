@@ -118,6 +118,7 @@ export function SectionRenderer({
         <MapSection
           //   location={profile.location ?? ''}
           location={section.title ?? ''}
+          clinicName={profile.clinicName ?? ''}
           address={profile.clinicAddress ?? ''}
           slug={section.slug ?? ''}
           background={background}
