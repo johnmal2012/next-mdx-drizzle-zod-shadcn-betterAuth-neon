@@ -14,7 +14,7 @@ import { getWebsiteData } from '@/lib/website/get-website-data';
 export default async function PhysicianPage() {
   const websiteData = await getWebsiteData();
 
-  if (!websiteData.success) {
+  if (!websiteData) {
     return (
       <div className="container mx-auto flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
         <div className="max-w-lg space-y-6">
@@ -37,6 +37,8 @@ export default async function PhysicianPage() {
 
   const { profile, sections, navItems } = websiteData;
 
+//   console.log('sections: ', sections);
+
   if (!sections) {
     return <NoSectionState />;
   }
@@ -44,12 +46,11 @@ export default async function PhysicianPage() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <Navbar
-        // navItems={profile.navItems ?? []}
         navItems={navItems}
         logo={profile.logo ?? ''}
         specialty={profile.specialty ?? ''}
         // clinicName={profile.clinicName ?? ''}
-        clinicName={profile.clinics?.[0]?.name ?? ''}
+        clinics={profile.clinics ?? []}
         linkName={profile.linkName ?? ''}
         footCareLink={profile.footCareLink ?? ''}
       />
@@ -63,16 +64,10 @@ export default async function PhysicianPage() {
         />
       ))}
 
-      {/* <MapSection
-        location={profile.location ?? ''}
-        address={profile.address ?? ''}
-      /> */}
-
       <FooterSection
         // clinicName={profile.clinicName ?? ''}
         // clinicAddress={profile.clinicAddress ?? ''}
-        clinicName={profile.clinics?.[0]?.name ?? ''}
-        clinicAddress={profile.clinics?.[0]?.address ?? ''}
+        clinics={profile.clinics ?? []}
       />
     </main>
   );

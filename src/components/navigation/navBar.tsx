@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-
 import { Menu, Stethoscope } from 'lucide-react';
-
 import { useEffect, useMemo, useState } from 'react';
-
 import {
   Sheet,
   SheetClose,
@@ -15,54 +12,31 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { NavItem } from '@/lib/types/navigation';
-// import { physicianData } from '@/data/physician';
-// import { headingData } from '@/data/heading';
+import { Clinic } from '@/lib/types/clinic';
 
 interface NavbarProps {
-  //   navItems: { label: string; href: string }[];
-  //   navItems: string[];
   navItems: NavItem[];
   logo: string;
   specialty: string;
-  clinicName: string;
+  //   clinicName: string;
+  clinics: Clinic[];
   linkName: string;
   footCareLink: string;
 }
-
-// const navItems = [
-//   { label: 'About', href: '#hero' },
-//   { label: 'Education', href: '#education' },
-//   { label: 'Expertise', href: '#expertise' },
-//   { label: 'Philosophy', href: '#philosophy' },
-//   { label: 'Research', href: '#research' },
-//   { label: 'Hours', href: '#hours' },
-//   { label: 'Insurance', href: '#insurance' },
-//   { label: 'Location', href: '#location' },
-//   { label: 'Contact', href: '#contact' },
-// ];
 
 export default function Navbar({
   navItems,
   logo,
   specialty,
-  clinicName,
+  //   clinicName,
+  clinics,
   linkName,
   footCareLink,
 }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('hero');
-
-  // Build the section list once whenever navItems changes
-  //   const sections = useMemo(
-  //     () =>
-  //       navItems.map((item) => ({
-  //         id: item.href.replace('#', ''),
-  //       })),
-  //     [navItems],
-  //   );
   const sections = useMemo(
     () =>
       navItems.map((item) => ({
@@ -112,37 +86,18 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-50 border-b bg-stone-100/90 backdrop-blur-md">
-      {/* <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-100">
-            <Stethoscope className="h-5 w-5 text-blue-700" />
-          </div>
-
-          <div className="min-w-0">
-            <h1 className="truncate text-base font-bold text-slate-900 sm:text-lg">
-              <Link href="#hero">{logo}</Link>
-            </h1>
-
-            <p className="truncate text-[11px] text-slate-500 sm:text-xs">
-              <Link href="#hero">{specialty}</Link>
-            </p>
-          </div>
-        </div> */}
-      {/* Logo */}
       <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:py-4">
+        {/* Logo */}
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          {/* Logo icon */}
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 sm:h-11 sm:w-11">
             <Stethoscope className="h-5 w-5 shrink-0 text-blue-700" />
           </div>
 
-          {/* Logo text */}
           <div className="shrink-0">
             <h1 className="whitespace-nowrap text-sm font-bold text-slate-900 sm:text-base lg:text-lg">
               <Link href="#hero">{logo}</Link>
             </h1>
 
-            {/* <p className="whitespace-nowrap text-[10px] text-slate-500 sm:text-[11px] lg:text-xs"> */}
             <p className="max-w-36 text-[10px] leading-tight text-slate-500 sm:max-w-32 sm:text-[11px] lg:max-w-36 lg:text-xs">
               <Link href="#hero">{specialty}</Link>
             </p>
@@ -150,22 +105,14 @@ export default function Navbar({
         </div>
 
         {/* Desktop Nav */}
-        {/* <nav className="hidden items-center gap-2 md:flex"> */}
         <nav className="ml-auto hidden items-center gap-0.5 md:flex lg:gap-1.5">
           {navItems.map((item) => {
-            // const isActive = activeSection === item.href.replace('#', '');
             const isActive = activeSection === item.id;
 
             return (
               <Link
                 key={item.id}
                 href={`#${item.id}`}
-                // className={cn(
-                //   'whitespace-nowrap rounded-full px-1.5 py-2 text-[11px] font-medium transition-all duration-200 sm:px-2 sm:text-xs lg:px-3 lg:text-sm',
-                //   isActive
-                //     ? 'bg-blue-600 text-white shadow-md'
-                //     : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
-                // )}
                 className={cn(
                   'whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-all duration-200 lg:px-3 lg:py-2 lg:text-sm',
                   isActive
@@ -185,34 +132,11 @@ export default function Navbar({
           >
             {linkName}
           </Link>
-
-          {/* <Button className="ml-3 rounded-full">Request Appointment</Button> */}
         </nav>
 
-        {/* Mobile Nav / Tablet Navigation */}
-        {/* <div className="md:hidden"> */}
+        {/* Mobile Nav / Tablet Navigation  */}
         <div className="ml-auto md:hidden">
           <Sheet>
-            {/* <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-12
-                    w-12
-                    text-slate-700
-                    hover:bg-slate-100
-                    hover:text-slate-900
-                    focus-visible:ring-0
-                    cursor-pointer"
-              > */}
-            {/* <Menu className="h-6 w-6" strokeWidth={2.5} /> */}
-            {/* <div className="flex flex-col gap-1.5">
-                  <span className="h-0.5 w-6 rounded-full bg-slate-800" />
-                  <span className="h-0.5 w-6 rounded-full bg-slate-800" />
-                  <span className="h-0.5 w-6 rounded-full bg-slate-800" />
-                </div>
-              </Button>
-            </SheetTrigger> */}
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
@@ -238,35 +162,63 @@ export default function Navbar({
                 "
             >
               <SheetHeader className="pb-2">
-                <SheetTitle className="text-lg font-semibold tracking-tight text-slate-900">
-                  {clinicName}
+                <SheetTitle className="text-md font-semibold tracking-tight text-slate-900">
+                  Clinics
                 </SheetTitle>
                 <SheetDescription className="text-sm text-slate-500">
-                  {logo}
+                  {/* {logo} */}
+                  {specialty}
                 </SheetDescription>
+                <div className="mt-2 space-y-3 text-left">
+                  {' '}
+                  {clinics.length > 0 ? (
+                    clinics.map((clinic, index) => (
+                      <div
+                        key={`${clinic.name}-${index}`}
+                        className={cn(
+                          'space-y-0.5',
+                          index > 0 && 'border-t border-slate-300 pt-3',
+                        )}
+                      >
+                        {' '}
+                        <p className="text-xs font-medium leading-tight text-slate-700">
+                          {' '}
+                          {clinic.name}{' '}
+                        </p>{' '}
+                        <p className="wrap-break-word text-[11px] leading-relaxed text-slate-500">
+                          {' '}
+                          {clinic.address}{' '}
+                        </p>{' '}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-xs text-slate-500">
+                      {' '}
+                      No clinic locations available.{' '}
+                    </p>
+                  )}{' '}
+                </div>
+                {/* <div className="mt-2 space-y-3">
+                  {clinics.length > 0 ? (
+                    clinics.map((clinic, index) => (
+                      <div key={`${clinic.name}-${index}`}>
+                        <p className="text-sm font-medium text-slate-700">
+                          {clinic.name}
+                        </p>
+                        <p className="text-sm leading-relaxed text-slate-500">
+                          {clinic.address}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-slate-500">
+                      No clinic locations available.
+                    </p>
+                  )}
+                </div> */}
               </SheetHeader>
 
               <nav className="mt-2 flex flex-col gap-2">
-                {/* {navItems.map((item) => {
-                  const isActive = activeSection === item.href.replace('#', '');
-
-                  return (
-                    <SheetClose asChild key={item.href}>
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                          'rounded-xl px-4 py-3 text-base font-medium transition-all',
-                          isActive
-                            ? 'bg-blue-600 text-white'
-                            : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600',
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  );
-                })} */}
                 {navItems.map((item) => {
                   const isActive = activeSection === item.id;
 
@@ -297,9 +249,6 @@ export default function Navbar({
                     {linkName}
                   </Link>
                 </SheetClose>
-                {/* <Button className="mt-6 rounded-full">
-                  Request Appointment
-                </Button> */}
               </nav>
             </SheetContent>
           </Sheet>
