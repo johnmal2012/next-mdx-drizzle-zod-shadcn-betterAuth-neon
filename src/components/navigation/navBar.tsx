@@ -165,7 +165,7 @@ export default function Navbar({
                 <SheetTitle className="text-md font-semibold tracking-tight text-slate-900">
                   Clinics
                 </SheetTitle>
-                <SheetDescription className="text-sm text-slate-500">
+                <SheetDescription className="text-[10px] text-slate-500">
                   {/* {logo} */}
                   {specialty}
                 </SheetDescription>
@@ -181,14 +181,14 @@ export default function Navbar({
                         )}
                       >
                         {' '}
-                        <p className="text-xs font-medium leading-tight text-slate-700">
+                        <p className="text-[10px] italic font-medium leading-tight text-slate-700">
                           {' '}
                           {clinic.name}{' '}
                         </p>{' '}
-                        <p className="wrap-break-word text-[11px] leading-relaxed text-slate-500">
+                        {/* <p className="wrap-break-word text-[11px] leading-relaxed text-slate-500">
                           {' '}
                           {clinic.address}{' '}
-                        </p>{' '}
+                        </p>{' '} */}
                       </div>
                     ))
                   ) : (
