@@ -55,8 +55,18 @@ async function seed() {
       image:
         'https://ffkf9c9vt3.ufs.sh/f/mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
       imageKey: 'mm5bHxn2kR9wLfvkx9BsyOhk8MnVworU43SQBglYctdeJHX9',
-      clinicName: 'Maimonides Foot & Ankle',
-      clinicAddress: '4802 Tenth Avenue Brooklyn, NY 11219',
+      //   clinicName: 'Maimonides Foot & Ankle',
+      //   clinicAddress: '4802 Tenth Avenue Brooklyn, NY 11219',
+      clinics: [
+        {
+          name: 'Maimonides Foot & Ankle',
+          address: '4802 Tenth Avenue Brooklyn, NY 11219',
+        },
+        {
+          name: 'Queens Foot & Ankle Center',
+          address: '123 Queens Boulevard, Queens, NY 11375',
+        },
+      ],
       phone: '(718) 123-4567',
       email: 'info@hudsonfootankle.com',
       //   address: '4802 Tenth Avenue Brooklyn, NY 11219',
