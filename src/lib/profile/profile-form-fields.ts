@@ -19,10 +19,18 @@ type InputField = BaseField & {
   helperText?: string;
 };
 
-export type ProfileFieldConfig  = ImageField | InputField;
+// export type ProfileFieldConfig  = ImageField | InputField;
+type TextareaField = BaseField & {
+  type: 'textarea';
+  name: keyof PhysicianProfileFormInput;
+  placeholder?: string;
+  helperText?: string;
+};
+
+export type ProfileFieldConfig = ImageField | InputField | TextareaField;
 
 // Define field configurations with their properties
-export const profileFormFields: ProfileFieldConfig [] = [
+export const profileFormFields: ProfileFieldConfig[] = [
   {
     id: 'image',
     type: 'image',
@@ -68,21 +76,40 @@ export const profileFormFields: ProfileFieldConfig [] = [
     placeholder: 'e.g., Board-Certified Podiatric Surgeon',
     required: false,
   },
+  //   {
+  //     id: 'clinicName',
+  //     name: 'clinicName',
+  //     type: 'input',
+  //     label: 'Clinic Name',
+  //     placeholder: 'e.g., Meimo Foot & Ankle',
+  //     required: true,
+  //   },
+  //   {
+  //     id: 'clinicAddress',
+  //     name: 'clinicAddress',
+  //     type: 'input',
+  //     label: 'Clinic Address',
+  //     placeholder: 'e.g., 4802 Tenth Avenue Brooklyn, NY 11219',
+  //     required: true,
+  //   },
   {
-    id: 'clinicName',
-    name: 'clinicName',
-    type: 'input',
-    label: 'Clinic Name',
-    placeholder: 'e.g., Meimo Foot & Ankle',
+    id: 'clinicNames',
+    name: 'clinicNames',
+    type: 'textarea',
+    label: 'Clinic Names',
+    placeholder: 'e.g., Meimo Bone & Joint center',
     required: true,
+    helperText: 'Enter one clinic name per line.',
   },
   {
-    id: 'clinicAddress',
-    name: 'clinicAddress',
-    type: 'input',
-    label: 'Clinic Address',
-    placeholder: 'e.g., 4802 Tenth Avenue Brooklyn, NY 11219',
+    id: 'clinicAddresses',
+    name: 'clinicAddresses',
+    type: 'textarea',
+    label: 'Clinic Addresses',
+    placeholder: 'e.g., 6010 Bay Parkway, 7th & 8th Floors, Brooklyn, NY 11204',
     required: true,
+    helperText:
+      'Enter one address per line in the same order as the clinic names.',
   },
   {
     id: 'logo',

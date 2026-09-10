@@ -64,6 +64,13 @@
       "when": 1785073173780,
       "tag": "0008_lean_nemesis",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789048150994,
+      "tag": "0009_nasty_sprite",
+      "breakpoints": true
     }
   ]
 }

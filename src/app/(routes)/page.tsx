@@ -48,7 +48,8 @@ export default async function PhysicianPage() {
         navItems={navItems}
         logo={profile.logo ?? ''}
         specialty={profile.specialty ?? ''}
-        clinicName={profile.clinicName ?? ''}
+        // clinicName={profile.clinicName ?? ''}
+        clinicName={profile.clinics?.[0]?.name ?? ''}
         linkName={profile.linkName ?? ''}
         footCareLink={profile.footCareLink ?? ''}
       />
@@ -68,8 +69,10 @@ export default async function PhysicianPage() {
       /> */}
 
       <FooterSection
-        clinicName={profile.clinicName ?? ''}
-        clinicAddress={profile.clinicAddress ?? ''}
+        // clinicName={profile.clinicName ?? ''}
+        // clinicAddress={profile.clinicAddress ?? ''}
+        clinicName={profile.clinics?.[0]?.name ?? ''}
+        clinicAddress={profile.clinics?.[0]?.address ?? ''}
       />
     </main>
   );

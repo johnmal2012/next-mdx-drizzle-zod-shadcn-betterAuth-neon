@@ -10,6 +10,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { user } from '@/db/schema/auth-schema';
 // import { relations } from 'drizzle-orm';
+import { Clinic } from '@/lib/types/clinic';
 
 export const physicianProfile = pgTable(
   'physician_profile',
@@ -36,9 +37,10 @@ export const physicianProfile = pgTable(
 
     imageKey: text('image_key'),
 
-    clinicName: text('clinic_name'),
+    // clinicName: text('clinic_name'),
 
-    clinicAddress: text('clinic_address'),
+    // clinicAddress: text('clinic_address'),
+    clinics: jsonb('clinics').$type<Clinic[]>().notNull().default([]),
 
     phone: text('phone'),
 
