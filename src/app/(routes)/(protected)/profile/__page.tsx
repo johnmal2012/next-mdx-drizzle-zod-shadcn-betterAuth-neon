@@ -106,12 +106,12 @@ export default async function ProfilePage() {
             {
               id: 'clinic-name',
               label: 'Clinic Name',
-              value: profile.clinicName,
+              value: profile.clinics?.[0]?.name ?? '',
             },
             {
               id: 'clinic-address',
               label: 'Clinic Address',
-              value: profile.clinicAddress,
+              value: profile.clinics?.[0]?.address ?? '',
             },
             { id: 'logo', label: 'Logo', value: profile.logo },
             { id: 'link-name', label: 'Link Name', value: profile.linkName },
