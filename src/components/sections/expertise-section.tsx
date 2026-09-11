@@ -35,14 +35,14 @@ export default async function ExpertiseSection({
         <Card className="rounded-3xl p-10 shadow-xl">
           <h2 className="mb-8 text-3xl font-bold">{title}</h2>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+          <div className="flex flex-wrap justify-center gap-3">
             {expertise.map((item) => (
               <Link
                 key={`${item.text}-${item.url}`}
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full"
+                className="w-[calc(50%-0.375rem)] md:w-[calc(25%-0.75rem)]"
               >
                 <Badge
                   variant="secondary"
