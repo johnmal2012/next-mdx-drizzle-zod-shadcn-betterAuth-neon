@@ -74,10 +74,14 @@ async function seed() {
       linkName: 'Foot Care',
       footCareLink: 'https://www.footcaremd.org/',
       expertise: [
-        'Sports Injuries',
-        'Foot Surgery',
-        'Diabetic Foot Care',
-        'Custom Orthotics',
+        {
+          text: 'Sports Injuries',
+          url: 'https://www.footcaremd.org/sports-injuries',
+        },
+        {
+          text: 'Foot Surgery',
+          url: 'https://www.footcaremd.org/foot-surgery',
+        },
       ],
       //   navItems: [
       //     'about',
