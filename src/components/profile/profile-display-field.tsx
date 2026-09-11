@@ -42,21 +42,14 @@ export function ProfileDisplayField({
             Expertise
           </FieldLabel>
 
-          {/* {profile.expertise?.length ? (
-            profile.expertise?.map((item: string) => (
-              <Badge key={item} variant="secondary">
-                {item}
-              </Badge>
-            ))
-          ) : (
-            <p className="text-muted-foreground">—</p>
-          )} */}
           <div className="mt-2 flex flex-wrap gap-2">
-            {profile.expertise?.map((item: string) => (
-              <Badge
-                key={item}
-                variant="secondary"
-                className="h-auto
+            {profile.expertise?.length ? (
+              profile.expertise.map((item, index) => (
+                <Badge
+                  key={`${item.text}-${item.url}-${index}`}
+                  variant="secondary"
+                  className="
+                h-auto
                 rounded-full
                 border
                 border-blue-200
@@ -65,11 +58,15 @@ export function ProfileDisplayField({
                 py-2
                 text-sm
                 font-medium
-                text-blue-700"
-              >
-                {item}
-              </Badge>
-            ))}
+                text-blue-700
+              "
+                >
+                  {item.text}
+                </Badge>
+              ))
+            ) : (
+              <p className="text-sm text-muted-foreground">—</p>
+            )}
           </div>
         </Field>
       );

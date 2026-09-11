@@ -144,13 +144,31 @@ export const profileFormFields: ProfileFieldConfig[] = [
     required: false,
     helperText: 'URL must begin with https:// or http://',
   },
+  //   {
+  //     id: 'expertise',
+  //     name: 'expertise',
+  //     type: 'input',
+  //     label: 'Expertise',
+  //     placeholder: 'e.g., Sports Injuries, Foot Surgery, bunions',
+  //     required: false,
+  //     helperText: 'Items must be separated by commas',
+  //   },
   {
-    id: 'expertise',
-    name: 'expertise',
-    type: 'input',
+    id: 'expertiseTexts',
+    name: 'expertiseTexts',
     label: 'Expertise',
-    placeholder: 'e.g., Sports Injuries, Foot Surgery, bunions',
-    required: false,
-    helperText: 'Items must be separated by commas',
+    type: 'textarea',
+    placeholder:
+      'Sports Injuries\nFoot Surgery\nDiabetic Foot Care\nCustom Orthotics',
+    helperText: 'Enter one expertise text per line.',
+  },
+  {
+    id: 'expertiseUrls',
+    name: 'expertiseUrls',
+    label: 'Expertise URLs',
+    type: 'textarea',
+    placeholder:
+      'https://example.com/sports-injuries\nhttps://example.com/foot-surgery\nhttps://example.com/diabetic-foot-care\nhttps://example.com/custom-orthotics',
+    helperText: 'Enter one url per line in the same order as the expertise texts.',
   },
 ];

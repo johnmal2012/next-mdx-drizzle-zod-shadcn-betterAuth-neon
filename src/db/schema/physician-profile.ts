@@ -11,6 +11,7 @@ import {
 import { user } from '@/db/schema/auth-schema';
 // import { relations } from 'drizzle-orm';
 import { Clinic } from '@/lib/types/clinic';
+import { Expertise } from '@/lib/types/expertise';
 
 export const physicianProfile = pgTable(
   'physician_profile',
@@ -54,7 +55,10 @@ export const physicianProfile = pgTable(
 
     footCareLink: text('footcare_link'),
 
-    expertise: jsonb('expertise').$type<string[]>().default([]),
+    // expertise: jsonb('expertise').$type<string[]>().default([]),
+    expertise: jsonb('expertise')
+    .$type<Expertise[]>()
+    .notNull().default([]),
 
     //   navItems: jsonb('nav_items')
     //     .$type<

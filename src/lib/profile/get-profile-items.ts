@@ -69,7 +69,7 @@ export function getProfileItems(profile: PhysicianProfile) {
     {
       id: 'expertise',
       label: 'Expertise',
-      type: 'expertise',
+      type: 'expertise' as const,
     },
   ] as const;
 }

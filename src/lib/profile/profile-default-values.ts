@@ -12,10 +12,24 @@ export function clinicsToFormValues(clinics: Clinic[] | null | undefined) {
   };
 }
 
+export function expertiseToFormValues(
+  expertise: PhysicianProfile['expertise'] | null | undefined,
+) {
+  const expertiseValues = expertise ?? [];
+
+  return {
+    expertiseTexts: expertiseValues.map((item) => item.text).join('\n'),
+
+    expertiseUrls: expertiseValues.map((item) => item.url).join('\n'),
+  };
+}
+
 export function getProfileDefaultValues(
   profile?: PhysicianProfile,
 ): PhysicianProfileFormInput {
   const clinicValues = clinicsToFormValues(profile?.clinics);
+  const expertiseValues = expertiseToFormValues(profile?.expertise);
+
   return {
     logo: profile?.logo ?? '',
     name: profile?.name ?? '',
@@ -31,6 +45,8 @@ export function getProfileDefaultValues(
     // location: profile?.location ?? '',
     linkName: profile?.linkName ?? '',
     footCareLink: profile?.footCareLink ?? '',
-    expertise: profile?.expertise?.join(', ') ?? '',
+    // expertise: profile?.expertise?.join(', ') ?? '',
+    expertiseTexts: expertiseValues.expertiseTexts,
+    expertiseUrls: expertiseValues.expertiseUrls,
   };
 }
