@@ -10,7 +10,6 @@ import { physicianProfile } from '@/db/schema/physician-profile';
 
 import {
   physicianProfileSchema,
-  PhysicianProfileInput,
 } from '@/lib/validations/physician-profile';
 
 // import { Result } from '@/lib/types/result';
@@ -21,10 +20,8 @@ import {
 import { requireAdmin, requireLogin } from '@/lib/auth/auth-utils';
 import { APIError } from 'better-auth/api';
 import type { PhysicianProfilePayload } from '@/lib/profile/profile-mappers';
-/* -------------------------------------------------- */
-/* CREATE */
-/* -------------------------------------------------- */
 
+// CREATE
 export async function createPhysicianProfile(values: PhysicianProfilePayload) {
   await requireAdmin();
 
@@ -63,10 +60,7 @@ export async function createPhysicianProfile(values: PhysicianProfilePayload) {
   }
 }
 
-/* -------------------------------------------------- */
-/* UPDATE */
-/* -------------------------------------------------- */
-
+// UPDATE
 export async function updatePhysicianProfile(
   id: number,
   values: PhysicianProfilePayload,
@@ -112,10 +106,7 @@ export async function updatePhysicianProfile(
   }
 }
 
-/* -------------------------------------------------- */
-/* DELETE */
-/* -------------------------------------------------- */
-
+// DELETE
 export async function deletePhysicianProfile(profileId: number) {
   try {
     // await db.delete(physicianProfile).where(eq(physicianProfile.id, id));

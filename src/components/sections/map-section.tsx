@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card';
 import type { Clinic } from '@/lib/types/clinic';
 import { cn } from '@/lib/utils';
 
-import { ClinicMapWrapper } from './clinic-map-wrapper';
+import { ClinicMapWrapper } from '@/components/sections/clinic-map-wrapper';
 
 interface MapSectionProps {
   location: string;

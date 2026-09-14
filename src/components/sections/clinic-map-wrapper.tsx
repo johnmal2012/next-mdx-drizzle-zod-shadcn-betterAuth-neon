@@ -10,7 +10,7 @@ type ClinicMapProps = {
 
 const ClinicMap = dynamic<ClinicMapProps>(
   () =>
-    import('./clinic-map').then(
+    import('@/components/sections/clinic-map').then(
       (module) => module.ClinicMap,
     ),
   {

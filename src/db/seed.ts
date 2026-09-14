@@ -23,7 +23,7 @@ async function seed() {
   await createCredentialUser({
     name: 'lam',
     email,
-    password: '123456',
+    password: '12345678',
     role: USER_ROLE.ADMIN,
   });
 
