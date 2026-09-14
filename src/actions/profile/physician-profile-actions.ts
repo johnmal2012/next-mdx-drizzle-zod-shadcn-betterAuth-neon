@@ -20,12 +20,12 @@ import {
 // import type { PhysicianProfile } from '@/lib/types/physician-profile';
 import { requireAdmin, requireLogin } from '@/lib/auth/auth-utils';
 import { APIError } from 'better-auth/api';
-
+import type { PhysicianProfilePayload } from '@/lib/profile/profile-mappers';
 /* -------------------------------------------------- */
 /* CREATE */
 /* -------------------------------------------------- */
 
-export async function createPhysicianProfile(values: PhysicianProfileInput) {
+export async function createPhysicianProfile(values: PhysicianProfilePayload) {
   await requireAdmin();
 
   console.log('Received:', values);
@@ -69,7 +69,7 @@ export async function createPhysicianProfile(values: PhysicianProfileInput) {
 
 export async function updatePhysicianProfile(
   id: number,
-  values: PhysicianProfileInput,
+  values: PhysicianProfilePayload,
 ) {
   await requireAdmin();
 

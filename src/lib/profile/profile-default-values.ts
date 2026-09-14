@@ -9,6 +9,14 @@ export function clinicsToFormValues(clinics: Clinic[] | null | undefined) {
     clinicNames: validClinics.map((clinic) => clinic.name).join('\n'),
 
     clinicAddresses: validClinics.map((clinic) => clinic.address).join('\n'),
+
+    clinicLatitudes: validClinics
+      .map((clinic) => String(clinic.latitude))
+      .join('\n'),
+
+    clinicLongitudes: validClinics
+      .map((clinic) => String(clinic.longitude))
+      .join('\n'),
   };
 }
 
@@ -40,6 +48,8 @@ export function getProfileDefaultValues(
     // clinicAddress: profile?.clinicAddress ?? '',
     clinicNames: clinicValues.clinicNames,
     clinicAddresses: clinicValues.clinicAddresses,
+    clinicLatitudes: clinicValues.clinicLatitudes,
+    clinicLongitudes: clinicValues.clinicLongitudes,
     phone: profile?.phone ?? '',
     email: profile?.email ?? '',
     // location: profile?.location ?? '',

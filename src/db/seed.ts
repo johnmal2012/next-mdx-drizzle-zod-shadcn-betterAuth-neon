@@ -61,10 +61,14 @@ async function seed() {
         {
           name: 'Maimonides Foot & Ankle',
           address: '4802 Tenth Avenue Brooklyn, NY 11219',
+          latitude: 40.6382,
+          longitude: -74.0115,
         },
         {
           name: 'Queens Foot & Ankle Center',
           address: '123 Queens Boulevard, Queens, NY 11375',
+          latitude: 40.7282,
+          longitude: -73.7949,
         },
       ],
       phone: '(718) 123-4567',
