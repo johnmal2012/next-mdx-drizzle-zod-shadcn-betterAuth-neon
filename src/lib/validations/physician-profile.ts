@@ -20,11 +20,13 @@ const clinicSchema = z.object({
 
   latitude: z
     .number()
+    .finite()
     .min(-90, 'Latitude must be between -90 and 90')
     .max(90, 'Latitude must be between -90 and 90'),
 
   longitude: z
     .number()
+    .finite()
     .min(-180, 'Longitude must be between -180 and 180')
     .max(180, 'Longitude must be between -180 and 180'),
 });
@@ -38,22 +40,14 @@ const expertiseSchema = z.object({
   url: z.url('Expertise URL must be a valid URL'),
 });
 
-/**
- * This schema validates the payload produced by toProfilePayload().
- *
- * At this point clinics are already:
- *
- * Clinic[] = [
- *   {
- *     name,
- *     address,
- *     latitude,
- *     longitude
- *   }
- * ]
- */
+/* ---------------------------------------------------------------- */
+/* Server / database payload schema                                 */
+/* ---------------------------------------------------------------- */
+
 export const physicianProfileSchema = z.object({
-  logo: optionalText(z.string().min(1)),
+  logo: optionalText(
+    z.string().min(1),
+  ),
 
   name: z
     .string()
@@ -85,7 +79,9 @@ export const physicianProfileSchema = z.object({
     .trim()
     .min(1, 'Phone is required'),
 
-  email: optionalSpecial(z.email()),
+  email: optionalSpecial(
+    z.email(),
+  ),
 
   linkName: optionalText(
     z.string().min(1),
@@ -102,40 +98,66 @@ export const physicianProfileSchema = z.object({
 
 /* ---------------------------------------------------------------- */
 /* Client / form schema                                             */
-/* This represents the textarea-based form fields.                  */
 /* ---------------------------------------------------------------- */
 
 /**
- * The form stores clinics in four textareas.
+ * Split positional clinic textarea fields.
+ *
+ * IMPORTANT:
+ * We intentionally DO NOT trim the complete textarea value.
  *
  * Example:
  *
- * clinicNames:
- *   Clinic A
- *   Clinic B
- *   Clinic C
- *   Clinic D
+ * "\nAddress 2\nAddress 3\nAddress 4"
  *
- * clinicAddresses:
- *   Address A
- *   Address B
- *   Address C
- *   Address D
+ * becomes:
  *
- * clinicLatitudes:
- *   40.7128
- *   40.7306
- *   40.7580
- *   40.7484
+ * ["", "Address 2", "Address 3", "Address 4"]
  *
- * clinicLongitudes:
- *   -74.0060
- *   -73.9352
- *   -73.9855
- *   -73.9857
+ * This preserves the clinic position when the first item is deleted.
  *
- * Every textarea must contain exactly the same number of
- * non-empty clinic records.
+ * Only trailing empty lines are removed because an Enter at the
+ * very end of a textarea should not create an additional clinic.
+ */
+function splitClinicLines(value: string): string[] {
+  const lines = value
+    .split(/\r?\n/)
+    .map((item) => item.trim());
+
+  // Remove trailing empty lines only.
+  while (
+    lines.length > 0 &&
+    lines[lines.length - 1] === ''
+  ) {
+    lines.pop();
+  }
+
+  return lines;
+}
+
+/**
+ * Client/form schema.
+ *
+ * The four clinic textareas must always have the same number
+ * of positional records:
+ *
+ * clinicNames[0]
+ *      ↕
+ * clinicAddresses[0]
+ *      ↕
+ * clinicLatitudes[0]
+ *      ↕
+ * clinicLongitudes[0]
+ *
+ * clinicNames[1]
+ *      ↕
+ * clinicAddresses[1]
+ *      ↕
+ * clinicLatitudes[1]
+ *      ↕
+ * clinicLongitudes[1]
+ *
+ * etc.
  */
 export const physicianProfileFormSchema = z
   .object({
@@ -162,26 +184,46 @@ export const physicianProfileFormSchema = z
 
     /* ------------------------------ Clinics -------------------- */
 
+    /*
+     * IMPORTANT:
+     *
+     * Do NOT use .trim() here.
+     *
+     * A leading empty line represents a missing first clinic.
+     */
     clinicNames: z
       .string()
-      .trim()
-      .min(1, 'At least one clinic name is required.'),
-
-    clinicAddresses: z
-      .string()
-      .trim()
-      .min(1, 'At least one clinic address is required.'),
+      .refine(
+        (value) => value.trim().length > 0,
+        'At least one clinic name is required.',
+      ),
 
     /*
-     * These fields are intentionally required.
+     * IMPORTANT:
      *
-     * The individual lines are validated in superRefine().
+     * Do NOT use .trim() here.
+     *
+     * This preserves an empty first/middle address line so that
+     * superRefine() can identify the correct clinic number.
+     */
+    clinicAddresses: z
+      .string()
+      .refine(
+        (value) => value.trim().length > 0,
+        'At least one clinic address is required.',
+      ),
+
+    /*
+     * Coordinates are intentionally allowed to be empty here.
+     *
+     * superRefine() validates them by clinic position and places
+     * the error specifically on the corresponding textarea.
      */
     clinicLatitudes: z.string(),
 
     clinicLongitudes: z.string(),
 
-    /* --------------------- Other --------------------- */
+    /* ------------------------------ Other ---------------------- */
 
     phone: z
       .string()
@@ -211,127 +253,111 @@ export const physicianProfileFormSchema = z
     /* Clinics                                                      */
     /* ============================================================ */
 
-    /*
-     * IMPORTANT:
-     *
-     * Do NOT use filter(Boolean) here.
-     *
-     * We need to preserve empty lines so that:
-     *
-     * Clinic 1
-     * Clinic 2
-     *
-     * 40.123
-     *
-     * -73.123
-     *
-     * can be detected as missing coordinates rather than silently
-     * becoming arrays of different lengths.
-     */
+    const names = splitClinicLines(
+      data.clinicNames,
+    );
 
-    const names = data.clinicNames
-      .split('\n')
-      .map((value) => value.trim());
+    const addresses = splitClinicLines(
+      data.clinicAddresses,
+    );
 
-    const addresses = data.clinicAddresses
-      .split('\n')
-      .map((value) => value.trim());
+    const latitudes = splitClinicLines(
+      data.clinicLatitudes,
+    );
 
-    const latitudes = data.clinicLatitudes
-      .split('\n')
-      .map((value) => value.trim());
-
-    const longitudes = data.clinicLongitudes
-      .split('\n')
-      .map((value) => value.trim());
-
-    /*
-     * Remove trailing empty lines only.
-     *
-     * This means pressing Enter at the end of a textarea does not
-     * accidentally create an extra clinic.
-     */
-    while (names.length > 0 && names.at(-1) === '') {
-      names.pop();
-    }
-
-    while (
-      addresses.length > 0 &&
-      addresses.at(-1) === ''
-    ) {
-      addresses.pop();
-    }
-
-    while (
-      latitudes.length > 0 &&
-      latitudes.at(-1) === ''
-    ) {
-      latitudes.pop();
-    }
-
-    while (
-      longitudes.length > 0 &&
-      longitudes.at(-1) === ''
-    ) {
-      longitudes.pop();
-    }
-
-    /* ------------------------------------------------------------ */
-    /* Determine the required number of clinics                     */
-    /* ------------------------------------------------------------ */
+    const longitudes = splitClinicLines(
+      data.clinicLongitudes,
+    );
 
     const clinicCount = names.length;
 
-    /*
-     * Names and addresses are the primary clinic records.
-     *
-     * If names and addresses are both present and have the same count,
-     * we do NOT show an error on either names or addresses.
-     */
+    /* ------------------------------------------------------------ */
+    /* Clinic names                                                 */
+    /* ------------------------------------------------------------ */
+
     if (clinicCount === 0) {
       ctx.addIssue({
         code: 'custom',
         path: ['clinicNames'],
-        message: 'At least one clinic name is required.',
+        message:
+          'At least one clinic name is required.',
       });
 
       return;
     }
 
-    if (addresses.length !== clinicCount) {
+    /*
+     * Names determine the expected number of clinics.
+     *
+     * We do not put errors on clinicNames when another clinic
+     * field is missing.
+     */
+
+    /* ------------------------------------------------------------ */
+    /* Clinic addresses                                             */
+    /* ------------------------------------------------------------ */
+
+    /*
+     * Validate every address position individually.
+     *
+     * Example:
+     *
+     * Address 1
+     *
+     * Address 3
+     * Address 4
+     *
+     * produces:
+     *
+     * Clinic address 2 is required.
+     */
+    for (
+      let index = 0;
+      index < clinicCount;
+      index++
+    ) {
+      const address = addresses[index];
+
+      if (!address) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['clinicAddresses'],
+          message:
+            `Clinic address ${index + 1} is required.`,
+        });
+      }
+    }
+
+    /*
+     * Detect extra address lines.
+     */
+    if (addresses.length > clinicCount) {
       ctx.addIssue({
         code: 'custom',
         path: ['clinicAddresses'],
         message:
-          `Enter exactly ${clinicCount} clinic address${clinicCount === 1 ? '' : 'es'} ` +
-          `to match the clinic names.`,
+          `Enter exactly ${clinicCount} clinic address${
+            clinicCount === 1 ? '' : 'es'
+          } to match the clinic names.`,
       });
     }
 
     /* ------------------------------------------------------------ */
-    /* Validate latitude count and values                           */
+    /* Latitude                                                     */
     /* ------------------------------------------------------------ */
 
-    if (latitudes.length !== clinicCount) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['clinicLatitudes'],
-        message:
-          `Enter exactly ${clinicCount} latitude${clinicCount === 1 ? '' : 's'} ` +
-          `— one for each clinic.`,
-      });
-    }
-
-    /*
-     * Validate every expected clinic latitude individually.
-     *
-     * This is important because it allows RHF to associate the error
-     * specifically with clinicLatitudes instead of clinicNames or
-     * clinicAddresses.
-     */
-    for (let index = 0; index < clinicCount; index++) {
+    for (
+      let index = 0;
+      index < clinicCount;
+      index++
+    ) {
       const latitude = latitudes[index];
 
+      /*
+       * Missing latitude.
+       *
+       * Error is attached ONLY to clinicLatitudes.
+       */
       if (!latitude) {
         ctx.addIssue({
           code: 'custom',
@@ -367,26 +393,36 @@ export const physicianProfileFormSchema = z
       }
     }
 
-    /* ------------------------------------------------------------ */
-    /* Validate longitude count and values                          */
-    /* ------------------------------------------------------------ */
-
-    if (longitudes.length !== clinicCount) {
+    /*
+     * Detect extra latitude lines.
+     */
+    if (latitudes.length > clinicCount) {
       ctx.addIssue({
         code: 'custom',
-        path: ['clinicLongitudes'],
+        path: ['clinicLatitudes'],
         message:
-          `Enter exactly ${clinicCount} longitude${clinicCount === 1 ? '' : 's'} ` +
-          `— one for each clinic.`,
+          `Enter exactly ${clinicCount} latitude${
+            clinicCount === 1 ? '' : 's'
+          } — one for each clinic.`,
       });
     }
 
-    /*
-     * Validate every expected clinic longitude individually.
-     */
-    for (let index = 0; index < clinicCount; index++) {
+    /* ------------------------------------------------------------ */
+    /* Longitude                                                    */
+    /* ------------------------------------------------------------ */
+
+    for (
+      let index = 0;
+      index < clinicCount;
+      index++
+    ) {
       const longitude = longitudes[index];
 
+      /*
+       * Missing longitude.
+       *
+       * Error is attached ONLY to clinicLongitudes.
+       */
       if (!longitude) {
         ctx.addIssue({
           code: 'custom',
@@ -422,17 +458,31 @@ export const physicianProfileFormSchema = z
       }
     }
 
+    /*
+     * Detect extra longitude lines.
+     */
+    if (longitudes.length > clinicCount) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['clinicLongitudes'],
+        message:
+          `Enter exactly ${clinicCount} longitude${
+            clinicCount === 1 ? '' : 's'
+          } — one for each clinic.`,
+      });
+    }
+
     /* ============================================================ */
     /* Expertise                                                    */
     /* ============================================================ */
 
     const expertiseTexts = data.expertiseTexts
-      .split('\n')
+      .split(/\r?\n/)
       .map((value) => value.trim())
       .filter(Boolean);
 
     const expertiseUrls = data.expertiseUrls
-      .split('\n')
+      .split(/\r?\n/)
       .map((value) => value.trim())
       .filter(Boolean);
 
@@ -449,18 +499,26 @@ export const physicianProfileFormSchema = z
     }
 
     expertiseUrls.forEach((url, index) => {
-      const result = z.url().safeParse(url);
+      const result = z
+        .url()
+        .safeParse(url);
 
       if (!result.success) {
         ctx.addIssue({
           code: 'custom',
           path: ['expertiseUrls'],
           message:
-            `Invalid URL for expertise item ${index + 1}.`,
+            `Invalid URL for expertise item ${
+              index + 1
+            }.`,
         });
       }
     });
   });
+
+/* ---------------------------------------------------------------- */
+/* Types                                                            */
+/* ---------------------------------------------------------------- */
 
 export type PhysicianProfileFormInput =
   z.input<typeof physicianProfileFormSchema>;
