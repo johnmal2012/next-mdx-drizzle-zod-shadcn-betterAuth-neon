@@ -20,13 +20,11 @@ const clinicSchema = z.object({
 
   latitude: z
     .number()
-    .finite()
     .min(-90, 'Latitude must be between -90 and 90')
     .max(90, 'Latitude must be between -90 and 90'),
 
   longitude: z
     .number()
-    .finite()
     .min(-180, 'Longitude must be between -180 and 180')
     .max(180, 'Longitude must be between -180 and 180'),
 });
@@ -101,10 +99,11 @@ export const physicianProfileSchema = z.object({
 /* ---------------------------------------------------------------- */
 
 /**
- * Split positional clinic textarea fields.
+ * Split a clinic textarea into positional lines.
  *
  * IMPORTANT:
- * We intentionally DO NOT trim the complete textarea value.
+ *
+ * Empty lines are preserved.
  *
  * Example:
  *
@@ -112,19 +111,24 @@ export const physicianProfileSchema = z.object({
  *
  * becomes:
  *
- * ["", "Address 2", "Address 3", "Address 4"]
+ * [
+ *   '',
+ *   'Address 2',
+ *   'Address 3',
+ *   'Address 4',
+ * ]
  *
- * This preserves the clinic position when the first item is deleted.
+ * Therefore the empty value remains associated with clinic #1.
  *
- * Only trailing empty lines are removed because an Enter at the
- * very end of a textarea should not create an additional clinic.
+ * Only trailing empty lines are removed so that an accidental
+ * Enter at the very end of a textarea does not create another
+ * clinic record.
  */
 function splitClinicLines(value: string): string[] {
   const lines = value
     .split(/\r?\n/)
     .map((item) => item.trim());
 
-  // Remove trailing empty lines only.
   while (
     lines.length > 0 &&
     lines[lines.length - 1] === ''
@@ -136,29 +140,24 @@ function splitClinicLines(value: string): string[] {
 }
 
 /**
- * Client/form schema.
+ * Return the number of positional clinic records.
  *
- * The four clinic textareas must always have the same number
- * of positional records:
+ * The clinic names textarea is the authoritative source for the
+ * number of clinics.
  *
- * clinicNames[0]
- *      ↕
- * clinicAddresses[0]
- *      ↕
- * clinicLatitudes[0]
- *      ↕
- * clinicLongitudes[0]
+ * IMPORTANT:
  *
- * clinicNames[1]
- *      ↕
- * clinicAddresses[1]
- *      ↕
- * clinicLatitudes[1]
- *      ↕
- * clinicLongitudes[1]
- *
- * etc.
+ * We do NOT filter empty values because an empty first or middle
+ * line represents a missing clinic record that must be reported.
  */
+function getClinicCount(names: string[]): number {
+  return names.length;
+}
+
+/* ---------------------------------------------------------------- */
+/* Client / form schema                                             */
+/* ---------------------------------------------------------------- */
+
 export const physicianProfileFormSchema = z
   .object({
     logo: optionalText(
@@ -185,11 +184,12 @@ export const physicianProfileFormSchema = z
     /* ------------------------------ Clinics -------------------- */
 
     /*
-     * IMPORTANT:
-     *
      * Do NOT use .trim() here.
      *
-     * A leading empty line represents a missing first clinic.
+     * A leading empty line must remain visible to superRefine()
+     * so that deleting clinic #1 produces:
+     *
+     * Clinic name 1 is required.
      */
     clinicNames: z
       .string()
@@ -199,12 +199,9 @@ export const physicianProfileFormSchema = z
       ),
 
     /*
-     * IMPORTANT:
+     * Do NOT use .trim().
      *
-     * Do NOT use .trim() here.
-     *
-     * This preserves an empty first/middle address line so that
-     * superRefine() can identify the correct clinic number.
+     * Empty lines must remain positional.
      */
     clinicAddresses: z
       .string()
@@ -214,10 +211,10 @@ export const physicianProfileFormSchema = z
       ),
 
     /*
-     * Coordinates are intentionally allowed to be empty here.
+     * Coordinates are intentionally allowed to be empty at the
+     * base-schema level.
      *
-     * superRefine() validates them by clinic position and places
-     * the error specifically on the corresponding textarea.
+     * superRefine() validates them positionally.
      */
     clinicLatitudes: z.string(),
 
@@ -269,10 +266,10 @@ export const physicianProfileFormSchema = z
       data.clinicLongitudes,
     );
 
-    const clinicCount = names.length;
+    const clinicCount = getClinicCount(names);
 
     /* ------------------------------------------------------------ */
-    /* Clinic names                                                 */
+    /* Clinic count                                                 */
     /* ------------------------------------------------------------ */
 
     if (clinicCount === 0) {
@@ -286,19 +283,50 @@ export const physicianProfileFormSchema = z
       return;
     }
 
+    /* ------------------------------------------------------------ */
+    /* Clinic names                                                 */
+    /* ------------------------------------------------------------ */
+
     /*
-     * Names determine the expected number of clinics.
+     * Validate every clinic name by position.
      *
-     * We do not put errors on clinicNames when another clinic
-     * field is missing.
+     * This fixes the specific problem where deleting the first
+     * clinic name previously caused no validation error.
+     *
+     * Example:
+     *
+     * ""
+     * Clinic 2
+     * Clinic 3
+     * Clinic 4
+     *
+     * produces:
+     *
+     * Clinic name 1 is required.
      */
+    for (
+      let index = 0;
+      index < clinicCount;
+      index++
+    ) {
+      const name = names[index];
+
+      if (!name) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['clinicNames'],
+          message:
+            `Clinic name ${index + 1} is required.`,
+        });
+      }
+    }
 
     /* ------------------------------------------------------------ */
     /* Clinic addresses                                             */
     /* ------------------------------------------------------------ */
 
     /*
-     * Validate every address position individually.
+     * Validate every address by position.
      *
      * Example:
      *
@@ -310,6 +338,8 @@ export const physicianProfileFormSchema = z
      * produces:
      *
      * Clinic address 2 is required.
+     *
+     * The error is attached ONLY to clinicAddresses.
      */
     for (
       let index = 0;
@@ -329,7 +359,7 @@ export const physicianProfileFormSchema = z
     }
 
     /*
-     * Detect extra address lines.
+     * More addresses than clinic names is also invalid.
      */
     if (addresses.length > clinicCount) {
       ctx.addIssue({
@@ -356,7 +386,7 @@ export const physicianProfileFormSchema = z
       /*
        * Missing latitude.
        *
-       * Error is attached ONLY to clinicLatitudes.
+       * The error is attached ONLY to clinicLatitudes.
        */
       if (!latitude) {
         ctx.addIssue({
@@ -371,6 +401,9 @@ export const physicianProfileFormSchema = z
 
       const value = Number(latitude);
 
+      /*
+       * Number('abc') => NaN
+       */
       if (!Number.isFinite(value)) {
         ctx.addIssue({
           code: 'custom',
@@ -394,7 +427,7 @@ export const physicianProfileFormSchema = z
     }
 
     /*
-     * Detect extra latitude lines.
+     * More latitude records than clinics is invalid.
      */
     if (latitudes.length > clinicCount) {
       ctx.addIssue({
@@ -421,7 +454,7 @@ export const physicianProfileFormSchema = z
       /*
        * Missing longitude.
        *
-       * Error is attached ONLY to clinicLongitudes.
+       * The error is attached ONLY to clinicLongitudes.
        */
       if (!longitude) {
         ctx.addIssue({
@@ -459,7 +492,7 @@ export const physicianProfileFormSchema = z
     }
 
     /*
-     * Detect extra longitude lines.
+     * More longitude records than clinics is invalid.
      */
     if (longitudes.length > clinicCount) {
       ctx.addIssue({
@@ -486,6 +519,9 @@ export const physicianProfileFormSchema = z
       .map((value) => value.trim())
       .filter(Boolean);
 
+    /*
+     * Expertise text and URL counts must match.
+     */
     if (
       expertiseTexts.length !==
       expertiseUrls.length
@@ -498,6 +534,9 @@ export const physicianProfileFormSchema = z
       });
     }
 
+    /*
+     * Validate every expertise URL.
+     */
     expertiseUrls.forEach((url, index) => {
       const result = z
         .url()
