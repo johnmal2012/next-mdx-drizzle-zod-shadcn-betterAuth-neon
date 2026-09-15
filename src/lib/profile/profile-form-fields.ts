@@ -178,7 +178,7 @@ export const profileFormFields: ProfileFieldConfig[] = [
     name: 'expertiseTexts',
     label: 'Expertise',
     type: 'textarea',
-    placeholder: 'Sports Injuries\nFoot Surgery',
+    placeholder: 'e.g., Sports Injuries\nFoot Surgery',
     helperText: 'Enter one expertise text per line.',
   },
   {
@@ -187,7 +187,7 @@ export const profileFormFields: ProfileFieldConfig[] = [
     label: 'Expertise URLs',
     type: 'textarea',
     placeholder:
-      'https://example.com/sports-injuries\nhttps://example.com/foot-surgery',
+      'e.g., https://example.com/sports-injuries\nhttps://example.com/foot-surgery',
     helperText:
       'Enter one url per line in the same order as the expertise texts.',
   },
