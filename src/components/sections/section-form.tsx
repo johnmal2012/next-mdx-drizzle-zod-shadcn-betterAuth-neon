@@ -144,7 +144,7 @@ export default function SectionForm({ section }: SectionFormProps) {
               {sectionFormFields.map((field, index) => (
                 <Field
                   key={field.id}
-                  className={cn('rounded-lg p-4', getCardBackground(index, 1))} // one-column form if size > md:
+                  className={cn('rounded-lg p-4', getCardBackground(index))} // one-column form if size > md:
                 >
                   <SectionField field={field} form={form} />
                 </Field>

@@ -1,5 +1,37 @@
+// import { PhysicianProfile } from '@/lib/types/physician-profile';
+// import { CurrentUser, ProfileItem } from '@/lib/profile/get-profile-page-data';
+// import { ProfileDisplayItem } from '@/components/profile/profile-display-item';
+
+// export function MobileProfileList({
+//   profile,
+//   items,
+//   currentUser,
+// }: {
+//   profile: PhysicianProfile;
+//   items: ProfileItem;
+//   currentUser: CurrentUser;
+// }) {
+//   return (
+//     <div className="grid md:hidden gap-4">
+//       {items.map((item, index) => (
+//         <ProfileDisplayItem
+//           key={item.id}
+//           item={item}
+//           index={index}
+//           profile={profile}
+//           currentUser={currentUser}
+//         />
+//       ))}
+//     </div>
+//   );
+// }
 import { PhysicianProfile } from '@/lib/types/physician-profile';
-import { CurrentUser, ProfileItem } from '@/lib/profile/get-profile-page-data';
+
+import {
+  CurrentUser,
+  ProfileItem,
+} from '@/lib/profile/get-profile-page-data';
+
 import { ProfileDisplayItem } from '@/components/profile/profile-display-item';
 
 export function MobileProfileList({
@@ -8,11 +40,11 @@ export function MobileProfileList({
   currentUser,
 }: {
   profile: PhysicianProfile;
-  items: ProfileItem;
-  currentUser: CurrentUser;
+  items: readonly ProfileItem[];
+  currentUser: CurrentUser | null;
 }) {
   return (
-    <div className="grid md:hidden gap-4">
+    <div className="grid gap-4 md:hidden">
       {items.map((item, index) => (
         <ProfileDisplayItem
           key={item.id}

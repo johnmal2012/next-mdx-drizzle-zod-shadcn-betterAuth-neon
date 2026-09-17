@@ -2,9 +2,9 @@
 import {
   Card,
   CardContent,
-//   CardHeader,
-//   CardTitle,
-//   CardDescription,
+  //   CardHeader,
+  //   CardTitle,
+  //   CardDescription,
 } from '@/components/ui/card';
 // import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -48,10 +48,10 @@ export default async function ProfilePage() {
 
   const profileData = await getProfilePageData(session?.user.id ?? null);
 
-//   if (!profileData) {
-//     return <NoProfileState />;
-//   }
-if (!profileData.success) {
+  //   if (!profileData) {
+  //     return <NoProfileState />;
+  //   }
+  if (!profileData.success) {
     return (
       // <div className="rounded-md border border-destructive p-4 text-destructive">
       //   {profileData.message}
@@ -73,7 +73,7 @@ if (!profileData.success) {
       </div>
     );
   }
-  
+
   const { profile, currentUser, items } = profileData;
 
   // Helper function for alternating backgrounds on mobile
@@ -93,17 +93,15 @@ if (!profileData.success) {
       <Card className="rounded-2xl shadow-sm">
         <ProfileCardHeader profile={profile} />
 
-        <Separator className="bg-slate-300 data-[orientation=horizontal]:h-1" />
+        <Separator className="h-1 bg-slate-300" />
 
-        <CardContent className="space-y-6 pt-6">
-          {/* Desktop View - Hidden on mobile */}
+        <CardContent className="space-y-4 pt-6">
           <DesktopProfileGrid
             profile={profile}
             items={items}
             currentUser={currentUser}
           />
 
-          {/* Mobile - Hidden on desktop */}
           <MobileProfileList
             items={items}
             profile={profile}
