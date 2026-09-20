@@ -844,7 +844,10 @@ function ClinicCard({ clinic }: { clinic: Clinic }) {
 //   );
 // }
 
-// SHARED HEADING 
+/* -------------------------------------------------------------------------- */
+/* SHARED HEADING                                                             */
+/* -------------------------------------------------------------------------- */
+
 function SectionHeading({
   title,
   href,
@@ -877,6 +880,7 @@ function SectionHeading({
   );
 }
 
+/* -------------------------------------------------------------------------- */
 /* PAGE
 /* http request > next.js > page.tsx > PhysicianPage() 
 /* 1. gets data from the database,
@@ -891,12 +895,11 @@ function SectionHeading({
     These are components:
     <AboutSection />
     <ExpertiseSection />
-*/
+/* -------------------------------------------------------------------------- */
 // async function = an async Server Component so that PhysicianPage can directly do server-side work without needing useEffect(), fetch() or useState() for initial page data
 export default async function PhysicianPage() {
   const websiteData = await getWebsiteData();
 
-  // First validation website data: to make sure website data is valid = success
   if (!websiteData.success || !websiteData.profile) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white px-6">
@@ -915,7 +918,6 @@ export default async function PhysicianPage() {
 
   const { profile, sections, navItems } = websiteData;
 
-  // Second validation sections
   if (!sections) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white">
@@ -926,16 +928,16 @@ export default async function PhysicianPage() {
     );
   }
 
-  // Normalize data = normalization function generally makes data consistent and safe to use
-  // So the function can convert potentially messy database data into something your UI can safely consume
-  // This is a defensive programming step:
-  // make sure clinics is an array of Clinic which may be null or undefine
   const clinics = normalizeClinics(profile.clinics);
 
-  // physician_sections.is_active is the source of truth for whether a section should appear.
-  // is_active in physician_sections is the source of truth.
+  /*
+   * physician_sections.is_active is the source of truth
+   * for whether a section should appear.
+   */
   const getActiveSection = (slug: string) =>
-    sections.find((section) => section.slug === slug && section.isActive);
+    sections.find(
+      (section) => section.slug === slug && section.isActive,
+    );
 
   const about = getActiveSection('about');
   const education = getActiveSection('education');
@@ -947,144 +949,135 @@ export default async function PhysicianPage() {
   const contact = getActiveSection('contact');
   const location = getActiveSection('location');
 
-  // Every item is either a SectionDefinition or null.
-  // The filter below removes inactive/missing sections.
+  /*
+   * Every item is either a SectionDefinition or null.
+   * The filter below removes inactive/missing sections.
+   */
   type SectionDefinition = {
     key: string;
     render: (background: string) => React.JSX.Element;
   };
 
-  /*
-   * Only active database sections are returned from database.
-   * Therefore the index automatically controls alternating backgrounds
-   * The array order controls:
-   * 1. section order
-   * 2. alternating background colors
-   */
-  // 1. ABOUT + EDUCATION
-  const sectionDefinitions: SectionDefinition[] = [
-    ...(about || education
-      ? [
-          {
-            key: 'about',
-            render: (background: string) => (
-              <AboutSection
-                profile={profile}
-                section={about}
-                education={education}
-                className={background}
-              />
-            ),
-          },
-        ]
-      : []),
+  const sectionDefinitions: (SectionDefinition | null)[] = [
+    /*
+     * About and Education are displayed together
+     * by AboutSection.
+     */
+    about || education
+      ? {
+          key: 'about',
+          render: (background: string) => (
+            <AboutSection
+              profile={profile}
+              section={about}
+              education={education}
+              className={background}
+            />
+          ),
+        }
+      : null,
 
-    // 2. EXPERTISE
-    ...(expertise
-      ? [
-          {
-            key: 'expertise',
-            render: (background: string) => (
-              <ExpertiseSection
-                profile={profile}
-                section={expertise}
-                className={background}
-              />
-            ),
-          },
-        ]
-      : []),
+    expertise
+      ? {
+          key: 'expertise',
+          render: (background: string) => (
+            <ExpertiseSection
+              profile={profile}
+              section={expertise}
+              className={background}
+            />
+          ),
+        }
+      : null,
 
-    // 3. PHILOSOPHY
-    ...(philosophy
-      ? [
-          {
-            key: 'philosophy',
-            render: (background: string) => (
-              <PhilosophySection section={philosophy} className={background} />
-            ),
-          },
-        ]
-      : []),
+    philosophy
+      ? {
+          key: 'philosophy',
+          render: (background: string) => (
+            <PhilosophySection
+              section={philosophy}
+              className={background}
+            />
+          ),
+        }
+      : null,
 
-    // 4. RESEARCH
-    ...(research
-      ? [
-          {
-            key: 'research',
-            render: (background: string) => (
-              <ResearchSection section={research} className={background} />
-            ),
-          },
-        ]
-      : []),
+    research
+      ? {
+          key: 'research',
+          render: (background: string) => (
+            <ResearchSection
+              section={research}
+              className={background}
+            />
+          ),
+        }
+      : null,
 
-    // 5. OFFICE HOURS
-    ...(hours
-      ? [
-          {
-            key: 'hours',
-            render: (background: string) => (
-              <OfficeHoursSection
-                title={hours.title ?? 'Office Hours'}
-                content={hours.content ?? ''}
-                background={background}
-                slug={hours.slug ?? 'hours'}
-              />
-            ),
-          },
-        ]
-      : []),
+    hours
+      ? {
+          key: 'hours',
+          render: (background: string) => (
+            <OfficeHoursSection
+              title={hours.title ?? 'Office Hours'}
+              content={hours.content ?? ''}
+              background={background}
+              slug={hours.slug ?? 'hours'}
+            />
+          ),
+        }
+      : null,
 
-    // 6. INSURANCE
-    ...(insurance
-      ? [
-          {
-            key: 'insurance',
-            render: (background: string) => (
-              <InsuranceSection
-                title={insurance.title ?? 'Insurance'}
-                content={insurance.content ?? ''}
-                background={background}
-                slug={insurance.slug ?? 'insurance'}
-              />
-            ),
-          },
-        ]
-      : []),
+    insurance
+      ? {
+          key: 'insurance',
+          render: (background: string) => (
+            <InsuranceSection
+              title={insurance.title ?? 'Insurance'}
+              content={insurance.content ?? ''}
+              background={background}
+              slug={insurance.slug ?? 'insurance'}
+            />
+          ),
+        }
+      : null,
 
-    // 7. CONTACT
-    ...(contact
-      ? [
-          {
-            key: 'contact',
-            render: (background: string) => (
-              <ContactSection
-                title={contact.title ?? 'Contact'}
-                phone={profile.phone ?? undefined}
-                email={profile.email ?? ''}
-                clinics={clinics}
-                address={profile.location ?? undefined}
-                background={background}
-                slug={contact.slug ?? 'contact'}
-              />
-            ),
-          },
-        ]
-      : []),
+    contact
+      ? {
+          key: 'contact',
+          render: (background: string) => (
+            <ContactSection
+              title={contact.title ?? 'Contact'}
+              phone={profile.phone ?? undefined}
+              email={profile.email ?? ''}
+              clinics={clinics}
+              address={profile.location ?? undefined}
+              background={background}
+              slug={contact.slug ?? 'contact'}
+            />
+          ),
+        }
+      : null,
 
-    // 8. LOCATIONS
-    ...(location && clinics.length > 0
-      ? [
-          {
-            key: 'location',
-            render: (background: string) => (
-              <LocationSection clinics={clinics} className={background} />
-            ),
-          },
-        ]
-      : []),
-  ];
+    /*
+     * Location requires BOTH:
+     * 1. is_active = true
+     * 2. at least one clinic
+     */
+    location && clinics.length > 0
+      ? {
+          key: 'location',
+          render: (background: string) => (
+            <LocationSection
+              clinics={clinics}
+              className={background}
+            />
+          ),
+        }
+      : null,
+  ].filter(
+    (section): section is SectionDefinition => section !== null,
+  );
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -1101,7 +1094,6 @@ export default async function PhysicianPage() {
       {/* Hero */}
       <HeroSection profile={profile} />
 
-      {/* Apply alternating backgrounds after inactive sections have already been removed */}
       {/* Database-controlled sections */}
       {sectionDefinitions.map((section, index) => (
         <React.Fragment key={section?.key}>
