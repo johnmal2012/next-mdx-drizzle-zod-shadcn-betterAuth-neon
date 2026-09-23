@@ -10,6 +10,7 @@ import { requireAdmin } from '@/lib/auth/auth-utils';
 const f = createUploadthing();
 
 export const ourFileRouter = {
+  // Profile Image
   profileImage: f({
     image: {
       maxFileCount: 1,
@@ -33,6 +34,32 @@ export const ourFileRouter = {
       };
     })
 
+    .onUploadComplete(async ({ metadata, file }) => {
+      return {
+        userId: metadata.userId,
+        imageUrl: file.ufsUrl,
+        imageKey: file.key,
+      };
+    }),
+  // Expertise Image
+  expertiseImage: f({
+    image: {
+      maxFileCount: 1,
+      maxFileSize: '2MB',
+    },
+  })
+    .input(z.object({}))
+    .middleware(async () => {
+      const session = await requireAdmin();
+
+      if (!session) {
+        throw new UploadThingError('Unauthorized');
+      }
+
+      return {
+        userId: session.user.id,
+      };
+    })
     .onUploadComplete(async ({ metadata, file }) => {
       return {
         userId: metadata.userId,

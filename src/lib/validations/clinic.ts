@@ -22,9 +22,9 @@ export const clinicSchema = z.object({
     .max(180, 'Longitude must be between -180 and 180.'),
 });
 
-export const clinicsSchema = z
-  .array(clinicSchema)
-  .max(20, 'A maximum of 20 clinic locations is allowed.');
+// export const clinicsSchema = z
+//   .array(clinicSchema)
+//   .max(20, 'A maximum of 20 clinic locations is allowed.');
 
 export type ClinicInput = z.infer<typeof clinicSchema>;
-export type ClinicsInput = z.infer<typeof clinicsSchema>;
+// export type ClinicsInput = z.infer<typeof clinicsSchema>;

@@ -1,16 +1,9 @@
 import Link from 'next/link';
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-
 import type { Expertise } from '@/lib/types/expertise';
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import { cn } from '@/lib/utils';
+import { ExpertiseCarousel } from '@/components/home/expertise-carousel';
 
 function normalizeExpertise(
   expertise: Expertise[] | null | undefined,
@@ -49,7 +42,7 @@ export default function ExpertiseSection({
   const items =
     expertise.length > 0
       ? expertise
-      : fallback.map((text) => ({ text, url: '' }));
+      : fallback.map((text) => ({ text, url: '', image: '', imageKey: '' }));
 
   return (
     <section
@@ -84,33 +77,7 @@ export default function ExpertiseSection({
 
         {/* Carousel */}
         <div className="relative mt-8">
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: false,
-              slidesToScroll: 1,
-            }}
-            className="relative w-full px-8 sm:px-10 lg:px-12"
-          >
-            {/* Reserve horizontal space for the arrows */}
-
-            <CarouselContent className="-ml-2">
-              {items.slice(0, 16).map((item, index) => (
-                <CarouselItem
-                  key={`${item.text}-${index}`}
-                  className="min-w-0 shrink-0 basis-1/2 pl-2 md:basis-1/4 md:pl-3 lg:basis-[12.5%]"
-                >
-                  <ConditionCard item={item} index={index} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            {/* Previous */}
-            <CarouselPrevious className="left-0 top-[38%] z-20 size-7 -translate-y-1/2 border-[#c3d6e1] bg-white text-[#174f75] shadow-sm hover:bg-[#f4f8fa] hover:text-[#123b5c] disabled:opacity-40 sm:top-[40%] sm:size-9" />
-
-            {/* Next */}
-            <CarouselNext className="right-0 top-[38%] z-20 size-7 -translate-y-1/2 border-[#c3d6e1] bg-white text-[#174f75] shadow-sm hover:bg-[#f4f8fa] hover:text-[#123b5c] disabled:opacity-40 sm:right-0 sm:top-[40%] sm:size-9" />
-          </Carousel>
+          <ExpertiseCarousel items={items} />
         </div>
 
         {/* Mobile "View All" */}
@@ -128,59 +95,60 @@ export default function ExpertiseSection({
   );
 }
 
-function ConditionCard({ item, index }: { item: Expertise; index: number }) {
-  const imageSources = [
-    'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-    'https://www.footcaremd.org/images/librariesprovider2/article-images/achillesrupture.png?sfvrsn=5c7d297d_0',
-    'https://footcaremd.org/images/librariesprovider2/banners/ankle-conditions.jpg?sfvrsn=9ff79bc_4',
-    'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=500&q=80',
-    'https://www.footcaremd.org/images/librariesprovider2/article-images/halluxrigidus.png?sfvrsn=1a74a198_0&MaxWidth=350&MaxHeight=200&ScaleUp=false&Quality=High&Method=ResizeFitToAreaArguments&Signature=9F6B62D061285B96711B66E23230A843B80579D5',
-    'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-    'https://images.unsplash.com/photo-1542884748-2b87b36c6b90?auto=format&fit=crop&w=500&q=80',
-    'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-  ];
+// function ConditionCard({ item, index }: { item: Expertise; index: number }) {
+//   const imageSources = [
+//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
+//     'https://www.footcaremd.org/images/librariesprovider2/article-images/achillesrupture.png?sfvrsn=5c7d297d_0',
+//     'https://footcaremd.org/images/librariesprovider2/banners/ankle-conditions.jpg?sfvrsn=9ff79bc_4',
+//     'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=500&q=80',
+//     'https://www.footcaremd.org/images/librariesprovider2/article-images/halluxrigidus.png?sfvrsn=1a74a198_0&MaxWidth=350&MaxHeight=200&ScaleUp=false&Quality=High&Method=ResizeFitToAreaArguments&Signature=9F6B62D061285B96711B66E23230A843B80579D5',
+//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
+//     'https://images.unsplash.com/photo-1542884748-2b87b36c6b90?auto=format&fit=crop&w=500&q=80',
+//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
+//   ];
 
-  const content = item.text || 'Foot & Ankle Care';
+//   const content = item.text || 'Foot & Ankle Care';
 
-  const card = (
-    <article className="group flex h-full min-w-0 flex-col items-center">
-      {/* Image */}
-      <div className="aspect-[1.55/1] w-[88%] shrink-0 overflow-hidden rounded-md bg-slate-200 sm:w-[86%] lg:w-[82%]">
-        <img
-          src={imageSources[index % imageSources.length]}
-          alt=""
-          aria-hidden="true"
-          className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
+//   const imageSrc =
+//     item.image?.trim() || imageSources[index % imageSources.length];
 
-      {/* Title */}
-      <div className="flex w-[88%] flex-1 justify-center px-0.5 pt-3 pb-1 sm:w-[86%] lg:w-[82%]">
-        <h3
-          className="m-0 block w-full max-w-full text-center font-serif text-[11px] font-semibold leading-[1.35] text-[#123b5c]sm:text-xs lg:text-[10px] xl:text-[11px]"
-          style={{
-            overflowWrap: 'break-word',
-            wordBreak: 'normal',
-          }}
-        >
-          {content}
-        </h3>
-      </div>
-    </article>
-  );
+//   const card = (
+//     <article className="group flex h-full min-w-0 flex-col items-center">
+//       <div className="aspect-[1.55/1] w-[88%] shrink-0 overflow-hidden rounded-md bg-slate-200 sm:w-[86%] lg:w-[82%]">
+//         <img
+//           src={imageSrc}
+//           alt=""
+//           aria-hidden="true"
+//           className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+//         />
+//       </div>
 
-  if (!item.url) {
-    return card;
-  }
+//       <div className="flex w-[88%] flex-1 justify-center px-0.5 pt-3 pb-1 sm:w-[86%] lg:w-[82%]">
+//         <h3
+//           className="m-0 block w-full max-w-full text-center font-serif text-[11px] font-semibold leading-[1.35] text-[#123b5c] sm:text-xs lg:text-[10px] xl:text-[11px]"
+//           style={{
+//             overflowWrap: 'break-word',
+//             wordBreak: 'normal',
+//           }}
+//         >
+//           {content}
+//         </h3>
+//       </div>
+//     </article>
+//   );
 
-  return (
-    <Link
-      href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block h-full min-w-0 max-w-full"
-    >
-      {card}
-    </Link>
-  );
-}
+//   if (!item.url) {
+//     return card;
+//   }
+
+//   return (
+//     <Link
+//       href={item.url}
+//       target="_blank"
+//       rel="noopener noreferrer"
+//       className="block h-full min-w-0 max-w-full"
+//     >
+//       {card}
+//     </Link>
+//   );
+// }

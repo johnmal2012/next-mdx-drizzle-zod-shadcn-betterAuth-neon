@@ -111,7 +111,7 @@ export default function HeroSection({
 
           <div className="absolute inset-0 bg-linear-to-r from-[#eef5fa]/80 via-transparent to-[#c9dce9]/30 lg:from-[#eef5fa]/70" />
 
-          <div className="absolute bottom-8 right-6 max-w-57.5 text-right text-[#123c60] sm:right-10">
+          <div className="absolute bottom-8 left-6 max-w-57.5 text-left text-[#123c60] sm:left-10">
             <p className="font-serif text-3xl italic leading-tight sm:text-4xl">
               Keep Moving
               <br />

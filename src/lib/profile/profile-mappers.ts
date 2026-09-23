@@ -58,8 +58,7 @@ function splitLines(value: string): string[] {
 
 // Payload sent to the server action.
 // The four clinic textarea fields and the two expertise textarea fields are form-only fields and are converted into their database structures below
-export type PhysicianProfilePayload =
-  PhysicianProfileInput;
+export type PhysicianProfilePayload = PhysicianProfileInput;
 
 /* ---------------------------------------------------------------- */
 /* Form → Server Payload                                            */
@@ -82,29 +81,19 @@ export function toProfilePayload(
   return {
     logo: values.logo ?? '',
     name: values.name,
-    boardSpecialty:
-      values.boardSpecialty ?? '',
-    specialty:
-      values.specialty ?? '',
-    title:
-      values.title ?? '',
-    image:
-      values.image ?? '',
+    boardSpecialty: values.boardSpecialty ?? '',
+    specialty: values.specialty ?? '',
+    title: values.title ?? '',
+    image: values.image ?? '',
 
-    clinics: normalizeClinics(
-      values.clinics,
-    ),
+    clinics: normalizeClinics(values.clinics),
 
     phone: values.phone,
     email: values.email ?? '',
-    linkName:
-      values.linkName ?? '',
-    footCareLink:
-      values.footCareLink ?? '',
+    linkName: values.linkName ?? '',
+    footCareLink: values.footCareLink ?? '',
 
-    expertise: normalizeExpertise(
-      values.expertise,
-    ),
+    expertise: normalizeExpertise(values.expertise),
   };
 }
 
@@ -153,5 +142,7 @@ function normalizeExpertise(
   return expertise.map((item) => ({
     text: item.text.trim(),
     url: item.url.trim(),
+    image: item.image?.trim() ?? '',
+    imageKey: item.imageKey?.trim() ?? '',
   }));
 }

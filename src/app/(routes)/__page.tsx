@@ -307,7 +307,7 @@ function ExpertiseSection({
           >
             {/* Reserve horizontal space for the arrows */}
 
-              <CarouselContent className="-ml-2">
+              {/* <CarouselContent className="-ml-2">
                 {items.slice(0, 16).map((item, index) => (
                   <CarouselItem
                     key={`${item.text}-${index}`}
@@ -316,7 +316,7 @@ function ExpertiseSection({
                     <ConditionCard item={item} index={index} />
                   </CarouselItem>
                 ))}
-              </CarouselContent>
+              </CarouselContent> */}
 
             {/* Previous */}
             <CarouselPrevious className="left-0 top-[38%] z-20 size-7 -translate-y-1/2 border-[#c3d6e1] bg-white text-[#174f75] shadow-sm hover:bg-[#f4f8fa] hover:text-[#123b5c] disabled:opacity-40 sm:top-[40%] sm:size-9" />

@@ -2,36 +2,38 @@ import { z } from 'zod';
 
 import { optionalText } from '@/lib/optionalText';
 import { optionalSpecial } from '@/lib/optionalSpecial';
+import { clinicSchema } from '@/lib/validations/clinic';
+import { expertiseSchema } from '@/lib/validations/expertise';
 
 /* ---------------------------------------------------------------- */
 /* Shared schemas                                                   */
 /* ---------------------------------------------------------------- */
 
-export const clinicSchema = z.object({
-  name: z.string().trim().min(1, 'Clinic name is required'),
+// export const clinicSchema = z.object({
+//   name: z.string().trim().min(1, 'Clinic name is required'),
 
-  address: z.string().trim().min(1, 'Clinic address is required'),
+//   address: z.string().trim().min(1, 'Clinic address is required'),
 
-  latitude: z.coerce
-    .number({
-      error: 'Latitude is required',
-    })
-    .min(-90, 'Latitude must be between -90 and 90')
-    .max(90, 'Latitude must be between -90 and 90'),
+//   latitude: z.coerce
+//     .number({
+//       error: 'Latitude is required',
+//     })
+//     .min(-90, 'Latitude must be between -90 and 90')
+//     .max(90, 'Latitude must be between -90 and 90'),
 
-  longitude: z.coerce
-    .number({
-      error: 'Longitude is required',
-    })
-    .min(-180, 'Longitude must be between -180 and 180')
-    .max(180, 'Longitude must be between -180 and 180'),
-});
+//   longitude: z.coerce
+//     .number({
+//       error: 'Longitude is required',
+//     })
+//     .min(-180, 'Longitude must be between -180 and 180')
+//     .max(180, 'Longitude must be between -180 and 180'),
+// });
 
-export const expertiseSchema = z.object({
-  text: z.string().trim().min(1, 'Expertise text is required'),
+// export const expertiseSchema = z.object({
+//   text: z.string().trim().min(1, 'Expertise text is required'),
 
-  url: z.url('Expertise URL must be a valid URL'),
-});
+//   url: z.url('Expertise URL must be a valid URL'),
+// });
 
 /* ------------------------------------------------------- */
 /* Server / database schema                                */
