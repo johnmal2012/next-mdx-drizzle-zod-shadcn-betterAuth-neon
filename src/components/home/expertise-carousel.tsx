@@ -68,7 +68,7 @@ export function ExpertiseCarousel({ items }: { items: Expertise[] }) {
           aria-label="Previous expertise"
           disabled={!canScrollPrev}
           onClick={() => api?.scrollPrev()}
-          className="absolute right-1 top-[38%] z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#174f75] bg-[#174f75] text-white shadow-md transition-all hover:bg-[#123b5c] hover:shadow-lg disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-70 sm:right-1"
+          className="absolute left-1 top-[38%] z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#174f75] bg-[#174f75] text-white shadow-md transition-all hover:bg-[#123b5c] hover:shadow-lg disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-70 sm:left-1 sm:size-10"
         >
           <ChevronLeft className="size-5" strokeWidth={2.5} />
         </button>
@@ -79,33 +79,7 @@ export function ExpertiseCarousel({ items }: { items: Expertise[] }) {
           aria-label="Next expertise"
           disabled={!canScrollNext}
           onClick={() => api?.scrollNext()}
-          className="
-            absolute
-            right-1
-            top-[38%]
-            z-30
-            flex
-            size-9
-            -translate-y-1/2
-            items-center
-            justify-center
-            rounded-full
-            border
-            border-[#174f75]
-            bg-[#174f75]
-            text-white
-            shadow-md
-            transition-all
-            hover:bg-[#123b5c]
-            hover:shadow-lg
-            disabled:cursor-not-allowed
-            disabled:border-slate-300
-            disabled:bg-slate-300
-            disabled:text-slate-500
-            disabled:opacity-70
-            sm:right-1
-            sm:size-10
-          "
+          className="absolute right-1 top-[38%] z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#174f75] bg-[#174f75] text-white shadow-md transition-all hover:bg-[#123b5c] hover:shadow-lg disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300 disabled:text-slate-500 disabled:opacity-70 sm:right-1 sm:size-10"
         >
           <ChevronRight className="size-5" strokeWidth={2.5} />
         </button>
