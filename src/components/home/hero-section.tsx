@@ -119,7 +119,7 @@ export default function HeroSection({ profile, className }: HeroSectionProps) {
           <div
             className="
       absolute
-      right-8
+      right-5
       top-24
       z-10
       w-36
