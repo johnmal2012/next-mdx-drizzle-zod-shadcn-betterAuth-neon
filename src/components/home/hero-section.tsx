@@ -19,10 +19,7 @@ type HeroSectionProps = {
 };
 
 // Hero
-export default function HeroSection({
-  profile,
-  className,
-}: HeroSectionProps) {
+export default function HeroSection({ profile, className }: HeroSectionProps) {
   return (
     <section
       id="home"
@@ -31,8 +28,8 @@ export default function HeroSection({
         className,
       )}
     >
-      <div className="mx-auto grid max-w-7xl lg:min-h-140 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative z-10 flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
+      <div className="mx-auto grid max-w-7xl md:min-h-0 md:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative z-10 flex flex-col justify-center px-6 py-16 sm:px-10 sm:py-16 md:px-10 md:py-20 lg:px-14 lg:py-20">
           <div className="max-w-2xl">
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#173b5d]">
               Specialized Care for
@@ -77,8 +74,7 @@ export default function HeroSection({
               <HeroFact
                 icon={<Building2 className="size-5" />}
                 title={
-                  profile.clinics?.[0]?.name ??
-                  'Maimonides Medical Center'
+                  profile.clinics?.[0]?.name ?? 'Maimonides Medical Center'
                 }
                 subtitle="Primary Affiliation"
               />
@@ -98,35 +94,40 @@ export default function HeroSection({
           </div>
         </div>
 
-        <div className="relative min-h-115 overflow-hidden lg:min-h-full">
-          {profile.image ? (
-            <img
-              src={profile.image}
-              alt={profile.name ?? 'Physician'}
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-linear-to-br from-slate-300 to-slate-500" />
-          )}
+        <div className="grid min-h-105 grid-cols-[minmax(0,1fr)_9rem] overflow-hidden sm:min-h-115 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_11rem]">
+          {/* Profile photo */}
+          <div className="relative min-w-0 overflow-hidden px-5 py-5 sm:px-6 sm:py-6 md:px-4 md:py-5 lg:px-0 lg:py-0">
+            <div className="relative h-full min-h-85 overflow-hidden rounded-md sm:min-h-95 md:min-h-100 lg:min-h-115 lg:rounded-none">
+              {profile.image ? (
+                <img
+                  src={profile.image}
+                  alt={profile.name ?? 'Physician'}
+                  className="absolute inset-0 h-full w-full object-cover object-[50%_12%] sm:object-[50%_10%] md:object-[50%_8%] lg:object-[45%_8%]"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-linear-to-br from-slate-300 to-slate-500" />
+              )}
+            </div>
+          </div>
 
-          <div className="absolute inset-0 bg-linear-to-r from-[#eef5fa]/80 via-transparent to-[#c9dce9]/30 lg:from-[#eef5fa]/70" />
+          {/* Right-side message */}
+          <div className="relative z-10 flex items-center justify-center bg-[#eef5fa] px-3 py-6 text-right text-[#123c60] sm:px-5 sm:py-8 lg:px-6">
+            <div>
+              <p className="font-serif text-2xl italic leading-tight sm:text-3xl lg:text-4xl">
+                Keep Moving
+                <br />
+                Forward
+              </p>
 
-          <div className="absolute bottom-8 left-6 max-w-57.5 text-left text-[#123c60] sm:left-10">
-            <p className="font-serif text-3xl italic leading-tight sm:text-4xl">
-              Keep Moving
-              <br />
-              Forward
-            </p>
+              <div className="ml-auto mt-4 h-px w-10 bg-[#1b587e] sm:mt-5" />
 
-            <div className="ml-auto mt-5 h-px w-10 bg-[#1b587e]" />
-
-            <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.22em]">
-              Expert Care.
-              <br />
-              Real Progress.
-              <br />
-              A More Active You.
-            </p>
+              <p className="mt-4 text-[9px] font-semibold uppercase leading-5 tracking-[0.18em] sm:mt-5 sm:text-[10px] sm:tracking-[0.22em]">
+                Expert Care.
+                <br />
+                Real Progress.
+                <br />A More Active You.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -145,18 +146,14 @@ function HeroFact({
 }) {
   return (
     <div className="flex gap-3">
-      <div className="mt-0.5 shrink-0 text-[#21658f]">
-        {icon}
-      </div>
+      <div className="mt-0.5 shrink-0 text-[#21658f]">{icon}</div>
 
       <div>
         <p className="text-sm font-semibold leading-5 text-slate-800">
           {title}
         </p>
 
-        <p className="mt-0.5 text-xs leading-4 text-slate-500">
-          {subtitle}
-        </p>
+        <p className="mt-0.5 text-xs leading-4 text-slate-500">{subtitle}</p>
       </div>
     </div>
   );

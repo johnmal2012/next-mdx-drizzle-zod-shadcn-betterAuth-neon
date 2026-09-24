@@ -1,5 +1,10 @@
-import { Quote } from 'lucide-react';
-import Image from 'next/image';
+import {
+  Award,
+  Building2,
+  GraduationCap,
+  Quote,
+  Users,
+} from 'lucide-react';
 
 import { renderMDX } from '@/lib/mdx';
 import { getWebsiteData } from '@/lib/website/get-website-data';
@@ -7,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 import SectionHeading from '@/components/home/section-heading';
 
-// ABOUT
+// ABOUT 
 export default async function AboutSection({
   profile,
   section,
@@ -88,31 +93,47 @@ export default async function AboutSection({
             title={education?.title ?? 'Training & Credentials'}
           />
 
-          <div className="mt-6">
-            {/* Optional education content */}
-            {education?.content && (
+          <div className="mt-6 space-y-5">
+            {/* {educationItems.length > 0 ? (
+              educationItems
+                .slice(0, 5)
+                .map((item, index) => (
+                  <Credential
+                    key={index}
+                    icon={
+                      index === 0 ? (
+                        <GraduationCap />
+                      ) : index === 1 ? (
+                        <Award />
+                      ) : (
+                        <Users />
+                      )
+                    }
+                    text={item}
+                  />
+                ))
+            ) */}
+            {education?.content ? (
               <div className="prose prose-sm max-w-none prose-slate">
                 {educationContent}
               </div>
+            ) : (
+              <>
+                <Credential
+                  icon={<GraduationCap />}
+                  text="Orthopaedic Surgery Residency"
+                />
+
+                <Credential icon={<Award />} text="Foot & Ankle Fellowship" />
+
+                <Credential
+                  icon={<Users />}
+                  text="Pediatric Deformity Experience"
+                />
+
+                <Credential icon={<Building2 />} text="Attending Surgeon" />
+              </>
             )}
-
-            {/* Always display the four credentials */}
-            <div className={cn('space-y-5', education?.content && 'mt-6')}>
-              <Credential
-                image="/images/albert-einstein-college-of-medicine1.png"
-                text="Medical School: Albert Einstein College of Medicine"
-              />
-
-              <Credential
-                image="/images/baylor1.png"
-                text="Orthopedic Surgery Residency: Maimonides Medical Center"
-              />
-
-              <Credential
-                image="/images/maimonides-medical-center1.png"
-                text="Foot and Ankle Surgery Fellowship: Baylor University Medical Center"
-              />
-            </div>
           </div>
         </div>
 
@@ -136,20 +157,12 @@ export default async function AboutSection({
   );
 }
 
-function Credential({ image, text }: { image: string; text: string }) {
+function Credential({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm leading-5 text-slate-700">{text}</p>
+    <div className="flex gap-3">
+      <div className="mt-0.5 shrink-0 text-[#1f658f]">{icon}</div>
 
-      <div className="relative h-14 w-36 shrink-0 overflow-hidden rounded-md">
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="144px"
-          className="object-contain object-left"
-        />
-      </div>
+      <p className="text-sm leading-5 text-slate-700">{text}</p>
     </div>
   );
 }
