@@ -104,12 +104,12 @@ export default async function AboutSection({
               />
 
               <Credential
-                image="/images/baylor1.png"
+                image="/images/maimonides-medical-center1.png"
                 text="Orthopedic Surgery Residency: Maimonides Medical Center"
               />
 
               <Credential
-                image="/images/maimonides-medical-center1.png"
+                image="/images/baylor1.png"
                 text="Foot and Ankle Surgery Fellowship: Baylor University Medical Center"
               />
             </div>
