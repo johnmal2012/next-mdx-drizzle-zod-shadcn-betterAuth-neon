@@ -99,18 +99,39 @@ export default async function AboutSection({
             {/* Always display the four credentials */}
             <div className={cn('space-y-5', education?.content && 'mt-6')}>
               <Credential
-                image="/images/albert-einstein-college-of-medicine1.png"
-                text="Medical School: Albert Einstein College of Medicine"
+                image="/images/Albert-Einstein.png"
+                text={
+                  <>
+                    Medical School:{' '}
+                    <span className="whitespace-nowrap">
+                      Albert Einstein College of Medicine
+                    </span>
+                  </>
+                }
               />
 
               <Credential
                 image="/images/maimonides-medical-center1.png"
-                text="Orthopedic Surgery Residency: Maimonides Medical Center"
+                text={
+                  <>
+                    Orthopedic Surgery Residency:{' '}
+                    <span className="whitespace-nowrap">
+                      Maimonides Medical Center
+                    </span>
+                  </>
+                }
               />
 
               <Credential
                 image="/images/baylor1.png"
-                text="Foot and Ankle Surgery Fellowship: Baylor University Medical Center"
+                text={
+                  <>
+                    Foot and Ankle Surgery Fellowship:{' '}
+                    <span className="whitespace-nowrap">
+                      Baylor University Medical Center
+                    </span>
+                  </>
+                }
               />
             </div>
           </div>
@@ -136,20 +157,45 @@ export default async function AboutSection({
   );
 }
 
-function Credential({ image, text }: { image: string; text: string }) {
-  return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm leading-5 text-slate-700">{text}</p>
+// function Credential({ image, text }: { image: string; text: React.ReactNode }) {
+//   return (
+//     <div className="flex flex-col gap-3">
+//       <p className="text-sm leading-5 text-slate-700">{text}</p>
 
-      <div className="relative h-14 w-36 shrink-0 overflow-hidden rounded-md">
-        <Image
+//       <div className="relative h-14 w-36 shrink-0 overflow-hidden rounded-md">
+//         <Image
+//           src={image}
+//           alt=""
+//           fill
+//           sizes="144px"
+//           className="object-contain object-left"
+//         />
+//       </div>
+//     </div>
+//   );
+// }
+function Credential({
+  image,
+  text,
+}: {
+  image: string;
+  text: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-4">
+      {/* Credential icon */}
+      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-white">
+        <img
           src={image}
           alt=""
-          fill
-          sizes="144px"
-          className="object-contain object-left"
+          className="size-8 object-contain"
         />
       </div>
+
+      {/* Credential text */}
+      <p className="min-w-0 text-sm leading-6 text-slate-700">
+        {text}
+      </p>
     </div>
   );
 }

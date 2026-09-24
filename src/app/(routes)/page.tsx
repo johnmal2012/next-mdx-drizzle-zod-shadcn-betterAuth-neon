@@ -18,7 +18,7 @@ function normalizeClinics(
 export default async function PhysicianPage() {
   const websiteData = await getWebsiteData();
 
-  if (!websiteData.success || !websiteData.profile) {
+  if (!websiteData.success || !websiteData.profile || !websiteData.sections) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white px-6">
         <div className="w-full max-w-md rounded-lg border border-red-200 bg-red-50 p-6 text-center">
@@ -47,6 +47,9 @@ export default async function PhysicianPage() {
     );
   }
 
+  // guarantee to get an array of clinics, even when the database or API returns null or undefined
+  // better than using clinics ?? [] because if passing string may cause issue
+  // now safe to use clinics.map() etc without issue
   const clinics = normalizeClinics(profile.clinics);
 
   return (
