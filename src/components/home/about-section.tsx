@@ -40,7 +40,7 @@ export default async function AboutSection({
       id="about"
       className={cn('px-6 py-14 sm:px-10 lg:px-14', className)}
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.35fr_1fr_0.85fr]">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.25fr_1.15fr_0.85fr]">
         {/* About */}
         <div>
           <SectionHeading title={section?.title ?? 'About Dr. Lam'} />
@@ -88,7 +88,7 @@ export default async function AboutSection({
             title={education?.title ?? 'Training & Credentials'}
           />
 
-          <div className="mt-6">
+          <div className="mt-8">
             {/* Optional education content */}
             {education?.content && (
               <div className="prose prose-sm max-w-none prose-slate">
@@ -96,49 +96,31 @@ export default async function AboutSection({
               </div>
             )}
 
-            {/* Always display the four credentials */}
-            <div className={cn('space-y-5', education?.content && 'mt-6')}>
+            {/* Always display the credentials */}
+            <div className={cn('space-y-8', education?.content && 'mt-8')}>
               <Credential
                 image="/images/Albert-Einstein.png"
-                text={
-                  <>
-                    Medical School:{' '}
-                    <span className="whitespace-nowrap">
-                      Albert Einstein College of Medicine
-                    </span>
-                  </>
-                }
+                label="MEDICAL SCHOOL"
+                institution="Albert Einstein College of Medicine"
               />
 
               <Credential
                 image="/images/maimonides-medical-center1.png"
-                text={
-                  <>
-                    Orthopedic Surgery Residency:{' '}
-                    <span className="whitespace-nowrap">
-                      Maimonides Medical Center
-                    </span>
-                  </>
-                }
+                label="ORTHOPEDIC SURGERY RESIDENCY"
+                institution="Maimonides Medical Center"
               />
 
               <Credential
                 image="/images/baylor1.png"
-                text={
-                  <>
-                    Foot and Ankle Surgery Fellowship:{' '}
-                    <span className="whitespace-nowrap">
-                      Baylor University Medical Center
-                    </span>
-                  </>
-                }
+                label="FOOT AND ANKLE SURGERY FELLOWSHIP"
+                institution="Baylor University Medical Center"
               />
             </div>
           </div>
         </div>
 
         {/* Quote */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col pt-23.5">
           <Quote className="size-8 text-[#9bb8ca]" />
 
           <blockquote className="mt-4 font-serif text-xl italic leading-8 text-[#214b6c]">
@@ -176,26 +158,36 @@ export default async function AboutSection({
 // }
 function Credential({
   image,
-  text,
+  label,
+  institution,
 }: {
   image: string;
-  text: React.ReactNode;
+  label: string;
+  institution: string;
 }) {
   return (
     <div className="flex items-center gap-4">
-      {/* Credential icon */}
-      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-white">
-        <img
+      {/* Logo */}
+      <div className="relative h-24 w-28 shrink-0">
+        <Image
           src={image}
           alt=""
-          className="size-8 object-contain"
+          fill
+          sizes="112px"
+          className="object-contain object-center"
         />
       </div>
 
       {/* Credential text */}
-      <p className="min-w-0 text-sm leading-6 text-slate-700">
-        {text}
-      </p>
+      <div className="min-w-0">
+        <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.12em] text-[#71869a]">
+          {label}
+        </p>
+
+        <p className="mt-1 whitespace-nowrap font-serif text-[21px] font-semibold leading-[1.05] text-[#173f5f]">
+          {institution}
+        </p>
+      </div>
     </div>
   );
 }

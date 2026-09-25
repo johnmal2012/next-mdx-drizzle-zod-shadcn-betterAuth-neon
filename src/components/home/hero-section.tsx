@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+
 import { getWebsiteData } from '@/lib/website/get-website-data';
 
 type Profile = NonNullable<
@@ -28,9 +29,19 @@ export default function HeroSection({ profile, className }: HeroSectionProps) {
         className,
       )}
     >
-      <div className="mx-auto grid max-w-7xl md:grid-cols-[1.05fr_0.95fr]">
+      <div
+        className={cn(
+          'mx-auto grid max-w-7xl',
+          // Phone: one column
+          'grid-cols-1',
+          // Tablet: balanced left/right layout
+          'md:grid-cols-[1fr_1fr]',
+          // Desktop: give the photograph slightly more room
+          'lg:grid-cols-[0.95fr_1.05fr]',
+        )}
+      >
         {/* Left content */}
-        <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 md:px-10 md:py-14 lg:px-14 lg:py-16">
+        <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 md:px-8 md:py-12 lg:px-12 lg:py-14">
           <div className="max-w-2xl">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#173b5d]">
               Specialized Care for
@@ -95,34 +106,58 @@ export default function HeroSection({ profile, className }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Right side - profile photo with transparent message */}
-        <div className="relative min-h-90 overflow-hidden sm:min-h-100 md:min-h-105 lg:min-h-125">
-          {profile.image ? (
-            <img
-              src={profile.image}
-              alt={profile.name ?? 'Physician'}
-              className="absolute inset-0 h-full w-full object-cover object-[48%_8%] sm:object-[47%_7%] md:object-[46%_6%] lg:object-[45%_5%]"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-linear-to-br from-slate-300 to-slate-500" />
-          )}
+        {/* Right side - complete profile photograph */}
+        <div className="relative flex min-h-105 items-start justify-center overflow-hidden bg-[#eef5fa] sm:min-h-115 md:min-h-105 lg:min-h-125">
+          <div
+            className={cn(
+              'relative aspect-square w-full',
+              // Keep the photo from becoming excessively large
+              'max-w-105',
+              'sm:max-w-115',
+              'md:max-w-105',
+              'lg:max-w-125',
+            )}
+          >
+            {profile.image ? (
+              <img
+                src={profile.image}
+                alt={profile.name ?? 'Physician'}
+                className="absolute inset-0 h-full w-full object-contain"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-linear-to-br from-slate-300 to-slate-500" />
+            )}
 
-          {/* Transparent message overlay */}
-          <div className="absolute right-3 top-24 z-10 w-36 text-right sm:right-5 sm:top-28 sm:w-44 md:right-2 md:top-30 md:w-48 lg:right-5 lg:top-32 lg:w-52">
-            <p className="font-serif text-xl italic leading-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.75)] sm:text-xl lg:text-2xl">
-              Keep Moving
-              <br />
-              Forward
-            </p>
+            {/* Message - positioned relative to the actual photograph */}
+            <div
+              className={cn(
+                'absolute z-10 text-right',
+                // Always stay inside the photograph
+                'right-[3%]',
+                // Around eyebrow / eye level
+                'top-[18%]',
+                // Responsive width
+                'w-[34%]',
+                'sm:w-[35%]',
+                'md:w-[34%]',
+                'lg:w-[35%]',
+              )}
+            >
+              <p className="font-serif text-base italic leading-[1.05] text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-lg md:text-lg lg:text-xl">
+                Keep Moving
+                <br />
+                Forward
+              </p>
 
-            <div className="ml-auto mt-3 h-px w-8 bg-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] sm:mt-4" />
+              <div className="ml-auto mt-2 h-px w-7 bg-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] sm:mt-3 sm:w-8" />
 
-            <p className="mt-3 text-[8px] font-semibold uppercase leading-4 tracking-[0.16em] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] sm:text-[9px] sm:tracking-[0.2em]">
-              Expert Care.
-              <br />
-              Real Progress.
-              <br />A More Active You.
-            </p>
+              <p className="mt-2 text-[6px] font-semibold uppercase leading-3 tracking-[0.14em] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] sm:text-[7px] sm:leading-3.5 sm:tracking-[0.17em] md:text-[7px] lg:text-[8px] lg:tracking-[0.18em]">
+                Expert Care.
+                <br />
+                Real Progress.
+                <br />A More Active You.
+              </p>
+            </div>
           </div>
         </div>
       </div>

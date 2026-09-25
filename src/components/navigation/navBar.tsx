@@ -150,16 +150,7 @@ export default function Navbar({
 
             <SheetContent
               side="right"
-              className="
-                w-50
-                max-w-55
-                border-l
-                bg-stone-100
-                p-6
-                h-full
-                overflow-y-auto
-                pb-[env(safe-area-inset-bottom)]
-                "
+              className="w-50 max-w-55 border-l bg-stone-100 p-6 h-full overflow-y-auto pb-[env(safe-area-inset-bottom)]"
             >
               <SheetHeader className="pb-2">
                 <SheetTitle className="text-md font-semibold tracking-tight text-slate-900">
