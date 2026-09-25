@@ -101,52 +101,15 @@ export default function HeroSection({ profile, className }: HeroSectionProps) {
             <img
               src={profile.image}
               alt={profile.name ?? 'Physician'}
-              className="
-        absolute inset-0
-        h-full w-full
-        object-cover
-        object-[48%_8%]
-        sm:object-[47%_7%]
-        md:object-[46%_6%]
-        lg:object-[45%_5%]
-      "
+              className="absolute inset-0 h-full w-full object-cover object-[48%_8%] sm:object-[47%_7%] md:object-[46%_6%] lg:object-[45%_5%]"
             />
           ) : (
             <div className="absolute inset-0 bg-linear-to-br from-slate-300 to-slate-500" />
           )}
 
           {/* Transparent message overlay */}
-          <div
-            className="
-      absolute
-      right-3
-      top-24
-      z-10
-      w-36
-      text-right
-      sm:right-5
-      sm:top-28
-      sm:w-44
-      md:right-2
-      md:top-30
-      md:w-48
-      lg:right-5
-      lg:top-32
-      lg:w-52
-    "
-          >
-            <p
-              className="
-        font-serif
-        text-xl
-        italic
-        leading-tight
-        text-white
-        drop-shadow-[0_2px_4px_rgba(0,0,0,0.75)]
-        sm:text-xl
-        lg:text-2xl
-      "
-            >
+          <div className="absolute right-3 top-24 z-10 w-36 text-right sm:right-5 sm:top-28 sm:w-44 md:right-2 md:top-30 md:w-48 lg:right-5 lg:top-32 lg:w-52">
+            <p className="font-serif text-xl italic leading-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.75)] sm:text-xl lg:text-2xl">
               Keep Moving
               <br />
               Forward
@@ -154,20 +117,7 @@ export default function HeroSection({ profile, className }: HeroSectionProps) {
 
             <div className="ml-auto mt-3 h-px w-8 bg-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] sm:mt-4" />
 
-            <p
-              className="
-        mt-3
-        text-[8px]
-        font-semibold
-        uppercase
-        leading-4
-        tracking-[0.16em]
-        text-white
-        drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)]
-        sm:text-[9px]
-        sm:tracking-[0.2em]
-      "
-            >
+            <p className="mt-3 text-[8px] font-semibold uppercase leading-4 tracking-[0.16em] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] sm:text-[9px] sm:tracking-[0.2em]">
               Expert Care.
               <br />
               Real Progress.
