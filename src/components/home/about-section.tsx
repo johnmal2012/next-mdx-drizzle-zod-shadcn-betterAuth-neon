@@ -101,19 +101,37 @@ export default async function AboutSection({
               <Credential
                 image="/images/Albert-Einstein.png"
                 label="MEDICAL SCHOOL"
-                institution="Albert Einstein College of Medicine"
+                institution={
+                  <>
+                    Albert Einstein
+                    <br />
+                    College of Medicine
+                  </>
+                }
               />
 
               <Credential
-                image="/images/maimonides-medical-center1.png"
+                image="/images/maimonides.png"
                 label="ORTHOPEDIC SURGERY RESIDENCY"
-                institution="Maimonides Medical Center"
+                institution={
+                  <>
+                    Maimonides
+                    <br />
+                    Medical Center
+                  </>
+                }
               />
 
               <Credential
-                image="/images/baylor1.png"
+                image="/images/baylor.png"
                 label="FOOT AND ANKLE SURGERY FELLOWSHIP"
-                institution="Baylor University Medical Center"
+                institution={
+                  <>
+                    Baylor University
+                    <br />
+                    Medical Center
+                  </>
+                }
               />
             </div>
           </div>
@@ -163,7 +181,7 @@ function Credential({
 }: {
   image: string;
   label: string;
-  institution: string;
+  institution: React.ReactNode;
 }) {
   return (
     <div className="flex items-center gap-4">
