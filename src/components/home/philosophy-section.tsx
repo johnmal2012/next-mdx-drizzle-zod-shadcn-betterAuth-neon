@@ -19,10 +19,10 @@ export default async function PhilosophySection({
 
   return (
     <section id="philosophy" className={cn("overflow-hidden", className)}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-6 lg:px-6 lg:py-6">
         <div className="grid lg:grid-cols-2">
           {/* Philosophy Photo */}
-          <div className="relative min-h-85 overflow-hidden rounded-lg lg:rounded-none">
+          <div className="relative min-h-85 overflow-hidden rounded-lg">
             <img
               src="/images/philosophy.jpg"
               alt="Walking beach"
