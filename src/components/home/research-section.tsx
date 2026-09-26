@@ -5,7 +5,7 @@ import {
 import { renderMDX } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
 
-import SectionHeading from './section-heading';
+import SectionHeading from '@/components/home/section-heading';
 
 // RESEARCH
 export default async function ResearchSection({
@@ -62,7 +62,7 @@ export default async function ResearchSection({
 
         <div className="overflow-hidden rounded-md bg-slate-100">
           <img
-            src="/images/research.png"
+            src="/images/research.jpg"
             alt="Medical research imaging"
             className="h-full min-h-55 w-full object-cover"
           />
