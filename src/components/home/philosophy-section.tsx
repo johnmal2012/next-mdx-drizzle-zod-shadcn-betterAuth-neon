@@ -24,7 +24,7 @@ export default async function PhilosophySection({
       <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
         <div className="relative min-h-85 overflow-hidden">
           <img
-            src="/images/philosophy.jpeg"
+            src="/images/philosophy.jpg"
             alt="walking beach"
             className="absolute inset-0 h-full w-full object-cover"
           />
