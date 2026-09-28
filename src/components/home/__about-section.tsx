@@ -1,4 +1,3 @@
-// types/credential.ts > validations/credential.ts > profile/profile-default-values.ts/getProfileDefaultValues() > profile/profile-mappers.ts > credential-editor.tsx > admin edit profile page > make sure validations/physician-profile.ts/physicianProfileSchema with credential z.array > make sure actions/profile/physician-profile-actions.ts with credential: validated.data.credential > home\about-section.tsx
 import { Quote } from 'lucide-react';
 
 import Image from 'next/image';
@@ -19,7 +18,9 @@ export default async function AboutSection({
   education,
   className,
 }: {
-  profile: NonNullable<Awaited<ReturnType<typeof getWebsiteData>>['profile']>;
+  profile: NonNullable<
+    Awaited<ReturnType<typeof getWebsiteData>>['profile']
+  >;
 
   section?: {
     title: string | null;
@@ -37,9 +38,13 @@ export default async function AboutSection({
     return null;
   }
 
-  const sectionContent = await renderMDX(section?.content ?? '');
+  const sectionContent = await renderMDX(
+    section?.content ?? '',
+  );
 
-  const educationContent = await renderMDX(education?.content ?? '');
+  const educationContent = await renderMDX(
+    education?.content ?? '',
+  );
 
   const credentials = Array.isArray(profile.credential)
     ? profile.credential
@@ -48,12 +53,18 @@ export default async function AboutSection({
   return (
     <section
       id="about"
-      className={cn('px-6 py-14 sm:px-10 lg:px-14', className)}
+      className={cn(
+        'px-6 py-14 sm:px-10 lg:px-14',
+        className,
+      )}
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.25fr_1.15fr_0.85fr]">
+
         {/* ABOUT */}
         <div>
-          <SectionHeading title={section?.title ?? 'About Dr. Lam'} />
+          <SectionHeading
+            title={section?.title ?? 'About Dr. Lam'}
+          />
 
           <div className="mt-6 space-y-4 text-sm leading-6 text-slate-600">
             {section?.content ? (
@@ -63,16 +74,19 @@ export default async function AboutSection({
             ) : (
               <>
                 <p>
-                  {profile.name ?? 'Dr. Lam'} is dedicated to comprehensive
-                  treatment of foot and ankle conditions, with particular
-                  expertise in complex reconstruction, deformity correction, and
-                  sports-related injuries.
+                  {profile.name ?? 'Dr. Lam'} is dedicated
+                  to comprehensive treatment of foot and
+                  ankle conditions, with particular
+                  expertise in complex reconstruction,
+                  deformity correction, and sports-related
+                  injuries.
                 </p>
 
                 <p>
-                  His approach combines specialized training, evidence-based
-                  treatment, and individualized care to help patients return to
-                  the activities they value.
+                  His approach combines specialized
+                  training, evidence-based treatment, and
+                  individualized care to help patients
+                  return to the activities they value.
                 </p>
               </>
             )}
@@ -82,7 +96,10 @@ export default async function AboutSection({
         {/* TRAINING & CREDENTIALS */}
         <div className="border-y border-slate-200 py-8 lg:border-x lg:border-y-0 lg:px-8 lg:py-0">
           <SectionHeading
-            title={education?.title ?? 'Training & Credentials'}
+            title={
+              education?.title ??
+              'Training & Credentials'
+            }
           />
 
           <div className="mt-8">
@@ -93,13 +110,20 @@ export default async function AboutSection({
             )}
 
             {credentials.length > 0 && (
-              <div className={cn('space-y-8', education?.content && 'mt-8')}>
-                {credentials.map((credential, index) => (
-                  <CredentialItem
-                    key={`${credential.institution}-${index}`}
-                    credential={credential}
-                  />
-                ))}
+              <div
+                className={cn(
+                  'space-y-8',
+                  education?.content && 'mt-8',
+                )}
+              >
+                {credentials.map(
+                  (credential, index) => (
+                    <CredentialItem
+                      key={`${credential.institution}-${index}`}
+                      credential={credential}
+                    />
+                  ),
+                )}
               </div>
             )}
           </div>
@@ -110,8 +134,9 @@ export default async function AboutSection({
           <Quote className="size-8 text-[#9bb8ca]" />
 
           <blockquote className="mt-4 font-serif text-xl italic leading-8 text-[#214b6c]">
-            “My goal is to help every patient get back to the activities they
-            love with individualized, evidence-based care.”
+            “My goal is to help every patient get
+            back to the activities they love with
+            individualized, evidence-based care.”
           </blockquote>
 
           <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-500">
@@ -129,30 +154,29 @@ export default async function AboutSection({
 /* Credential Item                                                            */
 /* -------------------------------------------------------------------------- */
 
-function CredentialItem({ credential }: { credential: CredentialType }) {
-  const lines =
-    credential.breakAfter &&
-    credential.institution.startsWith(credential.breakAfter)
-      ? [
-          credential.breakAfter,
-          credential.institution.slice(credential.breakAfter.length).trim(),
-        ]
-      : [credential.institution];
-
+function CredentialItem({
+  credential,
+}: {
+  credential: CredentialType;
+}) {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex gap-4">
       {/* Credential image */}
-      <div className="relative h-24 w-28 shrink-0">
+      <div className="shrink-0">
         {credential.image ? (
           <Image
             src={credential.image}
-            alt={credential.institution || credential.label || 'Credential'}
-            fill
-            sizes="112px"
-            className="object-contain object-center"
+            alt={
+              credential.institution ||
+              credential.label ||
+              'Credential'
+            }
+            width={64}
+            height={64}
+            className="size-16 rounded-lg border border-slate-200 bg-white object-contain p-1.5"
           />
         ) : (
-          <div className="flex h-24 w-28 items-center justify-center">
+          <div className="flex size-16 items-center justify-center rounded-lg border border-slate-200 bg-slate-50">
             <span className="text-xs font-semibold text-slate-400">
               {credential.type === 'education'
                 ? 'EDU'
@@ -166,21 +190,17 @@ function CredentialItem({ credential }: { credential: CredentialType }) {
         )}
       </div>
 
-      {/* Credential text */}
+      {/* Credential information */}
       <div className="min-w-0">
         {credential.label && (
-          <p className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.12em] text-[#71869a]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
             {credential.label}
           </p>
         )}
 
         {credential.institution && (
-          <p className="mt-1 font-serif text-[21px] font-semibold leading-[1.05] text-[#173f5f]">
-            {lines.map((line, index) => (
-              <span key={index} className="block whitespace-nowrap">
-                {line}
-              </span>
-            ))}
+          <p className="mt-1 text-sm font-semibold leading-5 text-[#214b6c]">
+            {credential.institution}
           </p>
         )}
       </div>

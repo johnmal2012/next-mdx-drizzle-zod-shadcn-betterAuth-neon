@@ -1,17 +1,18 @@
 import type { Clinic } from '@/lib/types/clinic';
 import type { Expertise } from '@/lib/types/expertise';
+import type { Credential } from '@/lib/types/credential';
 
 import type {
   PhysicianProfileFormInput,
   PhysicianProfileInput,
 } from '@/lib/validations/physician-profile';
 
-function splitLines(value: string): string[] {
-  return value
-    .split('\n')
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
+// function splitLines(value: string): string[] {
+//   return value
+//     .split('\n')
+//     .map((item) => item.trim())
+//     .filter(Boolean);
+// }
 
 // // Convert form clinic fields into the Clinic[] format used by the database
 // function formValuesToClinics(
@@ -52,23 +53,17 @@ function splitLines(value: string): string[] {
 //   }));
 // }
 
-/* ---------------------------------------------------------------- */
-/* Payload type                                                     */
-/* ---------------------------------------------------------------- */
-
+// Payload type
 // Payload sent to the server action.
-// The four clinic textarea fields and the two expertise textarea fields are form-only fields and are converted into their database structures below
+// The four clinic textarea fields, the two expertise textarea and crendential textarea fields are form-only fields and are converted into their database structures below
 export type PhysicianProfilePayload = PhysicianProfileInput;
 
-/* ---------------------------------------------------------------- */
-/* Form → Server Payload                                            */
-/* ---------------------------------------------------------------- */
-
+// Form → Server Payload
 /**
  * Convert React Hook Form values into the normalized
  * physician profile payload.
  *
- * The repeatable Clinic Editor and Expertise Editor already
+ * The repeatable Clinic Editor, Expertise Editor and Credential Editor already
  * provide arrays, so there is no textarea parsing here.
  *
  * Zod's output type is used for the final payload because
@@ -94,12 +89,10 @@ export function toProfilePayload(
     footCareLink: values.footCareLink ?? '',
 
     expertise: normalizeExpertise(values.expertise),
+
+    credential: normalizeCredentials(values.credential),
   };
 }
-
-/* ---------------------------------------------------------------- */
-/* Clinics                                                          */
-/* ---------------------------------------------------------------- */
 
 /**
  * Normalize clinic form values into the database Clinic type.
@@ -125,13 +118,7 @@ function normalizeClinics(
   }));
 }
 
-/* ---------------------------------------------------------------- */
-/* Expertise                                                        */
-/* ---------------------------------------------------------------- */
-
-/**
- * Normalize expertise form values into Expertise[].
- */
+// Normalize expertise form values into Expertise[]
 function normalizeExpertise(
   expertise: PhysicianProfileFormInput['expertise'],
 ): Expertise[] {
@@ -139,9 +126,27 @@ function normalizeExpertise(
     return [];
   }
 
+  // Normalize credential form values into credential[]
   return expertise.map((item) => ({
     text: item.text.trim(),
     url: item.url.trim(),
+    image: item.image?.trim() ?? '',
+    imageKey: item.imageKey?.trim() ?? '',
+  }));
+}
+
+function normalizeCredentials(
+  credential: PhysicianProfileFormInput['credential'],
+): Credential[] {
+  if (!credential) {
+    return [];
+  }
+
+  return credential.map((item) => ({
+    type: item.type,
+    label: item.label.trim(),
+    institution: item.institution.trim(),
+    breakAfter: item.breakAfter?.trim() ?? '',
     image: item.image?.trim() ?? '',
     imageKey: item.imageKey?.trim() ?? '',
   }));

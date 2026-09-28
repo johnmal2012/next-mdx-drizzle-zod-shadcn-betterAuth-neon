@@ -9,9 +9,9 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { user } from '@/db/schema/auth-schema';
-// import { relations } from 'drizzle-orm';
 import { Clinic } from '@/lib/types/clinic';
 import { Expertise } from '@/lib/types/expertise';
+import { Credential } from '@/lib/types/credential';
 
 export const physicianProfile = pgTable(
   'physician_profile',
@@ -43,6 +43,11 @@ export const physicianProfile = pgTable(
     // clinicAddress: text('clinic_address'),
     clinics: jsonb('clinics').$type<Clinic[]>().notNull().default([]),
 
+    // expertise: jsonb('expertise').$type<string[]>().default([]),
+    expertise: jsonb('expertise').$type<Expertise[]>().notNull().default([]),
+
+    credential: jsonb('credential').$type<Credential[]>().notNull().default([]),
+
     phone: text('phone'),
 
     email: text('email'),
@@ -54,11 +59,6 @@ export const physicianProfile = pgTable(
     linkName: text('link_name'),
 
     footCareLink: text('footcare_link'),
-
-    // expertise: jsonb('expertise').$type<string[]>().default([]),
-    expertise: jsonb('expertise')
-    .$type<Expertise[]>()
-    .notNull().default([]),
 
     //   navItems: jsonb('nav_items')
     //     .$type<

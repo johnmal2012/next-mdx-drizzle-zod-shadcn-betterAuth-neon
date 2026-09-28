@@ -12,9 +12,7 @@ export function getProfileDefaultValues(
     specialty: profile?.specialty ?? '',
     title: profile?.title ?? '',
 
-    /*
-     * Keep each clinic as one complete object.
-     */
+    // Keep each clinic as one complete object
     clinics:
       profile?.clinics?.map((clinic) => ({
         name: clinic.name ?? '',
@@ -28,16 +26,23 @@ export function getProfileDefaultValues(
     linkName: profile?.linkName ?? '',
     footCareLink: profile?.footCareLink ?? '',
 
-    /*
-     * Keep each expertise item as one complete object.
-     *
-     * Older database records may not have image/imageKey yet,
-     * so normalize missing values to empty strings.
-     */
+    // Keep each expertise item as one complete object.
+    // Older database records may not have image/imageKey yet,
+    // so normalize missing values to empty strings.
     expertise:
       profile?.expertise?.map((item) => ({
         text: item.text ?? '',
         url: item.url ?? '',
+        image: item.image ?? '',
+        imageKey: item.imageKey ?? '',
+      })) ?? [],
+
+    credential:
+      profile?.credential?.map((item) => ({
+        type: item.type ?? 'education',
+        label: item.label ?? '',
+        institution: item.institution ?? '',
+        breakAfter: item.breakAfter ?? '',
         image: item.image ?? '',
         imageKey: item.imageKey ?? '',
       })) ?? [],

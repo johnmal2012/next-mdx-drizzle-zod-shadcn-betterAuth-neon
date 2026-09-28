@@ -67,6 +67,35 @@ export const ourFileRouter = {
         imageKey: file.key,
       };
     }),
+
+  // Credential Image
+  credentialImage: f({
+    image: {
+      maxFileSize: '2MB',
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async ({ req }) => {
+      // Use the same authentication/authorization
+      // middleware you already use for expertiseImage.
+      const session = await requireAdmin();
+
+      if (!session) {
+        throw new UploadThingError('Unauthorized');
+      }
+
+      return {
+        userId: session.user.id,
+      };
+    })
+    .onUploadComplete(async ({ file }) => {
+      console.log('Credential image uploaded:', file.ufsUrl);
+
+      return {
+        url: file.ufsUrl,
+        key: file.key,
+      };
+    }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
