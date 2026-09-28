@@ -92,7 +92,7 @@ export default async function ProfilePage() {
       <ProfileHeader />
 
       <Card className="rounded-2xl shadow-sm">
-        <ProfileCardHeader profile={profile} />
+        <ProfileCardHeader profile={profile} currentUser={currentUser} />
 
         <Separator className="h-1 bg-slate-300" />
 

@@ -61,11 +61,11 @@ export function getProfileItems(profile: PhysicianProfile) {
       value: profile.footCareLink,
       type: 'info',
     },
-    {
-      id: 'image',
-      label: 'Image',
-      type: 'image',
-    },
+    // {
+    //   id: 'image',
+    //   label: 'Image',
+    //   type: 'image',
+    // },
     {
       id: 'expertise',
       label: 'Expertise',
