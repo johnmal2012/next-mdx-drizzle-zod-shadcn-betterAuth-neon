@@ -32,6 +32,7 @@ import { SectionField } from '@/components/sections/section-form-field';
 import { toast } from 'sonner';
 import { getSectionDefaultValues } from '@/lib/sections/section-default-values';
 import { sectionFormFields } from '@/lib/sections/section-form-fields';
+import { SectionImageUpload } from '@/components/sections/section-image-upload';
 
 type SectionFormProps = {
   section?: Section;
@@ -144,17 +145,31 @@ export default function SectionForm({ section }: SectionFormProps) {
               {sectionFormFields.map((field, index) => (
                 <Field
                   key={field.id}
-                  className={cn('rounded-lg p-4', getCardBackground(index))} // one-column form if size > md:
+                  className={cn('rounded-lg p-4', getCardBackground(index))}
                 >
                   <SectionField field={field} form={form} />
                 </Field>
               ))}
             </FieldGroup>
+
+            {/* Image Upload for Philosophy and Research */}
+            {section &&
+              (section.slug === 'philosophy' ||
+                section.slug === 'research') && (
+                <div className="rounded-lg border bg-slate-50 p-4">
+                  <SectionImageUpload
+                    slug={section.slug}
+                    image={section.image ?? null}
+                  />
+                </div>
+              )}
+
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button
+                type="submit"
                 disabled={form.formState.isSubmitting}
-                className="h-10 px-4 w-28 bg-green-600! hover:bg-green-700!"
+                className="h-10 w-28 bg-green-600! hover:bg-green-700!"
               >
                 {section ? 'Update' : 'Create'}
               </Button>

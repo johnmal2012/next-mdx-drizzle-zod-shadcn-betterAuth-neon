@@ -25,6 +25,10 @@ export const physicianSections = pgTable('physician_sections', {
 
   content: text('content'),
 
+  image: text('image'),
+
+  imageKey: text('image_key'),
+
   displayOrder: integer('display_order').notNull().default(0),
 
   isActive: boolean('is_active').notNull().default(true),
