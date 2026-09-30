@@ -44,9 +44,9 @@ export const physicianProfile = pgTable(
     clinics: jsonb('clinics').$type<Clinic[]>().notNull().default([]),
 
     // expertise: jsonb('expertise').$type<string[]>().default([]),
-    expertise: jsonb('expertise').$type<Expertise[]>().notNull().default([]),
+    expertise: jsonb('expertises').$type<Expertise[]>().notNull().default([]),
 
-    credential: jsonb('credential').$type<Credential[]>().notNull().default([]),
+    credential: jsonb('credentials').$type<Credential[]>().notNull().default([]),
 
     phone: text('phone'),
 
