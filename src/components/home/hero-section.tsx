@@ -81,8 +81,8 @@ export default function HeroSection({
               <br />
               Foot &amp; Ankle Conditions
             </p> */}
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#173b5d]">
-              {title}
+            <p className="mb-4 whitespace-pre-line text-xs font-semibold uppercase tracking-[0.28em] text-[#173b5d]">
+              {title?.trim() || 'Specialized Care for Foot & Ankle Conditions'}
             </p>
 
             <h1 className="font-serif text-4xl leading-[0.98] tracking-[-0.03em] text-[#0d3152] sm:text-5xl lg:text-6xl">

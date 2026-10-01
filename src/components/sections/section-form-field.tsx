@@ -34,7 +34,7 @@ export function SectionField({ field, form }: SectionFormProps) {
         <Textarea
           id={field.id}
           placeholder={field.placeholder}
-          className="min-h-96 resize-y font-mono text-sm"
+          className="min-h-48 resize-y font-mono text-sm"
           aria-invalid={!!error}
           {...form.register(field.name)}
         />
