@@ -20,6 +20,8 @@ type HeroSectionProps = {
   heroFacts?: HeroFact[] | null;
   className?: string;
   title?: string;
+  quote?: string;
+  message?: string;
 };
 
 // Map saved icon names to Lucide components.
@@ -35,6 +37,8 @@ export default function HeroSection({
   heroFacts,
   className,
   title,
+  quote,
+  message,
 }: HeroSectionProps) {
   // Fallback facts for when no facts have been saved yet.
   const defaultFacts: HeroFact[] = [
@@ -157,19 +161,14 @@ export default function HeroSection({
                 'lg:w-[35%]',
               )}
             >
-              <p className="font-serif text-base italic leading-[1.05] text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-lg md:text-lg lg:text-xl">
-                Keep Moving
-                <br />
-                Forward
+              <p className="font-serif text-base whitespace-pre-line italic leading-[1.05] text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:text-lg md:text-lg lg:text-xl">
+                "{quote}"
               </p>
 
               <div className="ml-auto mt-2 h-px w-7 bg-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] sm:mt-3 sm:w-8" />
 
-              <p className="mt-2 text-[6px] font-semibold uppercase leading-3 tracking-[0.14em] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] sm:text-[7px] sm:leading-3.5 sm:tracking-[0.17em] md:text-[7px] lg:text-[8px] lg:tracking-[0.18em]">
-                Expert Care.
-                <br />
-                Real Progress.
-                <br />A More Active You.
+              <p className="mt-2 text-[6px] whitespace-pre-line font-semibold uppercase leading-3 tracking-[0.14em] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] sm:text-[7px] sm:leading-3.5 sm:tracking-[0.17em] md:text-[7px] lg:text-[8px] lg:tracking-[0.18em]">
+                {message}
               </p>
             </div>
           </div>
