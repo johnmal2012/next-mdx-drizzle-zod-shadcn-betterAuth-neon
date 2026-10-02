@@ -43,7 +43,7 @@ import {
 import { UploadDropzone } from '@/lib/uploadthing';
 
 import { cn } from '@/lib/utils';
-import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 interface CredentialEditorProps {
   control: Control<PhysicianProfileFormInput>;
@@ -68,7 +68,7 @@ export function CredentialEditor({
       type: 'education',
       label: '',
       institution: '',
-      //   breakAfter: '',
+      breakAfter: '',
       image: '',
       imageKey: '',
     });
@@ -285,21 +285,28 @@ function CredentialCard({
         <Field>
           <FieldLabel>Institution</FieldLabel>
 
-          <Textarea
+          <Input
             {...register(`credential.${index}.institution`)}
-            placeholder={`Baylor University College of Medicine`}
-            rows={2}
-            className="min-h-16 resize-y"
+            placeholder="Albert Einstein College of Medicine"
           />
-
-          <p className="text-xs text-muted-foreground">
-            Enter the institution name. Use Enter to start a new line wherever
-            you want the text to break.
-          </p>
 
           <FieldError>{error?.institution?.message}</FieldError>
         </Field>
 
+        {/* Break afer */}
+        <div className="space-y-2">
+          <Label htmlFor={`credential-${index}-breakAfter`}>Break After</Label>
+
+          <Input
+            id={`credential-${index}-breakAfter`}
+            placeholder="Example: Albert Einstein"
+            {...register(`credential.${index}.breakAfter`)}
+          />
+
+          <p className="text-xs text-muted-foreground">
+            Optional. The institution will break into two lines after this text.
+          </p>
+        </div>
         {/* Image */}
         <Field>
           <FieldLabel>Credential Image</FieldLabel>
