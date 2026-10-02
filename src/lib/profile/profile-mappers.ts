@@ -146,7 +146,7 @@ function normalizeCredentials(
     type: item.type,
     label: item.label.trim(),
     institution: item.institution.trim(),
-    breakAfter: item.breakAfter?.trim() ?? '',
+    // breakAfter: item.breakAfter?.trim() ?? '',
     image: item.image?.trim() ?? '',
     imageKey: item.imageKey?.trim() ?? '',
   }));

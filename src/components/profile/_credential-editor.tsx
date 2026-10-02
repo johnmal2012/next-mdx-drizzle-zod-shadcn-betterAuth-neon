@@ -68,7 +68,7 @@ export function CredentialEditor({
       type: 'education',
       label: '',
       institution: '',
-      breakAfter: '',
+    //   breakAfter: '',
       image: '',
       imageKey: '',
     });
@@ -293,7 +293,7 @@ function CredentialCard({
           <FieldError>{error?.institution?.message}</FieldError>
         </Field>
 
-        {/* Break afer */}
+        {/* Break afer
         <div className="space-y-2">
           <Label htmlFor={`credential-${index}-breakAfter`}>Break After</Label>
 
@@ -306,7 +306,7 @@ function CredentialCard({
           <p className="text-xs text-muted-foreground">
             Optional. The institution will break into two lines after this text.
           </p>
-        </div>
+        </div> */}
         {/* Image */}
         <Field>
           <FieldLabel>Credential Image</FieldLabel>
