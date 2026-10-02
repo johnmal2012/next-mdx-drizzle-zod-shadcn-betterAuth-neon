@@ -12,15 +12,9 @@ const optionalCoordinate = z.preprocess(
 
 export const clinicSchema = z
   .object({
-    name: z
-      .string()
-      .trim()
-      .min(1, 'Clinic name is required.'),
+    name: z.string().trim().min(1, 'Clinic name is required.'),
 
-    address: z
-      .string()
-      .trim()
-      .min(1, 'Clinic address is required.'),
+    address: z.string().trim().min(1, 'Clinic address is required.'),
 
     latitude: optionalCoordinate,
 
@@ -52,10 +46,7 @@ export const clinicSchema = z
     }
 
     // Validate latitude range.
-    if (
-      latitude !== undefined &&
-      (latitude < -90 || latitude > 90)
-    ) {
+    if (latitude !== undefined && (latitude < -90 || latitude > 90)) {
       ctx.addIssue({
         code: 'custom',
         path: ['latitude'],
@@ -64,10 +55,7 @@ export const clinicSchema = z
     }
 
     // Validate longitude range.
-    if (
-      longitude !== undefined &&
-      (longitude < -180 || longitude > 180)
-    ) {
+    if (longitude !== undefined && (longitude < -180 || longitude > 180)) {
       ctx.addIssue({
         code: 'custom',
         path: ['longitude'],
@@ -75,5 +63,9 @@ export const clinicSchema = z
       });
     }
   });
+
+// export const clinicsSchema = z
+//   .array(clinicSchema)
+//   .max(20, 'A maximum of 20 clinic locations is allowed.');
 
 export type ClinicInput = z.infer<typeof clinicSchema>;
