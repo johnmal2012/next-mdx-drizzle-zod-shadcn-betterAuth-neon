@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import type { Expertise } from '@/lib/types/expertise';
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import { cn } from '@/lib/utils';
