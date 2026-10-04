@@ -1,8 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Mail, MapPin, Phone } from 'lucide-react';
-// import { physicianData } from '@/data/_physician';
-// import { headingData } from '@/data/heading';
 import { Clinic } from '@/lib/types/clinic';
 
 interface ContactSectionProps {
@@ -31,7 +29,12 @@ export default function ContactSection({
     <section id={slug} className={cn('scroll-mt-28 px-6 py-12', background)}>
       <div className="mx-auto max-w-5xl">
         <Card className="rounded-3xl p-10 shadow-xl">
-          <h2 className="mb-10 text-3xl font-bold">{title}</h2>
+          <div className="flex items-center gap-4">
+            <h2 className="font-serif text-2xl font-semibold tracking-tight text-[#123b5c] sm:text-3xl">
+              {title ?? 'Contact Information'}
+            </h2>
+            <span className="hidden h-px w-10 bg-[#286487] sm:block" />
+          </div>
 
           <div
             className={cn(

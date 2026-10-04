@@ -1,4 +1,3 @@
-
 import AboutSection from '@/components/home/about-section';
 import HeroSection from '@/components/home/hero-section';
 import ExpertiseSection from '@/components/home/expertise-section';
@@ -15,26 +14,17 @@ import type { HeroFact } from '@/lib/types/hero-fact';
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import { ReactNode } from 'react';
 
-const SECTION_BACKGROUNDS = [
-  'bg-white',
-  'bg-[#eaeff5]',
-] as const;
+const SECTION_BACKGROUNDS = ['bg-white', 'bg-[#eaeff5]'] as const;
 
 function getSectionBackground(index: number) {
-  return SECTION_BACKGROUNDS[
-    index % SECTION_BACKGROUNDS.length
-  ];
+  return SECTION_BACKGROUNDS[index % SECTION_BACKGROUNDS.length];
 }
 
-type WebsiteData = Awaited<
-  ReturnType<typeof getWebsiteData>
->;
+type WebsiteData = Awaited<ReturnType<typeof getWebsiteData>>;
 
 type Profile = NonNullable<WebsiteData['profile']>;
 
-type WebsiteSection = NonNullable<
-  WebsiteData['sections']
->[number];
+type WebsiteSection = NonNullable<WebsiteData['sections']>[number];
 
 type HomepageSectionsProps = {
   profile: Profile;
@@ -66,9 +56,7 @@ export default function HomepageSections({
     switch (section.slug) {
       case 'home':
       case 'hero': {
-        const heroFacts: HeroFact[] | null = Array.isArray(
-          section.heroFacts,
-        )
+        const heroFacts: HeroFact[] | null = Array.isArray(section.heroFacts)
           ? (section.heroFacts as HeroFact[])
           : null;
 
@@ -78,8 +66,7 @@ export default function HomepageSections({
             profile={profile}
             heroFacts={heroFacts}
             title={
-              section.title ??
-              'Specialized Care for Foot & Ankle Conditions'
+              section.title ?? 'Specialized Care for Foot & Ankle Conditions'
             }
             quote={section.quote ?? ''}
             message={section.message ?? ''}
@@ -190,6 +177,7 @@ export default function HomepageSections({
         if (clinics.length > 0) {
           renderedSections.push(
             <LocationSection
+              title={section.title ?? 'Our Locations'}
               key="location"
               clinics={clinics}
               className={background}
