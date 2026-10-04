@@ -2,14 +2,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-
 import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
-
 import { deletePhysicianProfile } from '@/actions/profile/physician-profile-actions';
-
 import { ConfirmActionDialog } from '@/components/shared/confirm-action-dialog';
+import { Trash } from 'lucide-react';
 
 type PhysicianProfileDeleteProps = {
   profileId: number;
@@ -50,10 +47,9 @@ export function PhysicianProfileDeleteButton({
       confirmButtonClassName="bg-destructive hover:bg-destructive/90"
       trigger={
         <Button variant="destructive" className="h-10 w-24">
-          Delete
+          <Trash className="h-4 w-4" />Delete
         </Button>
       }
-      //   onConfirm={() => deletePhysicianProfile(profileId)}
       onConfirm={handleDelete}
     />
   );
