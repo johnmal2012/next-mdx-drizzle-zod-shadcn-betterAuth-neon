@@ -1,4 +1,7 @@
-import { ArrowUpRight, Building2 } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Building2,
+} from 'lucide-react';
 
 import type { Clinic } from '@/lib/types/clinic';
 import { cn } from '@/lib/utils';
@@ -11,7 +14,7 @@ export default function LocationSection({
   clinics,
   className,
 }: {
-  title: string;
+  title?: string;
   clinics: Clinic[];
   className?: string;
 }) {
@@ -24,7 +27,7 @@ export default function LocationSection({
     >
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          title={title ?? 'Our Locations'}
+          title={title?.trim() || 'Our Locations'}
           //   href="/locations"
           //   linkLabel="View All Locations"
         />

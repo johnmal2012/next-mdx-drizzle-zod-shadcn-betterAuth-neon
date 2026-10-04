@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import type { Expertise } from '@/lib/types/expertise';
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import { cn } from '@/lib/utils';
@@ -54,7 +56,7 @@ export default function ExpertiseSection({
           <div>
             <div className="flex items-center gap-4">
               <h2 className="font-serif text-2xl font-semibold tracking-tight text-[#123b5c] sm:text-3xl">
-                {section?.title ?? 'Areas of Expertise'}
+                {section?.title?.trim() || 'Areas of Expertise'}
               </h2>
 
               <span className="hidden h-px w-10 bg-[#286487] sm:block" />
@@ -93,61 +95,3 @@ export default function ExpertiseSection({
     </section>
   );
 }
-
-// function ConditionCard({ item, index }: { item: Expertise; index: number }) {
-//   const imageSources = [
-//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-//     'https://www.footcaremd.org/images/librariesprovider2/article-images/achillesrupture.png?sfvrsn=5c7d297d_0',
-//     'https://footcaremd.org/images/librariesprovider2/banners/ankle-conditions.jpg?sfvrsn=9ff79bc_4',
-//     'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=500&q=80',
-//     'https://www.footcaremd.org/images/librariesprovider2/article-images/halluxrigidus.png?sfvrsn=1a74a198_0&MaxWidth=350&MaxHeight=200&ScaleUp=false&Quality=High&Method=ResizeFitToAreaArguments&Signature=9F6B62D061285B96711B66E23230A843B80579D5',
-//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-//     'https://images.unsplash.com/photo-1542884748-2b87b36c6b90?auto=format&fit=crop&w=500&q=80',
-//     'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=500&q=80',
-//   ];
-
-//   const content = item.text || 'Foot & Ankle Care';
-
-//   const imageSrc =
-//     item.image?.trim() || imageSources[index % imageSources.length];
-
-//   const card = (
-//     <article className="group flex h-full min-w-0 flex-col items-center">
-//       <div className="aspect-[1.55/1] w-[88%] shrink-0 overflow-hidden rounded-md bg-slate-200 sm:w-[86%] lg:w-[82%]">
-//         <img
-//           src={imageSrc}
-//           alt=""
-//           aria-hidden="true"
-//           className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-//         />
-//       </div>
-
-//       <div className="flex w-[88%] flex-1 justify-center px-0.5 pt-3 pb-1 sm:w-[86%] lg:w-[82%]">
-//         <h3
-//           className="m-0 block w-full max-w-full text-center font-serif text-[11px] font-semibold leading-[1.35] text-[#123b5c] sm:text-xs lg:text-[10px] xl:text-[11px]"
-//           style={{
-//             overflowWrap: 'break-word',
-//             wordBreak: 'normal',
-//           }}
-//         >
-//           {content}
-//         </h3>
-//       </div>
-//     </article>
-//   );
-
-//   if (!item.url) {
-//     return card;
-//   }
-
-//   return (
-//     <Link
-//       href={item.url}
-//       target="_blank"
-//       rel="noopener noreferrer"
-//       className="block h-full min-w-0 max-w-full"
-//     >
-//       {card}
-//     </Link>
-//   );
-// }
