@@ -7,7 +7,6 @@ import {
   FieldArrayWithId,
   UseFormRegister,
   useFieldArray,
-//   useWatch,
 } from 'react-hook-form';
 
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
@@ -32,17 +31,12 @@ export function ClinicEditor({ control, register, errors }: ClinicEditorProps) {
     name: 'clinics',
   });
 
-//   const clinics = useWatch({
-//     control,
-//     name: 'clinics',
-//   });
-
   function addClinic() {
     append({
       name: '',
       address: '',
-      latitude: 0,
-      longitude: 0,
+      latitude: undefined,
+      longitude: undefined,
     });
   }
 
@@ -97,7 +91,7 @@ export function ClinicEditor({ control, register, errors }: ClinicEditorProps) {
           register={register}
           remove={remove}
           errors={errors?.clinics?.[index]}
-          total={fields.length}
+        //   total={fields.length}
         />
       ))}
 
@@ -117,10 +111,7 @@ export function ClinicEditor({ control, register, errors }: ClinicEditorProps) {
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Clinic Card                                                      */
-/* ---------------------------------------------------------------- */
-
+// Clinic Card
 interface ClinicCardProps {
   field: FieldArrayWithId<PhysicianProfileFormInput, 'clinics', 'id'>;
 
@@ -132,14 +123,13 @@ interface ClinicCardProps {
 
   errors?: any;
 
-  total: number;
+//   total: number;
 }
 function ClinicCard({
   index,
   register,
   remove,
   errors,
-//   total,
 }: ClinicCardProps) {
   return (
     <Card

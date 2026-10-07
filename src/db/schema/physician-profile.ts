@@ -11,7 +11,7 @@ import {
 import { user } from '@/db/schema/auth-schema';
 import { Clinic } from '@/lib/types/clinic';
 import { Expertise } from '@/lib/types/expertise';
-import { Credential } from '@/lib/types/credential';
+import { Credential } from '@/lib/validations/credential';
 
 export const physicianProfile = pgTable(
   'physician_profile',
@@ -80,14 +80,3 @@ export const physicianProfile = pgTable(
   },
   (table) => [uniqueIndex('physician_profile_user_id_idx').on(table.userId)],
 );
-
-// // move all relation definitions into a separate relations.ts file to avoid circular dependency
-// export const physicianProfileRelations = relations(
-//   physicianProfile,
-//   ({ one }) => ({
-//     user: one(user, {
-//       fields: [physicianProfile.userId],
-//       references: [user.id],
-//     }),
-//   }),
-// );
