@@ -72,12 +72,12 @@ function AccordionTrigger({
 
         <ChevronDownIcon
           data-slot="accordion-trigger-icon"
-          className="pointer-events-none absolute left-1/2 top-5 size-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-muted p-2 text-foreground shadow-sm transition-colors group-hover/accordion-trigger:bg-accent group-aria-expanded/accordion-trigger:hidden"
+          className="pointer-events-none absolute right-2 top-3 size-8 rounded-full border border-border bg-muted p-2 text-foreground shadow-sm transition-colors group-hover/accordion-trigger:bg-accent group-aria-expanded/accordion-trigger:hidden"
         />
 
         <ChevronUpIcon
           data-slot="accordion-trigger-icon"
-          className="pointer-events-none absolute left-1/2 top-1/2 hidden size-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-muted p-2 text-foreground shadow-sm transition-colors group-hover/accordion-trigger:bg-accent group-aria-expanded/accordion-trigger:inline"
+          className="pointer-events-none absolute right-2 top-3 hidden size-8 rounded-full border border-border bg-muted p-2 text-foreground shadow-sm transition-colors group-hover/accordion-trigger:bg-accent group-aria-expanded/accordion-trigger:inline"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
