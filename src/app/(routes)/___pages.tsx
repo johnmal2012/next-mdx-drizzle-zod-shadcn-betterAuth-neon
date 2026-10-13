@@ -37,7 +37,7 @@ export default async function PhysicianPage() {
 
   const { profile, sections, navItems } = websiteData;
 
-//   console.log('sections: ', sections);
+  //   console.log('sections: ', sections);
 
   if (!sections) {
     return <NoSectionState />;
@@ -67,7 +67,7 @@ export default async function PhysicianPage() {
       <FooterSection
         // clinicName={profile.clinicName ?? ''}
         // clinicAddress={profile.clinicAddress ?? ''}
-        clinics={profile.clinics ?? []}
+        name={profile.name ?? ''}
       />
     </main>
   );

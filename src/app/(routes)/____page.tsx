@@ -1102,7 +1102,7 @@ export default async function PhysicianPage() {
       ))}
 
       {/* Footer */}
-      <FooterSection clinics={clinics} />
+      <FooterSection name={profile.name ?? ''} />
     </main>
   );
 }

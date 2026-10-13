@@ -1148,7 +1148,7 @@ export default async function PhysicianPage(_props: PhysicianPageProps) {
       {/* FOOTER                                                            */}
       {/* ------------------------------------------------------------------ */}
 
-      <FooterSection clinics={clinics} />
+      <FooterSection name={profile.name ?? ''} />
     </main>
   );
 }
