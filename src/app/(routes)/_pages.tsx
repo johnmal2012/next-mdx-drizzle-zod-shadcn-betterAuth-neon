@@ -317,7 +317,7 @@ export default async function PhysicianPage() {
       <FooterSection
         // clinicName={profile.clinics?.[0]?.name ?? ''}
         // clinicAddress={profile.clinics?.[0]?.address ?? ''}
-        clinics={profile.clinics ?? []}
+        name={profile.name ?? ''}
       />
     </main>
   );
