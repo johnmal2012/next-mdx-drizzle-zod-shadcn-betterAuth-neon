@@ -76,17 +76,6 @@ export default async function ProfilePage() {
   }
 
   const { profile, currentUser, items } = profileData;
-
-  // Helper function for alternating backgrounds on mobile
-  //   const getMobileBackground = (index: number) => {
-  //     return index % 2 === 0 ? 'bg-slate-100' : 'bg-white';
-  //   };
-
-  //   const desktopRows = [];
-  //   for (let i = 0; i < allItems.length; i += 2) {
-  //     desktopRows.push(allItems.slice(i, i + 2));
-  //   }
-
   return (
     <div className="container mx-auto space-y-6 py-10">
       <ProfileHeader />
@@ -127,7 +116,9 @@ export default async function ProfilePage() {
               {profile.credential.map((credential, index) => (
                 <Card
                   key={`${credential.institution}-${index}`}
-                  className="overflow-hidden rounded-xl border-slate-200 shadow-sm transition-shadow hover:shadow-md"
+                  className={`overflow-hidden rounded-xl border-0 shadow-sm transition-shadow hover:shadow-md ${
+                    index % 2 === 0 ? 'bg-slate-100' : 'bg-white'
+                  }`}
                 >
                   <CardContent className="flex gap-4 p-5">
                     {/* Credential Image */}
