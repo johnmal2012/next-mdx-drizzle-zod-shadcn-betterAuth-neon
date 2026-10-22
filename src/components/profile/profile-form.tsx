@@ -65,11 +65,11 @@ export function ProfileForm({
   >('');
 
   const router = useRouter();
-
-  const nextSectionBackground = () =>
-  getSectionBackground(sectionIndex++);
   
   let sectionIndex = 0;
+  
+  const nextSectionBackground = () =>
+  getSectionBackground(sectionIndex++);
 
   // Form
   const form = useForm<PhysicianProfileFormInput>({
