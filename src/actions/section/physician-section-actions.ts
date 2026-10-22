@@ -1,203 +1,155 @@
+// 3) admin sections page
 'use server';
 
 import { revalidatePath } from 'next/cache';
+
 import { eq } from 'drizzle-orm';
-import { APIError } from 'better-auth/api';
 
 import { db } from '@/db/db';
-import { physicianProfile } from '@/db/schema/physician-profile';
 
-import { physicianProfileSchema } from '@/lib/validations/physician-profile';
+import { physicianSections } from '@/db/schema/physician-sections';
 
+import {
+  PhysicianSectionFormInput,
+  physicianSectionSchema,
+  physicianSectionUpdateSchema,
+} from '@/lib/validations/physician-section';
+import { APIError } from 'better-auth/api';
 import { requireAdmin } from '@/lib/auth/auth-utils';
 
-import type { PhysicianProfilePayload } from '@/lib/profile/profile-mappers';
-
-// CREATE
-export async function createPhysicianProfile(values: PhysicianProfilePayload) {
+export async function getPhysicianSections() {
   try {
-    await requireAdmin();
-
-    /*
-     * Validate the complete payload on the server.
-     *
-     * At this point:
-     *
-     * clinics   = Clinic[]
-     * expertise = Expertise[]
-     *
-     * There is no textarea-to-array conversion anymore.
-     */
-    const validated = physicianProfileSchema.safeParse(values);
-
-    if (!validated.success) {
-      console.error('Invalid physician profile data:', validated.error.issues);
-
-      return {
-        error: 'Invalid profile data',
-      };
-    }
-
-    // requireAdmin() has already authenticated the user,
-    // so retrieve the session only after validation.
-    const session = await requireAdmin();
-
-    await db.insert(physicianProfile).values({
-      userId: session.user.id,
-
-      logo: validated.data.logo,
-      name: validated.data.name,
-      boardSpecialty: validated.data.boardSpecialty,
-      specialty: validated.data.specialty,
-      title: validated.data.title,
-      // Image is allowed during CREATE
-      // On a newly created profile, the image may be supplied by the initial profile data
-      image: validated.data.image,
-
-      clinics: validated.data.clinics,
-
-      phone: validated.data.phone,
-      email: validated.data.email,
-      linkName: validated.data.linkName,
-      footCareLink: validated.data.footCareLink,
-
-      expertise: validated.data.expertise,
-
-      credential: validated.data.credential,
-    });
-
-    revalidateProfilePaths();
+    const sections = await db.select().from(physicianSections);
 
     return {
-      error: null,
+      success: true,
+      data: sections,
     };
-  } catch (err) {
-    console.error('createPhysicianProfile error:', err);
-
-    if (err instanceof APIError) {
-      return {
-        error: err.message,
-      };
-    }
-
+  } catch (error) {
+    console.error(error);
     return {
-      error: 'Internal Server Error',
+      success: false,
+      message: 'Failed to fetch sections',
     };
   }
 }
 
-// UPDATE
-export async function updatePhysicianProfile(
-  id: number,
-  values: PhysicianProfilePayload,
+// =========================
+// CREATE
+// =========================
+
+export async function createPhysicianSection(
+  values: PhysicianSectionFormInput,
 ) {
   try {
     await requireAdmin();
-    // Server-side validation.
-    const validated = physicianProfileSchema.safeParse(values);
+    
+    const validated = physicianSectionSchema.safeParse(values);
 
     if (!validated.success) {
-      console.error(
-        'Invalid physician profile data:',
-        // validated.error.flatten(),
-        validated.error.issues,
-      );
-
       return {
-        error: 'Invalid profile data',
+        error: 'Invalid section data',
       };
     }
 
-    // Only update fields belonging to the physician profile.
-    // In particular, userId is NOT changed during an update.
-    await db
-      .update(physicianProfile)
-      .set({
-        logo: validated.data.logo,
-        name: validated.data.name,
-        boardSpecialty: validated.data.boardSpecialty,
-        specialty: validated.data.specialty,
-        title: validated.data.title,
-        // image and imageKey are intentionally NOT included here
-        // which is managed separately by ProfileImageUpload() in profile-image-upload.ts
-        // image: validated.data.image,
+    await db.insert(physicianSections).values(validated.data);
 
-        // Repeatable Clinic Editor data.
-        // This is written directly to the JSONB column.
-        clinics: validated.data.clinics,
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/sections');
 
-        phone: validated.data.phone,
-        email: validated.data.email,
-        linkName: validated.data.linkName,
-        footCareLink: validated.data.footCareLink,
-
-        // Repeatable Expertise Editor data
-        expertise: validated.data.expertise,
-
-        // Repeatable Credential editor data
-        credential: validated.data.credential,
-
-        updatedAt: new Date(),
-      })
-      .where(eq(physicianProfile.id, id));
-
-    revalidateProfilePaths();
-
-    return {
-      error: null,
-    };
+    return { error: null };
   } catch (err) {
-    console.error('updatePhysicianProfile error:', err);
-
     if (err instanceof APIError) {
-      return {
-        error: err.message,
-      };
+      return { error: err.message };
     }
 
-    return {
-      error: 'Internal Server Error',
-    };
+    return { error: 'Internal Server Error' };
   }
 }
 
-// DELETE / SOFT
-export async function deletePhysicianProfile(profileId: number) {
+// =========================
+// UPDATE
+// =========================
+export async function updatePhysicianSection(
+  id: number,
+  values: PhysicianSectionFormInput,
+) {
+  try {
+    await requireAdmin();
+    
+    const validated = physicianSectionUpdateSchema.safeParse(values);
+
+    if (!validated.success) {
+      return {
+        error: 'Invalid section data',
+      };
+    }
+
+    const existing = await db.query.physicianSections.findFirst({
+      where: eq(physicianSections.id, id),
+    });
+
+    if (!existing) {
+      return {
+        error: 'Section not found',
+      };
+    }
+
+    await db
+      .update(physicianSections)
+      .set(validated.data)
+      .where(eq(physicianSections.id, id));
+
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/sections');
+
+    return { error: null };
+  } catch (err) {
+    if (err instanceof APIError) {
+      return { error: err.message };
+    }
+
+    return { error: 'Internal Server Error' };
+  }
+}
+
+// =========================
+// DELETE
+// =========================
+export async function deletePhysicianSection(sectionId: number) {
   try {
     await requireAdmin();
 
-    await db
-      .update(physicianProfile)
-      .set({
-        isActive: false,
-        deletedAt: new Date(),
-        updatedAt: new Date(),
-      })
-      .where(eq(physicianProfile.id, profileId));
+    const existing = await db.query.physicianSections.findFirst({
+      where: eq(physicianSections.id, sectionId),
+    });
 
-    revalidateProfilePaths();
-
-    return {
-      error: null,
-    };
-  } catch (err) {
-    console.error('deletePhysicianProfile error:', err);
-
-    if (err instanceof APIError) {
+    if (!existing) {
       return {
-        error: err.message,
+        error: 'Section not found',
       };
     }
 
-    return {
-      error: 'Internal Server Error',
-    };
-  }
-}
+    await db
+      .update(physicianSections)
+      .set({
+        isActive: false,
+        deletedAt: new Date(),
+      })
+      .where(eq(physicianSections.id, sectionId));
 
-// Revalidation
-function revalidateProfilePaths() {
-  revalidatePath('/');
-  revalidatePath('/profile');
-  revalidatePath('/sections');
+    revalidatePath('/');
+    revalidatePath('/profile');
+    revalidatePath('/sections');
+
+    return { error: null };
+  } catch (err) {
+    if (err instanceof APIError) {
+      return { error: err.message };
+    }
+
+    return { error: 'Internal Server Error' };
+  }
 }
