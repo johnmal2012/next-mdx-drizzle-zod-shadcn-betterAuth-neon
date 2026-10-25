@@ -4,6 +4,7 @@ import HomepageSections from '@/components/home/homepage-sections';
 
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import type { Clinic } from '@/lib/types/clinic';
+import PhysicianIntroVideo from '@/components/home/physician-intro-video';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,6 +51,7 @@ export default async function PhysicianPage() {
         footCareLink={profile.footCareLink ?? ''}
       />
 
+      <PhysicianIntroVideo />
       <HomepageSections
         profile={profile}
         sections={sections}
