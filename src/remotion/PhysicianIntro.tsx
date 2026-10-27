@@ -47,19 +47,24 @@ function FadeText({
 }
 
 function SceneBackground({ image }: { image: string }) {
+  const src = staticFile(`remotion/${image}`);
+
   return (
     <>
       <Img
-        src={staticFile(`remotion/${image}`)}
+        src={src}
+        onError={() => {
+          console.error(`Failed to load Remotion image: ${src}`);
+        }}
         style={{
           position: 'absolute',
           inset: 0,
           width: '100%',
           height: '100%',
           objectFit: 'contain',
-          //   objectPosition: 'center 5%',
         }}
       />
+
       <AbsoluteFill
         style={{
           background:
@@ -69,6 +74,29 @@ function SceneBackground({ image }: { image: string }) {
     </>
   );
 }
+// function SceneBackground({ image }: { image: string }) {
+//   return (
+//     <>
+//       <Img
+//         src={staticFile(`remotion/${image}`)}
+//         style={{
+//           position: 'absolute',
+//           inset: 0,
+//           width: '100%',
+//           height: '100%',
+//           objectFit: 'contain',
+//           //   objectPosition: 'center 5%',
+//         }}
+//       />
+//       <AbsoluteFill
+//         style={{
+//           background:
+//             'linear-gradient(90deg, rgba(12,32,52,0.88), rgba(12,32,52,0.18))',
+//         }}
+//       />
+//     </>
+//   );
+// }
 
 function PhysicianScene() {
   return (
@@ -123,9 +151,19 @@ function ExpertiseScene() {
       <SceneBackground image="patient-care.png" />
       <div style={{ position: 'absolute', left: 100, top: 125 }}>
         <FadeText>
-          <h2 style={{ fontSize: 60, marginBottom: 20 }}>
+          {/* <h2 style={{ fontSize: 60, marginBottom: 20 }}>
             Expertise & patient care
-          </h2>
+          </h2> */}
+          <div
+            style={{
+              color: '#B8E3DF',
+              fontSize: 28,
+              letterSpacing: 5,
+              textTransform: 'uppercase',
+            }}
+          >
+            Expertise & patient care
+          </div>
         </FadeText>
 
         {topics.map((topic, index) => (
@@ -151,11 +189,19 @@ function ExpertiseScene() {
 
 function CredentialsScene() {
   return (
-    <AbsoluteFill style={{ backgroundColor: '#F5F8FA', color: navy }}>
+    <AbsoluteFill
+      style={{
+        backgroundColor: '#F5F8FA',
+        color: navy,
+      }}
+    >
+      {/* Background image */}
       <SceneBackground image="credentials.jpg" />
+
+      {/* Light overlay to keep text readable */}
       <AbsoluteFill
         style={{
-          backgroundColor: 'rgba(245,248,250,0.90)',
+          backgroundColor: 'rgba(245,248,250,0.55)',
           justifyContent: 'center',
           paddingLeft: 120,
         }}
@@ -171,6 +217,7 @@ function CredentialsScene() {
           >
             Professional development
           </div>
+
           <h2 style={{ fontSize: 62, margin: '18px 0 30px' }}>
             Training & credentials
           </h2>
@@ -178,15 +225,20 @@ function CredentialsScene() {
 
         <FadeText delay={18}>
           <div style={{ fontSize: 34, lineHeight: 1.8 }}>
-            MEDICAL SCHOOL<br />Albert Einstein College of Medicine
-            <br /><br />
-            ORTHOPEDIC SURGERY RESIDENCY<br />Maimonides Medical Center
-            <br /><br />
-            FOOT AND ANKLE SURGERY FELLOWSHIP<br />Baylor University Medical Center
+            MEDICAL SCHOOL
+            <br />
+            Albert Einstein College of Medicine
+            <br />
+            <br />
+            ORTHOPEDIC SURGERY RESIDENCY
+            <br />
+            Maimonides Medical Center
+            <br />
+            <br />
+            FOOT AND ANKLE SURGERY FELLOWSHIP
+            <br />
+            Baylor University Medical Center
           </div>
-          {/* <div style={{ fontSize: 22, marginTop: 20 }}>
-            Replace these labels with verified profile details.
-          </div> */}
         </FadeText>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -206,24 +258,42 @@ function LocationsScene() {
         }}
       >
         <FadeText>
-          <h2 style={{ fontSize: 66, marginBottom: 24 }}>
+          {/* <h2 style={{ fontSize: 66, marginBottom: 24 }}>
             Find a location that works for you.
-          </h2>
+          </h2> */}
+                    <div
+            style={{
+              color: '#B8E3DF',
+              fontSize: 28,
+              letterSpacing: 5,
+              textTransform: 'uppercase',
+            }}
+          >
+            Find a location that works for you
+          </div>
         </FadeText>
 
         <FadeText delay={15}>
-          <div style={{ fontSize: 34, lineHeight: 1.6 }}>
-            Maimonides Bone and Joint Center:<br />6010 Bay Parkway, 7th & 8th Floors,
-            Brooklyn, NY 11204
-            <br /><br />
-            Maimonides Bone and Joint Center – Kings Highway:<br />1715 East 13th
-            Street, 4th Floor, Brooklyn, NY 11219
-            <br /><br />
-            Maimonides Bone and Joint Center – Carroll Gardens<br />330 Court Street,
-            Brooklyn, NY 11231
-            <br /><br />
+          <div style={{ fontSize: 20, lineHeight: 1.6, marginTop: 10 }}>
+            Maimonides Bone and Joint Center:
+            <br />
+            6010 Bay Parkway, 7th & 8th Floors, Brooklyn, NY 11204
+            <br />
+            <br />
+            Maimonides Bone and Joint Center – Kings Highway:
+            <br />
+            1715 East 13th Street, 4th Floor, Brooklyn, NY 11219
+            <br />
+            <br />
+            Maimonides Bone and Joint Center – Carroll Gardens
+            <br />
+            330 Court Street, Brooklyn, NY 11231
+            <br />
+            <br />
             Maimonides Medical Center Ambulatory Health Services Network (AHSN)
-            Orthopedic Services:<br />948 48th Street, Brooklyn, NY 11219
+            Orthopedic Services:
+            <br />
+            948 48th Street, Brooklyn, NY 11219
           </div>
         </FadeText>
 
