@@ -12,7 +12,7 @@ export const RemotionRoot: React.FC = () => {
       width={1920}
       height={1080}
       fps={30}
-      durationInFrames={660}
+      durationInFrames={720} // Updated duration to 720 frames to accommodate the extended scene: 540 + 180 = 720
     />
   );
 };

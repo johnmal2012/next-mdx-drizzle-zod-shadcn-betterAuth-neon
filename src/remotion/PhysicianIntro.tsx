@@ -1,5 +1,5 @@
 // Remotion composition to register a renderable video and <Sequence> components to place scenes on the timeline
-import React from 'react';
+import { type FC, type ReactNode } from 'react';
 import {
   AbsoluteFill,
   Img,
@@ -7,40 +7,37 @@ import {
   interpolate,
   staticFile,
   useCurrentFrame,
+  Html5Audio,
 } from 'remotion';
 
 const navy = '#16324F';
 const teal = '#2B7A78';
 
 const scenes = [
-  { from: 0, duration: 150 },
-  { from: 150, duration: 180 },
-  { from: 330, duration: 150 },
-  { from: 480, duration: 180 },
+  { from: 0, duration: 180 },
+  { from: 180, duration: 180 },
+  { from: 360, duration: 180 },
+  { from: 540, duration: 180 },
 ];
 
 function FadeText({
   children,
   delay = 0,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   delay?: number;
 }) {
   const frame = useCurrentFrame();
 
-  const opacity = interpolate(
-    frame,
-    [delay, delay + 18],
-    [0, 1],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-  );
+  const opacity = interpolate(frame, [delay, delay + 18], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
-  const translateY = interpolate(
-    frame,
-    [delay, delay + 18],
-    [20, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-  );
+  const translateY = interpolate(frame, [delay, delay + 18], [20, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <div style={{ opacity, transform: `translateY(${translateY}px)` }}>
@@ -60,6 +57,7 @@ function SceneBackground({ image }: { image: string }) {
           width: '100%',
           height: '100%',
           objectFit: 'contain',
+          //   objectPosition: 'center 5%',
         }}
       />
       <AbsoluteFill
@@ -99,7 +97,7 @@ function PhysicianScene() {
 
         <FadeText delay={12}>
           <h1 style={{ fontSize: 78, lineHeight: 1.1, margin: '24px 0' }}>
-            Dr. Nikki Lam, DPM
+            Dr. Arron Lam, DPM
           </h1>
         </FadeText>
 
@@ -122,7 +120,7 @@ function ExpertiseScene() {
 
   return (
     <AbsoluteFill style={{ backgroundColor: navy, color: 'white' }}>
-      <SceneBackground image="patient-care.jpg" />
+      <SceneBackground image="patient-care.png" />
       <div style={{ position: 'absolute', left: 100, top: 125 }}>
         <FadeText>
           <h2 style={{ fontSize: 60, marginBottom: 20 }}>
@@ -180,13 +178,15 @@ function CredentialsScene() {
 
         <FadeText delay={18}>
           <div style={{ fontSize: 34, lineHeight: 1.8 }}>
-            Education • Residency
-            <br />
-            Fellowship • Certification
+            MEDICAL SCHOOL<br />Albert Einstein College of Medicine
+            <br /><br />
+            ORTHOPEDIC SURGERY RESIDENCY<br />Maimonides Medical Center
+            <br /><br />
+            FOOT AND ANKLE SURGERY FELLOWSHIP<br />Baylor University Medical Center
           </div>
-          <div style={{ fontSize: 22, marginTop: 20 }}>
+          {/* <div style={{ fontSize: 22, marginTop: 20 }}>
             Replace these labels with verified profile details.
-          </div>
+          </div> */}
         </FadeText>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -207,13 +207,23 @@ function LocationsScene() {
       >
         <FadeText>
           <h2 style={{ fontSize: 66, marginBottom: 24 }}>
-            Convenient clinic locations
+            Find a location that works for you.
           </h2>
         </FadeText>
 
         <FadeText delay={15}>
           <div style={{ fontSize: 34, lineHeight: 1.6 }}>
-            Find a location that works for you.
+            Maimonides Bone and Joint Center:<br />6010 Bay Parkway, 7th & 8th Floors,
+            Brooklyn, NY 11204
+            <br /><br />
+            Maimonides Bone and Joint Center – Kings Highway:<br />1715 East 13th
+            Street, 4th Floor, Brooklyn, NY 11219
+            <br /><br />
+            Maimonides Bone and Joint Center – Carroll Gardens<br />330 Court Street,
+            Brooklyn, NY 11231
+            <br /><br />
+            Maimonides Medical Center Ambulatory Health Services Network (AHSN)
+            Orthopedic Services:<br />948 48th Street, Brooklyn, NY 11219
           </div>
         </FadeText>
 
@@ -237,23 +247,32 @@ function LocationsScene() {
   );
 }
 
-export const PhysicianIntro: React.FC = () => {
+export const PhysicianIntro: FC = () => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Arial, sans-serif' }}>
+      {/* Narration for the entire video */}
+      {/* Scene 1: Physician introduction */}
       <Sequence from={scenes[0].from} durationInFrames={scenes[0].duration}>
         <PhysicianScene />
+        <Html5Audio src={staticFile('audio/aaron-lam.m4a')} />
       </Sequence>
 
+      {/* Scene 2: Expertise and patient care */}
       <Sequence from={scenes[1].from} durationInFrames={scenes[1].duration}>
         <ExpertiseScene />
+        <Html5Audio src={staticFile('audio/patient-care.m4a')} />
       </Sequence>
 
+      {/* Scene 3: Training and credentials */}
       <Sequence from={scenes[2].from} durationInFrames={scenes[2].duration}>
         <CredentialsScene />
+        <Html5Audio src={staticFile('audio/credential.m4a')} />
       </Sequence>
 
+      {/* Scene 4: Clinic locations */}
       <Sequence from={scenes[3].from} durationInFrames={scenes[3].duration}>
         <LocationsScene />
+        <Html5Audio src={staticFile('audio/location.m4a')} />
       </Sequence>
     </AbsoluteFill>
   );

@@ -8,7 +8,7 @@ export default function PhysicianIntroVideo() {
         id="physician-intro-heading"
         className="mb-5 text-2xl font-semibold tracking-tight text-slate-900"
       >
-        Meet Dr. Nikki Lam
+        Meet Dr. Arron Lam
       </h2>
 
       <video
