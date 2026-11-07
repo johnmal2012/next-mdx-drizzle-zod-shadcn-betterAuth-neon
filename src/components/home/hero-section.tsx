@@ -54,7 +54,7 @@ export default function HeroSection({
     },
     {
       icon: 'map-pin',
-      title: profile.location ?? 'Brooklyn, NY',
+      title: profile.location ?? 'Proudly Serving Brooklyn, NY',
       subtitle: 'and surrounding communities',
     },
   ];
@@ -124,6 +124,7 @@ export default function HeroSection({
             </div>
 
             {/* Hero Facts */}
+            {/* note: always provide a unique key when using .map() to render React elements. Use a stable ID when available; use the array index for static, unchanging lists. */}
             <div className="mt-7 grid grid-cols-1 gap-4 border-t border-slate-300/80 pt-5 sm:grid-cols-3 sm:gap-3">
               {displayFacts.map((fact, index) => (
                 <HeroFactItem key={`${fact.icon}-${index}`} fact={fact} />

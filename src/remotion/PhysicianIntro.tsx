@@ -320,7 +320,7 @@ function LocationsScene() {
 export const PhysicianIntro: FC = () => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Arial, sans-serif' }}>
-      {/* Narration for the entire video */}
+      {/* Narration for the entire video in here*/}
       {/* Scene 1: Physician introduction */}
       <Sequence from={scenes[0].from} durationInFrames={scenes[0].duration}>
         <PhysicianScene />
