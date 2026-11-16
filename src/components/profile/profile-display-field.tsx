@@ -4,7 +4,7 @@ import { Field, FieldLabel } from '@/components/ui/field';
 
 import { PhysicianProfile } from '@/lib/types/physician-profile';
 
-import { getProfileItems } from '@/lib/profile/get-profile-items';
+import { getProfileItems } from '@/features/profile/get-profile-items';
 
 import { cn } from '@/lib/utils';
 

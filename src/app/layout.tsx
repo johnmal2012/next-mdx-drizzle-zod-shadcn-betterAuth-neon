@@ -3,7 +3,7 @@ import '@/app/globals.css';
 import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
+import { getActivePhysicianProfile } from '@/features/profile/get-physician-profile';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 

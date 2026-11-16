@@ -1,6 +1,6 @@
 import { db } from '@/db/db';
-import { getActivePhysicianProfile } from '@/lib/profile/get-physician-profile';
-import { getProfileItems } from '@/lib/profile/get-profile-items';
+import { getActivePhysicianProfile } from '@/features/profile/get-physician-profile';
+import { getProfileItems } from '@/features/profile/get-profile-items';
 import { PhysicianProfile } from '@/lib/types/physician-profile';
 
 type CurrentUserId = string | null;
@@ -23,8 +23,10 @@ type ProfilePageDataError = {
 export type ProfilePageDataResult =
   | ProfilePageDataSuccess
   | ProfilePageDataError;
-  
-export async function getProfilePageData(currentUserId: CurrentUserId): Promise<ProfilePageDataResult> {
+
+export async function getProfilePageData(
+  currentUserId: CurrentUserId,
+): Promise<ProfilePageDataResult> {
   const result = await getActivePhysicianProfile();
 
   if (!result.success) {
@@ -45,14 +47,15 @@ export async function getProfilePageData(currentUserId: CurrentUserId): Promise<
 
   const [currentUser, items] = await Promise.all([
     currentUserId
-      ? db.query.user.findFirst({
-          columns: {
-            image: true,
-            name: true,
-          },
-          where: (user, { eq }) => eq(user.id, currentUserId),
-        })
-        .then((user) => user ?? null)
+      ? db.query.user
+          .findFirst({
+            columns: {
+              image: true,
+              name: true,
+            },
+            where: (user, { eq }) => eq(user.id, currentUserId),
+          })
+          .then((user) => user ?? null)
       : Promise.resolve(null),
 
     Promise.resolve(getProfileItems(profile)),
@@ -77,5 +80,4 @@ export type CurrentUser = ProfilePageData['currentUser'];
 // export type ProfileItem = ProfilePageData['items'][number];
 // array items type
 // export type ProfileItem = ProfilePageData['items'];
-export type ProfileItem =
-  ReturnType<typeof getProfileItems>[number];
+export type ProfileItem = ReturnType<typeof getProfileItems>[number];

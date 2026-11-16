@@ -27,14 +27,9 @@ import {
 } from '@/lib/validations/physician-section';
 
 import { cn, getCardBackground } from '@/lib/utils';
-import { getSectionDefaultValues } from '@/lib/sections/section-default-values';
-import { sectionFormFields } from '@/lib/sections/section-form-fields';
-import {
-  FilePlus2,
-  X,
-  Save,
-  LoaderCircle,
-} from 'lucide-react';
+import { getSectionDefaultValues } from '@/features/sections/section-default-values';
+import { sectionFormFields } from '@/features/sections/section-form-fields';
+import { FilePlus2, X, Save, LoaderCircle } from 'lucide-react';
 
 type Section = InferSelectModel<typeof physicianSections>;
 

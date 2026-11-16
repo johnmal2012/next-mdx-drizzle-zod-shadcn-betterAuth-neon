@@ -24,6 +24,12 @@ export default function PhysicianIntroVideo() {
         />
         Your browser does not support HTML video.
       </video>
+      {/* <video
+        controls
+        preload="metadata"
+        width="100%"
+        src="/videos/physician-intro.mp4"
+      /> */}
     </section>
   );
 }

@@ -4,5 +4,8 @@ allowBuilds:
   msw: true
   sharp: true
   unrs-resolver: true
+permissions:
+  dotenv:
+    skills: false
 skills: 
   dir: []

@@ -10,7 +10,7 @@ import {
 import { FieldGroup } from '@/components/ui/field';
 
 import { cn, getCardBackground } from '@/lib/utils';
-import { profileFormFields } from '@/lib/profile/profile-form-fields';
+import { profileFormFields } from '@/features/profile/profile-form-fields';
 import { ProfileFormField } from '@/components/profile/profile-form-field';
 
 import type { UseFormReturn } from 'react-hook-form';

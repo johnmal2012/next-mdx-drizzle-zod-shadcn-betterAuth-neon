@@ -1,0 +1,1 @@
+ALTER TABLE "sections" ALTER COLUMN "user_id" SET DATA TYPE uuid;

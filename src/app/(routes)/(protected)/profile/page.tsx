@@ -9,7 +9,7 @@ import {
 // import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getSession } from '@/lib/auth/auth-utils';
-import { getProfilePageData } from '@/lib/profile/get-profile-page-data';
+import { getProfilePageData } from '@/features/profile/get-profile-page-data';
 import { ProfileHeader } from '@/components/profile/profile-header';
 import { ProfileCardHeader } from '@/components/profile/profile-card-header';
 import { DesktopProfileGrid } from '@/components/profile/profile-desktop-grid';

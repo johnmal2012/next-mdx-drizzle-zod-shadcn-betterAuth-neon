@@ -3,7 +3,7 @@ import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PhysicianProfileDeleteButton } from '@/components/profile/profile-delete-button';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { CurrentUser } from '@/lib/profile/get-profile-page-data';
+import { CurrentUser } from '@/features/profile/get-profile-page-data';
 import { SquarePen } from 'lucide-react';
 
 export function ProfileCardHeader({
@@ -37,7 +37,10 @@ export function ProfileCardHeader({
             asChild
             className="h-10 w-24 bg-green-600! text-white! hover:bg-green-700!"
           >
-            <Link href={`/profile/${profile.id}/edit`}><SquarePen className="h-4 w-4" />Edit</Link>
+            <Link href={`/profile/${profile.id}/edit`}>
+              <SquarePen className="h-4 w-4" />
+              Edit
+            </Link>
           </Button>
 
           <PhysicianProfileDeleteButton profileId={profile.id} />

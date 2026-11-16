@@ -26,7 +26,7 @@ import {
   physicianProfileFormSchema,
 } from '@/lib/validations/physician-profile';
 
-import { profileFormFields } from '@/lib/profile/profile-form-fields';
+import { profileFormFields } from '@/features/profile/profile-form-fields';
 
 import { BasicInformationEditor } from '@/components/profile/basic-information-editor';
 
@@ -34,9 +34,9 @@ import { ClinicEditor } from '@/components/profile/clinic-editor';
 
 import { ExpertiseEditor } from '@/components/profile/expertise-editor';
 
-import { getProfileDefaultValues } from '@/lib/profile/profile-default-values';
+import { getProfileDefaultValues } from '@/features/profile/profile-default-values';
 
-import { toProfilePayload } from '@/lib/profile/profile-mappers';
+import { toProfilePayload } from '@/features/profile/profile-mappers';
 import { CredentialEditor } from '@/components/profile/credential-editor';
 import { useState } from 'react';
 import { FilePlus2, LoaderCircle, Save, X, UserRound } from 'lucide-react';
@@ -65,11 +65,10 @@ export function ProfileForm({
   >('');
 
   const router = useRouter();
-  
+
   let sectionIndex = 0;
-  
-  const nextSectionBackground = () =>
-  getSectionBackground(sectionIndex++);
+
+  const nextSectionBackground = () => getSectionBackground(sectionIndex++);
 
   // Form
   const form = useForm<PhysicianProfileFormInput>({
@@ -152,12 +151,7 @@ export function ProfileForm({
       </div>
 
       {/* Basic Information */}
-      <section
-        className={cn(
-          'rounded-lg border p-4',
-          nextSectionBackground(),
-        )}
-      >
+      <section className={cn('rounded-lg border p-4', nextSectionBackground())}>
         <BasicInformationEditor
           form={form}
           userName={userName}
@@ -168,12 +162,7 @@ export function ProfileForm({
       </section>
 
       {/* Clinics */}
-      <section
-        className={cn(
-          'rounded-lg border p-4',
-          nextSectionBackground(),
-        )}
-      >
+      <section className={cn('rounded-lg border p-4', nextSectionBackground())}>
         <ClinicEditor
           control={form.control}
           register={form.register}
@@ -183,12 +172,7 @@ export function ProfileForm({
         />
       </section>
       {/* Expertise */}
-      <section
-        className={cn(
-          'rounded-lg border p-4',
-          nextSectionBackground(),
-        )}
-      >
+      <section className={cn('rounded-lg border p-4', nextSectionBackground())}>
         <ExpertiseEditor
           control={form.control}
           register={form.register}
@@ -200,12 +184,7 @@ export function ProfileForm({
       </section>
 
       {/* Training & Credentials */}
-      <section
-        className={cn(
-          'rounded-lg border p-4',
-          nextSectionBackground(),
-        )}
-      >
+      <section className={cn('rounded-lg border p-4', nextSectionBackground())}>
         <CredentialEditor
           control={form.control}
           register={form.register}

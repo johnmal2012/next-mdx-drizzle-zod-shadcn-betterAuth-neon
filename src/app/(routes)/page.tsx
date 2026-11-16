@@ -5,25 +5,19 @@ import HomepageSections from '@/components/home/homepage-sections';
 import { getWebsiteData } from '@/lib/website/get-website-data';
 import type { Clinic } from '@/lib/types/clinic';
 import PhysicianIntroVideo from '@/components/home/physician-intro-video';
-// import PhysicianIntroPlayer from
-//   '@/components/home/physician-intro-player';
+// import PhysicianProfileAudio from '@/components/home/physician-profile-audio';
+// import PhysicianIntroPlayer from '@/components/home/physician-intro-player';
 
 export const dynamic = 'force-dynamic';
 
-function normalizeClinics(
-  clinics: Clinic[] | null | undefined,
-): Clinic[] {
+function normalizeClinics(clinics: Clinic[] | null | undefined): Clinic[] {
   return Array.isArray(clinics) ? clinics : [];
 }
 
 export default async function PhysicianPage() {
   const websiteData = await getWebsiteData();
 
-  if (
-    !websiteData.success ||
-    !websiteData.profile ||
-    !websiteData.sections
-  ) {
+  if (!websiteData.success || !websiteData.profile || !websiteData.sections) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white px-6">
         <div className="w-full max-w-md rounded-lg border border-red-200 bg-red-50 p-6 text-center">
@@ -31,8 +25,7 @@ export default async function PhysicianPage() {
             Website unavailable
           </h1>
           <p className="mt-2 text-sm text-red-700">
-            {websiteData.message ??
-              'Something went wrong. Please try again.'}
+            {websiteData.message ?? 'Something went wrong. Please try again.'}
           </p>
         </div>
       </main>
@@ -55,7 +48,8 @@ export default async function PhysicianPage() {
 
       <PhysicianIntroVideo />
       {/* <PhysicianIntroPlayer /> */}
-      
+      {/* <PhysicianProfileAudio audioKey="physicians/1/introduction.m4a" /> */}
+
       <HomepageSections
         profile={profile}
         sections={sections}

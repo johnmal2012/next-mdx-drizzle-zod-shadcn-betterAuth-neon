@@ -1,7 +1,7 @@
 import {
   CurrentUser,
   ProfileItem,
-} from '@/lib/profile/get-profile-page-data';
+} from '@/features/profile/get-profile-page-data';
 
 import { PhysicianProfile } from '@/lib/types/physician-profile';
 

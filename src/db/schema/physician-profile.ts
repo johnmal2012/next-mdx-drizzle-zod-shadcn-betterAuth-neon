@@ -38,6 +38,8 @@ export const physicianProfile = pgTable(
 
     imageKey: text('image_key'),
 
+    // audioObjectKey: text('audio_object_key'),
+
     // clinicName: text('clinic_name'),
 
     // clinicAddress: text('clinic_address'),

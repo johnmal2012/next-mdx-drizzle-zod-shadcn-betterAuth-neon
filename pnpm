@@ -1,0 +1,1118 @@
+]633;D;127]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendLegend: production dependency, optional only, dev only
+
+reactnextbetterauth@0.1.0 F:\VisualStudioCode\ReactNextDrizzleBetterAuthResend (PRIVATE)
+│
+│   dependencies:
+├── react@19.2.8
+├── react-dom@19.2.8
+├── remotion@4.0.541
+│
+│   devDependencies:
+└── @remotion/renderer@4.0.541
+
+4 packages
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendLegend: production dependency, optional only, dev only
+
+reactnextbetterauth@0.1.0 F:\VisualStudioCode\ReactNextDrizzleBetterAuthResend (PRIVATE)
+│
+│   dependencies:
+├── @aws-sdk/client-s3@3.1163.0
+├── @aws-sdk/s3-request-presigner@3.1163.0
+├── @hookform/resolvers@5.5.7
+├── @mdx-js/loader@3.1.1
+├── @mdx-js/react@3.1.1
+├── @neon/config@1.13.0
+├── @neon/env@2.1.0
+├── @neondatabase/serverless@1.1.0
+├── @next/mdx@16.2.12
+├── @node-rs/argon2@2.0.2
+├── @remotion/captions@4.0.541
+├── @remotion/codemods@4.0.541
+├── @remotion/compositor-win32-x64-msvc@4.0.541
+├── @remotion/elevenlabs@4.0.541
+├── @remotion/licensing@4.0.541
+├── @remotion/media@4.0.541
+├── @remotion/media-utils@4.0.541
+├── @remotion/openai-whisper@4.0.541
+├── @remotion/paths@4.0.541
+├── @remotion/player@4.0.541
+├── @remotion/sdk@4.0.541
+├── @remotion/streaming@4.0.541
+├── @remotion/studio@4.0.541
+├── @remotion/studio-protocol@4.0.541
+├── @remotion/studio-server@4.0.541
+├── @remotion/studio-shared@4.0.541
+├── @remotion/timeline-utils@4.0.541
+├── @remotion/web-renderer@4.0.541
+├── @remotion/zod-types@4.0.541
+├── @tailwindcss/typography@0.5.20
+├── @types/mdx@2.0.14
+├── @uploadthing/react@7.3.3
+├── better-auth@1.6.25
+├── class-variance-authority@0.7.1
+├── clsx@2.1.1
+├── cn@0.3.0
+├── drizzle-orm@0.45.2
+├── embla-carousel-react@8.6.0
+├── ffprobe@1.1.2
+├── leaflet@1.9.4
+├── lucide-react@1.27.0
+├── music-metadata@12.3.5
+├── next@16.2.12
+├── next-mdx-remote@6.0.0
+├── next-themes@0.4.6
+├── radix-ui@1.6.7
+├── react@19.2.8
+├── react-dom@19.2.8
+├── react-hook-form@7.83.0
+├── react-leaflet@5.0.0
+├── remark-gfm@4.0.1
+├── remotion@4.0.541
+├── resend@6.18.0
+├── server-only@0.0.1
+├── shadcn@4.15.0
+├── sonner@2.0.7
+├── tailwind-merge@3.6.0
+├── tw-animate-css@1.4.0
+├── uploadthing@7.7.4
+├── zod@4.6.7
+│
+│   devDependencies:
+├── @playwright/test@1.62.1
+├── @remotion/bundler@4.0.541
+├── @remotion/cli@4.0.541
+├── @remotion/renderer@4.0.541
+├── @tailwindcss/postcss@4.3.3
+├── @types/leaflet@1.9.22
+├── @types/node@26.1.1
+├── @types/react@19.2.17
+├── @types/react-dom@19.2.3
+├── dotenv@17.4.2
+├── drizzle-kit@0.30.5
+├── eslint@9.39.5
+├── eslint-config-next@16.2.12
+├── tailwindcss@4.3.3
+├── tsx@4.23.15
+└── typescript@6.0.3
+
+76 packages
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendreact@19.2.8
+├─┬ @floating-ui/react-dom@2.1.9
+│ └─┬ @radix-ui/react-popper@1.3.7
+│   ├─┬ @radix-ui/react-hover-card@1.1.23
+│   │ └─┬ radix-ui@1.6.7
+│   │   └── reactnextbetterauth@0.1.0 (dependencies)
+│   ├─┬ @radix-ui/react-menu@2.1.24
+│   │ ├─┬ @radix-ui/react-context-menu@2.3.7
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ ├─┬ @radix-ui/react-dropdown-menu@2.1.24
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ ├─┬ @radix-ui/react-menubar@1.1.24
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-popover@1.1.23
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-select@2.3.7
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-tooltip@1.2.16
+│   │ └── radix-ui@1.6.7 [deduped]
+│   └── radix-ui@1.6.7 [deduped]
+├─┬ @mdx-js/react@3.1.1
+│ ├─┬ @next/mdx@16.2.12
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├─┬ next-mdx-remote@6.0.0
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @radix-ui/react-accessible-icon@1.1.15
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-accordion@1.2.20
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-alert-dialog@1.1.23
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-arrow@1.1.15
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-aspect-ratio@1.1.15
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-avatar@1.2.6
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-checkbox@1.3.11
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-collapsible@1.1.20
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-collection@1.1.15
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├─┬ @radix-ui/react-navigation-menu@1.2.22
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-one-time-password-field@0.1.16
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-roving-focus@1.1.19
+│ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ │ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ │ ├─┬ @radix-ui/react-radio-group@1.4.7
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├─┬ @radix-ui/react-tabs@1.1.21
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├─┬ @radix-ui/react-toggle-group@1.1.19
+│ │ │ ├─┬ @radix-ui/react-toolbar@1.1.19
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├─┬ @radix-ui/react-slider@1.4.7
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-toast@1.2.23
+│ │ └── radix-ui@1.6.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-compose-refs@1.1.5
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ ├─┬ @radix-ui/react-dialog@1.1.23
+│ │ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-dismissable-layer@1.1.19
+│ │ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ │ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├─┬ @radix-ui/react-focus-scope@1.1.16
+│ │ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-form@0.1.16
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├─┬ @radix-ui/react-password-toggle-field@0.1.11
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├─┬ @radix-ui/react-scroll-area@1.2.18
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├─┬ @radix-ui/react-slot@1.3.3
+│ │ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ │ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ │ ├─┬ @radix-ui/react-primitive@2.1.10
+│ │ │ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ │ │ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ │ │ ├── @radix-ui/react-arrow@1.1.15 [deduped]
+│ │ │ ├── @radix-ui/react-aspect-ratio@1.1.15 [deduped]
+│ │ │ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ │ │ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ │ │ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ │ │ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ │ │ ├── @radix-ui/react-context-menu@2.3.7 [deduped]
+│ │ │ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ │ │ ├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+│ │ │ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ │ │ ├── @radix-ui/react-focus-scope@1.1.16 [deduped]
+│ │ │ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ │ │ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ │ │ ├─┬ @radix-ui/react-label@2.1.15
+│ │ │ │ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ │ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ │ │ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ │ │ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ │ │ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ │ │ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ │ │ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ │ │ ├─┬ @radix-ui/react-portal@1.1.17
+│ │ │ │ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ │ │ │ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ │ │ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ │ │ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ │ │ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ │ │ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ │ │ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├─┬ @radix-ui/react-progress@1.1.16
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ │ │ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ │ │ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ │ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ │ ├─┬ @radix-ui/react-separator@1.1.15
+│ │ │ │ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ │ │ ├─┬ @radix-ui/react-switch@1.3.7
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ │ │ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ │ │ ├─┬ @radix-ui/react-toggle@1.1.18
+│ │ │ │ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ │ │ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ │ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ │ ├─┬ @radix-ui/react-visually-hidden@1.2.11
+│ │ │ │ ├── @radix-ui/react-accessible-icon@1.1.15 [deduped]
+│ │ │ │ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ │ │ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ │ │ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ │ │ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-switch@1.3.7 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-context@1.2.2
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ ├── @radix-ui/react-context-menu@2.3.7 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-progress@1.1.16 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├── @radix-ui/react-switch@1.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-context-menu@2.3.7 [deduped]
+├── @radix-ui/react-dialog@1.1.23 [deduped]
+├─┬ @radix-ui/react-direction@1.1.4
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+├─┬ @radix-ui/react-focus-guards@1.1.6
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-focus-scope@1.1.16 [deduped]
+├── @radix-ui/react-form@0.1.16 [deduped]
+├── @radix-ui/react-hover-card@1.1.23 [deduped]
+├─┬ @radix-ui/react-id@1.1.4
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ └── @radix-ui/react-tooltip@1.2.16 [deduped]
+├── @radix-ui/react-label@2.1.15 [deduped]
+├── @radix-ui/react-menu@2.1.24 [deduped]
+├── @radix-ui/react-menubar@1.1.24 [deduped]
+├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+├── @radix-ui/react-popover@1.1.23 [deduped]
+├── @radix-ui/react-popper@1.3.7 [deduped]
+├── @radix-ui/react-portal@1.1.17 [deduped]
+├─┬ @radix-ui/react-presence@1.1.10
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-primitive@2.1.10 [deduped]
+├── @radix-ui/react-progress@1.1.16 [deduped]
+├── @radix-ui/react-radio-group@1.4.7 [deduped]
+├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+├── @radix-ui/react-select@2.3.7 [deduped]
+├── @radix-ui/react-separator@1.1.15 [deduped]
+├── @radix-ui/react-slider@1.4.7 [deduped]
+├── @radix-ui/react-slot@1.3.3 [deduped]
+├── @radix-ui/react-switch@1.3.7 [deduped]
+├── @radix-ui/react-tabs@1.1.21 [deduped]
+├── @radix-ui/react-toast@1.2.23 [deduped]
+├── @radix-ui/react-toggle@1.1.18 [deduped]
+├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+├── @radix-ui/react-toolbar@1.1.19 [deduped]
+├── @radix-ui/react-tooltip@1.2.16 [deduped]
+├─┬ @radix-ui/react-use-callback-ref@1.1.4
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+│ ├── @radix-ui/react-focus-scope@1.1.16 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├─┬ @radix-ui/react-use-escape-keydown@1.1.5
+│ │ └── radix-ui@1.6.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-use-controllable-state@1.2.6
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-context-menu@2.3.7 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├── @radix-ui/react-switch@1.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-toggle@1.1.18 [deduped]
+│ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-use-effect-event@0.0.5
+│ ├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-use-controllable-state@1.2.6 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-use-escape-keydown@1.1.5 [deduped]
+├─┬ @radix-ui/react-use-is-hydrated@0.1.3
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-use-layout-effect@1.1.4
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-id@1.1.4 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-portal@1.1.17 [deduped]
+│ ├── @radix-ui/react-presence@1.1.10 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ ├── @radix-ui/react-use-controllable-state@1.2.6 [deduped]
+│ ├── @radix-ui/react-use-effect-event@0.0.5 [deduped]
+│ ├─┬ @radix-ui/react-use-size@1.1.4
+│ │ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ │ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ │ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ │ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ │ ├── @radix-ui/react-switch@1.3.7 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-use-previous@1.1.4
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ └── @radix-ui/react-slider@1.4.7 [deduped]
+├─┬ @radix-ui/react-use-rect@1.1.4
+│ └── @radix-ui/react-popper@1.3.7 [deduped]
+├── @radix-ui/react-use-size@1.1.4 [deduped]
+├── @radix-ui/react-visually-hidden@1.2.11 [deduped]
+├─┬ @react-leaflet/core@3.0.0
+│ └─┬ react-leaflet@5.0.0
+│   └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/bundler@4.0.541
+│ ├─┬ @remotion/cli@4.0.541
+│ │ └── reactnextbetterauth@0.1.0 (devDependencies)
+│ ├─┬ @remotion/studio-server@4.0.541
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/cli@4.0.541 [deduped]
+├─┬ @remotion/media@4.0.541
+│ ├─┬ @remotion/studio@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/media-utils@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/player@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├─┬ @remotion/sdk@4.0.541
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/renderer@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/sdk@4.0.541 [deduped]
+├── @remotion/studio@4.0.541 [deduped]
+├─┬ @remotion/web-renderer@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @tanstack/react-virtual@3.14.9
+│ └── @remotion/studio@4.0.541 [deduped]
+├─┬ @uploadthing/react@7.3.3
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ better-auth@1.6.25
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ embla-carousel-react@8.6.0
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ lucide-react@1.27.0
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ next@16.2.12
+│ ├── @uploadthing/react@7.3.3 [deduped]
+│ ├── better-auth@1.6.25 [deduped]
+│ ├── reactnextbetterauth@0.1.0 (dependencies)
+│ └─┬ uploadthing@7.7.4
+│   ├── @uploadthing/react@7.3.3 [deduped]
+│   └── reactnextbetterauth@0.1.0 (dependencies)
+├── next-mdx-remote@6.0.0 [deduped]
+├─┬ next-themes@0.4.6
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├── radix-ui@1.6.7 [deduped]
+├─┬ react-dom@19.2.8
+│ ├── @floating-ui/react-dom@2.1.9 [deduped]
+│ ├── @radix-ui/react-accessible-icon@1.1.15 [deduped]
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-arrow@1.1.15 [deduped]
+│ ├── @radix-ui/react-aspect-ratio@1.1.15 [deduped]
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ ├── @radix-ui/react-context-menu@2.3.7 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-focus-scope@1.1.16 [deduped]
+│ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-label@2.1.15 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-portal@1.1.17 [deduped]
+│ ├── @radix-ui/react-presence@1.1.10 [deduped]
+│ ├── @radix-ui/react-primitive@2.1.10 [deduped]
+│ ├── @radix-ui/react-progress@1.1.16 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-separator@1.1.15 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├── @radix-ui/react-switch@1.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-toggle@1.1.18 [deduped]
+│ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ ├── @radix-ui/react-visually-hidden@1.2.11 [deduped]
+│ ├── @react-leaflet/core@3.0.0 [deduped]
+│ ├── @remotion/bundler@4.0.541 [deduped]
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/media@4.0.541 [deduped]
+│ ├── @remotion/media-utils@4.0.541 [deduped]
+│ ├── @remotion/player@4.0.541 [deduped]
+│ ├── @remotion/renderer@4.0.541 [deduped]
+│ ├── @remotion/sdk@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/web-renderer@4.0.541 [deduped]
+│ ├── @tanstack/react-virtual@3.14.9 [deduped]
+│ ├── better-auth@1.6.25 [deduped]
+│ ├── next@16.2.12 [deduped]
+│ ├── next-themes@0.4.6 [deduped]
+│ ├── radix-ui@1.6.7 [deduped]
+│ ├── react-leaflet@5.0.0 [deduped]
+│ ├── reactnextbetterauth@0.1.0 (dependencies)
+│ ├─┬ remotion@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ ├─┬ @remotion/codemods@4.0.541
+│ │ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ │ ├── @remotion/studio-server@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ ├── @remotion/media@4.0.541 [deduped]
+│ │ ├── @remotion/media-utils@4.0.541 [deduped]
+│ │ ├─┬ @remotion/paths@4.0.541
+│ │ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ ├── @remotion/player@4.0.541 [deduped]
+│ │ ├── @remotion/renderer@4.0.541 [deduped]
+│ │ ├── @remotion/sdk@4.0.541 [deduped]
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ ├── @remotion/studio-server@4.0.541 [deduped]
+│ │ ├─┬ @remotion/studio-shared@4.0.541
+│ │ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ │ ├── @remotion/codemods@4.0.541 [deduped]
+│ │ │ ├── @remotion/sdk@4.0.541 [deduped]
+│ │ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ │ ├── @remotion/studio-server@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ ├─┬ @remotion/timeline-utils@4.0.541
+│ │ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ ├── @remotion/web-renderer@4.0.541 [deduped]
+│ │ ├─┬ @remotion/zod-types@4.0.541
+│ │ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └─┬ sonner@2.0.7
+│   └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ react-hook-form@7.83.0
+│ ├─┬ @hookform/resolvers@5.5.7
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├── react-leaflet@5.0.0 [deduped]
+├─┬ react-remove-scroll@2.7.2
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ └── @radix-ui/react-select@2.3.7 [deduped]
+├─┬ react-remove-scroll-bar@2.3.8
+│ └── react-remove-scroll@2.7.2 [deduped]
+├─┬ react-style-singleton@2.2.3
+│ ├── react-remove-scroll@2.7.2 [deduped]
+│ └── react-remove-scroll-bar@2.3.8 [deduped]
+├── reactnextbetterauth@0.1.0 (dependencies)
+├── remotion@4.0.541 [deduped]
+├── sonner@2.0.7 [deduped]
+├─┬ styled-jsx@5.1.6
+│ └── next@16.2.12 [deduped]
+├─┬ use-callback-ref@1.3.3
+│ └── react-remove-scroll@2.7.2 [deduped]
+└─┬ use-sidecar@1.1.3
+  └── react-remove-scroll@2.7.2 [deduped]
+
+Found 1 version of react
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendreact-dom@19.2.8
+├─┬ @floating-ui/react-dom@2.1.9
+│ └─┬ @radix-ui/react-popper@1.3.7
+│   ├─┬ @radix-ui/react-hover-card@1.1.23
+│   │ └─┬ radix-ui@1.6.7
+│   │   └── reactnextbetterauth@0.1.0 (dependencies)
+│   ├─┬ @radix-ui/react-menu@2.1.24
+│   │ ├─┬ @radix-ui/react-context-menu@2.3.7
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ ├─┬ @radix-ui/react-dropdown-menu@2.1.24
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ ├─┬ @radix-ui/react-menubar@1.1.24
+│   │ │ └── radix-ui@1.6.7 [deduped]
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-popover@1.1.23
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-select@2.3.7
+│   │ └── radix-ui@1.6.7 [deduped]
+│   ├─┬ @radix-ui/react-tooltip@1.2.16
+│   │ └── radix-ui@1.6.7 [deduped]
+│   └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-accessible-icon@1.1.15
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-accordion@1.2.20
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-alert-dialog@1.1.23
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-arrow@1.1.15
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-aspect-ratio@1.1.15
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-avatar@1.2.6
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-checkbox@1.3.11
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-collapsible@1.1.20
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-collection@1.1.15
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├─┬ @radix-ui/react-navigation-menu@1.2.22
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-one-time-password-field@0.1.16
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-roving-focus@1.1.19
+│ │ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ │ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ │ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ │ ├─┬ @radix-ui/react-radio-group@1.4.7
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├─┬ @radix-ui/react-tabs@1.1.21
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├─┬ @radix-ui/react-toggle-group@1.1.19
+│ │ │ ├─┬ @radix-ui/react-toolbar@1.1.19
+│ │ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ │ └── radix-ui@1.6.7 [deduped]
+│ │ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├─┬ @radix-ui/react-slider@1.4.7
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├─┬ @radix-ui/react-toast@1.2.23
+│ │ └── radix-ui@1.6.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-context-menu@2.3.7 [deduped]
+├─┬ @radix-ui/react-dialog@1.1.23
+│ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-dismissable-layer@1.1.19
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+├─┬ @radix-ui/react-focus-scope@1.1.16
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-form@0.1.16
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-hover-card@1.1.23 [deduped]
+├─┬ @radix-ui/react-label@2.1.15
+│ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-menu@2.1.24 [deduped]
+├── @radix-ui/react-menubar@1.1.24 [deduped]
+├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+├─┬ @radix-ui/react-password-toggle-field@0.1.11
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-popover@1.1.23 [deduped]
+├── @radix-ui/react-popper@1.3.7 [deduped]
+├─┬ @radix-ui/react-portal@1.1.17
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-presence@1.1.10
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├─┬ @radix-ui/react-scroll-area@1.2.18
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├─┬ @radix-ui/react-primitive@2.1.10
+│ ├── @radix-ui/react-accordion@1.2.20 [deduped]
+│ ├── @radix-ui/react-alert-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-arrow@1.1.15 [deduped]
+│ ├── @radix-ui/react-aspect-ratio@1.1.15 [deduped]
+│ ├── @radix-ui/react-avatar@1.2.6 [deduped]
+│ ├── @radix-ui/react-checkbox@1.3.11 [deduped]
+│ ├── @radix-ui/react-collapsible@1.1.20 [deduped]
+│ ├── @radix-ui/react-collection@1.1.15 [deduped]
+│ ├── @radix-ui/react-context-menu@2.3.7 [deduped]
+│ ├── @radix-ui/react-dialog@1.1.23 [deduped]
+│ ├── @radix-ui/react-dismissable-layer@1.1.19 [deduped]
+│ ├── @radix-ui/react-dropdown-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-focus-scope@1.1.16 [deduped]
+│ ├── @radix-ui/react-form@0.1.16 [deduped]
+│ ├── @radix-ui/react-hover-card@1.1.23 [deduped]
+│ ├── @radix-ui/react-label@2.1.15 [deduped]
+│ ├── @radix-ui/react-menu@2.1.24 [deduped]
+│ ├── @radix-ui/react-menubar@1.1.24 [deduped]
+│ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ ├── @radix-ui/react-one-time-password-field@0.1.16 [deduped]
+│ ├── @radix-ui/react-password-toggle-field@0.1.11 [deduped]
+│ ├── @radix-ui/react-popover@1.1.23 [deduped]
+│ ├── @radix-ui/react-popper@1.3.7 [deduped]
+│ ├── @radix-ui/react-portal@1.1.17 [deduped]
+│ ├─┬ @radix-ui/react-progress@1.1.16
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-radio-group@1.4.7 [deduped]
+│ ├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+│ ├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+│ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ ├─┬ @radix-ui/react-separator@1.1.15
+│ │ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-slider@1.4.7 [deduped]
+│ ├─┬ @radix-ui/react-switch@1.3.7
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-tabs@1.1.21 [deduped]
+│ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ ├─┬ @radix-ui/react-toggle@1.1.18
+│ │ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ ├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+│ ├── @radix-ui/react-toolbar@1.1.19 [deduped]
+│ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ ├─┬ @radix-ui/react-visually-hidden@1.2.11
+│ │ ├── @radix-ui/react-accessible-icon@1.1.15 [deduped]
+│ │ ├── @radix-ui/react-navigation-menu@1.2.22 [deduped]
+│ │ ├── @radix-ui/react-select@2.3.7 [deduped]
+│ │ ├── @radix-ui/react-toast@1.2.23 [deduped]
+│ │ ├── @radix-ui/react-tooltip@1.2.16 [deduped]
+│ │ └── radix-ui@1.6.7 [deduped]
+│ └── radix-ui@1.6.7 [deduped]
+├── @radix-ui/react-progress@1.1.16 [deduped]
+├── @radix-ui/react-radio-group@1.4.7 [deduped]
+├── @radix-ui/react-roving-focus@1.1.19 [deduped]
+├── @radix-ui/react-scroll-area@1.2.18 [deduped]
+├── @radix-ui/react-select@2.3.7 [deduped]
+├── @radix-ui/react-separator@1.1.15 [deduped]
+├── @radix-ui/react-slider@1.4.7 [deduped]
+├── @radix-ui/react-switch@1.3.7 [deduped]
+├── @radix-ui/react-tabs@1.1.21 [deduped]
+├── @radix-ui/react-toast@1.2.23 [deduped]
+├── @radix-ui/react-toggle@1.1.18 [deduped]
+├── @radix-ui/react-toggle-group@1.1.19 [deduped]
+├── @radix-ui/react-toolbar@1.1.19 [deduped]
+├── @radix-ui/react-tooltip@1.2.16 [deduped]
+├── @radix-ui/react-visually-hidden@1.2.11 [deduped]
+├─┬ @react-leaflet/core@3.0.0
+│ └─┬ react-leaflet@5.0.0
+│   └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/bundler@4.0.541
+│ ├─┬ @remotion/cli@4.0.541
+│ │ └── reactnextbetterauth@0.1.0 (devDependencies)
+│ ├─┬ @remotion/studio-server@4.0.541
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/cli@4.0.541 [deduped]
+├─┬ @remotion/media@4.0.541
+│ ├─┬ @remotion/studio@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/media-utils@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/player@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├─┬ @remotion/sdk@4.0.541
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/renderer@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/sdk@4.0.541 [deduped]
+├── @remotion/studio@4.0.541 [deduped]
+├─┬ @remotion/web-renderer@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @tanstack/react-virtual@3.14.9
+│ └── @remotion/studio@4.0.541 [deduped]
+├─┬ better-auth@1.6.25
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ next@16.2.12
+│ ├─┬ @uploadthing/react@7.3.3
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── better-auth@1.6.25 [deduped]
+│ ├── reactnextbetterauth@0.1.0 (dependencies)
+│ └─┬ uploadthing@7.7.4
+│   ├── @uploadthing/react@7.3.3 [deduped]
+│   └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ next-themes@0.4.6
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├── radix-ui@1.6.7 [deduped]
+├── react-leaflet@5.0.0 [deduped]
+├── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ remotion@4.0.541
+│ ├── @remotion/bundler@4.0.541 [deduped]
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├─┬ @remotion/codemods@4.0.541
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ ├── @remotion/studio-server@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/media@4.0.541 [deduped]
+│ ├── @remotion/media-utils@4.0.541 [deduped]
+│ ├─┬ @remotion/paths@4.0.541
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/player@4.0.541 [deduped]
+│ ├── @remotion/renderer@4.0.541 [deduped]
+│ ├── @remotion/sdk@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ ├─┬ @remotion/studio-shared@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ ├── @remotion/codemods@4.0.541 [deduped]
+│ │ ├── @remotion/sdk@4.0.541 [deduped]
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ ├── @remotion/studio-server@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├─┬ @remotion/timeline-utils@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/web-renderer@4.0.541 [deduped]
+│ ├─┬ @remotion/zod-types@4.0.541
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+└─┬ sonner@2.0.7
+  └── reactnextbetterauth@0.1.0 (dependencies)
+
+Found 1 version of react-dom
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendremotion@4.0.541
+├─┬ @remotion/bundler@4.0.541
+│ ├─┬ @remotion/cli@4.0.541
+│ │ └── reactnextbetterauth@0.1.0 (devDependencies)
+│ ├─┬ @remotion/studio-server@4.0.541
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/cli@4.0.541 [deduped]
+├─┬ @remotion/codemods@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├─┬ @remotion/studio@4.0.541
+│ │ ├── @remotion/bundler@4.0.541 [deduped]
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/media@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/media-utils@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/paths@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/player@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├─┬ @remotion/sdk@4.0.541
+│ │ ├── @remotion/studio@4.0.541 [deduped]
+│ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/renderer@4.0.541
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├── @remotion/sdk@4.0.541 [deduped]
+├── @remotion/studio@4.0.541 [deduped]
+├── @remotion/studio-server@4.0.541 [deduped]
+├─┬ @remotion/studio-shared@4.0.541
+│ ├── @remotion/bundler@4.0.541 [deduped]
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ ├── @remotion/codemods@4.0.541 [deduped]
+│ ├── @remotion/sdk@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ ├── @remotion/studio-server@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/timeline-utils@4.0.541
+│ ├── @remotion/bundler@4.0.541 [deduped]
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/web-renderer@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├─┬ @remotion/zod-types@4.0.541
+│ ├── @remotion/studio@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+└── reactnextbetterauth@0.1.0 (dependencies)
+
+Found 1 version of remotion
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend@remotion/renderer@4.0.541
+├─┬ @remotion/cli@4.0.541
+│ └── reactnextbetterauth@0.1.0 (devDependencies)
+├─┬ @remotion/studio@4.0.541
+│ ├─┬ @remotion/bundler@4.0.541
+│ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ ├─┬ @remotion/studio-server@4.0.541
+│ │ │ ├── @remotion/cli@4.0.541 [deduped]
+│ │ │ └── reactnextbetterauth@0.1.0 (dependencies)
+│ │ └── reactnextbetterauth@0.1.0 (devDependencies)
+│ ├── @remotion/cli@4.0.541 [deduped]
+│ └── reactnextbetterauth@0.1.0 (dependencies)
+├── @remotion/studio-server@4.0.541 [deduped]
+└── reactnextbetterauth@0.1.0 (devDependencies)
+
+Found 1 version of @remotion/renderer
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend{
+  "@aws-sdk/client-s3": "^3.1163.0",
+  "@aws-sdk/s3-request-presigner": "^3.1163.0",
+  "@hookform/resolvers": "^5.5.7",
+  "@mdx-js/loader": "^3.1.1",
+  "@mdx-js/react": "^3.1.1",
+  "@neon/config": "^1.13.0",
+  "@neon/env": "^2.1.0",
+  "@neondatabase/serverless": "^1.1.0",
+  "@next/mdx": "^16.2.12",
+  "@node-rs/argon2": "^2.0.2",
+  "@remotion/captions": "4.0.541",
+  "@remotion/codemods": "4.0.541",
+  "@remotion/compositor-win32-x64-msvc": "4.0.541",
+  "@remotion/elevenlabs": "4.0.541",
+  "@remotion/licensing": "4.0.541",
+  "@remotion/media": "4.0.541",
+  "@remotion/media-utils": "4.0.541",
+  "@remotion/openai-whisper": "4.0.541",
+  "@remotion/paths": "4.0.541",
+  "@remotion/player": "4.0.541",
+  "@remotion/sdk": "4.0.541",
+  "@remotion/streaming": "4.0.541",
+  "@remotion/studio": "4.0.541",
+  "@remotion/studio-protocol": "4.0.541",
+  "@remotion/studio-server": "4.0.541",
+  "@remotion/studio-shared": "4.0.541",
+  "@remotion/timeline-utils": "4.0.541",
+  "@remotion/web-renderer": "4.0.541",
+  "@remotion/zod-types": "4.0.541",
+  "@tailwindcss/typography": "^0.5.20",
+  "@types/mdx": "^2.0.14",
+  "@uploadthing/react": "^7.3.3",
+  "better-auth": "^1.6.25",
+  "class-variance-authority": "^0.7.1",
+  "clsx": "^2.1.1",
+  "cn": "^0.3.0",
+  "drizzle-orm": "^0.45.2",
+  "embla-carousel-react": "^8.6.0",
+  "ffprobe": "^1.1.2",
+  "leaflet": "^1.9.4",
+  "lucide-react": "^1.27.0",
+  "music-metadata": "^12.3.5",
+  "next": "~16.2.12",
+  "next-mdx-remote": "^6.0.0",
+  "next-themes": "^0.4.6",
+  "radix-ui": "^1.6.7",
+  "react": "~19.2.8",
+  "react-dom": "~19.2.8",
+  "react-hook-form": "^7.83.0",
+  "react-leaflet": "^5.0.0",
+  "remark-gfm": "^4.0.1",
+  "remotion": "4.0.541",
+  "resend": "^6.18.0",
+  "server-only": "^0.0.1",
+  "shadcn": "^4.15.0",
+  "sonner": "^2.0.7",
+  "tailwind-merge": "^3.6.0",
+  "tw-animate-css": "^1.4.0",
+  "uploadthing": "^7.7.4",
+  "zod": "4.6.7"
+}
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend~19.2.8
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend[WARN] The store at C:\Users\Nikki\AppData\Local\pnpm\store\v11 is not used because packages cannot be hard linked from it into this project. Using the store at F:\.pnpm-store\v11 instead. Set storeDir to choose the store.
+✓ Lockfile passes supply-chain policies (verified 2h ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+dependencies:
+- remotion 4.0.541
+
+devDependencies:
++ remotion 4.0.541
+
+Done in 1.3s using pnpm v12.15.0
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResendReact version: 19.2.8
+createContext: function
+]633;D]633;P;Cwd=F:/VisualStudioCode/ReactNextDrizzleBetterAuthResend

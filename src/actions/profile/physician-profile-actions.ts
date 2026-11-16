@@ -11,7 +11,7 @@ import { physicianProfileSchema } from '@/lib/validations/physician-profile';
 
 import { requireAdmin } from '@/lib/auth/auth-utils';
 
-import type { PhysicianProfilePayload } from '@/lib/profile/profile-mappers';
+import type { PhysicianProfilePayload } from '@/features/profile/profile-mappers';
 
 // CREATE
 export async function createPhysicianProfile(values: PhysicianProfilePayload) {

@@ -5,7 +5,7 @@ import { MobileSectionList } from '@/components/sections/mobile-section-list';
 import { NoSectionState } from '@/components/sections/section-empty-state';
 
 // Lib
-import { getActivePhysicianSections } from '@/lib/sections/get-physician-sections';
+import { getActivePhysicianSections } from '@/features/sections/get-physician-sections';
 import { SectionHeader } from '@/components/sections/section-header';
 
 export default async function SectionsPage() {
@@ -36,7 +36,7 @@ export default async function SectionsPage() {
     );
   }
 
-    // Now TypeScript knows result.sections is the array
+  // Now TypeScript knows result.sections is the array
   const sections = result.sections;
 
   // Handle no active sections

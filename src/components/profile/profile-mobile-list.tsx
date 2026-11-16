@@ -30,7 +30,7 @@ import { PhysicianProfile } from '@/lib/types/physician-profile';
 import {
   CurrentUser,
   ProfileItem,
-} from '@/lib/profile/get-profile-page-data';
+} from '@/features/profile/get-profile-page-data';
 
 import { ProfileDisplayItem } from '@/components/profile/profile-display-item';
 

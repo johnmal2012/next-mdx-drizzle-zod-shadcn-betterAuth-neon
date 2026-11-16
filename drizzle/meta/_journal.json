@@ -99,6 +99,20 @@
       "when": 1790697436809,
       "tag": "0013_hesitant_hawkeye",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1794080020577,
+      "tag": "0014_chief_leader",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1794082791537,
+      "tag": "0015_messy_sleeper",
+      "breakpoints": true
     }
   ]
 }
